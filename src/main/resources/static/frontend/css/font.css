@@ -1,0 +1,92 @@
+* {
+    font-family: monospace, Helvetica, sans-serif, serif;
+}
+
+:root {
+    font-size: 10px;
+}
+
+@media (max-width: 1199.98px) {
+    :root {
+        font-size: 8px;
+    }
+}
+
+
+@media (max-width: 991.98px) {
+    :root {
+        font-size: 6px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    :root {
+        font-size: 4px;
+    }
+}
+
+
+h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 3.6rem;
+    color: #FDC761;
+    line-height: 1.5;
+}
+
+h2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2.8rem;
+    color: #4C4C4C;
+}
+
+h3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2.4rem;
+    color: #4C4C4C;
+}
+
+h4 {
+    font-style: normal;
+    font-weight: 550;
+    font-size: 2rem;
+    color: #606060;
+}
+
+h5 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: #606060;
+}
+
+h6 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: #606060;
+}
+
+p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: #606060;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    font-family: monospace, Helvetica, sans-serif, serif;
+    font-size: 1.4rem;
+    line-height: initial;
+}
+
+input::placeholder {
+    color: #B6B6B6
+}

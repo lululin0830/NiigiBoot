@@ -1,0 +1,32 @@
+footer#main-footer {
+    position: relative;
+    height: 180px;
+    background: linear-gradient(0deg, rgba(238, 238, 238, 0.2), rgba(238, 238, 238, 0.2)), #FFFAF1;
+}
+
+
+.footer-top {
+    height: 140px;
+}
+
+.footer-bottom {
+
+    height: 40px;
+}
+
+.footer_logo {
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.footer_divider {
+    border: 1px solid #B6B6B6;
+    margin: 0;
+}
+
+
+.SNS-nav-list {
+    display: flex;
+    padding-top: 5px;
+    width: 120px;
+}

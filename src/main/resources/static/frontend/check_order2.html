@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Member Check Order</title>
+
+    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/carousel.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+
+
+    <style>
+        main {
+            min-height: max(800px, calc(100vh - 150px));
+            height: 100%;
+            background-color: #ffffff;
+            /* overflow: visible; */
+            display: flex;
+            flex-direction: column;
+        }
+
+        div.main_content {
+            width: 1200px;
+            margin: 0 auto;
+            font-size: 0;
+        }
+
+        aside.member_aside {
+            width: 195px;
+            height: 900px;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 25px;
+        }
+
+        button.btn-primary {
+            height: 30px;
+            width: 200px;
+            background-color: rgba(183, 221, 229, 0.90);
+
+        }
+
+        button.btn-primary:hover {
+            color: var(--bs-btn-hover-color);
+            background-color: #6DC2D2;
+            border-color: none;
+        }
+
+        .btn {
+            --bs-btn-border-width: none;
+            height: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #606060;
+        }
+
+        main.member_check_order {
+            /* background-color: #EEEEEE; */
+            width: 980px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        div.main_content_header>img,
+        div.main_content_header>h1 {
+            display: inline-block;
+            vertical-align: bottom;
+            margin: 45px 28px 0 0;
+        }
+
+        hr.main_content_divider {
+            width: 100%;
+            border: 1px solid #e8e8e8;
+            margin: 18px 0 28px 0;
+        }
+
+        /* Tab */
+        .nav-tabs .nav-link {
+            margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
+            border: var(--bs-nav-tabs-border-width);
+            border-top-left-radius: var(--bs-nav-tabs-border-radius);
+            border-top-right-radius: var(--bs-n av-tabs-border-radius);
+            width: 150px;
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 24px;
+            color: #4C4C4C;
+            background-color: #f7f7f7;
+            margin-right: 1.5px;
+        }
+
+        .nav-tabs {
+            --bs-nav-tabs-border-color: #f7f7f7;
+            --bs-nav-tabs-border-width: 2px;
+        }
+
+        .nav-tabs .nav-item.show .nav-link,
+        .nav-tabs .nav-link.active {
+            color: #4C4C4C;
+            background-color: rgba(183, 221, 229, 0.60);
+        }
+
+        /* Tab content */
+        div.tab-content {
+            color-scheme: light;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            font-size: 0;
+            padding: 1.5rem;
+            flex-shrink: 1;
+            background: #fff;
+            z-index: 1;
+            box-shadow: 0px 6px 7px -1px rgba(67, 89, 113, 0.12);
+            border-radius: 0 0 0.375rem 0.375rem;
+            border-top-right-radius: 0.375rem;
+        }
+
+        tbody,
+        td,
+        tfoot,
+        th,
+        thead,
+        tr {
+            border-color: inherit;
+            border-style: solid;
+            border-width: 0;
+            font-size: initial;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- --------------------------------以下是Header 勿動！！！！-------------------------------- -->
+    
+    <main class="main_content">
+        <div class="main_content">
+            <aside class="member_aside">
+
+            </aside>
+            <main class="member_check_order">
+                <div class="main_content_header">
+                    <img calss="main_content_icon" src="./image/Document.svg">
+                    <h1 class="main_content_title">我的訂單</h1>
+                    <hr class="main_content_divider">
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="nav-align-top mb-4">
+                            <ul class="nav nav-tabs" role="tablist"> <!-- 分頁清單 -->
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-home" aria-controls="navs-top-home"
+                                        aria-selected="true">
+                                        尚未付款<!-- 分頁名稱寫這 -->
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-profile" aria-controls="navs-top-profile"
+                                        aria-selected="false">
+                                        處理中<!-- 分頁名稱寫這 -->
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-messages" aria-controls="navs-top-messages"
+                                        aria-selected="false">
+                                        待收貨<!-- 分頁名稱寫這 -->
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-messages2" aria-controls="navs-top-messages"
+                                        aria-selected="false">
+                                        已完成<!-- 分頁名稱寫這 -->
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-messages3" aria-controls="navs-top-messages"
+                                        aria-selected="false">
+                                        已取消<!-- 分頁名稱寫這 -->
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+                                    <!-- 分頁內容寫這 -->
+                                    <h5 class="card-header">Responsive Table</h5>
+                                    <div class="table-responsive text-nowrap">
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="text-nowrap">
+                                                    <th><input type="checkbox"></th>
+                                                    <th>會員帳號
+                                                    </th>
+                                                    <th>
+                                                        訂單編號
+                                                    </th>
+                                                    <th>
+                                                        2023-12-31
+                                                    </th>
+                                                    <th>Table heading</th>
+                                                    <th>Table heading</th>
+                                                    <th>Table heading</th>
+                                                    <th>Table heading</th>
+                                                    <th>Table heading</th>
+                                                    <th>Table heading</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                    <td>Table cell</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="navs-top-profile" role="tabpanel">
+                                    <table>
+                                        <td>123</td>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" id="navs-top-messages" role="tabpanel">
+                                    <p>
+                                        Oat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans
+                                        macaroon gummies
+                                        cupcake gummi bears cake chocolate.
+                                    </p>
+                                    <p class="mb-0">
+                                        Cake chocolate bar cotton candy apple pie tootsie roll ice cream apple pie
+                                        brownie cake. Sweet
+                                        roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert.
+                                        Pudding jelly
+                                        jelly-o tart brownie jelly.
+                                    </p>
+                                </div>
+                                <div class="tab-pane fade" id="navs-top-messages2" role="tabpanel">
+                                    <p>
+                                        Aat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans
+                                        macaroon gummies
+                                        cupcake gummi bears cake chocolate.
+                                    </p>
+                                    <p class="mb-0">
+                                        Cake chocolate bar cotton candy apple pie tootsie roll ice cream apple pie
+                                        brownie cake. Sweet
+                                        roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert.
+                                        Pudding jelly
+                                        jelly-o tart brownie jelly.
+                                    </p>
+                                </div>
+                                <div class="tab-pane fade" id="navs-top-messages3" role="tabpanel">
+                                    <p>
+                                        Bat cake chupa chups dragée donut toffee. Sweet cotton candy jelly beans
+                                        macaroon gummies
+                                        cupcake gummi bears cake chocolate.
+                                    </p>
+                                    <p class="mb-0">
+                                        Cake chocolate bar cotton candy apple pie tootsie roll ice cream apple pie
+                                        brownie cake. Sweet
+                                        roll icing sesame snaps caramels danish toffee. Brownie biscuit dessert dessert.
+                                        Pudding jelly
+                                        jelly-o tart brownie jelly.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </main>
+
+    <!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
+    <footer id="main-footer" class="footer">
+        <div class="wrap-expand">
+            <div class="footer-top">
+                <a class="footer_logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+            </div>
+
+            <div class="footer-bottom">
+                <hr class="footer_divider">
+                <nav class="SNS-nav">
+
+                    <div class="SNS-nav_list">
+
+                        <a href="" class="Instagram">
+                            <div class="Instagram_icon">
+                                <img src="./image/ant-design_instagram-filled.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Facebook">
+                            <div class="Facebook_icon">
+                                <img src="./image/mdi_facebook.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Twitter">
+                            <div class="Twitter_icon">
+                                <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+                            </div>
+                        </a>
+
+                    </div>
+
+                </nav>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

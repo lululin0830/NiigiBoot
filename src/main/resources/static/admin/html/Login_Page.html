@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../front/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../../front/css/button.css">
+</head>
+
+<body>
+    <div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="modal-body d-flex flex-column align-items-start">
+      <img src="../image/logo.svg" alt="">
+      <div class="text-start">
+        <input type="search" id="" name="" required placeholder="帳號">
+      </div>
+      <div style="height: 20px;"></div>
+      <form id="changePasswordForm" class="d-flex flex-column justify-content-center align-items-start">
+        <div class="form-group">
+          <input type="password" id="currentPassword" name="currentPassword" required placeholder="密碼">
+          <span class="show-password-btn" onclick="togglePasswordVisibility('currentPassword')">&#128065;</span>
+        </div>
+      </form>
+      <div style="height: 20px;"></div>
+      <div class="text-start">
+        <input type="email" id="" name="" required placeholder="請輸入OTP認證碼">
+      </div>
+      <div style="height: 20px;"></div>
+      <div class="text-start">
+        <button type="button" class="btn-primary" data-bs-dismiss="modal">登入</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+    
+    
+    
+
+    <!-- Bootstrap -->
+    <script src="../../front/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function togglePasswordVisibility(inputId) {
+            var passwordInput = document.getElementById(inputId);
+            var showPasswordBtn = passwordInput.nextElementSibling;
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                showPasswordBtn.innerHTML = "&#128065;";
+            } else {
+                passwordInput.type = "password";
+                showPasswordBtn.innerHTML = "&#128064;";
+            }
+        }
+    </script>
+</body>
+
+</html>

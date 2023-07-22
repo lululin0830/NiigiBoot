@@ -1,0 +1,143 @@
+aside.member-aside {
+    height: 100%;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 5rem;
+}
+
+ul.nav1_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* aside.member-aside ul.nav1_list>h3 {
+    border: 1px solid white;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px 0;
+} */
+
+aside.member-aside ul.nav1_list>li>h4 {
+    padding-left: 3rem;
+}
+
+aside.member-aside ul.nav1_list>li>a {
+    /* lulu edit 使文字與圖片垂直置中對齊 */
+    display: block;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    /* lulu edit 使文字與圖片垂直置中對齊 */
+    border: 1px solid white;
+    text-decoration: none;
+    text-align: left;
+    /* lulu edit padding改15px */
+    padding: 1.5rem 0 1.5rem 3rem;
+    color: #B6B6B6;
+}
+
+aside.member-aside ul.nav1_list>li a img {
+    margin-right: 2rem;
+    max-height: 2.4rem;
+}
+
+/* lulu edit 這一塊重寫在下方了，之後要刪掉 */
+
+/* aside.member-aside ul.nav1_list img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.member_abc {
+    display: flex;
+    align-items: center;
+}
+
+.member_pictrue {
+    float: left;
+    margin-right: 10px;
+} */
+
+/* lulu edit 這一塊重寫在下方了，之後要刪掉 */
+
+h4.memberAccount {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--font-size);
+}
+
+/* lulu edit */
+
+div.member-profile {
+    margin: 4.5rem 0 1.5rem 1.5rem;
+}
+
+div.memberPhoto {
+    max-height: 5rem;
+    max-width: 5rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+img.memberPhoto {
+    max-width: none;
+    height: 100%;
+}
+
+h6.memberId {
+    color: #B3B3B3;
+    margin-bottom: 0;
+}
+
+div.member-info {
+    padding-top: 0.5rem;
+}
+
+aside.member-aside ul.nav1_list>li.active {
+    background-color: #6dc1d226;
+    border-radius: 1rem;
+}
+
+aside.member-aside ul.nav1_list>li.active a {
+    color: #FDC761;
+    font-weight: 700;
+}
+
+aside.member-aside ul.nav1_list>li :hover {
+    background-color: #6dc1d22d;
+    border-radius: 1rem;
+}
+
+aside.member-aside ul.nav1_list>li:first-child :hover {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 1rem;
+}
+
+aside.member-aside ul.nav1_list>li:nth-child(8n) :hover {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 1rem;
+}
+
+
+aside.member-aside ul.nav1_list>li :active {
+    background-color: #fdc661bd;
+    border-radius: 1rem;
+}
+
+ul.nav1_list>li>a>img:nth-child(2n) {
+    display: none;
+}
+
+ul.nav1_list>li.active>a>img:first-child {
+    display: none;
+}
+
+ul.nav1_list>li.active>a>img:nth-child(2n) {
+    display: inline;
+}

@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Homepage</title>
+
+    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./css/core.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/button.css">
+    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+    <link rel="stylesheet" href="./css/product.css">
+    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+
+    <style>
+        main {
+            min-height: max(800px, calc(100vh - 150px));
+            height: 100%;
+            background-color: #F7F7F7;
+            /* overflow: visible; */
+            display: flex;
+            flex-direction: column;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
+    <header id="main-header" class="header">
+
+        <div class="container-sm">
+
+            <div class="header-top row">
+
+                <div class="col-sm-2">
+                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+                </div>
+
+                <div class="col-sm-6">
+                    <form action="" method="get" class="header-search row">
+                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
+                            maxlength="50" value="">
+
+                        <button type="submit" class="header-search-submit col-sm-1"><img
+                                src="./image/search.svg"></button>
+                    </form>
+
+                    <div class="Search-hot ">
+                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
+                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
+                    </div>
+
+                </div>
+
+                <nav class="fixed-nav col-sm-4">
+
+                    <div class="fixed-nav-list login row">
+                        <a href="" class="SCM-Center col">
+                            <div class="SCM_icon">
+                                <button class="btn_SCM-Center">商家中心</button>
+                            </div>
+                        </a>
+
+                        <a href="" class="User-Center col">
+                            <div class="User_icon">
+                                <img src="./image/Profile.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Favorite col">
+                            <div class="header_icon">
+                                <img src="./image/heart.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Shopping-Cart col">
+                            <div class="header_icon">
+                                <img src="./image/Buy.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Notification col">
+                            <div class="header_icon">
+                                <img src="./image/Notification.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </nav>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
+    <nav id="main-navigation" class="main-navigation">
+        <ul class="main-nav"> <!--主選單-->
+            <li
+                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+                <div class="navigation_title navigation_title--bold navigation_title--salmon">
+                    <span class="navigation_title-inner">主題活動</span>
+                </div>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">3C周邊</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">家用電器</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">美妝個清</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">流行服飾</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">鞋包配飾</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">母嬰用品</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">日用生活</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">圖書文具</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">旅遊戶外</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="row upone">
+                <div class="col-6 one_img">
+                    <div class="box">
+                        <div id='show_L'>
+                            <!-- <img src="./image/fv_4.jpg" alt=""> -->
+                            <img class="big_img" src="./image/square.svg" alt="">
+                        </div>
+                        <div class="all_img">
+                            <img class="small_img" src="./image/square.svg" alt="">
+                            <img class="small_img" src="./image/square.svg" alt="">
+                            <img class="small_img" src="./image/square.svg" alt="">
+                            <img class="small_img" src="./image/square.svg" alt="">
+                            <img class="small_img" src="./image/fv_4.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 two">
+                    <h2>NETTA城市探索一代M號 (11色)</h2>
+                    <p class="card-text star one">
+                        <img class="star_product" src="./image/star.svg" alt="">
+                        <img class="star_product" src="./image/star.svg" alt="">
+                        <img class="star_product" src="./image/star.svg" alt="">
+                        <img class="star_product" src="./image/Star_self.svg" alt="">
+                        <img class="star_product" src="./image/Star_zero.svg" alt="">
+                        <!-- <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i> -->
+                        <span class="star_avg">4.5</span>
+                        <span class="star_totoal">(187)</span>
+                    </p>
+                    <p>
+                        <span class="priceone">NT$240,000</span>
+                        <span class="pricetwo">NT$20,000</span>
+                    </p>
+                    <p>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            請選擇商品規格
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                        </ul>
+                    </div>
+                    <span class="stock" style="font-weight:bold;padding: 0 0 0 10px;">庫存1,000</span>
+                    </p>
+                    <div style="display: flex; align-items: center;padding: 10px 0 10px 0;">
+                        <span style="font-size: 16px;">數量</span>
+                        <button type="button" class="col-sm-1 plus" onclick="increaseQuantity()"><img
+                                src="./image/square-plus-regular.svg"></button>
+                        <input type="number" id="quantity" name="quantity" class="custom-input" value="1" />
+                        <button type="button" class="col-sm-1 minus" onclick="decreaseQuantity()"><img
+                                src="./image/square-minus-regular.svg"></button>
+                        <button class="join_car_btn btn btn-primary">加入購物車</button>
+                        <button class="heart_product_btn btn btn-primary">收藏此商品</button>
+                    </div>
+
+                    <div class="text store_illustrate">
+                        付款後，從備貨到寄出商品為 5 個工作天。（不包含假日）
+                        由商家提供統一發票或免用統一發票收據
+                        出貨天數、贈品安全字.....等說明文字的區塊
+                    </div>
+                    <hr>
+                    <div class="text discount">
+                        <h5 style="font-weight: bold;">優惠活動</h5>
+                        <ul class="promo_messages">
+                            <li class="msg">活動1</li>
+                            <li class="msg">活動1</li>
+                            <li class="msg">活動1</li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="text product_illustrate">
+                        商品特色、商品規格.....等說明文字的區塊
+                    </div>
+
+                </div>
+            </div>
+            <div class="row downtwo">
+                <!------------------------- 左下-會員評價區 ---------------------------------------->
+                <div class="col-6 one">
+                    <h3 style="font-weight: bolder;">商品評價</h3>
+                    <div class="member_evaluate-container">
+                        <div class="member_evaluate">
+                            <p>
+                            <div id="member"><img src="./image/fv_4.jpg" class="member_img"></div>
+                            <span style="font-size: 14px;font-weight: bolder;"">帳號名稱</span>
+                            <span class="card-text star onedown">
+                                <img class="star_member" src="./image/star.svg" alt="">
+                                <img class="star_member" src="./image/star.svg" alt="">
+                                <img class="star_member" src="./image/star.svg" alt="">
+                                <img class="star_member" src="./image/Star_self.svg" alt="">
+                                <img class="star_member" src="./image/Star_zero.svg" alt="">
+                            </span>
+                            <span class="member_time" style="font-size:14px;">2023.06.14</span>
+                            </p>
+                            <p>很好看，唯一缺點就是被扣到關稅！但真的很好看超乎預期👍</p>
+                            <hr>
+                        </div>
+                        <div class="member_evaluate">
+                            <p>
+                            <div id="member"><img src="./image/fv_4.jpg" class="member_img"></div>
+                            <span style="font-size: 14px;font-weight: bolder;"">帳號名稱</span>
+                            <span class="card-text star onedown">
+                                <img class="star_member" src="./image/star.svg" alt="">
+                                <img class="star_member" src="./image/star.svg" alt="">
+                                <img class="star_member" src="./image/star.svg" alt="">
+                                <img class="star_member" src="./image/Star_self.svg" alt="">
+                                <img class="star_member" src="./image/Star_zero.svg" alt="">
+                            </span>
+                            <span class="member_time" style="font-size:14px;">2023.06.14</span>
+                            </p>
+                            <p>很好看，唯一缺點就是被扣到關稅！但真的很好看超乎預期👍</p>
+                            <hr>
+                        </div>
+                        <div class="member_evaluate">
+                            <p>
+                            <div id="member"><img src="./image/fv_4.jpg" class="member_img"></div>
+                            <span style="font-size: 14px;font-weight: bolder;"">帳號名稱</span>
+                            <span class="card-text star onedown">
+                                <img class="star_member" src="./image/star.svg" alt="">
+                                <img class="star_member" src="./image/star.svg" alt="">
+                                <img class="star_member" src="./image/star.svg" alt="">
+                                <img class="star_member" src="./image/Star_self.svg" alt="">
+                                <img class="star_member" src="./image/Star_zero.svg" alt="">
+                            </span>
+                            <span class="member_time" style="font-size:14px;">2023.06.14</span>
+                            </p>
+                            <p>很好看，唯一缺點就是被扣到關稅！但真的很好看超乎預期👍</p>
+                            <hr>
+                        </div>
+                    
+
+                    </div>
+
+                    
+
+                </div>
+                <!------------------------- 右下-商家區 -------------------------------------------->
+                <div class="col-6 two">
+                    <h5 style="font-weight: bolder;">關於商家&nbsp;&nbsp;<a href=""><span class="enterstore"
+                        style="font-size:12px;">進店逛逛</span></a></h5>
+                    <div class="card" style="width: 500px ;height: 320px;margin-right: 120px;">
+                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div id="member">
+                                        <img src="./image/fv_4.jpg" class="member_img">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <span>
+                                        <h5 class="card-title item__store">
+                                            <span class="store-name">蘋果爹商店</span>
+                                            <span><button class="join_store btn btn-primary">加入關注</button></span>
+                                            <span><button class="talk_store btn btn-primary">聊聊</button></span>
+                                            
+                                        </h5>
+                                        <p>
+                                            <span class="location-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                            <span class="card-text item__loction">台北市</span>
+                                            <span class="star-icons">
+                                                <img class="star_store" src="./image/star.svg" alt="">
+                                                <img class="star_store" src="./image/star.svg" alt="">
+                                                <img class="star_store" src="./image/star.svg" alt="">
+                                                <img class="star_store" src="./image/Star_self.svg" alt="">
+                                                <img class="star_store" src="./image/Star_zero.svg" alt="">
+                                            </span>
+                                        </p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="store-action-all">
+                        <div class="store-action">
+                            <dt>上次上線：</dt>
+                            <dd class="date_one">1天內</dd>
+                        </div>
+                        <div class="store-action">
+                            <dt>回應率：</dt>
+                            <dd class="percentage">９％</dd>
+                        </div>
+                        <div class="store-action">
+                            <dt>回應速度：</dt>
+                            <dd class="date_two">１日內</dd>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="container tablethird">
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-4 tablethird">
+                                <div class="card" style="width: 10rem;height:12rem; margin-right: 80px;">
+                                    <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX"
+                                        style="height: 260px" ;>
+                                    <div class="card-body" ;>
+                                        <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i>
+                                        </h5>
+                                        <p class="card-text item__price">$24,000</p>
+                                        <p class="card-text item__store">蘋果爹商店</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4 tablethird">
+                                <div class="card" style="width: 10rem;height:12rem; margin-right: 80px;">
+                                    <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX"
+                                        style="height: 260px;">
+                                    <div class="card-body">
+                                        <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i>
+                                        </h5>
+                                        <p class="card-text item__price">$24,000</p>
+                                        <p class="card-text item__store">蘋果爹商店</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4 tablethird">
+                                <div class="card" style="width: 16rem;height:16rem;">
+                                    <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX"
+                                        style="height: 260px;">
+                                    <div class="card-body">
+                                        <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i>
+                                        </h5>
+                                        <p class="card-text item__price">$24,000</p>
+                                        <p class="card-text item__store">蘋果爹商店</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 目前剩廣告小圖要修改外加愛心，另外" NETTA城市探索一代M號 (11色)"要加上範圍 -->
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </main>
+
+
+
+    <!-- --------------------------------以下是Footer 勿動！！-------------------------------- -->
+    <footer id="main-footer" class="footer">
+
+        <div class="container-sm">
+
+            <div class="footer-top row">
+                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+            </div>
+
+            <hr class="footer_divider">
+
+            <div class="footer-bottom row justify-content-end">
+
+                <nav class="SNS-nav-list ">
+
+                    <a href="" class="Instagram col">
+                        <div class="Instagram_icon">
+                            <img src="./image/ant-design_instagram-filled.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Facebook col">
+                        <div class="Facebook_icon">
+                            <img src="./image/mdi_facebook.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Twitter col ">
+                        <div class="Twitter_icon">
+                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+                        </div>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://kit.fontawesome.com/9b63fd54c4.js" crossorigin="anonymous"></script>
+    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="./vendors/jquery/jquery-3.7.0.min.js"></script>
+    <script src="./js/product.js"></script>
+</body>
+
+</html>

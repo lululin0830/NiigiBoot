@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Homepage</title>
+
+    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/core.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
+    <link rel="stylesheet" href="./css/font.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
+    <link rel="stylesheet" href="./css/button.css"> <!-- 所有按鈕共同的CSS 勿動，勿覆蓋！！！！！ 若沒用到按鈕可移除 -->
+    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+    <link rel="stylesheet" href="./css/KeyWord.css">
+
+
+
+    <style>
+        main {
+            min-height: max(800px, calc(100vh - 150px));
+            height: 100%;
+            background-color: #F7F7F7;
+            /* overflow: visible; */
+            display: flex;
+            flex-direction: column;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
+    <header id="main-header" class="header">
+
+        <div class="container-sm">
+
+            <div class="header-top row">
+
+                <div class="col-sm-2">
+                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+                </div>
+
+                <div class="col-sm-6">
+                    <form action="" method="get" class="header-search row">
+                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
+                            maxlength="50" value="">
+
+                        <button type="submit" class="header-search-submit col-sm-1"><img
+                                src="./image/search.svg"></button>
+                    </form>
+
+                    <div class="Search-hot ">
+                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
+                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
+                    </div>
+
+                </div>
+
+                <nav class="fixed-nav col-sm-4">
+
+                    <div class="fixed-nav-list login row">
+                        <a href="" class="SCM-Center col">
+                            <div class="SCM_icon">
+                                <button class="btn_SCM-Center">商家中心</button>
+                            </div>
+                        </a>
+
+                        <a href="" class="User-Center col">
+                            <div class="User_icon">
+                                <img src="./image/Profile.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Favorite col">
+                            <div class="header_icon">
+                                <img src="./image/heart.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Shopping-Cart col">
+                            <div class="header_icon">
+                                <img src="./image/Buy.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Notification col">
+                            <div class="header_icon">
+                                <img src="./image/Notification.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </nav>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
+    <nav id="main-navigation" class="main-navigation">
+        <ul class="main-nav"> <!--主選單-->
+            <li
+                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+                <div class="navigation_title navigation_title--bold navigation_title--salmon">
+                    <span class="navigation_title-inner">主題活動</span>
+                </div>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">3C周邊</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">家用電器</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">美妝個清</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">流行服飾</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">鞋包配飾</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">母嬰用品</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">日用生活</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">圖書文具</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">旅遊戶外</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+
+    </nav>
+
+   <!-- --------------------------------以下是main勿動！！！！-------------------------------- -->
+    <main>
+        <!-- -------------廣告商店---------------- -->
+        <div class="horizontal-container justify-content-center">
+            <div class="card" style="width: 376.77px ;margin-right: 120px;">
+                <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX">
+                <div class="card-body">
+                  <h5 class="card-title item__store">蘋果爹商店 <i class="fas fa-heart"></i></h5>
+                  <p class="card-text star">
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                  </p>
+                  <p class="card-text item__loction">台北市</p>
+                </div>
+            </div>      
+            <div class="card" style="width: 376.77px;margin-right: 120px;">
+                <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX">
+                <div class="card-body">
+                  <h5 class="card-title item__store">蘋果爹商店 <i class="fas fa-heart"></i></h5>
+                  <p class="card-text star">
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                  </p>
+                  <p class="card-text item__loction">台北市</p>
+                </div>
+            </div>      
+            <div class="card" style="width: 376.77px;">
+                <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX">
+                <div class="card-body">
+                  <h5 class="card-title item__store">蘋果爹商店 <i class="fas fa-heart"></i></h5>
+                  <p class="card-text star">
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                  </p>
+                  <p class="card-text item__loction">台北市</p>
+                </div>
+            </div>      
+        </div>
+
+        <!-- -------------分類table---------------- -->
+        <div class="container tableone">
+            <div class="row">
+              <div class="col">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <table class="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td class="bg-light">分類</td>
+                            <td>資料 2</td>
+                            <td>資料 3</td>
+                            <td>資料 4</td>
+                          </tr>
+                          <tr>
+                            <td class="bg-light">規格</td>
+                            <td>資料 6</td>
+                            <td>資料 7</td>
+                            <td>資料 8</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </table>
+                </div>
+              </div>
+              <div class="col">
+                <div class="alldro">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown button
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="所有選項">
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown button
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="所有選項">
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+              </div>
+            </div>
+        </div>
+
+        <!-- -------------水平線與搜尋字樣---------------- -->
+        <div style="display: flex; justify-content: center;">
+            <hr class="hr" style="width: 73%; height: 3px; background-color: black;">
+        </div>
+        <h2 class="serch_Keyword">'XX'商品搜尋結果</h2>
+
+        <!-- -------------排序table--------------- -->
+        <div class="container tabletwo" >
+            <div class="row">
+              <div class="col">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <table class="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td class="bg-light">綜合排序</td>
+                            <td>月銷量</td>
+                            <td>新上市</td>
+                            <td>評價</td>
+                            <td>價格</td>
+                            <td>活動</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+        <!-- -------------商品列表--------------- -->
+        <div class="container tablethird">
+            <div class="row">
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
+                    <div class="card" style="width: 14rem;height:18rem;">
+                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
+                    <div class="card" style="width: 14rem;height:18rem;">
+                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
+                    <div class="card" style="width: 14rem;height:18rem;">
+                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
+                    <div class="card" style="width: 14rem;height:18rem;">
+                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
+                    <div class="card" style="width: 14rem;height:18rem;">
+                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- -------------放page碼的地方--------------- -->
+        
+        
+    </main>
+
+
+
+    <!-- --------------------------------以下是Footer 勿動！！-------------------------------- -->
+    <footer id="main-footer" class="footer">
+
+        <div class="container-sm">
+
+            <div class="footer-top row">
+                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+            </div>
+
+            <hr class="footer_divider">
+
+            <div class="footer-bottom row justify-content-end">
+
+                <nav class="SNS-nav-list ">
+
+                    <a href="" class="Instagram col">
+                        <div class="Instagram_icon">
+                            <img src="./image/ant-design_instagram-filled.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Facebook col">
+                        <div class="Facebook_icon">
+                            <img src="./image/mdi_facebook.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Twitter col ">
+                        <div class="Twitter_icon">
+                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+                        </div>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

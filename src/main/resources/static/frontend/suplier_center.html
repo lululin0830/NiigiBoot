@@ -1,0 +1,1545 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Suplier Center</title>
+
+    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/carousel.css">
+    <link rel="stylesheet" href="./css/core.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/button.css">
+    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+    <link rel="stylesheet" href="./css/customer.aside.css">
+
+
+    <style>
+        main.main_content {
+            height: 100;
+            background-color: #ffffff;
+        }
+
+        div.main_content {
+            font-size: 0;
+        }
+
+        /* main content */
+        main.content {
+            display: inline-block;
+            vertical-align: top;
+            padding-left: 25px;
+        }
+
+        div.main-content-icon {
+            width: 6rem;
+        }
+
+        div.main-content-header {
+            margin: 3rem 0 0 0;
+        }
+
+        div.main-content-header img,
+        div.main-content-header>h1 {
+            display: inline-block;
+            vertical-align: bottom;
+            /* margin: 4.5rem 0 0 0; */
+        }
+
+        hr.main-content-divider {
+            width: 100%;
+            border: 1px solid #EEEEEE;
+            margin: 0 0 28px 0;
+            opacity: 1;
+        }
+
+        /* aside temp */
+        div.member-profile {
+            margin: 3rem 0 1.5rem 1.5rem;
+        }
+
+        /* breadcrumb */
+
+        ol.breadcrumb {
+            font-size: 1.4rem;
+            margin: 0;
+            padding: 0 0 0.5rem 0.5rem;
+
+        }
+
+        ol.breadcrumb a,
+        ol.breadcrumb li,
+        .breadcrumb-item.active {
+            color: #94A3B8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Tab */
+        .nav-tabs {
+            --bs-nav-tabs-border-color: #f7f7f7;
+            --bs-nav-tabs-border-width: 2px;
+            --bs-nav-tabs-border-radius: 0.5rem
+        }
+
+        .nav-tabs .nav-link {
+            margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
+            border: var(--bs-nav-tabs-border-width);
+            border-top-left-radius: var(--bs-nav-tabs-border-radius);
+            border-top-right-radius: var(--bs-nav-tabs-border-radius);
+            width: 17rem;
+            height: 5rem;
+            text-align: center;
+            vertical-align: middle;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 2.4rem;
+            color: #4C4C4C;
+            background-color: #f7f7f7;
+            margin-right: 1.5px;
+        }
+
+        .nav-tabs .nav-item.show .nav-link,
+        .nav-tabs .nav-link.active {
+            color: #4C4C4C;
+            background-color: rgba(183, 221, 229, 0.60);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .nav-link span.count {
+            font-size: 2rem;
+            color: #606060;
+            margin-bottom: 1rem;
+        }
+
+
+        /* Tab content */
+        div.tab-content {
+            color-scheme: light;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            font-size: 0;
+            padding: 1.5rem;
+            flex-shrink: 1;
+            background: #fff;
+            z-index: 1;
+            box-shadow: 0px 6px 7px -1px rgba(67, 89, 113, 0.12);
+            border-radius: 0 0 0.375rem 0.375rem;
+            border-top-right-radius: 0.375rem;
+        }
+
+        div.divider {
+            text-align: center;
+            vertical-align: bottom;
+            padding: 0;
+            width: fit-content;
+        }
+
+        tbody,
+        td,
+        tfoot,
+        th,
+        thead,
+        tr {
+            border-color: inherit;
+            border-style: solid;
+            border-width: 0;
+            font-size: initial;
+        }
+
+        .sub-order>div {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* new */
+
+        div.order-selector {
+            font-size: 2rem;
+            line-height: 2.2rem;
+        }
+
+        div.order-selector>.row {
+            align-items: center;
+            padding: 0.8rem;
+        }
+
+        button.btn-yellow {
+            background-color: #FDC761;
+        }
+
+        button.btn-yellow:hover {
+            background-color: #ffb937;
+            color: white;
+        }
+
+        /* 全部選取 */
+        div.order-select {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        /* 訂單列表表頭 */
+        ul.order-list li.order-list-header {
+            background-color: #f7f7f7;
+            padding: 1rem 0.5rem;
+            border-radius: 0.2rem 0.2rem 0 0;
+        }
+
+        ul.order-list li.order-list-header p {
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        ul.order-list li.order-list-header hr {
+            border: 1px solid #EEEEEE;
+            margin: 1rem 0 0.5rem 0;
+            opacity: 1;
+        }
+
+
+        /* 訂單列表 */
+        ul.order-list {
+            list-style: none;
+            padding: 0.5rem;
+        }
+
+        ul.order-list li.sub-order {
+            padding: 1rem 0.5rem;
+        }
+
+        ul.order-list li.sub-order span {
+            font-size: 1.6rem;
+            color: #606060;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        li.sub-order>div {
+            background-color: #EEEEEE;
+            padding: 1rem;
+            margin: -1rem -0.5rem;
+        }
+
+        ul.order-detail {
+            list-style: none;
+            padding: 0.5rem 0 0.5rem 2.8rem;
+            margin-top: 2rem;
+        }
+
+        ul.order-detail p {
+            text-align: center;
+            margin-bottom: 0;
+            margin-top: 0.8rem;
+        }
+
+        ul.order-detail p.product-name {
+            text-align: left;
+        }
+
+        li.order-item {
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        li.order-item hr {
+            border: 1px solid #EEEEEE;
+            margin: 2rem 0 0 0;
+            opacity: 1;
+        }
+
+        li.order-item:last-child hr {
+            display: none;
+        }
+
+        li.order-item button {
+            display: none;
+        }
+
+        li.order-item:first-child button {
+            display: inline-block;
+        }
+
+        /* 彈窗 */
+
+        div#cancelOrderModal div.modal-header,
+        div#blockadeModal div.modal-header {
+            border-bottom: 0px;
+        }
+
+        div#cancelOrderModal div.modal-footer,
+        div#blockadeModal div.modal-footer {
+            border-top: 0px;
+        }
+
+        div.modal-footer {
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
+    <header id="main-header" class="header">
+
+        <div class="container-sm">
+
+            <div class="header-top row">
+
+                <div class="col-sm-2">
+                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+                </div>
+
+                <div class="col-sm-6">
+                    <form action="" method="get" class="header-search row">
+                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
+                            maxlength="50" value="">
+
+                        <button type="submit" class="header-search-submit col-sm-1"><img
+                                src="./image/search.svg"></button>
+                    </form>
+
+                    <div class="Search-hot ">
+                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
+                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
+                    </div>
+
+                </div>
+
+                <nav class="fixed-nav col-sm-4">
+
+                    <div class="fixed-nav-list login row">
+                        <a href="" class="SCM-Center col">
+                            <div class="SCM_icon">
+                                <button class="btn_SCM-Center">商家中心</button>
+                            </div>
+                        </a>
+
+                        <a href="" class="User-Center col">
+                            <div class="User_icon">
+                                <img src="./image/Profile.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Favorite col">
+                            <div class="header_icon">
+                                <img src="./image/heart.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Shopping-Cart col">
+                            <div class="header_icon">
+                                <img src="./image/Buy.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Notification col">
+                            <div class="header_icon">
+                                <img src="./image/Notification.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </nav>
+            </div>
+
+        </div>
+
+    </header>
+
+    <div style="height: 25px;"></div>
+
+    <main class="main_content">
+
+        <div class="main_content container-sm">
+
+            <aside class="member-aside col-sm-2">
+
+                <div class="member-profile row ">
+                    <div class="memberPhoto col-sm-4">
+                        <img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
+                    </div>
+                    <div class="member-info col-sm-8">
+                        <h4 class="memberAccount">jeffrey47</h4>
+                        <h6 class="memberId">M123456789</h6>
+                    </div>
+                </div>
+                <ul class="nav1_list">
+                    <li>
+                        <h4>MENU</h4>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./image/Chart.svg" alt="">
+                            <img src="./image/Chart-a.svg" alt="">個人中心
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./image/heart-s.svg" alt="">
+                            <img src="./image/heart-s-a.svg" alt="">收藏夾</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./image/Buy1.svg" alt="">
+                            <img src="./image/Buy1-a.svg" alt="">購物車</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            <img src="./image/DocumentAsh.svg" alt="">
+                            <img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./image/Discount.svg" alt="">
+                            <img src="./image/Discount-a.svg" alt="">會員點數</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./image/Ticket Star.svg" alt="">
+                            <img src="./image/Ticket Star-a.svg" alt="">我的折價券</a>
+                    </li>
+                    <li>
+                        <h4>OTHERS</h4>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./image/Profile1.svg" alt="">
+                            <img src="./image/Profile1-a.svg" alt="">個人資訊</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./image/Setting.svg" alt="">
+                            <img src="./image/Setting-a.svg" alt="">帳號管理</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./image/Info Square.svg" alt="">
+                            <img src="./image/Info Square-a.svg" alt="">取得協助</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./image/Logout.svg" alt="">
+                            <img src="./image/Logout-a.svg" alt="">登出</a>
+                    </li>
+                </ul>
+            </aside>
+            <main class="content col-sm-10">
+                <div class="main-content-header row">
+                    <div class="suplier-breadcrumb col-sm-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li id="breadSupplierAcct" class="breadcrumb-item"><a href="#">jeffrey47</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">商家中心</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="main-content-icon col-sm-1">
+                        <img calss="main-content-icon" src="./image/Chart-L.svg">
+                    </div>
+                    <h1 class="main-content-title col-sm-10">商家中心</h1>
+                    <hr class="main-content-divider">
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="nav-align-top mb-4">
+                            <ul class="nav nav-tabs" role="tablist"> <!-- 分頁清單 -->
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-home" aria-controls="navs-top-home"
+                                        aria-selected="true"><!-- 分頁名稱寫這 -->待處理<span class="count p-1">120</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-inprogress" aria-controls="navs-top-inprogress"
+                                        aria-selected="false"><!-- 分頁名稱寫這 -->配送中<span class="count">120</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-refund" aria-controls="navs-top-refund"
+                                        aria-selected="false"><!-- 分頁名稱寫這 -->待退貨/款<span class="count">120</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-complete" aria-controls="navs-top-complete"
+                                        aria-selected="false"><!-- 分頁名稱寫這 -->已完成<span class="count">120</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                        data-bs-target="#navs-top-cancel" aria-controls="navs-top-cancel"
+                                        aria-selected="false">
+                                        已取消<!-- 分頁名稱寫這 -->
+                                        <span class="count">120</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-content">
+                            <!-- Tab1 待處理 -->
+                            <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+                                <!-- 分頁內容寫這 -->
+
+                                <!-- 訂單篩選器 -->
+                                <div class="order-selector row">
+                                    <div class="col-sm-6 row">
+                                        <h4 class="col mb-0">立單日期：</h4>
+                                        <input type="date" name="create-date-start" id="startDate"
+                                            class="form-control col">
+                                        <h4 class="col-sm-1 text-center">~</h4>
+                                        <input type="date" name="create-date-start" id="EndDate"
+                                            class="form-control col">
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3">
+                                            <input type="text" id="selectKey-home" class="form-control"
+                                                placeholder="請輸入搜尋條件">
+                                        </span>
+                                        <span class="col-sm-2">
+                                            <select name="select-criteria" id="selectCriteria-home" class="form-select">
+                                                <option value="subOrderId">訂單編號</option>
+                                                <option value="memberAccount">會員帳號</option>
+                                                <option value="productId">商品編號</option>
+                                            </select>
+                                        </span>
+                                        <span class="col-sm-3">
+                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
+                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                        </span>
+                                        <span class="col-sm-2"></span>
+                                        <span class="col-sm-2 d-flex justify-content-end">
+                                            <button type="button" class="btn btn-yellow btn-S">匯出報表</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- 訂單列表 -->
+                                <ul class="order-list">
+                                    <!-- 訂單列表表頭 -->
+                                    <li class="order-list-header row">
+                                        <div class="col-sm-2 order-select">
+                                            <input type="checkbox" class="selectAll me-3">
+                                            <p>全部選取</p>
+                                        </div>
+                                        <div class=" col-sm-2">
+                                            <p>商品名稱</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p>商品規格</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>數量</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>實付金額</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>狀態</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>物流方式</p>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                        <hr>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="button" class="btn btn-primary btn-M"
+                                                        data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
+                                                        取消訂單
+                                                    </button>
+                                                </div>
+                                                <hr>
+                                            </li>
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="button" class="btn btn-primary btn-M"
+                                                        data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
+                                                        取消訂單
+                                                    </button>
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="button" class="btn btn-primary btn-M"
+                                                        data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
+                                                        取消訂單
+                                                    </button>
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <!-- Tab2 配送中 -->
+                            <div class="tab-pane fade" id="navs-top-inprogress" role="tabpanel">
+                                <!-- 訂單篩選器 -->
+                                <div class="order-selector row">
+                                    <div class="col-sm-6 row">
+                                        <h4 class="col mb-0">立單日期：</h4>
+                                        <input type="date" name="create-date-start" id="startDate"
+                                            class="form-control col">
+                                        <h4 class="col-sm-1 text-center">~</h4>
+                                        <input type="date" name="create-date-start" id="EndDate"
+                                            class="form-control col">
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3">
+                                            <input type="text" id="selectKey-inprogress" class="form-control"
+                                                placeholder="請輸入搜尋條件">
+                                        </span>
+                                        <span class="col-sm-2">
+                                            <select name="select-criteria" id="selectCriteria-inprogress"
+                                                class="form-select">
+                                                <option value="subOrderId">訂單編號</option>
+                                                <option value="memberAccount">會員帳號</option>
+                                                <option value="productId">商品編號</option>
+                                            </select>
+                                        </span>
+                                        <span class="col-sm-3">
+                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
+                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                        </span>
+                                        <span class="col-sm-2"></span>
+                                        <span class="col-sm-2 d-flex justify-content-end">
+                                            <button type="button" class="btn btn-yellow btn-S">匯出報表</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- 訂單列表 -->
+                                <ul class="order-list">
+                                    <!-- 訂單列表表頭 -->
+                                    <li class="order-list-header row">
+                                        <div class="col-sm-2 order-select">
+                                            <input type="checkbox" class="selectAll me-3">
+                                            <p>全部選取</p>
+                                        </div>
+                                        <div class=" col-sm-2">
+                                            <p>商品名稱</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p>商品規格</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>數量</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>實付金額</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>狀態</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>物流方式</p>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                        <hr>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                </div>
+                                                <hr>
+                                            </li>
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Tab3 待退貨 -->
+                            <div class="tab-pane fade" id="navs-top-refund" role="tabpanel">
+                                <!-- 訂單篩選器 -->
+                                <div class="order-selector row">
+                                    <div class="col-sm-6 row">
+                                        <h4 class="col mb-0">立單日期：</h4>
+                                        <input type="date" name="create-date-start" id="startDate"
+                                            class="form-control col">
+                                        <h4 class="col-sm-1 text-center">~</h4>
+                                        <input type="date" name="create-date-start" id="EndDate"
+                                            class="form-control col">
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3">
+                                            <input type="text" id="selectKey-refund" class="form-control"
+                                                placeholder="請輸入搜尋條件">
+                                        </span>
+                                        <span class="col-sm-2">
+                                            <select name="select-criteria" id="selectCriteria-refund"
+                                                class="form-select">
+                                                <option value="subOrderId">訂單編號</option>
+                                                <option value="memberAccount">會員帳號</option>
+                                                <option value="productId">商品編號</option>
+                                            </select>
+                                        </span>
+                                        <span class="col-sm-3">
+                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
+                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                        </span>
+                                        <span class="col-sm-2"></span>
+                                        <span class="col-sm-2 d-flex justify-content-end">
+                                            <button type="button" class="btn btn-yellow btn-S">匯出報表</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- 訂單列表 -->
+                                <ul class="order-list">
+                                    <!-- 訂單列表表頭 -->
+                                    <li class="order-list-header row">
+                                        <div class="col-sm-2 order-select">
+                                            <input type="checkbox" class="selectAll me-3">
+                                            <p>全部選取</p>
+                                        </div>
+                                        <div class=" col-sm-2">
+                                            <p>商品名稱</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p>商品規格</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>數量</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>實付金額</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>狀態</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>物流方式</p>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                        <hr>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="button" class="btn btn-primary btn-M"
+                                                        data-bs-toggle="modal" data-bs-target="#blockadeModal">
+                                                        加入黑名單
+                                                    </button>
+                                                </div>
+                                                <hr>
+                                            </li>
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="button" class="btn btn-primary btn-M"
+                                                        data-bs-toggle="modal" data-bs-target="#blockadeModal">
+                                                        加入黑名單
+                                                    </button>
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="button" class="btn btn-primary btn-M"
+                                                        data-bs-toggle="modal" data-bs-target="#blockadeModal">
+                                                        加入黑名單
+                                                    </button>
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Tab4 已完成 -->
+                            <div class="tab-pane fade" id="navs-top-complete" role="tabpanel">
+                                <!-- 訂單篩選器 -->
+                                <div class="order-selector row">
+                                    <div class="col-sm-6 row">
+                                        <h4 class="col mb-0">立單日期：</h4>
+                                        <input type="date" name="create-date-start" id="startDate"
+                                            class="form-control col">
+                                        <h4 class="col-sm-1 text-center">~</h4>
+                                        <input type="date" name="create-date-start" id="EndDate"
+                                            class="form-control col">
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3">
+                                            <input type="text" id="selectKey-complete" class="form-control"
+                                                placeholder="請輸入搜尋條件">
+                                        </span>
+                                        <span class="col-sm-2">
+                                            <select name="select-criteria" id="selectCriteria-complete"
+                                                class="form-select">
+                                                <option value="subOrderId">訂單編號</option>
+                                                <option value="memberAccount">會員帳號</option>
+                                                <option value="productId">商品編號</option>
+                                            </select>
+                                        </span>
+                                        <span class="col-sm-3">
+                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
+                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                        </span>
+                                        <span class="col-sm-2"></span>
+                                        <span class="col-sm-2 d-flex justify-content-end">
+                                            <button type="button" class="btn btn-yellow btn-S">匯出報表</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- 訂單列表 -->
+                                <ul class="order-list">
+                                    <!-- 訂單列表表頭 -->
+                                    <li class="order-list-header row">
+                                        <div class="col-sm-2 order-select">
+                                            <input type="checkbox" class="selectAll me-3">
+                                            <p>全部選取</p>
+                                        </div>
+                                        <div class=" col-sm-2">
+                                            <p>商品名稱</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p>商品規格</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>數量</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>實付金額</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>狀態</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>物流方式</p>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                        <hr>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                </div>
+                                                <hr>
+                                            </li>
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Tab5 已取消 -->
+                            <div class="tab-pane fade" id="navs-top-cancel" role="tabpanel">
+                                <!-- 訂單篩選器 -->
+                                <div class="order-selector row">
+                                    <div class="col-sm-6 row">
+                                        <h4 class="col mb-0">立單日期：</h4>
+                                        <input type="date" name="create-date-start" id="startDate"
+                                            class="form-control col">
+                                        <h4 class="col-sm-1 text-center">~</h4>
+                                        <input type="date" name="create-date-start" id="EndDate"
+                                            class="form-control col">
+                                    </div>
+                                    <div class="row">
+                                        <span class="col-sm-3">
+                                            <input type="text" id="selectKey-cancel" class="form-control"
+                                                placeholder="請輸入搜尋條件">
+                                        </span>
+                                        <span class="col-sm-2">
+                                            <select name="select-criteria" id="selectCriteria-cancel"
+                                                class="form-select">
+                                                <option value="subOrderId">訂單編號</option>
+                                                <option value="memberAccount">會員帳號</option>
+                                                <option value="productId">商品編號</option>
+                                            </select>
+                                        </span>
+                                        <span class="col-sm-3">
+                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
+                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                        </span>
+                                        <span class="col-sm-2"></span>
+                                        <span class="col-sm-2 d-flex justify-content-end">
+                                            <button type="button" class="btn btn-yellow btn-S">匯出報表</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- 訂單列表 -->
+                                <ul class="order-list">
+                                    <!-- 訂單列表表頭 -->
+                                    <li class="order-list-header row">
+                                        <div class="col-sm-2 order-select">
+                                            <input type="checkbox" class="selectAll me-3">
+                                            <p>全部選取</p>
+                                        </div>
+                                        <div class=" col-sm-2">
+                                            <p>商品名稱</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p>商品規格</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>數量</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>實付金額</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>狀態</p>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <p>物流方式</p>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                        <hr>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                </div>
+                                                <hr>
+                                            </li>
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="sub-order row">
+                                        <div class="col-sm-4 order-select">
+                                            <input type="checkbox" class="select me-3">
+                                            <span class="memberAccount">jeffrey47@gmail.com</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <span class="order-date">2023-06-30</span>
+                                        </div>
+                                        <!-- 訂單明細列表 -->
+                                        <ul class="order-detail">
+                                            <li class="order-item row">
+                                                <div class="col-sm-2">
+                                                    <img src="./image/product.svg" alt="">
+                                                </div>
+                                                <div class=" col-sm-2">
+                                                    <p class="product-name">商品名稱XXXX</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <p>10000001001</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>1</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>100,000</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>待處理</p>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <p>宅配</p>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                </div>
+                                                <hr>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- 取消訂單 -->
+                            <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <h3 style="text-align: center;">取消訂單</h3>
+                                                <h3 style="text-align: center;">確定要取消訂單嗎？</h3>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary btn-M"
+                                                data-bs-dismiss="modal">
+                                                取消
+                                            </button>
+                                            <button type="submit" class="btn btn-primary btn-M">確定</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 加入黑名單 -->
+                            <div class="modal fade" id="blockadeModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <h3 style="text-align: center;">加入黑名單</h3>
+                                                <h4 style="text-align: center;">確定要將<span>jeffrey47</span>加入黑名單嗎？</h4>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary btn-M"
+                                                data-bs-dismiss="modal">
+                                                取消
+                                            </button>
+                                            <button type="submit" class="btn btn-primary btn-M">確定</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+
+        </div>
+
+
+
+    </main>
+
+
+
+
+    <!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
+    <footer id="main-footer" class="footer">
+
+        <div class="container-sm">
+
+            <div class="footer-top row">
+                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+            </div>
+
+            <hr class="footer_divider">
+
+            <div class="footer-bottom row justify-content-end">
+
+                <nav class="SNS-nav-list ">
+
+                    <a href="" class="Instagram col">
+                        <div class="Instagram_icon">
+                            <img src="./image/ant-design_instagram-filled.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Facebook col">
+                        <div class="Facebook_icon">
+                            <img src="./image/mdi_facebook.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Twitter col ">
+                        <div class="Twitter_icon">
+                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+                        </div>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+    <script>
+        // 獲取.member_account元素
+        var memberAccount = document.querySelector('.memberAccount');
+
+        // 獲取.member_account的文字內容
+        var textContent = memberAccount.textContent.trim();
+
+        // 計算文字內容的長度
+        var textLength = textContent.length;
+
+        // 設定字體大小變數
+        var fontSizeVar = '--font-size';
+
+        // 設定文字長度與字體大小的映射關係
+        var lengthToFontSize = {
+            5: '16px',
+            10: '14px',
+            15: '12px',
+            20: '10px',
+            25: '8px',
+            30: '6px',
+            35: '4px',
+            40: '2px'
+            // 根據需要添加更多的映射關係
+        };
+
+        // 檢查文字長度是否在映射表中，並設置對應的字體大小
+        if (lengthToFontSize.hasOwnProperty(textLength)) {
+            memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
+        } 
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Order Test</title>
+</head>
+
+<body>
+
+    <button id="createOrder">新增訂單</button>
+
+    <script>
+        const createOrderBtn = document.querySelector("#createOrder")
+
+
+        function createOrder() {
+
+            const memberId = 'M000000001';
+            const itemList = [{
+                productSpecId: '10000001001',
+                price: 250,
+                eventPrice: 250,
+                eventId: ['2023072000000001', '2023072000000002']
+            }, {
+                productSpecId: '10000020001',
+                price: 900,
+                eventPrice: 900,
+                eventId: ['2023072000000003', '2023072000000004']
+            }];
+
+            const totalAmount = 1150;
+            const pointsDiscount = 100;
+            const couponDiscount = 200;
+            const paymentType =
+
+                fetch('http://localhost:8080/Niigi/CreateOrder', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: {
+                        memberId:
+                }
+                })
+                    .then(function (r) {
+                        console.log("回來了")
+                        console.log(r);
+                        return r.text(); // 解析回應的純文字
+                    })
+                    .then(function (data) {
+                        console.log(data); // 處理回應的純文字資料
+                        alert(data);
+                    })
+                    .catch(function (error) {
+                        console.error(error); // 處理錯誤
+                    });
+
+
+        }
+
+        function init() {
+            createOrderBtn.addEventListener("click", createOrder);
+        }
+
+        window.addEventListener("load", init);
+
+    </script>
+</body>
+
+</html>

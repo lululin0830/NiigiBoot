@@ -1,0 +1,74 @@
+ /* button */
+
+ .btn {
+     --bs-btn-border-width: none;
+     height: 3rem;
+     line-height: 2.5rem;
+     font-size: 1.4rem;
+     font-weight: 600;
+     color: #606060;
+ }
+
+ button.btn-primary {
+     background-color: rgba(183, 221, 229, 0.90);
+ }
+
+ button.btn-primary:hover {
+     color: var(--bs-btn-hover-color);
+     background-color: #6DC2D2;
+     border-color: rgba(0, 0, 0, 0);
+ }
+
+ button.btn-outline-primary {
+     border: 0.2rem solid rgba(183, 221, 229, 0.90);
+     text-align: center;
+ }
+
+ button.btn-outline-primary:hover {
+     border: 2px solid #6DC2D2;
+     color: var(--bs-btn-hover-color);
+     background-color: #6DC2D2;
+     border-color: rgba(0, 0, 0, 0);
+ }
+
+ button.btn-outline-primary:active {
+     border: 2px solid #FDC761;
+ }
+
+ .btn-check:checked+.btn,
+ .btn.active,
+ .btn.show,
+ .btn:first-child:active,
+ :not(.btn-check)+.btn:active {
+     color: var(--bs-btn-active-color);
+     background-color: #FDC761;
+     border-color: rgba(0, 0, 0, 0);
+ }
+
+ button.btn-XXXL {
+     width: 24rem;
+ }
+
+ button.btn-XXL {
+     width: 21rem;
+ }
+
+ button.btn-XL {
+     width: 18rem;
+ }
+
+ button.btn-L {
+     width: 15rem;
+ }
+
+ button.btn-M {
+     width: 12rem;
+ }
+
+ button.btn-S {
+     width: 9rem;
+ }
+
+ button.btn-XS {
+     width: 6rem;
+ }

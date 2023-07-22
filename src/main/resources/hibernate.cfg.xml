@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+  "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.datasource">java:comp/env/jdbc/GP</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.highlight_sql">true</property>
+		
+		<!-- Mapping 範例 <mapping class="web.member.pojo.Member" /> -->
+		<mapping class="orders.entity.MainOrder"/>
+		<mapping class="orders.entity.SubOrder"/>
+		<mapping class="orders.entity.SubOrderDetail"/>
+		<mapping class="suppliers.entity.Supplier"/>
+		<mapping class="products.entity.Product"/>
+		<mapping class="products.entity.ProductSpec"/>
+		<mapping class="products.entity.Categorie"/>
+		<mapping class="products.entity.FrontendPage"/>
+		<mapping class="products.entity.RestockRecord"/>
+		<mapping class="products.entity.ShelvesStatusRecord"/>
+		<mapping class="products.entity.SortWeight"/>
+		
+		
+	</session-factory>
+</hibernate-configuration>

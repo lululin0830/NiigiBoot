@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Index</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #F7F7F7;
+        }
+
+        * {
+            font-family: monospace, Helvetica, sans-serif, serif;
+        }
+
+        input::placeholder {
+            color: #958F86;
+
+        }
+
+        header.header {
+            position: absolute;
+            width: 100%;
+            height: 150px;
+            left: 0px;
+            top: 0px;
+            margin: 0;
+            background-color: white;
+
+        }
+
+        .header_logo img.logo {
+            position: absolute;
+            width: 146px;
+            height: 78px;
+            left: 2%;
+            top: 22px;
+            margin-right: 1%;
+        }
+
+        .header_search_form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 56%;
+            height: 45px;
+            left: 17%;
+            top: 45px;
+            background: rgba(253, 199, 97, 0.15);
+            border-radius: 9px;
+            border: 0;
+        }
+
+        .header_search_input {
+            box-sizing: border-box;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            width: 90%;
+            height: 100%;
+            border: none;
+            color: #606060;
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .header_search_input:focus {
+            box-sizing: border-box;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            border: none;
+            outline: none;
+            padding: 5px;
+        }
+
+        .Search_hot {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+            position: absolute;
+            width: 30%;
+            height: 24px;
+            right: 10%;
+            top: 35%;
+            border: 0;
+            background-color: rgba(0, 0, 0, 0);
+            cursor: pointer;
+        }
+
+        .trend_link {
+            text-decoration: none;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+
+            color: rgba(96, 96, 96, 0.8);
+        }
+
+        .header_search_submit {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            left: 90%;
+            top: 20%;
+            border: 0;
+            background-color: rgba(0, 0, 0, 0);
+            cursor: pointer;
+        }
+
+        .fixed-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 22%;
+            height: 40px;
+            left: 76%;
+            top: 47px;
+        }
+
+        .fixed-nav_list {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+
+
+        .btn_SCM-Center {
+
+            width: 90px;
+            height: 30px;
+            font-style: normal;
+            font-weight: 550;
+            font-size: 14px;
+            color: #606060;
+            background-color: rgba(183, 221, 229, 0.9);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+
+
+        .header_icon {
+            font-size: 0;
+            box-sizing: border-box;
+            width: 40px;
+
+        }
+
+        .fixed-nav_list span.count {
+            position: absolute;
+            top: 0%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 21px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: -.11em;
+            line-height: 1.5;
+            color: #fff;
+            background: #6DC2D2;
+            border-radius: 50%;
+            padding: 0 .3rem 0 .2rem;
+            margin-left: 20px;
+            /* display: none; */
+        }
+
+        .header_top {
+            padding-bottom: 8px;
+            padding-top: 20px;
+            position: relative;
+            display: flex;
+            align-content: flex-start;
+            height: 78px;
+            flex-wrap: wrap;
+        }
+
+        .wrap-expand {
+            box-sizing: border-box;
+            margin: 0 auto;
+            max-width: 1200px;
+            min-width: 1000px;
+            width: 100%;
+            padding: 0;
+            background-color: none;
+        }
+
+
+        .navigation--col-10 {
+            font-size: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 0px;
+            gap: 33px;
+            position: absolute;
+            width: 80%;
+            height: 24px;
+        }
+
+        .navigation_nav-title {
+            -webkit-text-size-adjust: 100%;
+            word-wrap: break-word;
+            font-size: 0;
+            list-style: none;
+            width: 6%
+        }
+
+        .navigation_nav-title--highlight>.navigation_title {
+            -webkit-text-size-adjust: 100%;
+            word-wrap: break-word;
+            list-style: none;
+            cursor: default;
+            display: block;
+            font-size: 14px;
+            line-height: 20px;
+            overflow: hidden;
+            padding-bottom: 12px;
+            padding-top: 14px;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 700;
+            /* color: #f16c5d; */
+            color: #4fb5c9;
+
+        }
+
+        .navigation_title--link {
+            -webkit-text-size-adjust: 100%;
+            word-wrap: break-word;
+            list-style: none;
+            outline: 0;
+            text-decoration: none;
+            color: #39393e;
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            overflow: hidden;
+            padding-bottom: 12px;
+            padding-top: 14px;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .nav-main {
+            position: relative;
+            display: flex;
+            align-content: flex-start;
+            justify-content: center;
+            align-items: center;
+            height: 44px;
+            flex-wrap: wrap;
+        }
+
+
+
+        footer#main-footer {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            left: 0px;
+            bottom: 0px;
+            margin: 0;
+            background: linear-gradient(0deg, rgba(238, 238, 238, 0.2), rgba(238, 238, 238, 0.2)), #FFFAF1;
+
+        }
+
+
+        .footer-top {
+            position: relative;
+            display: flex;
+            align-content: flex-start;
+            flex-wrap: wrap;
+            height: 140px;
+        }
+
+        .footer-bottom {
+            position: relative;
+            display: flex;
+            align-content: flex-start;
+            flex-wrap: wrap;
+            height: 60px;
+        }
+
+        .footer_logo {
+            position: absolute;
+            left: 5.62%;
+            right: 84.24%;
+            top: 20%;
+        }
+
+        .footer_divider {
+            position: absolute;
+            left: 1.39%;
+            right: 1.39%;
+            top: 0%;
+            border: 1px solid rgba(96, 96, 96, 0.5);
+        }
+
+        .SNS-nav {
+            font-size: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 30px;
+            position: absolute;
+            left: 86.74%;
+            bottom: 20%;
+        }
+
+        .SNS-nav_list {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        main {
+            min-height: max(800px, calc(100vh - 150px));
+            height: 100%;
+            background-color: #F7F7F7;
+            /* overflow: visible; */
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+
+        #main-BN {
+
+            position: relative;
+            top: 150px;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+
+
+        }
+
+        .main-BN-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 1 / 0.46;
+            overflow: hidden;
+        }
+
+        img.main-BN {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* height: 100%; */
+            object-fit: scale-down;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .slide-Active {
+            display: block;
+
+        }
+
+        .main-BN-button {
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
+            width: 95%;
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+
+        }
+
+        .slide-button-list {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+
+        }
+
+        .slide-button-right {
+            border: none;
+            border-radius: 50%;
+            aspect-ratio: 1 / 1;
+            width: 40px;
+            background-image: url('./image/Arrow - Right Circle-1.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 0;
+            font-size: 0;
+            cursor: pointer;
+        }
+
+        .slide-button-left {
+            border: none;
+            border-radius: 50%;
+            aspect-ratio: 1 / 1;
+            width: 40px;
+            background-image: url('./image/Arrow - Right Circle.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 0;
+            font-size: 0;
+            cursor: pointer;
+        }
+
+        .main-top-section {
+            position: relative;
+            width: 1136px;
+            height: 490px;
+            display: flex;
+
+        }
+
+        .p-slide-button-right {
+            border: none;
+            border-radius: 50%;
+            aspect-ratio: 1 / 1;
+            width: 35px;
+            background-image: url('./image/Arrow - Right Circle-1.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-color: transparent;
+            padding: 0;
+            font-size: 0;
+            cursor: pointer;
+        }
+
+        .p-slide-button-left {
+            border: none;
+            border-radius: 50%;
+            aspect-ratio: 1 / 1;
+            width: 35px;
+            background-image: url('./image/Arrow - Right Circle.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-color: transparent;
+            padding: 0;
+            font-size: 0;
+            cursor: pointer;
+
+        }
+
+        .p-recommend_item-list,
+        .p-recommend_item-list li {
+            list-style: none;
+        }
+
+
+
+        .item_link {
+            display: flex;
+            position: relative;
+            width: 260px;
+            height: 380px;
+            background: #EEEEEE;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- --------------------------------以下是Header 勿動！！！！-------------------------------- -->
+    <header id="main-header" class="header">
+
+        <div class="wrap-expand">
+
+            <div class="header_top">
+
+                <a class="header_logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+                <form action="" method="get" class="header_search_form">
+                    <input type="input" name="search" class="header_search_input" placeholder="Search" maxlength="50"
+                        value="">
+                    <div class="Search_hot">
+                        <a class="trend_link" href="">熱搜關鍵字</a>
+                        <a class="trend_link" href="">熱搜關鍵字</a>
+                        <a class="trend_link" href="">熱搜關鍵字</a>
+                    </div>
+
+                    <button type="submit" class="header_search_submit"><img src="./image/search.svg"></button>
+                </form>
+
+                <nav class="fixed-nav">
+                    <div class="fixed-nav_list login">
+                        <a href="" class="SCM-Center">
+                            <div class="SCM_icon">
+                                <!-- <img src="" alt=""> -->
+                                <button class="btn_SCM-Center">商家中心</button>
+                            </div>
+                        </a>
+
+                        <a href="" class="User-Center">
+                            <div class="User_icon">
+                                <img src="./image/Profile.svg" alt="">
+
+                            </div>
+                        </a>
+
+                        <a href="" class="Favorite">
+                            <div class="header_icon">
+                                <img src="./image/heart.svg" alt="">
+                                <span class="count">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Shopping-Cart">
+                            <div class="header_icon">
+                                <img src="./image/Buy.svg" alt="">
+                                <span class="count">0</span>
+                            </div>
+                        </a>
+
+
+                        <a href="" class="Notification">
+                            <div class="header_icon">
+                                <img src="./image/Notification.svg" alt="">
+                                <span class="count">0</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </nav>
+            </div>
+
+        </div>
+        <div class="wrap-expand">
+            <nav id="main-navigation" class="main-navigation">
+
+                <div class="nav-main">
+                    <ul class="navigation navigation--col-10"> <!--主選單-->
+                        <li
+                            class="navigation_nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+                            <div class="navigation_title navigation_title--bold navigation_title--salmon">
+                                <span class="navigation_title-inner">主題活動</span>
+                            </div>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="navigation_nav-title navigation_nav-title--hover-hide">
+
+                            <a class="navigation_title navigation_title--link" href="">
+                                <span class="navigation_title-inner">3C周邊</span>
+                            </a>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="navigation_nav-title navigation_nav-title--hover-hide">
+
+                            <a class="navigation_title navigation_title--link" href="">
+                                <span class="navigation_title-inner">家用電器</span>
+                            </a>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="navigation_nav-title navigation_nav-title--hover-hide">
+
+                            <a class="navigation_title navigation_title--link" href="">
+                                <span class="navigation_title-inner">美妝個清</span>
+                            </a>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="navigation_nav-title navigation_nav-title--hover-hide">
+
+                            <a class="navigation_title navigation_title--link" href="">
+                                <span class="navigation_title-inner">流行服飾</span>
+                            </a>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="navigation_nav-title navigation_nav-title--hover-hide">
+
+                            <a class="navigation_title navigation_title--link" href="">
+                                <span class="navigation_title-inner">鞋包配飾</span>
+                            </a>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="navigation_nav-title navigation_nav-title--hover-hide">
+
+                            <a class="navigation_title navigation_title--link" href="">
+                                <span class="navigation_title-inner">母嬰用品</span>
+                            </a>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="navigation_nav-title navigation_nav-title--hover-hide">
+
+                            <a class="navigation_title navigation_title--link" href="">
+                                <span class="navigation_title-inner">日用生活</span>
+                            </a>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="navigation_nav-title navigation_nav-title--hover-hide">
+
+                            <a class="navigation_title navigation_title--link" href="">
+                                <span class="navigation_title-inner">圖書文具</span>
+                            </a>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="navigation_nav-title navigation_nav-title--hover-hide">
+
+                            <a class="navigation_title navigation_title--link" href="">
+                                <span class="navigation_title-inner">旅遊戶外</span>
+                            </a>
+
+                            <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                                <a class="" href="" title="">
+                                    <span class="link-text">AAA</span> <!--中分類-->
+                                </a>
+
+                                <ul> <!--小分類-->
+                                    <li>
+                                        <a class="" href="" title="">
+                                            <span class="link-text">aaa</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+            </nav>
+        </div>
+    </header>
+
+    <!-- --------------------------------頁面的內容寫在這邊喔喔喔喔-------------------------------- -->
+    <main>
+
+        <div class="wrap-expand">
+            <div id="main-BN">
+                <div class="main-BN-container">
+
+                    <div class="slide slide-Active">
+                        <img src="./image/fv_1.jpg" alt="" class="main-BN">
+                    </div>
+                    <div class="slide slide-next">
+                        <img src="./image/fv_2.jpg" alt="" class="main-BN">
+                    </div>
+                    <div class="slide">
+                        <img src="./image/fv_3.jpg" alt="" class="main-BN">
+                    </div>
+                    <div class="slide">
+                        <img src="./image/fv_4.jpg" alt="" class="main-BN">
+                    </div>
+
+                </div>
+
+                <div class="main-BN-button">
+                    <div class="slide-button-list">
+                        <button type="button" class="slide-button slide-button-left"></button>
+                        <button type="button" class="slide-button slide-button-right"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="wrap-expand">
+            <section class="main-top-section p-recommend">
+                <header class="p-recommend_head">
+                    <h3>推薦商品</h3>
+
+                </header>
+
+                <div class="p-recommend_main">
+                    <ul class="p-recommend_item-list">
+                        <li>
+                            <a href="" class="item_link">
+                                <div>
+                                    <img src="" alt="">
+                                </div>
+                                <div>
+                                    <p></p>
+                                    <div>
+                                        <p></p>
+                                    </div>
+                                    <ul>
+                                        <li></li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+                <div class="p-recommend_btns">
+                    <button type="button" class="p-slide-button-left"></button>
+                    <button type="button" class="p-slide-button-right"></button>
+                </div>
+
+                <div>more</div>
+
+
+
+            </section>
+        </div>
+    </main>
+
+
+
+    <!-- <section class="p-top-section p-top-recommend">
+            <div class="p-top-section__body">
+                <div class="p-top-recommend__slider swiper swiper-initialized swiper-horizontal swiper-pointer-events swiper-free-mode swiper-backface-hidden">
+                    <ul class="p-top-recommend__list swiper-wrapper" id="swiper-wrapper-b9103ca7ff85a14d9"
+                        aria-live="polite" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                        <li class="item swiper-slide swiper-slide-active" role="group" aria-label="1 / 4"> 
+                            <a href="https://goodnews-shop.com/item/detail/4" class="item__link">
+                                <div class="item__img">
+                                    <img src="/html/upload/save_image/0407110056_642f7958e0a58.jpg" width="260"
+                                        height="260" alt="バターのいとこ詰め合わせB">
+                                </div>
+                                <div class="item__text">
+                                    <p class="item__ttl">バターのいとこ詰め合わせB</p>
+                                    <div class="item__price">
+                                        <p class="price">
+                                            <span>￥4,212</span>
+                                        </p>
+                                    </div>
+                                    <ul class="item__cat">
+                                        <li>バターのいとこ</li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>  
+                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                </div>
+                <div class="p-top-recommend__more"><a href="/item/" class="m-btn"><span class="txt">商品一覧を見る</span></a>
+                </div>
+            </div>
+        </section> -->
+
+
+
+
+
+    <!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
+    <footer id="main-footer" class="footer">
+        <div class="wrap-expand">
+            <div class="footer-top">
+                <a class="footer_logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+            </div>
+
+            <div class="footer-bottom">
+                <hr class="footer_divider">
+                <nav class="SNS-nav">
+
+                    <div class="SNS-nav_list">
+
+                        <a href="" class="Instagram">
+                            <div class="Instagram_icon">
+                                <img src="./image/ant-design_instagram-filled.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Facebook">
+                            <div class="Facebook_icon">
+                                <img src="./image/mdi_facebook.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Twitter">
+                            <div class="Twitter_icon">
+                                <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+                            </div>
+                        </a>
+
+                    </div>
+
+                </nav>
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+
+</html>

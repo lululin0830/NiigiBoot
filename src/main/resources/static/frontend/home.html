@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Homepage</title>
+
+    <!-- <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/carousel.css">
+    <link rel="stylesheet" href="./css/index.header.css"> 
+    <link rel="stylesheet" href="./css/section.css"> -->
+
+    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/carousel.css">
+    <link rel="stylesheet" href="./css/core.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
+    <link rel="stylesheet" href="./css/font.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
+    <link rel="stylesheet" href="./css/button.css"> <!-- 所有按鈕共同的CSS 勿動，勿覆蓋！！！！！ 若沒用到按鈕可移除 -->
+    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+    <link rel="stylesheet" href="./css/home.css">
+
+    <style>
+        main {
+            min-height: max(800px, calc(100vh - 150px));
+            height: 100%;
+            background-color: #F7F7F7;
+            /* overflow: visible; */
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .carousel-item {
+            height: 51.2rem;
+        }
+
+        .carousel-image {
+            background-size: cover;
+            background-position: center center;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
+    <header id="main-header" class="header">
+
+        <div class="container-sm">
+
+            <div class="header-top row">
+
+                <div class="col-sm-2">
+                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+                </div>
+
+                <div class="col-sm-6">
+                    <form action="" method="get" class="header-search row">
+                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
+                            maxlength="50" value="">
+
+                        <button type="submit" class="header-search-submit col-sm-1"><img
+                                src="./image/search.svg"></button>
+                    </form>
+
+                    <div class="Search-hot ">
+                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
+                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
+                    </div>
+
+                </div>
+
+                <nav class="fixed-nav col-sm-4">
+
+                    <div class="fixed-nav-list login row">
+                        <a href="" class="SCM-Center col">
+                            <div class="SCM_icon">
+                                <button class="btn_SCM-Center">商家中心</button>
+                            </div>
+                        </a>
+
+                        <a href="" class="User-Center col">
+                            <div class="User_icon">
+                                <img src="./image/Profile.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Favorite col">
+                            <div class="header_icon">
+                                <img src="./image/heart.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Shopping-Cart col">
+                            <div class="header_icon">
+                                <img src="./image/Buy.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Notification col">
+                            <div class="header_icon">
+                                <img src="./image/Notification.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </nav>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
+    <nav id="main-navigation" class="main-navigation">
+        <ul class="main-nav"> <!--主選單-->
+            <li
+                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+                <div class="navigation_title navigation_title--bold navigation_title--salmon">
+                    <span class="navigation_title-inner">主題活動</span>
+                </div>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">3C周邊</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">家用電器</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">美妝個清</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">流行服飾</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">鞋包配飾</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">母嬰用品</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">日用生活</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">圖書文具</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">旅遊戶外</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <main>
+        <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class=""
+                    aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"
+                    class=""></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"
+                    class=""></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"
+                    class=""></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"
+                    class=""></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="5" aria-label="Slide 6"
+                    class=""></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="6" aria-label="Slide 7"
+                    class=""></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="7" aria-label="Slide 8"
+                    class="active" aria-current="true"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <div class="carousel-image" style="background-image: url('./image/fv_1.jpg');">
+                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-image" style="background-image: url('./image/fv_2.jpg');">
+                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
+                    </div>
+                </div>
+                <div class="carousel-item ">
+                    <div class="carousel-image" style="background-image: url('./image/fv_3.jpg');">
+                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-image" style="background-image: url('./image/fv_4.jpg');">
+                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-image" style="background-image: url('./image/fv_1.jpg');">
+                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-image" style="background-image: url('./image/fv_2.jpg');">
+                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-image" style="background-image: url('./image/fv_3.jpg');">
+                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
+                    </div>
+                </div>
+                <div class="carousel-item active">
+                    <div class="carousel-image" style="background-image: url('./image/fv_4.jpg');">
+                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <img src="./image/Arrow - Right Circle.svg" alt="">
+                <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <img src="./image/Arrow - Right Circle-1.svg" alt="">
+                <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <h2 class="little">推薦商品</h2>
+        <div class="container tablethird">
+            <div class="row">
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+                    <div class="card" style="width:200px;height:28rem;">
+                        <!-- <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
+                        <img src="./image/square.svg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart" src="./image/heart_store.svg" alt=""></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+                    <div class="card" style="width:200px;height:28rem;">
+                        <!-- <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
+                        <img src="./image/square.svg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart" src="./image/heart_store.svg" alt=""></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+                    <div class="card" style="width:200px;height:28rem;">
+                        <!-- <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
+                        <img src="./image/square.svg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart" src="./image/heart_store.svg" alt=""></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+                    <div class="card" style="width:200px;height:28rem;">
+                        <!-- <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
+                        <img src="./image/square.svg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart" src="./image/heart_store.svg" alt=""></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <a class="list_recommend" href="">查看所有商品></a>
+
+        <h2 class="little">新品上市</h2>
+        <div class="container tablethird">
+            <div class="row">
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+                    <div class="card" style="width:200px;height:28rem;">
+                        <!-- <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
+                        <img src="./image/square.svg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart" src="./image/heart_store.svg" alt=""></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+                    <div class="card" style="width:200px;height:28rem;">
+                        <!-- <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
+                        <img src="./image/square.svg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart" src="./image/heart_store.svg" alt=""></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+                    <div class="card" style="width:200px;height:28rem;">
+                        <!-- <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
+                        <img src="./image/square.svg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart" src="./image/heart_store.svg" alt=""></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+                    <div class="card" style="width:200px;height:28rem;">
+                        <!-- <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
+                        <img src="./image/square.svg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                        <div class="card-body">
+                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart" src="./image/heart_store.svg" alt=""></i></h5>
+                          <p class="card-text item__price">$24,000</p>
+                          <p class="card-text item__store">蘋果爹商店</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="list_NewStore" href="">查看所有商品></a>
+        
+
+
+    </main>
+
+    <!-- --------------------------------以下是Footer 勿動！！-------------------------------- -->
+    <footer id="main-footer" class="footer">
+
+        <div class="container-sm">
+
+            <div class="footer-top row">
+                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+            </div>
+
+            <hr class="footer_divider">
+
+            <div class="footer-bottom row justify-content-end">
+
+                <nav class="SNS-nav-list ">
+
+                    <a href="" class="Instagram col">
+                        <div class="Instagram_icon">
+                            <img src="./image/ant-design_instagram-filled.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Facebook col">
+                        <div class="Facebook_icon">
+                            <img src="./image/mdi_facebook.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Twitter col ">
+                        <div class="Twitter_icon">
+                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+                        </div>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
