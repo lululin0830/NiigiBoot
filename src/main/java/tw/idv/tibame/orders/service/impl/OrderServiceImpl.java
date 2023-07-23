@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -26,34 +30,30 @@ import tw.idv.tibame.suppliers.dao.SupplierDAO;
 import tw.idv.tibame.suppliers.dao.impl.SupplierDAOImpl;
 import tw.idv.tibame.suppliers.entity.Suppliers;
 
+@Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
 	private static volatile int orderCounter = 1;
 	private static final Object counterLock = new Object();
 
+	@Autowired
 	MainOrderDAO mainOrderDAO;
+	@Autowired
 	SubOrderDAOImpl subOrderDAO;
+	@Autowired
 	SubOrderDetailDAO subOrderDetailDAO;
 
-	public OrderServiceImpl() {
-
-		mainOrderDAO = new MainOrderDAOImpl();
-		subOrderDAO = new SubOrderDAOImpl();
-		subOrderDetailDAO = new SubOrderDetailDAOImpl();
-	}
-
 	// 取得自動編號
-	public static String generateOrderId() {
+	private String generateOrderId() throws Exception {
 		LocalDate currentDate = LocalDate.now();
 		String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-
-		MainOrderDAO subOrderDAO = new MainOrderDAOImpl();
 
 		String orderId = formattedDate + String.format("%09d", 1);
 
 		synchronized (counterLock) {
 
-			if (subOrderDAO.getSession().get(MainOrder.class, orderId) == null || orderCounter >= 999999999) {
+			if (mainOrderDAO.selectById(orderId) == null || orderCounter >= 999999999) {
 				orderCounter = 1;
 			}
 			orderId = formattedDate + String.format("%09d", orderCounter);
@@ -84,7 +84,11 @@ public class OrderServiceImpl implements OrderService {
 				paidAmount, paymentType, recipient, phoneNum, deliveryAddress);
 
 		// 取得主訂單編號
-		mainOrder.setOrderId(generateOrderId());
+		try {
+			mainOrder.setOrderId(generateOrderId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		// 訂單明細資料處理(取出所有商品的規格編號、商品編號、商品售價、活動價、活動編號)
 
@@ -120,8 +124,6 @@ public class OrderServiceImpl implements OrderService {
 		}
 
 		try {
-			// 開始交易控制
-			beginTransaction();
 
 			// 新增主訂單
 			mainOrderDAO.insert(mainOrder);
@@ -179,11 +181,10 @@ public class OrderServiceImpl implements OrderService {
 				subOrderDetailDAO.insert(sodTemp);
 			}
 
-			commit();
 			return true;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			rollback();
 			return false;
 		}
 
@@ -252,9 +253,7 @@ public class OrderServiceImpl implements OrderService {
 		String result = null;
 		try {
 
-			beginTransaction();
 			result = subOrderDAO.getAllByOrderId(searchcase, SearchSelect, startDate, closeDate, dateSelect);
-			commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -268,9 +267,7 @@ public class OrderServiceImpl implements OrderService {
 
 		String result = null;
 		try {
-			beginTransaction();
 			result = subOrderDAO.getAllInit();
-			commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -286,9 +283,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		String result = null;
 		try {
-			beginTransaction();
 			result = subOrderDAO.getSupplierSubOrderInit("");
-			comment();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -297,7 +292,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public String getSupplierSubOrderSearch() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
