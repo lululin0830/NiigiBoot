@@ -32,6 +32,7 @@ public class SubOrder implements java.io.Serializable{
 	private String orderId;	
 	private String supplierId;
 	private String memberId;
+	@Column(insertable = false)
 	private Timestamp orderCreateTime;
 	@Column(insertable = false)
 	private Timestamp orderCloseTime;

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import tw.idv.tibame.orders.entity.SubOrderDetail;
 import tw.idv.tibame.orders.service.OrderService;
 import tw.idv.tibame.products.dao.ProductDAO;
 import tw.idv.tibame.products.dao.impl.ProductDAOImpl;
+import tw.idv.tibame.products.entity.Product;
 import tw.idv.tibame.suppliers.dao.SupplierDAO;
 import tw.idv.tibame.suppliers.dao.impl.SupplierDAOImpl;
 import tw.idv.tibame.suppliers.entity.Suppliers;
@@ -41,6 +43,10 @@ public class OrderServiceImpl implements OrderService {
 	SubOrderDAO subOrderDAO;
 	@Autowired
 	SubOrderDetailDAO subOrderDetailDAO;
+	@Autowired
+	ProductDAO productDAO;
+	@Autowired
+	SupplierDAO supplierDAO;
 
 	// 取得自動編號
 	private String generateOrderId() throws Exception {
@@ -88,6 +94,7 @@ public class OrderServiceImpl implements OrderService {
 			e.printStackTrace();
 		}
 
+		String orderId = mainOrder.getOrderId();
 		// 訂單明細資料處理(取出所有商品的規格編號、商品編號、商品售價、活動價、活動編號)
 
 		JsonArray itemListJsonArray = orderData.getAsJsonArray("itemList");
@@ -103,13 +110,13 @@ public class OrderServiceImpl implements OrderService {
 
 			temp.setOrderId(mainOrder.getOrderId());
 			temp.setProductSpecId(itemObject.get("productSpecId").getAsString());
-			temp.setProductId(Integer.parseInt(itemObject.get("productSpecId").getAsString().substring(8)));
+			temp.setProductId(Integer.parseInt(itemObject.get("productSpecId").getAsString().substring(0,8)));
 			temp.setProductPrice(itemObject.get("price").getAsInt());
 			temp.setEventPrice(itemObject.get("eventPrice").getAsInt());
 
 			subOrderDetails.add(temp);
 
-			stringBuilder.append(temp.getProductId());
+			stringBuilder.append(temp.getProductId()+",");
 
 			JsonArray eventIdArray = itemObject.getAsJsonArray("eventId");
 			for (JsonElement eventIdElement : eventIdArray) {
@@ -125,13 +132,12 @@ public class OrderServiceImpl implements OrderService {
 
 			// 新增主訂單
 			mainOrderDAO.insert(mainOrder);
-			mainOrder = mainOrderDAO.selectById(mainOrder.getOrderId());
+			
 
 			// 子訂單資料處理
 
 			// 取得廠商ID
-			ProductDAO productDAO = new ProductDAOImpl();
-			SupplierDAO supplierDAO = new SupplierDAOImpl();
+			
 			List<String> supplierIds = productDAO.getSupplierIdList(productIds);
 
 			// 產生子訂單編號 + set訂單基本資訊(訂編、子訂編、商編、時間、收件資訊)
@@ -141,9 +147,9 @@ public class OrderServiceImpl implements OrderService {
 				SubOrder temp = new SubOrder();
 
 				temp.setOrderId(mainOrder.getOrderId());
+				temp.setMemberId(memberId);
 				temp.setSubOrderId(mainOrder.getOrderId() + "-" + String.format("%03d", i + 1));
 				temp.setSupplierId(supplierIds.get(i));
-				temp.setOrderCreateTime(mainOrder.getOrderCreateTime());
 				temp.setRecipient(recipient);
 				temp.setPhoneNum(phoneNum);
 				temp.setDeliveryAddress(deliveryAddress);
@@ -154,8 +160,13 @@ public class OrderServiceImpl implements OrderService {
 
 				for (SubOrderDetail sod : subOrderDetails) {
 
+					Product product = productDAO.selectById(sod.getProductId());
+					System.out.println(product);
+					
+					
+					
 					if (sod.getSubOrderId() == null
-							&& productDAO.selectById(sod.getProductId()).getRegisterSupplier() == supplierIds.get(i)) {
+							&& Objects.equals(product.getRegisterSupplier(),supplierIds.get(i)) ) {
 						sod.setSubOrderId(temp.getSubOrderId());
 						sod.setOrderDetailId(temp.getSubOrderId() + "-" + String.format("%03d", count));
 						count++;

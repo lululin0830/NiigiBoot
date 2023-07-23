@@ -26,13 +26,8 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 
 	@Override
 	public Boolean insert(MainOrder entity) {
-		try {
-			session.persist(entity);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+		session.persist(entity);
+		return true;
 	}
 
 	@Override
