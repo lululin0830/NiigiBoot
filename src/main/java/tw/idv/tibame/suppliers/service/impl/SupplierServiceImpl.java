@@ -3,11 +3,16 @@ package tw.idv.tibame.suppliers.service.impl;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.google.gson.JsonObject;
 
 import tw.idv.tibame.suppliers.dao.impl.SupplierDAOImpl;
 import tw.idv.tibame.suppliers.service.SupplierService;
 
+@Service
+@Transactional
 public class SupplierServiceImpl implements SupplierService {
 
 	SupplierDAOImpl dao;
@@ -22,9 +27,7 @@ public class SupplierServiceImpl implements SupplierService {
 		String getAllInit = null;
 		
 		try {
-			beginTransaction();
 			getAllInit = dao.getAllInit();
-			commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,9 +67,7 @@ public class SupplierServiceImpl implements SupplierService {
 		String result = null;
 		
 		try {
-			beginTransaction();
 			result = dao.getAllBySearch(searchcase, SearchSelect, startDate, closeDate, dateSelect);
-			commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

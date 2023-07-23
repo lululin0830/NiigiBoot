@@ -16,10 +16,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import tw.idv.tibame.orders.dao.MainOrderDAO;
+import tw.idv.tibame.orders.dao.SubOrderDAO;
 import tw.idv.tibame.orders.dao.SubOrderDetailDAO;
-import tw.idv.tibame.orders.dao.impl.MainOrderDAOImpl;
-import tw.idv.tibame.orders.dao.impl.SubOrderDAOImpl;
-import tw.idv.tibame.orders.dao.impl.SubOrderDetailDAOImpl;
 import tw.idv.tibame.orders.entity.MainOrder;
 import tw.idv.tibame.orders.entity.SubOrder;
 import tw.idv.tibame.orders.entity.SubOrderDetail;
@@ -40,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	MainOrderDAO mainOrderDAO;
 	@Autowired
-	SubOrderDAOImpl subOrderDAO;
+	SubOrderDAO subOrderDAO;
 	@Autowired
 	SubOrderDetailDAO subOrderDetailDAO;
 

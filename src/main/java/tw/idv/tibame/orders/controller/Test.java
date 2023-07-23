@@ -19,21 +19,19 @@ public class Test extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
-		MainOrderDAO dao = new MainOrderDAOImpl();
-		OrderService service = new OrderServiceImpl();
-		
-		try {
-			
-			service.beginTransaction();
-			
-			MainOrder test = dao.selectById("20230715000000001");
-			System.out.println(test);
-			
-			service.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		
+//		MainOrderDAO dao = new MainOrderDAOImpl();
+//		OrderService service = new OrderServiceImpl();
+//		
+//		try {
+//			
+//			
+//			MainOrder test = dao.selectById("20230715000000001");
+//			System.out.println(test);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

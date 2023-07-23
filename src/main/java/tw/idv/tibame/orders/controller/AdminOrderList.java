@@ -11,6 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tw.idv.tibame.core.util.CommonUtils;
+import tw.idv.tibame.members.service.MemberService;
 import tw.idv.tibame.orders.service.OrderService;
 import tw.idv.tibame.orders.service.impl.OrderServiceImpl;
 
@@ -20,6 +22,13 @@ import tw.idv.tibame.orders.service.impl.OrderServiceImpl;
 @WebServlet("/SubOrderDetail")
 public class AdminOrderList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private OrderService orderService;
+
+	@Override	
+	public void init() throws ServletException {
+		orderService = CommonUtils.getBean(getServletContext(), OrderService.class);
+	}
 
 	@Override
 	protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,16 +50,15 @@ public class AdminOrderList extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 
 		Gson gson = new Gson();
-		JsonElement req = gson.fromJson(request.getReader(),JsonElement.class);
+		JsonElement req = gson.fromJson(request.getReader(), JsonElement.class);
 		JsonObject searchCondition = req.getAsJsonObject();
-			
+
 //		System.out.println(SearchCondition.get("searchcase").getAsString());
-		
-		OrderService orderService = new OrderServiceImpl();
-		
+
+
 		response.getWriter().print(orderService.orderlist(searchCondition));
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -59,9 +67,8 @@ public class AdminOrderList extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setContentType("application/json; charset=utf-8");
-		
-		OrderService orderService = new OrderServiceImpl();
-		
+
+
 		response.getWriter().print(orderService.getAllInit());
 //		System.out.println((orderService.orderlist(searchCondition)));
 	}

@@ -36,7 +36,6 @@ public class Test extends HttpServlet {
 		
 		try {
 			
-			service.beginTransaction();
 			
 			Product product = dao1.selectById(10000001);
 			ProductSpec productSpec = dao2.selectById("10000001001");
@@ -45,7 +44,6 @@ public class Test extends HttpServlet {
 			System.out.println(productSpec);
 			
 			
-			service.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
