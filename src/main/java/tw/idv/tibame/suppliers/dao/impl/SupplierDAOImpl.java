@@ -40,7 +40,7 @@ public class SupplierDAOImpl implements SupplierDAO {
 
 		Gson gson = new Gson();
 
-		String hql = "FROM Supplier WHERE " + searchSelect + " LIKE '%" + searchCase + "%' AND " + dateSelect
+		String hql = "FROM Suppliers WHERE " + searchSelect + " LIKE '%" + searchCase + "%' AND " + dateSelect
 				+ " BETWEEN '" + startDate + "' AND '" + closeDate + "'";
 		return gson.toJson(session.createQuery(hql, Suppliers.class).getResultList());
 	}
@@ -50,7 +50,7 @@ public class SupplierDAOImpl implements SupplierDAO {
 
 		Gson gson = new Gson();
 
-		String result = gson.toJson(session.createQuery("FROM Supplier", Suppliers.class).getResultList());
+		String result = gson.toJson(session.createQuery("FROM Suppliers", Suppliers.class).getResultList());
 
 		return result;
 	}

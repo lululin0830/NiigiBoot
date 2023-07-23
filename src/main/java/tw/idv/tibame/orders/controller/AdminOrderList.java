@@ -53,9 +53,6 @@ public class AdminOrderList extends HttpServlet {
 		JsonElement req = gson.fromJson(request.getReader(), JsonElement.class);
 		JsonObject searchCondition = req.getAsJsonObject();
 
-//		System.out.println(SearchCondition.get("searchcase").getAsString());
-
-
 		response.getWriter().print(orderService.orderlist(searchCondition));
 	}
 

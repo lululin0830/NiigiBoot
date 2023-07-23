@@ -1,5 +1,6 @@
 package tw.idv.tibame.core.util;
 
+import java.io.Serializable;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,11 +8,14 @@ import java.util.Map;
 
 import javax.crypto.spec.SecretKeySpec;
 
+import com.google.gson.Gson;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.gson.io.GsonSerializer;
 
 /**
  * JWTutil 用於生成、驗證JWT的工具類別
@@ -20,8 +24,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * @version 1.0
  */
 
-public class JwtUtil {
+public class JwtUtil implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7699280065575291990L;
+	
 	private static final String SECRET_KEY = JwtConfig.getJwtSecretKey(); 
 	private static final long EXPIRATION_TIME = 3600000; // Token的生存時間(先設1hr)
 
@@ -45,6 +54,7 @@ public class JwtUtil {
 				.setSubject(subject)
 				.setExpiration(expirationDate)
 				.signWith(key)
+				.serializeToJsonWith(new GsonSerializer<>(new Gson()))
 				.compact();
 
 		return jwtToken;

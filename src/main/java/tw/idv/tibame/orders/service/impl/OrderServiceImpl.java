@@ -24,10 +24,8 @@ import tw.idv.tibame.orders.entity.SubOrder;
 import tw.idv.tibame.orders.entity.SubOrderDetail;
 import tw.idv.tibame.orders.service.OrderService;
 import tw.idv.tibame.products.dao.ProductDAO;
-import tw.idv.tibame.products.dao.impl.ProductDAOImpl;
 import tw.idv.tibame.products.entity.Product;
 import tw.idv.tibame.suppliers.dao.SupplierDAO;
-import tw.idv.tibame.suppliers.dao.impl.SupplierDAOImpl;
 import tw.idv.tibame.suppliers.entity.Suppliers;
 
 @Service
@@ -94,7 +92,6 @@ public class OrderServiceImpl implements OrderService {
 			e.printStackTrace();
 		}
 
-		String orderId = mainOrder.getOrderId();
 		// 訂單明細資料處理(取出所有商品的規格編號、商品編號、商品售價、活動價、活動編號)
 
 		JsonArray itemListJsonArray = orderData.getAsJsonArray("itemList");
