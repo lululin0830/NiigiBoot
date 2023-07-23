@@ -71,7 +71,7 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 	public String getAllByOrderId(String searchcase, String SearchSelect, Timestamp startDate, Timestamp closeDate,
 			String dateSelect) throws Exception {
 
-		String hql = "FROM SubOrder so JOIN SubOrderDetail sod ON so.subOrderId = sod.subOrderId WHERE so."
+		String hql = "FROM SubOrder as so,SubOrderDetail as sod where so.subOrderId = sod.subOrderId AND so."
 				+ SearchSelect + " LIKE '%" + searchcase + "%' AND " + dateSelect + " between '" + startDate + "' AND '"
 				+ closeDate + "'";
 
@@ -95,8 +95,10 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 	@Override
 	public String getAllInit() {
 
+//		Query<?> query = session
+//				.createQuery("FROM SubOrder so JOIN SubOrderDetail sod ON so.subOrderId = sod.subOrderId");
 		Query<?> query = session
-				.createQuery("FROM SubOrder so JOIN SubOrderDetail sod ON so.subOrderId = sod.subOrderId");
+				.createQuery("FROM SubOrder as so,SubOrderDetail as sod where so.subOrderId = sod.subOrderId");
 		List<?> list = query.getResultList();
 
 		Gson gson = new Gson();
@@ -112,9 +114,10 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 
 		Query<?> query = session.createQuery("FROM SubOrder WHERE supplierId = :supplierId");
 		query.setParameter("supplierId", supplierId);
-
+		
+		System.out.println(gson.toJson(query.getResultList()));
 		return gson.toJson(query.getResultList());
-
+		
 	}
 
 	@Override
