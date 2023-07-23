@@ -11,8 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tw.idv.tibame.core.util.CommonUtils;
 import tw.idv.tibame.orders.service.OrderService;
-import tw.idv.tibame.orders.service.impl.OrderServiceImpl;
 
 @WebServlet("/CreateOrder")
 public class CreateOrder extends HttpServlet {
@@ -21,6 +21,14 @@ public class CreateOrder extends HttpServlet {
 	 * 成立訂單(2023-07-15 v1)
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private OrderService orderService ;
+	
+	@Override	
+	public void init() throws ServletException {
+		orderService = CommonUtils.getBean(getServletContext(), OrderService.class);
+	}
+;
 
 	@Override
 	protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,7 +52,7 @@ public class CreateOrder extends HttpServlet {
 		Gson gson = new Gson();
 		JsonObject orderData = gson.fromJson(req.getReader(), JsonObject.class);
 
-		OrderService orderService = new OrderServiceImpl();
+		
 
 		boolean state = orderService.createOrder(orderData);
 
