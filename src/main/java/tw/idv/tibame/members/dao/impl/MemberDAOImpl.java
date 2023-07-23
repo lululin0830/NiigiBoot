@@ -3,14 +3,25 @@ package tw.idv.tibame.members.dao.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.springframework.stereotype.Repository;
+
+import jakarta.persistence.PersistenceContext;
 import tw.idv.tibame.members.entity.Members;
 
-public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO{
+@Repository
+public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO {
+
+	@PersistenceContext
+	private Session session;
 
 	@Override
 	public Boolean insert(Members entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+
+		session.persist(entity);
+
+		return true;
 	}
 
 	@Override
@@ -33,12 +44,9 @@ public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO{
 
 	@Override
 	public Members selectByLogin(String memberAcct, String password) {
-		final String sql = "select * from Member where memberAcct =:memberAcct and password =:password";
-		return getSession()
-				.createNativeQuery(sql, Members.class)
-				.setParameter("memberAcct", memberAcct)
-				.setParameter("password", password)
-				.uniqueResult();
+		final String sql = "select * from Members where memberAcct =:memberAcct and password =:password";
+		return session.createNativeQuery(sql, Members.class).setParameter("memberAcct", memberAcct)
+				.setParameter("password", password).uniqueResult();
 	}
 
 	@Override
@@ -49,8 +57,13 @@ public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO{
 
 	@Override
 	public Members selectOneByMemberAcct(String memberAcct) {
-		// TODO Auto-generated method stub
-		return null;
+		String hql = "FROM Members WHERE memberAcct = :memberAcct";
+
+		return session
+				.createQuery(hql, Members.class)
+				.setParameter("memberAcct", memberAcct)
+				.uniqueResult();
+		
 	}
 
 	@Override
@@ -61,7 +74,6 @@ public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO{
 
 	@Override
 	public Members selectManyByMemberAcct(String memberAcct) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -82,6 +94,25 @@ public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO{
 			String lastDeliveryAddress) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String selectLastMember() {
+
+		String sql = "SELECT memberId FROM Members ORDER BY memberId DESC";
+
+		NativeQuery<String> nativeQuery = session.createNativeQuery(sql, String.class).setFirstResult(0)
+				.setMaxResults(1);
+
+		return nativeQuery.uniqueResult();
+	}
+
+	@Override
+	public String selectPasswordByMemberAcct(String memberAcct) {
+		String sql = "SELECT `password` FROM Members WHERE memberAcct ='"+memberAcct +"'";
+
+		return session.createNativeQuery(sql, String.class)
+				.uniqueResult();
 	}
 
 }

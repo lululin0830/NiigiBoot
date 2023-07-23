@@ -25,7 +25,6 @@ public class Members implements java.io.Serializable{
 	private static final long serialVersionUID = 2365248678814032865L;
 	
 	@Id
-	@Column(insertable = false)
 	private String memberId;
 	private String memberAcct;
 	private String password;
@@ -33,17 +32,18 @@ public class Members implements java.io.Serializable{
 	private String name;
 	private String gender;
 	private Date birthday;
+	@Column(insertable = false)
 	private Timestamp regTime;
 	@Column(insertable = false)
 	private String banStatus;
 	@Column(insertable = false)
-	private Integer memberPointBalance;
+	private Integer memPointBalance;
 	@Column(insertable = false)
-	private Date memberPointMinExp;
+	private Date memPointMinExp;
 	@Column(insertable = false)
 	private String backupEmail;
 	@Column(insertable = false)
-	private byte[] memberPhoto;
+	private byte[] memPhoto;
 	@Column(insertable = false)
 	private String memberAddress;
 	@Column(insertable = false)

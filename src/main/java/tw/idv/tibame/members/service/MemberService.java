@@ -5,9 +5,10 @@ import tw.idv.tibame.members.entity.Members;
 public interface MemberService {
 
 	// 註冊
-	public boolean register(Members newMember);
+	public String register(Members newMember)throws Exception;
 
 	// 登入
-	public boolean logIn (Members member);
+	public String logIn (Members member)throws Exception;
+
 
 }

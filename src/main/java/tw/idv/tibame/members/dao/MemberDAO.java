@@ -36,5 +36,9 @@ public interface MemberDAO extends CoreDAO<Members, String>{
 		public Members selectByRecientPhoneNumDeliveryAddress(String lastRecipient, String lastPhoneNum,
 				String lastDeliveryAddress);
 
+		String selectLastMember();
+
+		public String selectPasswordByMemberAcct(String memberAcct);
+
 
 }
