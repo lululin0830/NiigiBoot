@@ -2,9 +2,7 @@ package tw.idv.tibame.orders.service;
 
 import com.google.gson.JsonObject;
 
-import tw.idv.tibame.core.service.CoreService;
-
-public interface OrderService extends CoreService{
+public interface OrderService {
 	
 	public boolean createOrder(JsonObject orderData);
 

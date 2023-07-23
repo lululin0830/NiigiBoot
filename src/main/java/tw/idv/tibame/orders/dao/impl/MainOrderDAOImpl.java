@@ -12,16 +12,22 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
+import jakarta.persistence.PersistenceContext;
 import tw.idv.tibame.orders.dao.MainOrderDAO;
 import tw.idv.tibame.orders.entity.MainOrder;
 
+@Repository
 public class MainOrderDAOImpl implements MainOrderDAO {
+
+	@PersistenceContext
+	private Session session;
 
 	@Override
 	public Boolean insert(MainOrder entity) {
 		try {
-			getSession().persist(entity);
+			session.persist(entity);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -31,14 +37,13 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 
 	@Override
 	public MainOrder selectById(String id) {
-		return getSession().get(MainOrder.class, id);
+		return session.get(MainOrder.class, id);
 	}
 
 	// 尚未改成Hibernate
 	@Override
 	public List<MainOrder> getAll() {
 
-		Session session = getSession();
 		Query<MainOrder> query = session.createQuery("FROM MainOrder", MainOrder.class);
 		return query.getResultList();
 	}
@@ -46,7 +51,6 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 	@Override
 	public MainOrder update(MainOrder newMainOrder) {
 
-		Session session = getSession();
 		MainOrder mainOrder = null;
 
 		try {
@@ -85,7 +89,7 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 	// 尚未改成Hibernate
 	@Override
 	public List<MainOrder> selectByMemberID(String memberId) {
-		
+
 		final String url = "jdbc:mysql://localhost:3306/GP?serverTimezone=Asia/Taipei";
 		final String user = "root";
 		final String password = "password";
@@ -95,7 +99,7 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 		MainOrder queryResult = null;
 		try (Connection connection = DriverManager.getConnection(url, user, password);
 				PreparedStatement pstmt = connection.prepareStatement(GET_ALL_STMT)) {
-			
+
 			pstmt.setString(1, memberId);
 			ResultSet rs = pstmt.executeQuery();
 
@@ -131,6 +135,5 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 
 		return queryResultList;
 	}
-
 
 }

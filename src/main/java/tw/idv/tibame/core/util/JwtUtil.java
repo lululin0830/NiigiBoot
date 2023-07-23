@@ -35,7 +35,7 @@ public class JwtUtil {
 		Map<String, Object> subjectMap = new HashMap<>();
 		subjectMap.put("userId", userId);
 		subjectMap.put("username", userName);
-		String subject = JsonUtils.toJson(subjectMap);
+		String subject = CommonUtils.toJson(subjectMap);
 
 		// 使用SecretKeySpec來產生用於JWT簽名的Key
 		Key key = new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());

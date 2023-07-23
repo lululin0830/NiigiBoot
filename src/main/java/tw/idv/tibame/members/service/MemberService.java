@@ -1,9 +1,8 @@
 package tw.idv.tibame.members.service;
 
-import tw.idv.tibame.core.service.CoreService;
 import tw.idv.tibame.members.entity.Members;
 
-public interface MemberService extends CoreService {
+public interface MemberService {
 
 	// 註冊
 	public boolean register(Members newMember);
