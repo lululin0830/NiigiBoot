@@ -4,21 +4,27 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
+import org.springframework.stereotype.Repository;
 
+import jakarta.persistence.PersistenceContext;
 import tw.idv.tibame.products.dao.ProductDAO;
 import tw.idv.tibame.products.entity.Product;
 
+@Repository
 public class ProductDAOImpl implements ProductDAO {
+
+	@PersistenceContext
+	private Session session;
 
 	@Override
 	public Boolean insert(Product entity) throws Exception {
-		getSession().persist(entity);
+		session.persist(entity);
 		return true;
 	}
 
 	@Override
 	public Product selectById(Integer id) throws Exception {
-		return getSession().get(Product.class, id);
+		return session.get(Product.class, id);
 	}
 
 	@Override
@@ -49,12 +55,11 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<String> getSupplierIdList(String productIds) {
 
-		Session session = getSession();
 		String sql = "select registerSupplier from Product where ProductId in (" + productIds
 				+ ") group by registerSupplier;";
 		NativeQuery<String> nativeQuery = session.createNativeQuery(sql, String.class);
 
-		return  nativeQuery.getResultList();
+		return nativeQuery.getResultList();
 	}
 
 }
