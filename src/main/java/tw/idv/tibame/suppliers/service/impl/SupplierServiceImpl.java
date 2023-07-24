@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.JsonObject;
 
+import tw.idv.tibame.orders.dao.impl.SubOrderDAOImpl;
+import tw.idv.tibame.orders.entity.SubOrder;
 import tw.idv.tibame.suppliers.dao.impl.SupplierDAOImpl;
 import tw.idv.tibame.suppliers.service.SupplierService;
 
@@ -18,6 +20,9 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Autowired
 	SupplierDAOImpl dao;
+	
+	@Autowired
+	SubOrderDAOImpl sdao;
 		
 	@Override
 	public String getAllInit() {
@@ -71,7 +76,17 @@ public class SupplierServiceImpl implements SupplierService {
 		}
 		return result;
 	}
+
+	@Override
+	public String supplierSubOrderFront() {
 	
-	
+        String result = null;
+       try {
+            result = sdao.supplierSubOrderFront();	            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+	}
 
 }

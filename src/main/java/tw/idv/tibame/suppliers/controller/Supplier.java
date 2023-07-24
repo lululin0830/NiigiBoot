@@ -49,7 +49,6 @@ public class Supplier extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setContentType("application/json; charset=utf-8");
 
-
 		response.getWriter().print(supplierService.getAllInit());
 
 	}

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.google.gson.Gson;
 
 import jakarta.persistence.PersistenceContext;
+import tw.idv.tibame.core.util.CommonUtils;
 import tw.idv.tibame.orders.dao.SubOrderDAO;
 import tw.idv.tibame.orders.entity.SubOrder;
 
@@ -112,8 +113,9 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 
 		Gson gson = new Gson();
 
-		Query<?> query = session.createQuery("FROM SubOrder WHERE supplierId = :supplierId");
-		query.setParameter("supplierId", supplierId);
+//		Query<?> query = session.createQuery("FROM SubOrder as So JOIN Members As Mb ON So.memberId = Mb.memberId WHERE supplierId = :supplierId");
+		Query<?> query = session.createQuery("FROM SubOrder as So,Members As Mb where So.memberId = Mb.memberId");
+//		query.setParameter("supplierId", supplierId);
 		
 		System.out.println(gson.toJson(query.getResultList()));
 		return gson.toJson(query.getResultList());
@@ -125,5 +127,13 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String supplierSubOrderFront() {
+		
+        return CommonUtils.toJson((session.createQuery("FROM SubOrder so JOIN Members mb ON so.memberId = mb.memberId").getResultList()));
+	}
+	
+	
 
 }

@@ -52,7 +52,7 @@ public class AdminOrderList extends HttpServlet {
 		Gson gson = new Gson();
 		JsonElement req = gson.fromJson(request.getReader(), JsonElement.class);
 		JsonObject searchCondition = req.getAsJsonObject();
-
+		
 		response.getWriter().print(orderService.orderlist(searchCondition));
 	}
 
