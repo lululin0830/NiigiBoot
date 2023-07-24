@@ -113,9 +113,12 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 
 		Gson gson = new Gson();
 
-//		Query<?> query = session.createQuery("FROM SubOrder as So JOIN Members As Mb ON So.memberId = Mb.memberId WHERE supplierId = :supplierId");
-		Query<?> query = session.createQuery("FROM SubOrder as So,Members As Mb where So.memberId = Mb.memberId");
-//		query.setParameter("supplierId", supplierId);
+//		Query<?> query = session.createQuery("FROM SubOrder As So,Members As Mb where supplierId = :supplierId AND So.memberId = Mb.memberId");
+		
+		Query<?> query = session.createQuery("FROM SubOrder as So,Members As Mb ,SubOrderDetail AS sod, Product as pd "
+											+ "where supplierId = :supplierId AND So.memberId = Mb.memberId And So.subOrderId = sod.subOrderId And sod.productId = pd.productId");
+		
+		query.setParameter("supplierId", supplierId);
 		
 		System.out.println(gson.toJson(query.getResultList()));
 		return gson.toJson(query.getResultList());

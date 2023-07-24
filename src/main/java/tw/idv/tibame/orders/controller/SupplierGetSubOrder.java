@@ -40,7 +40,7 @@ public class SupplierGetSubOrder extends HttpServlet {
 		JsonElement req = gson.fromJson(request.getReader(), JsonElement.class);
 		JsonObject reqjson = req.getAsJsonObject();
 		String supplierId = reqjson.get("supplierId").getAsString();
-				
+		
 		response.getWriter().print(orderService.getSupplierSubOrderInit(supplierId));
 
 	}

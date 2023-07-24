@@ -289,7 +289,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		String result = null;
 		try {
-			result = subOrderDAO.getSupplierSubOrderInit("");
+			result = subOrderDAO.getSupplierSubOrderInit(supplierId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
