@@ -24,10 +24,11 @@ public class Supplier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private SupplierService supplierService;
-
+	private Gson gson;
 	@Override
 	public void init() throws ServletException {
 		supplierService = CommonUtils.getBean(getServletContext(), SupplierService.class);
+		gson = CommonUtils.getBean(getServletContext(), Gson.class);
 	};
 
 	@Override
@@ -62,7 +63,6 @@ public class Supplier extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setContentType("application/json; charset=utf-8");
 
-		Gson gson = new Gson();
 		JsonElement req = gson.fromJson(request.getReader(), JsonElement.class);
 		JsonObject searchCondition = req.getAsJsonObject();
 		

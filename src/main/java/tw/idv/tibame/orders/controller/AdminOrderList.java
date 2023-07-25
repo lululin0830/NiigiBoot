@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,12 +23,15 @@ import tw.idv.tibame.orders.service.impl.OrderServiceImpl;
 @WebServlet("/SubOrderDetail")
 public class AdminOrderList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	
+	private Gson gson;
 	private OrderService orderService;
 
 	@Override	
 	public void init() throws ServletException {
 		orderService = CommonUtils.getBean(getServletContext(), OrderService.class);
+		gson = CommonUtils.getBean(getServletContext(), gson.getClass());
 	}
 
 	@Override
@@ -49,7 +53,6 @@ public class AdminOrderList extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setContentType("application/json; charset=utf-8");
 
-		Gson gson = new Gson();
 		JsonElement req = gson.fromJson(request.getReader(), JsonElement.class);
 		JsonObject searchCondition = req.getAsJsonObject();
 		

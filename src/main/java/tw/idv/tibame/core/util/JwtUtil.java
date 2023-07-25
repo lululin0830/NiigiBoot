@@ -8,6 +8,9 @@ import java.util.Map;
 
 import javax.crypto.spec.SecretKeySpec;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.google.gson.Gson;
 
 import io.jsonwebtoken.Claims;
@@ -23,12 +26,12 @@ import io.jsonwebtoken.gson.io.GsonSerializer;
  * @author Lulu Lin
  * @version 1.0
  */
-
+@Component
 public class JwtUtil implements Serializable{
 
-	/**
-	 * 
-	 */
+	@Autowired
+	private static Gson gson;
+
 	private static final long serialVersionUID = -7699280065575291990L;
 	
 	private static final String SECRET_KEY = JwtConfig.getJwtSecretKey(); 
@@ -43,8 +46,7 @@ public class JwtUtil implements Serializable{
 		// 將userId,userName組合成一個JSON格式的字串，作為JWT的Subject
 		Map<String, Object> subjectMap = new HashMap<>();
 		subjectMap.put("userId", userId);
-		subjectMap.put("username", userName);
-		String subject = CommonUtils.toJson(subjectMap);
+		String subject = gson.toJson(subjectMap);
 
 		// 使用SecretKeySpec來產生用於JWT簽名的Key
 		Key key = new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
@@ -54,7 +56,7 @@ public class JwtUtil implements Serializable{
 				.setSubject(subject)
 				.setExpiration(expirationDate)
 				.signWith(key)
-				.serializeToJsonWith(new GsonSerializer<>(new Gson()))
+				.serializeToJsonWith(new GsonSerializer<>(gson))
 				.compact();
 
 		return jwtToken;
