@@ -8,16 +8,16 @@ import tw.idv.tibame.products.entity.Product;
 public interface ProductDAO extends CoreDAO<Product, Integer> {
 
 	// 萬用更新
-	public Product update(Product newProduct);
+	public Product update(Product newProduct)throws Exception;
 	
 	// 商家查詢商品(全部)
-	public String selectBySupplier (String supplierId);
+	public List<Product> selectBySupplier (String supplierId);
 	
 	// 前台查詢商品(關鍵字)
-	public String selectByKeywords (String[] keywords);
+	public List<Product> selectByKeywords (String[] keywords);
 
 	// 前台查詢商品(商品分類)
-	public String selectByCategorie (String categorie);
+	public List<Product> selectByCategorie (String categorie);
 	
 	public List<String> getSupplierIdList (String productIds);
 }
