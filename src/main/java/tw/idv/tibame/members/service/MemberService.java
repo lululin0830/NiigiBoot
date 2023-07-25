@@ -1,14 +1,16 @@
 package tw.idv.tibame.members.service;
 
+import com.google.gson.JsonObject;
+
+import tw.idv.tibame.core.service.CoreService;
 import tw.idv.tibame.members.entity.Members;
 
-public interface MemberService {
+public interface MemberService extends CoreService<JsonObject> {
 
 	// 註冊
-	public String register(Members newMember)throws Exception;
+	String register(Members newMember) throws Exception;
 
 	// 登入
-	public String logIn (Members member)throws Exception;
-
+	String logIn(Members member) throws Exception;
 
 }
