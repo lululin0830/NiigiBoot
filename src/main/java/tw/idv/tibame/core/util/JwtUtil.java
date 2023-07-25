@@ -88,5 +88,39 @@ public class JwtUtil implements Serializable{
 			return false;
 		}
 	}
+	
+	public static String validateJwtTokenAndSendInfo(String jwtToken) {
+	    try {
+	        // 使用SecretKeySpec來產生用於驗證JWT簽名的Key
+	        Key key = new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
+
+	        // 透過剛剛產生的key來解析JWT Token，並回傳聲明
+	        Jws<Claims> claimsJws = Jwts.parserBuilder()
+	                .setSigningKey(key)
+	                .build()
+	                .parseClaimsJws(jwtToken);
+
+	        // 獲取JWT Token中的過期時間(Claim: exp)
+	        Date expirationDate = claimsJws.getBody().getExpiration();
+
+	        // 檢查Token是否已過期
+	        if (expirationDate != null && expirationDate.before(new Date())) {
+	            return "{\"error\": \"Token expired\"}";
+	        }
+
+	        // 解析JWT Token中的用戶信息
+	        String userId = claimsJws.getBody().get("userId", String.class);
+	        String username = claimsJws.getBody().get("username", String.class);
+
+	        // 構建JSON格式的回應
+	        String jsonResponse = "{\"userId\": \"" + userId + "\", \"username\": \"" + username + "\"}";
+
+	        return jsonResponse;
+	    } catch (ExpiredJwtException e) {
+	        return "{\"error\": \"Token expired\"}";
+	    } catch (Exception e) {
+	        return "{\"error\": \"Invalid token\"}";
+	    }
+	}
 
 }
