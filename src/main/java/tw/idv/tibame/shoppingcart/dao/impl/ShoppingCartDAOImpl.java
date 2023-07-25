@@ -1,6 +1,7 @@
 package tw.idv.tibame.shoppingcart.dao.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -10,17 +11,18 @@ import tw.idv.tibame.shoppingcart.dao.ShoppingCartDAO;
 
 @Repository
 public class ShoppingCartDAOImpl implements ShoppingCartDAO {
-	
+
 	private final RedisTemplate<String, Object> redisTemplate;
 
-    @Autowired
-    public ShoppingCartDAOImpl(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
+	@Autowired
+	public ShoppingCartDAOImpl(RedisTemplate<String, Object> redisTemplate) {
+		this.redisTemplate = redisTemplate;
+	}
 
 	@Override
 	public boolean hasExistsCart(String memberId) {
-		return false;
+
+		return redisTemplate.boundListOps(memberId) != null;
 	}
 
 	@Override
@@ -34,8 +36,10 @@ public class ShoppingCartDAOImpl implements ShoppingCartDAO {
 	}
 
 	@Override
-	public List<String> getCartList(String memberId) {
-		return null;
+	public List<Integer> getCartList(String memberId) {
+		return redisTemplate.boundListOps(memberId).range(0, -1).stream()
+				.map(obj -> (Integer) obj)
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -52,7 +56,5 @@ public class ShoppingCartDAOImpl implements ShoppingCartDAO {
 	public int getCount(String memberId) {
 		return 0;
 	}
-	
-
 
 }

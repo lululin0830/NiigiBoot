@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.google.gson.Gson;
@@ -17,7 +18,8 @@ public class SupplierDAOImpl implements SupplierDAO {
 
 	@PersistenceContext
 	private Session session;
-
+	@Autowired
+	private Gson gson;
 	@Override
 	public Boolean insert(Suppliers entity) throws Exception {
 		return null;
@@ -38,8 +40,6 @@ public class SupplierDAOImpl implements SupplierDAO {
 	public String getAllBySearch(String searchCase, String searchSelect, Timestamp startDate, Timestamp closeDate,
 			String dateSelect) {
 
-		Gson gson = new Gson();
-
 		String hql = "FROM Suppliers WHERE " + searchSelect + " LIKE '%" + searchCase + "%' AND " + dateSelect
 				+ " BETWEEN '" + startDate + "' AND '" + closeDate + "'";
 		return gson.toJson(session.createQuery(hql, Suppliers.class).getResultList());
@@ -47,8 +47,6 @@ public class SupplierDAOImpl implements SupplierDAO {
 
 	@Override
 	public String getAllInit() {
-
-		Gson gson = new Gson();
 
 		String result = gson.toJson(session.createQuery("FROM Suppliers", Suppliers.class).getResultList());
 

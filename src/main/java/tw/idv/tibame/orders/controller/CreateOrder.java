@@ -23,10 +23,11 @@ public class CreateOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private OrderService orderService ;
-	
+	private Gson gson;
 	@Override	
 	public void init() throws ServletException {
 		orderService = CommonUtils.getBean(getServletContext(), OrderService.class);
+		gson = CommonUtils.getBean(getServletContext(), Gson.class);
 	}
 ;
 
@@ -49,7 +50,6 @@ public class CreateOrder extends HttpServlet {
 		resp.setHeader("Access-Control-Allow-Credentials", "true");
 		resp.setContentType("application/json; charset=utf-8");
 
-		Gson gson = new Gson();
 		JsonObject orderData = gson.fromJson(req.getReader(), JsonObject.class);
 
 		

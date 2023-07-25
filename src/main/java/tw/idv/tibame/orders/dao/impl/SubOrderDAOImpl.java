@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.google.gson.Gson;
@@ -20,7 +21,10 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 
 	@PersistenceContext
 	private Session session;
-
+	
+	@Autowired
+	private Gson gson;
+	
 	@Override
 	public Boolean insert(SubOrder entity) throws Exception {
 		session.persist(entity);
@@ -86,9 +90,7 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		List<?> list = query.getResultList();
 		System.out.println("我走到查詢結果了");
 
-		Gson gson = new Gson();
 		String Result = gson.toJson(list);
-//		System.out.println(Result);
 		return Result;
 
 	}
@@ -96,13 +98,10 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 	@Override
 	public String getAllInit() {
 
-//		Query<?> query = session
-//				.createQuery("FROM SubOrder so JOIN SubOrderDetail sod ON so.subOrderId = sod.subOrderId");
 		Query<?> query = session
 				.createQuery("FROM SubOrder as so,SubOrderDetail as sod where so.subOrderId = sod.subOrderId");
 		List<?> list = query.getResultList();
 
-		Gson gson = new Gson();
 		String result = gson.toJson(list);
 
 		return result;
@@ -110,10 +109,6 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 
 	@Override
 	public String getSupplierSubOrderInit(String supplierId) {
-
-		Gson gson = new Gson();
-
-//		Query<?> query = session.createQuery("FROM SubOrder As So,Members As Mb where supplierId = :supplierId AND So.memberId = Mb.memberId");
 		
 		Query<?> query = session.createQuery("FROM SubOrder as So,Members As Mb ,SubOrderDetail AS sod, Product as pd "
 											+ "where supplierId = :supplierId AND So.memberId = Mb.memberId And So.subOrderId = sod.subOrderId And sod.productId = pd.productId");
@@ -134,7 +129,7 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 	@Override
 	public String supplierSubOrderFront() {
 		
-        return CommonUtils.toJson((session.createQuery("FROM SubOrder so JOIN Members mb ON so.memberId = mb.memberId").getResultList()));
+        return gson.toJson((session.createQuery("FROM SubOrder so JOIN Members mb ON so.memberId = mb.memberId").getResultList()));
 	}
 	
 	
