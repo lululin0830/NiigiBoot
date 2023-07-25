@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.JsonObject;
+
 import tw.idv.tibame.core.util.JwtUtil;
 import tw.idv.tibame.core.util.PasswordEncryptor;
 import tw.idv.tibame.members.dao.MemberDAO;
@@ -98,6 +100,11 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		return JwtUtil.generateJwtToken(memberAcct, member.getMemberId());
+	}
+
+	@Override
+	public String initForHeader(JsonObject memberInfo) {
+		return null;
 	}
 
 }
