@@ -32,7 +32,7 @@ public interface ShoppingCartDAO {
 	 * @param memberId
 	 * @return
 	 */
-	List<String> getCartList(String memberId);
+	List<Integer> getCartList(String memberId);
 
 	/**
 	 * 移除購物車內單項商品

@@ -21,10 +21,13 @@ public class SupplierGetSubOrder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private OrderService orderService;
-
+	private Gson gson;
+		
+	
 	@Override
 	public void init() throws ServletException {
 		orderService = CommonUtils.getBean(getServletContext(), OrderService.class);
+		gson = CommonUtils.getBean(getServletContext(), Gson.class);
 	};
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -36,7 +39,6 @@ public class SupplierGetSubOrder extends HttpServlet {
 		response.setHeader("Access-Control-Allow-Credentials", "true"); // 是否允許帶有憑證的請求
 		response.setContentType("application/json; charset=utf-8");
 		
-		Gson gson = new Gson();
 		JsonElement req = gson.fromJson(request.getReader(), JsonElement.class);
 		JsonObject reqjson = req.getAsJsonObject();
 		String supplierId = reqjson.get("supplierId").getAsString();
