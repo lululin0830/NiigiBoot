@@ -18,7 +18,7 @@ public class SortWeight {
 
 	@Id
 	private Timestamp weightsUpdateTime;
-	private String dealerUserId;
+	private Integer dealerUserId;
 	private String dataPeriod;
 	private String weights1;
 	private Double weights1Ratio;
