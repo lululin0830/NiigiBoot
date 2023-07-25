@@ -90,33 +90,33 @@
                 <nav class="fixed-nav col-sm-4">
 
                     <div class="fixed-nav-list login row">
-                        <a href="" class="SCM-Center col">
+                        <a href="" class="SCM-Center col" data-bs-toggle="modal" data-bs-target="#login_popup">
                             <div class="SCM_icon">
                                 <button class="btn_SCM-Center">商家中心</button>
                             </div>
                         </a>
 
-                        <a href="" class="User-Center col" id="myLink" data-bs-toggle="modal" data-bs-target="#myModal">
+                        <a href="" class="User-Center col" id="myLink" data-bs-toggle="modal" data-bs-target="#login_popup">
                             <div class="User_icon">
                                 <img src="./image/Profile.svg">
                             </div>
                         </a>
 
-                        <a href="" class="Favorite col">
+                        <a href="" class="Favorite col" data-bs-toggle="modal" data-bs-target="#login_popup">
                             <div class="header_icon">
                                 <img src="./image/heart.svg" alt="">
                                 <span class="count -active">0</span>
                             </div>
                         </a>
 
-                        <a href="" class="Shopping-Cart col">
+                        <a href="" class="Shopping-Cart col" data-bs-toggle="modal" data-bs-target="#login_popup">
                             <div class="header_icon">
                                 <img src="./image/Buy.svg" alt="">
                                 <span class="count -active">0</span>
                             </div>
                         </a>
 
-                        <a href="" class="Notification col">
+                        <a href="" class="Notification col" data-bs-toggle="modal" data-bs-target="#login_popup">
                             <div class="header_icon">
                                 <img src="./image/Notification.svg" alt="">
                                 <span class="count -active">0</span>
@@ -131,8 +131,8 @@
         </div>
 
     </header>
-    <!-- ----------------------以下是選擇登入方式彈窗內容------------------------- -->
-    <div class="modal" id="myModal">
+    <!-- ----------------------以下是登入彈窗內容------------------------- -->
+    <div class="modal" id="login_popup">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -150,7 +150,7 @@
                     <h5>------------------使用Niigi帳號------------------</h5>
                     <div style="height: 20px;"></div>
                     <button type="button" class="modal-button" data-bs-toggle="modal"
-                        data-bs-target="#myModal-1">使用Niigi帳號繼續</button>
+                        data-bs-target="#login_Niigi">使用Niigi帳號繼續</button>
                     <div style="height: 50px;"></div>
                 </div>
 
@@ -158,8 +158,8 @@
         </div>
     </div>
 
-    <!-- -------------------以下是登入方式彈窗內容 --------------------->
-    <div class="modal fade" id="myModal-1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
+    <!-- -------------------以下是選擇niigi登入彈窗內容 --------------------->
+    <div class="modal fade" id="login_Niigi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -190,14 +190,14 @@
                     <div style="height: 20px;"></div>
                     <div class="modal-footer d-flex justify-content-between align-items-center">
                         <button type="button" class="btn btn-link " data-bs-toggle="modal"
-                            data-bs-target="#myModal-2">忘記密碼</button>
+                            data-bs-target="#forget_password">忘記密碼</button>
                         <hr class="vertical-line">
                         <button type="button" class="btn btn-link" data-bs-toggle="modal"
-                            data-bs-target="#myModal-3">重寄認證信</button>
+                            data-bs-target="#resend_letter">重寄認證信</button>
                     </div>
                     <p>還不是會員嗎?</p>
                     <button type="button" class="btn btn-link" data-bs-toggle="modal"
-                        data-bs-target="#myModal-4">立即註冊帳號</button>
+                        data-bs-target="#register_account">立即註冊帳號</button>
                 </div>
 
                 <div class="modal-footer d-flex justify-content-center align-items-center">
@@ -207,7 +207,7 @@
         </div>
     </div>
     <!-- -------------------以下是忘記密碼彈窗內容 --------------------->
-    <div class="modal fade" id="myModal-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
+    <div class="modal fade" id="forget_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -235,7 +235,7 @@
         </div>
     </div>
     <!-- -------------------以下是重寄認證信彈窗內容 --------------------->
-    <div class="modal fade" id="myModal-3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
+    <div class="modal fade" id="resend_letter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -263,7 +263,7 @@
         </div>
     </div>
     <!-- -------------------以下是註冊新帳號彈窗內容 --------------------->
-    <div class="modal fade" id="myModal-4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
+    <div class="modal fade" id="register_account" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -959,77 +959,7 @@
         }
     </script>
 
-    <script>
-        const backToPreviousModalBtn = document.getElementById("backToPreviousModal");
-
-        //登入回到選擇登入
-        backToPreviousModalBtn.addEventListener("click", function () {
-            const currentModal = document.getElementById("myModal-1");
-            const previousModal = document.getElementById("myModal");
-
-            currentModal.style.display = "none";
-            previousModal.style.display = "block";
-
-            // 重新打開上一個彈窗
-            const previousModalInstance = new bootstrap.Modal(previousModal);
-            previousModalInstance.show();
-
-            // 關閉當前彈窗
-            const currentModalInstance = bootstrap.Modal.getInstance(currentModal);
-            currentModalInstance.hide();
-        });
-        //忘記密碼回到登入
-        const backToPreviousModalBtn2 = document.getElementById("backToPreviousModal-2");
-        backToPreviousModalBtn2.addEventListener("click", function () {
-            const currentModal = document.getElementById("myModal-2");
-            const previousModal = document.getElementById("myModal-1");
-
-            currentModal.style.display = "none";
-            previousModal.style.display = "block";
-
-            // 重新打開上一個彈窗
-            const previousModalInstance = new bootstrap.Modal(previousModal);
-            previousModalInstance.show();
-
-            // 關閉當前彈窗
-            const currentModalInstance = bootstrap.Modal.getInstance(currentModal);
-            currentModalInstance.hide();
-        });
-        //重寄認證信回到登入
-        const backToPreviousModalBtn3 = document.getElementById("backToPreviousModal-3");
-        backToPreviousModalBtn3.addEventListener("click", function () {
-            const currentModal = document.getElementById("myModal-3");
-            const previousModal = document.getElementById("myModal-1");
-
-            currentModal.style.display = "none";
-            previousModal.style.display = "block";
-
-            // 重新打開上一個彈窗
-            const previousModalInstance = new bootstrap.Modal(previousModal);
-            previousModalInstance.show();
-
-            // 關閉當前彈窗
-            const currentModalInstance = bootstrap.Modal.getInstance(currentModal);
-            currentModalInstance.hide();
-        });
-        //註冊回到登入
-        const backToPreviousModalBtn4 = document.getElementById("backToPreviousModal-4");
-        backToPreviousModalBtn4.addEventListener("click", function () {
-            const currentModal = document.getElementById("myModal-4");
-            const previousModal = document.getElementById("myModal-1");
-
-            currentModal.style.display = "none";
-            previousModal.style.display = "block";
-
-            // 重新打開上一個彈窗
-            const previousModalInstance = new bootstrap.Modal(previousModal);
-            previousModalInstance.show();
-
-            // 關閉當前彈窗
-            const currentModalInstance = bootstrap.Modal.getInstance(currentModal);
-            currentModalInstance.hide();
-        });
-    </script>
+    <script src="./js/login_popup.js"></script>
 </body>
 
 </html>
