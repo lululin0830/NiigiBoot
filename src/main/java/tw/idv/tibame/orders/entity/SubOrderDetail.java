@@ -28,12 +28,12 @@ public class SubOrderDetail implements Serializable{
 	private String orderId ;
 	private Integer productId;
 	private String productSpecId;
-	private int productPrice;
+	private Integer productPrice;
 	@Column(insertable = false)
-	private int itemCouponDiscount;
-	private int eventPrice;
+	private Integer itemCouponDiscount;
+	private Integer eventPrice;
 	@Column(insertable = false)
-	private int ratingStar;
+	private Integer ratingStar;
 	@Column(insertable = false)
 	private String comment;
 	@Column(insertable = false)
@@ -41,8 +41,6 @@ public class SubOrderDetail implements Serializable{
 	@Column(insertable = false)
 	private Date refundDeadline;
 	@Column(insertable = false)
-//	private Date refundDate;
-//	@Column(insertable = false)
 	private String refundReason;
 	@Column(insertable = false)
 	private String refundRemark;
