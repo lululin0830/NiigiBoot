@@ -1,7 +1,5 @@
 package tw.idv.tibame.products.dao.impl;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import tw.idv.tibame.orders.entity.MainOrder;
 import tw.idv.tibame.products.dao.ProductDAO;
 import tw.idv.tibame.products.entity.Product;
 
