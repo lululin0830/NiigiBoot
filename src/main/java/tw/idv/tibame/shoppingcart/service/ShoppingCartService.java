@@ -9,12 +9,12 @@ public interface ShoppingCartService {
 	 * @param memberId
 	 * @return
 	 */
-	String init(String memberId);
+	String init(String memberId) throws Exception;
 	
 	/**
 	 * 加入購物車
 	 */
-	String addToCart(JsonObject data);
+	boolean addToCart(JsonObject data);
 	
 	/**
 	 * 從購物車移除商品

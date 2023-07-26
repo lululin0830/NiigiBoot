@@ -692,13 +692,13 @@ CREATE TABLE EventSingleThreshold(
   minPurchaseAmount INT unsigned comment '滿額門檻',
   discountRate DECIMAL(3,2) comment '折扣比例',
   discountAmount INT unsigned comment '折扣定額',
-  giftProductId INT comment '贈品商品編號', 
+  giftProductSpecId CHAR(11) comment '贈品商品規格編號', 
   couponCode CHAR(10) unique comment '折價券歸戶代碼',
   couponAvailableAmount INT unsigned comment '折價券使用張數上限',
   couponUsedAmount INT unsigned comment '折價券已使用張數',
   couponAvailablePerPurchase INT unsigned comment '單筆可使用折價券張數',
   constraint FK_EventSingleThreshold_eventRegisterSupplier foreign key (eventRegisterSupplier) references Suppliers (supplierId),
-  constraint FK_Event_SingleThreshold_giftProductId foreign key (giftProductId) references Product (productId)
+  constraint FK_Event_SingleThreshold_giftProductSpecId foreign key (giftProductSpecId) references ProductSpec (productSpecId)
 ) comment '行銷活動(單一門檻)';
 
 -- 行銷活動適用商品
