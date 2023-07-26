@@ -1,66 +1,44 @@
 package tw.idv.tibame.users.entity;
 
-public class Users implements java.io.Serializable{
+import org.springframework.data.annotation.Id;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import tw.idv.tibame.core.entity.Core;
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Users extends Core{
 
 	/**
 	 * 平台使用者
 	 */
 	private static final long serialVersionUID = -6071858145966342981L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
 	private String userName;
 	private String userAcct;
 	private String password;
+	@Column(insertable = false)
 	private String financialAuthority;
+	@Column(insertable = false)
 	private String customerServiceAuthority;
+	@Column(insertable = false)
 	private String marketingAuthority;
+	@Column(insertable = false)
 	private String hrAuthority;
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getUserAcct() {
-		return userAcct;
-	}
-	public void setUserAcct(String userAcct) {
+	
+	public Users(String userAcct,String password) {
 		this.userAcct = userAcct;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getFinancialAuthority() {
-		return financialAuthority;
-	}
-	public void setFinancialAuthority(String financialAuthority) {
-		this.financialAuthority = financialAuthority;
-	}
-	public String getCustomerServiceAuthority() {
-		return customerServiceAuthority;
-	}
-	public void setCustomerServiceAuthority(String customerServiceAuthority) {
-		this.customerServiceAuthority = customerServiceAuthority;
-	}
-	public String getMarketingAuthority() {
-		return marketingAuthority;
-	}
-	public void setMarketingAuthority(String marketingAuthority) {
-		this.marketingAuthority = marketingAuthority;
-	}
-	public String getHrAuthority() {
-		return hrAuthority;
-	}
-	public void setHrAuthority(String hrAuthority) {
-		this.hrAuthority = hrAuthority;
 	}
 }

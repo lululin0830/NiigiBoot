@@ -1,20 +1,22 @@
 package tw.idv.tibame.users.dao;
 
-import java.util.List;
-
+import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.users.entity.Users;
 
-public interface UserDAO {
-	public void insert(Users user);
 
-	// 更新一個權限，換四個權限
-	public void updatePermissions(Users user);
-	//更新密碼
-	public void updatePassword(Users user);
+public interface UserDAO extends CoreDAO<Users, String>{
+	// 萬用更新
+		public int update(Users newUser);
 
-	public void delete(Integer userId);
+		// 刪除
+		public int deleteByUserId(Integer userId);
 
-	public Users findByPrimaryKey(Integer userId);
+		// 找名稱
+		public Users selectByUserName(String userName);
 
-	public List<Users> getAll();
+		// 找帳號
+		public Users selectByUserAcct(String userAcct);
+
+		// 登入
+		public Users selectForLogin(String userAcct, String password);
 }
