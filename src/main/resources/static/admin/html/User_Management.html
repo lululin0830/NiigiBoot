@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../vendors/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../css/adminlte.min.css">
-    <link rel="stylesheet" href="../../front/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../../frontend/vendors/bootstrap/bootstrap.min.css">
     <style>
         th {
             border: solid 3px white;
@@ -470,11 +470,12 @@
             <div class="search-container">
                 <input id="Searchcase" type="text" value="" placeholder="請輸入搜尋條件">
                 <select id="SearchSelect">
+                    <option value="All">全部</option>
                     <option value="User_Name">使用者名稱</option>
                 </select>
-                <button type="submit" class="btn-primary">搜尋</button>
-                <button type="submit" class="btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#add_user">新增使用者</button>
+                <button type="submit" class="btn-primary" id="search">搜尋</button>
+                <button type="submit" class="btn-primary " data-bs-toggle="modal" data-bs-target="#add_user"
+                    id="addUser">新增使用者</button>
             </div>
             <div style="height: 20px;"></div>
 
@@ -484,6 +485,7 @@
                         <tr>
                             <th>使用者名稱</th>
                             <th>使用者帳號</th>
+                            <th>密碼</th>
                             <th>人事</th>
                             <th>財務</th>
                             <th>行銷</th>
@@ -498,17 +500,20 @@
                             <td>資料 1,4</td>
                             <td>資料 1,5</td>
                             <td>資料 1,6</td>
+                            <td>資料 1,7</td>
                             <td>
                                 <button type="button" class="btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#account_settings">帳號設定</button>
+                                    data-bs-target="#account_settings" id="accountSettings">帳號設定</button>
 
                             </td>
                             <td>
                                 <button type="button" class="btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#delete_user">刪除成員</button>
+                                    data-bs-target="#delete_user" id="deleteUser">刪除成員</button>
                             </td>
                         </tr>
                     </thead>
+                    <tbody id="searchResult">
+                    </tbody>
                 </table>
             </div>
 
@@ -539,7 +544,7 @@
                         <label for="username">預設密碼：</label>
                         <input type="text" id="username" name="username" value="">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="username">權限設定：</label>
                         <input type="radio" id="personnel" name="quantity" value="personnel">
                         <label for="male">人事</label>
@@ -549,7 +554,7 @@
                         <label for="male">行銷</label>
                         <input type="radio" id="customer_service" name="quantity" value="customer_service">
                         <label for="female">客服</label>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
                         <button type="button" class="btn-primary">新增</button>
@@ -600,29 +605,29 @@
             </div>
         </div>
     </div>
-     <!-- -------------------以下是刪除帳號彈窗內容------------------- -->
-     <div class="modal fade" id="delete_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
-     aria-hidden="true">
-     <div class="modal-dialog" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body d-flex flex-column justify-content-center align-items-center">
-                 <h3>刪除帳號</h3>
-                 <h5>確定要刪除此帳號嗎?</h5>
-                 <div class="form-group-1">
-                     <label for="current-balance">OTP驗證碼：</label>
-                     <input type="text" id="username" name="username" value="">
-                 </div>
-                 <div class="form-group">
-                     <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
-                     <button type="button" class="btn-primary">刪除</button>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
+    <!-- -------------------以下是刪除帳號彈窗內容------------------- -->
+    <div class="modal fade" id="delete_user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+                    <h3>刪除帳號</h3>
+                    <h5>確定要刪除此帳號嗎?</h5>
+                    <div class="form-group-1">
+                        <label for="current-balance">OTP驗證碼：</label>
+                        <input type="text" id="username" name="username" value="">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn-primary">刪除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
@@ -648,6 +653,8 @@
     <script src="../js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="../js/dashboard2.js"></script>
+    <!-- 使用者管理功能 -->
+    <script src="../js/User_Management.js"></script>
 </body>
 
 </html>
