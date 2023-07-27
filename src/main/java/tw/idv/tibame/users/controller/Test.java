@@ -12,7 +12,7 @@ import tw.idv.tibame.core.util.CommonUtils;
 import tw.idv.tibame.users.dao.UserDAO;
 import tw.idv.tibame.users.entity.Users;
 
-@WebServlet("Test02")
+@WebServlet("/Test02")
 public class Test extends HttpServlet{
 
 	/**
@@ -23,7 +23,7 @@ public class Test extends HttpServlet{
 	UserDAO dao;
 
 	@Override
-	public void init(ServletConfig config) throws ServletException {
+	public void init() throws ServletException {
 		dao = CommonUtils.getBean(getServletContext(), UserDAO.class);
 	}
 
