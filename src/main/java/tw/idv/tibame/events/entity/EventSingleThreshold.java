@@ -36,7 +36,7 @@ public class EventSingleThreshold {
 	private Integer minPurchaseAmount;
 	private Double discountRate;
 	private Integer discountAmount;
-	private Integer giftProductId;
+	private String giftProductSpecId;
 	@Column(unique = true)
 	private String couponCode;
 	private Integer couponAvailableAmount;

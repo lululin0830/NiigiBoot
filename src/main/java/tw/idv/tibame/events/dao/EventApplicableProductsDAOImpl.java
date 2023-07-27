@@ -56,8 +56,8 @@ public class EventApplicableProductsDAOImpl {
 		String queryString = temp.deleteCharAt(temp.length() - 1).toString();
 
 		String hql = "FROM EventApplicableProducts AS eap , EventSingleThreshold AS est "
-				+ "WHERE eap.eventId = est.eventId AND ProductSpecId in (" + queryString + ") "
-				+ "AND est.eventEnd >= CURDATE() AND est.eventType ='4'";
+				+ "WHERE eap.eventId = est.eventId AND productId in (" + queryString + ") "
+				+ "AND est.eventEnd >= CURDATE() AND est.eventType in ('3','4')";
 
 		return session.createQuery(hql, EventApplicableProducts.class).setParameter("productId", productId)
 				.getResultList();
