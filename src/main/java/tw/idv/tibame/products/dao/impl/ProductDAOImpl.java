@@ -14,7 +14,6 @@ import tw.idv.tibame.products.dao.ProductDAO;
 import tw.idv.tibame.products.entity.Product;
 
 @Repository
-@Transactional
 public class ProductDAOImpl implements ProductDAO {
 
 	@PersistenceContext
