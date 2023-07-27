@@ -14,7 +14,6 @@ import tw.idv.tibame.products.dao.ProductSpecDAO;
 import tw.idv.tibame.products.entity.ProductSpec;
 
 @Repository
-@Transactional
 public class ProductSpecDAOImpl implements ProductSpecDAO {
 
 	@PersistenceContext
@@ -36,7 +35,6 @@ public class ProductSpecDAOImpl implements ProductSpecDAO {
 	public List<ProductSpec> getAll() throws Exception {
 		return null;
 	}
-	
 	
 	@Override
 	public ProductSpec update(ProductSpec newProductSpec) {
@@ -89,10 +87,17 @@ public class ProductSpecDAOImpl implements ProductSpecDAO {
 		String sql = "select count(*) from ProductSpec where productId = :productIds";
 		NativeQuery<Integer> nativeQuery = session.createNativeQuery(sql, Integer.class);
 		nativeQuery.setParameter("productIds", productId);
-		return nativeQuery.uniqueResult();
-		
-		
-		
+		return nativeQuery.uniqueResult();	
+	}
+	
+	//更新庫存
+	public Boolean updateSpecStock(String productSpecId,Integer specStock) {
+		String sql = "update ProductSpec set specStock = :specStock where productSpecId = :productSpecId";
+		NativeQuery<Boolean> nativeQuery = session.createNativeQuery(sql, Boolean.class);
+		nativeQuery.setParameter("productSpecId", productSpecId);
+		nativeQuery.setParameter("specStock", specStock);
+        int updatedCount = nativeQuery.executeUpdate();
+        return updatedCount > 0;
 	}
 
 }
