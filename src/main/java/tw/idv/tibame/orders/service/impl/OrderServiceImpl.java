@@ -283,7 +283,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	
-	//前台 商家訂單中心
+	//前台 商家訂單中心 載入顯示全部
 	@Override
 	public String getSupplierSubOrderInit(String supplierId) {
 		
@@ -295,11 +295,50 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return result;
 	}
-
+	
+	//前台 商家訂單中心 條件查詢
 	@Override
-	public String getSupplierSubOrderSearch() {
-		return null;
+	public String getSupplierSubOrderBySearch(JsonObject SearchCondition) {
+		
+		String searchcase = SearchCondition.get("searchcase").getAsString();
+
+		String SearchSelect = SearchCondition.get("searchway").getAsString();
+
+		String startDateString = SearchCondition.get("StartDate").getAsString();
+
+		Timestamp startDate, closeDate;
+
+		if (startDateString.length() > 0) {
+			startDateString += " 00:00:00";
+			startDate = Timestamp.valueOf(startDateString);
+		} else {
+			startDate = Timestamp.valueOf("1970-01-01 00:00:00");
+		}
+
+		String closeDateString = SearchCondition.get("EndDate").getAsString();
+
+		if (closeDateString.length() > 0) {
+			closeDateString += " 00:00:00";
+			closeDate = Timestamp.valueOf(closeDateString);
+		} else {
+			closeDate = Timestamp.valueOf(LocalDateTime.now());
+		}
+
+		String supplierId = SearchCondition.get("supplierId").getAsString();
+
+		String result = null;
+		try {
+
+			result = subOrderDAO.getSupplierSubOrderBySearch(searchcase, SearchSelect, startDate, closeDate, supplierId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
+		return result;
 	}
+
+	
 
 	
 	

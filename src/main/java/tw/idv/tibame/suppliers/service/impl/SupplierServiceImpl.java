@@ -76,17 +76,4 @@ public class SupplierServiceImpl implements SupplierService {
 		}
 		return result;
 	}
-
-	@Override
-	public String supplierSubOrderFront() {
-	
-        String result = null;
-       try {
-            result = sdao.supplierSubOrderFront();	            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-	}
-
 }
