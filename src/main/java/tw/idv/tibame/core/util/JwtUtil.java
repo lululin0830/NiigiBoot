@@ -46,6 +46,7 @@ public class JwtUtil implements Serializable{
 		// 將userId,userName組合成一個JSON格式的字串，作為JWT的Subject
 		Map<String, Object> subjectMap = new HashMap<>();
 		subjectMap.put("userId", userId);
+		subjectMap.put("userName", userName);
 		String subject = gson.toJson(subjectMap);
 
 		// 使用SecretKeySpec來產生用於JWT簽名的Key

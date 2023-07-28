@@ -121,17 +121,22 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 	}
 
 	@Override
-	public String getSupplierSubOrderSearch() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getSupplierSubOrderBySearch(String searchcase, String SearchSelect, Timestamp startDate,
+			Timestamp closeDate, String supplierId) {
+		
+		String Table = "sod.";
+		if(SearchSelect.equals("memberAcct") ) {
+			Table = "Mb.";
+		}
+		
+		Query<?>query = session.createQuery("FROM SubOrder as So, Members As Mb ,SubOrderDetail AS sod, Product as pd " + 
+				"where So.supplierId = :supplierId AND So.memberId = Mb.memberId And So.subOrderId = sod.subOrderId And sod.productId = pd.productId" +
+				" AND "+ Table + SearchSelect + " LIKE '%" + searchcase + "%' AND orderCreateTime BETWEEN '" + startDate + "' AND '" + closeDate +"'");
+		
+			query.setParameter("supplierId", supplierId);
+		return gson.toJson(query.getResultList());
 	}
 
-	@Override
-	public String supplierSubOrderFront() {
-		
-        return gson.toJson((session.createQuery("FROM SubOrder so JOIN Members mb ON so.memberId = mb.memberId").getResultList()));
-	}
-	
 	
 
 }

@@ -181,6 +181,11 @@
             color: white;
         }
 
+        /* 隱藏匯出報表按鈕 */
+        button.btn-yellow {
+            display: none;
+        }
+
         /* 全部選取 */
         div.order-select {
             display: flex;
@@ -503,27 +508,26 @@
                                 <div class="order-selector row">
                                     <div class="col-sm-6 row">
                                         <h4 class="col mb-0">立單日期：</h4>
-                                        <input type="date" name="create-date-start" id="startDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="startDate" class="form-control col">
                                         <h4 class="col-sm-1 text-center">~</h4>
-                                        <input type="date" name="create-date-start" id="EndDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="EndDate" class="form-control col">
                                     </div>
                                     <div class="row">
                                         <span class="col-sm-3">
-                                            <input type="text" id="selectKey-home" class="form-control"
+                                            <input type="text" id="selectKey" class="form-control"
                                                 placeholder="請輸入搜尋條件">
                                         </span>
                                         <span class="col-sm-2">
                                             <select name="select-criteria" id="selectCriteria-home" class="form-select">
                                                 <option value="subOrderId">訂單編號</option>
-                                                <option value="memberAccount">會員帳號</option>
-                                                <option value="productId">商品編號</option>
+                                                <option value="memberAcct">會員帳號</option>
+                                                <option value="productSpecId">商品編號</option>
                                             </select>
                                         </span>
                                         <span class="col-sm-3">
-                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
-                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                            <button type="submit" class="btn btn-primary btn-S search">搜尋</button>
+                                            <button type="button"
+                                                class="btn btn-primary btn-S clearSearch">清空搜尋</button>
                                         </span>
                                         <span class="col-sm-2"></span>
                                         <span class="col-sm-2 d-flex justify-content-end">
@@ -561,126 +565,6 @@
                                         <div class="col-sm-2"></div>
                                         <hr>
                                     </li>
-                                    <!-- <li class="sub-order row">
-                                        <div class="col-sm-4 order-select">
-                                            <input type="checkbox" class="select me-3">
-                                            <span class="memberAccount">jeffrey47@gmail.com</span>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
-                                        </div>
-                                        <div class="col d-flex justify-content-end">
-                                            <span class="order-date">2023-06-30</span>
-                                        </div>
-                                         訂單明細列表 
-                                        <ul class="order-detail">
-                                            <li class="order-item row">
-                                                <div class="col-sm-2">
-                                                    <img src="./image/product.svg" alt="">
-                                                </div>
-                                                <div class=" col-sm-2">
-                                                    <p class="product-name">商品名稱XXXX</p>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <p>10000001001</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>1</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>100,000</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>待處理</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>宅配</p>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button type="button" class="btn btn-primary btn-M"
-                                                        data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                                                        取消訂單
-                                                    </button>
-                                                </div>
-                                                <hr>
-                                            </li>
-                                            <li class="order-item row">
-                                                <div class="col-sm-2">
-                                                    <img src="./image/product.svg" alt="">
-                                                </div>
-                                                <div class=" col-sm-2">
-                                                    <p class="product-name">商品名稱XXXX</p>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <p>10000001001</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>1</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>100,000</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>待處理</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>宅配</p>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button type="button" class="btn btn-primary btn-M"
-                                                        data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                                                        取消訂單
-                                                    </button>
-                                                </div>
-                                                <hr>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-order row">
-                                        <div class="col-sm-4 order-select">
-                                            <input type="checkbox" class="select me-3">
-                                            <span class="memberAccount">jeffrey47@gmail.com</span>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <span>訂單編號：<span class="sub-order-id">20230630000000001-001</span></span>
-                                        </div>
-                                        <div class="col d-flex justify-content-end">
-                                            <span class="order-date">2023-06-30</span>
-                                        </div>
-                                         訂單明細列表
-                                        <ul class="order-detail">
-                                            <li class="order-item row">
-                                                <div class="col-sm-2">
-                                                    <img src="./image/product.svg" alt="">
-                                                </div>
-                                                <div class=" col-sm-2">
-                                                    <p class="product-name">商品名稱XXXX</p>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <p>10000001001</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>1</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>100,000</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>待處理</p>
-                                                </div>
-                                                <div class="col-sm-1">
-                                                    <p>宅配</p>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button type="button" class="btn btn-primary btn-M"
-                                                        data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                                                        取消訂單
-                                                    </button>
-                                                </div>
-                                                <hr>
-                                            </li>
-                                        </ul>
-                                    </li> -->
                                 </ul>
 
                             </div>
@@ -690,28 +574,27 @@
                                 <div class="order-selector row">
                                     <div class="col-sm-6 row">
                                         <h4 class="col mb-0">立單日期：</h4>
-                                        <input type="date" name="create-date-start" id="startDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="startDate" class="form-control col">
                                         <h4 class="col-sm-1 text-center">~</h4>
-                                        <input type="date" name="create-date-start" id="EndDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="EndDate" class="form-control col">
                                     </div>
                                     <div class="row">
                                         <span class="col-sm-3">
-                                            <input type="text" id="selectKey-inprogress" class="form-control"
+                                            <input type="text" id="selectKey" class="form-control"
                                                 placeholder="請輸入搜尋條件">
                                         </span>
                                         <span class="col-sm-2">
                                             <select name="select-criteria" id="selectCriteria-inprogress"
                                                 class="form-select">
                                                 <option value="subOrderId">訂單編號</option>
-                                                <option value="memberAccount">會員帳號</option>
-                                                <option value="productId">商品編號</option>
+                                                <option value="memberAcct">會員帳號</option>
+                                                <option value="productSpecId">商品編號</option>
                                             </select>
                                         </span>
                                         <span class="col-sm-3">
-                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
-                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                            <button type="submit" class="btn btn-primary btn-S search">搜尋</button>
+                                            <button type="button"
+                                                class="btn btn-primary btn-S clearSearch">清空搜尋</button>
                                         </span>
                                         <span class="col-sm-2"></span>
                                         <span class="col-sm-2 d-flex justify-content-end">
@@ -759,28 +642,27 @@
                                 <div class="order-selector row">
                                     <div class="col-sm-6 row">
                                         <h4 class="col mb-0">立單日期：</h4>
-                                        <input type="date" name="create-date-start" id="startDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="startDate" class="form-control col">
                                         <h4 class="col-sm-1 text-center">~</h4>
-                                        <input type="date" name="create-date-start" id="EndDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="EndDate" class="form-control col">
                                     </div>
                                     <div class="row">
                                         <span class="col-sm-3">
-                                            <input type="text" id="selectKey-refund" class="form-control"
+                                            <input type="text" id="selectKey" class="form-control"
                                                 placeholder="請輸入搜尋條件">
                                         </span>
                                         <span class="col-sm-2">
                                             <select name="select-criteria" id="selectCriteria-refund"
                                                 class="form-select">
                                                 <option value="subOrderId">訂單編號</option>
-                                                <option value="memberAccount">會員帳號</option>
-                                                <option value="productId">商品編號</option>
+                                                <option value="memberAcct">會員帳號</option>
+                                                <option value="productSpecId">商品編號</option>
                                             </select>
                                         </span>
                                         <span class="col-sm-3">
-                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
-                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                            <button type="submit" class="btn btn-primary btn-S search">搜尋</button>
+                                            <button type="button"
+                                                class="btn btn-primary btn-S clearSearch">清空搜尋</button>
                                         </span>
                                         <span class="col-sm-2"></span>
                                         <span class="col-sm-2 d-flex justify-content-end">
@@ -826,28 +708,27 @@
                                 <div class="order-selector row">
                                     <div class="col-sm-6 row">
                                         <h4 class="col mb-0">立單日期：</h4>
-                                        <input type="date" name="create-date-start" id="startDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="startDate" class="form-control col">
                                         <h4 class="col-sm-1 text-center">~</h4>
-                                        <input type="date" name="create-date-start" id="EndDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="EndDate" class="form-control col">
                                     </div>
                                     <div class="row">
                                         <span class="col-sm-3">
-                                            <input type="text" id="selectKey-complete" class="form-control"
+                                            <input type="text" id="selectKey" class="form-control"
                                                 placeholder="請輸入搜尋條件">
                                         </span>
                                         <span class="col-sm-2">
                                             <select name="select-criteria" id="selectCriteria-complete"
                                                 class="form-select">
                                                 <option value="subOrderId">訂單編號</option>
-                                                <option value="memberAccount">會員帳號</option>
-                                                <option value="productId">商品編號</option>
+                                                <option value="memberAcct">會員帳號</option>
+                                                <option value="productSpecId">商品編號</option>
                                             </select>
                                         </span>
                                         <span class="col-sm-3">
-                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
-                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                            <button type="submit" class="btn btn-primary btn-S search">搜尋</button>
+                                            <button type="button"
+                                                class="btn btn-primary btn-S clearSearch">清空搜尋</button>
                                         </span>
                                         <span class="col-sm-2"></span>
                                         <span class="col-sm-2 d-flex justify-content-end">
@@ -893,28 +774,27 @@
                                 <div class="order-selector row">
                                     <div class="col-sm-6 row">
                                         <h4 class="col mb-0">立單日期：</h4>
-                                        <input type="date" name="create-date-start" id="startDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="startDate" class="form-control col">
                                         <h4 class="col-sm-1 text-center">~</h4>
-                                        <input type="date" name="create-date-start" id="EndDate"
-                                            class="form-control col">
+                                        <input type="date" name="create-date" id="EndDate" class="form-control col">
                                     </div>
                                     <div class="row">
                                         <span class="col-sm-3">
-                                            <input type="text" id="selectKey-cancel" class="form-control"
+                                            <input type="text" id="selectKey" class="form-control"
                                                 placeholder="請輸入搜尋條件">
                                         </span>
                                         <span class="col-sm-2">
                                             <select name="select-criteria" id="selectCriteria-cancel"
                                                 class="form-select">
                                                 <option value="subOrderId">訂單編號</option>
-                                                <option value="memberAccount">會員帳號</option>
-                                                <option value="productId">商品編號</option>
+                                                <option value="memberAcct">會員帳號</option>
+                                                <option value="productSpecId">商品編號</option>
                                             </select>
                                         </span>
                                         <span class="col-sm-3">
-                                            <button type="submit" class="btn btn-primary btn-S">搜尋</button>
-                                            <button type="button" class="btn btn-primary btn-S">清空搜尋</button>
+                                            <button type="submit" class="btn btn-primary btn-S search">搜尋</button>
+                                            <button type="button"
+                                                class="btn btn-primary btn-S clearSearch">清空搜尋</button>
                                         </span>
                                         <span class="col-sm-2"></span>
                                         <span class="col-sm-2 d-flex justify-content-end">
