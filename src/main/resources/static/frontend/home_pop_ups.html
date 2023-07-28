@@ -173,7 +173,7 @@
                     <h4>使用Niigi帳號登入</h4>
                     <div style="height: 20px;"></div>
                     <div class="text-left">
-                        <input type="email" id="" name="" required placeholder="xxx帳號">
+                        <input type="email" id="memberAcct" name="" required placeholder="xxx帳號">
                         <div style="height: 20px;"></div>
                         <form id="changePasswordForm"
                             class="d-flex flex-column justify-content-center align-items-center">
@@ -186,7 +186,8 @@
                         </form>
                     </div>
                     <div style="height: 20px;"></div>
-                    <button type="button" class="btn-primary" data-bs-dismiss="modal">登入</button>
+                    <button type="button" id="login" class="btn-primary">登入</button>
+                    <div id="errMsg" class="error"></div>
                     <div style="height: 20px;"></div>
                     <div class="modal-footer d-flex justify-content-between align-items-center">
                         <button type="button" class="btn btn-link " data-bs-toggle="modal"

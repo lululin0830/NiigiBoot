@@ -6,7 +6,7 @@ const search = function () {
         searchway: document.getElementById("SearchSelect").value,
     })
 
-    fetch('http://localhost:8080/Niigi/Users', {
+    fetch('http://localhost:8080/Niigi/UserController', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -18,19 +18,19 @@ const search = function () {
         data.forEach(element => {
 
             const row = `<tr>
-                <td>${element[0].userName}</td>
-                <td>${element[0].userAcct}</td>
-                <td>${element[0].password}</td>
-                <td>${element[0].hrAuthority}</td>
-                <td>${element[0].financialAuthority}</td>
-                <td>${element[0].marketingAuthority}</td>
-                <td>${element[0].customerServiceAuthority}</td>
+                <td>${element.userName}</td>
+                <td>${element.userAcct}</td>
+                <td>${element.password}</td>
+                <td>${element.hrAuthority}</td>
+                <td>${element.financialAuthority}</td>
+                <td>${element.marketingAuthority}</td>
+                <td>${element.customerServiceAuthority}</td>
                 <td>
-                    <button type="button" id="account_settings" class="btn-primary" data-bs-toggle="modal"
+                    <button type="button" id="accountSettings" class="btn-primary" data-bs-toggle="modal"
                         data-bs-target="#account_settings">帳號設定</button>
                 </td>
                 <td>
-                    <button type="button" id="delete_user" class="btn-primary" data-bs-toggle="modal"
+                    <button type="button" id="deleteUser" class="btn-primary" data-bs-toggle="modal"
                         data-bs-target="#delete_user">刪除成員</button>
                 </td>
             </tr>`;
@@ -43,44 +43,45 @@ const search = function () {
     })
 }
 
+console.log("讀到了")
 document.getElementById("search").addEventListener("click", search);
 
-
 const init = function () {
-    fetch('http://localhost:8080/Niigi/Users', {
+    fetch('http://localhost:8080/Niigi/UserController', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
-
+        
     }).then(r => r.json()).then(data => {
-        const tbody = document.querySelector('searchResult');
+        const tbody = document.querySelector('#searchResult');
         tbody.innerHTML = "";
+        console.log(data)
+
         data.forEach(element => {
 
             const row = `<tr>
-                <td>${element[0].userName}</td>
-                <td>${element[0].userAcct}</td>
-                <td>${element[0].password}</td>
-                <td>${element[0].hrAuthority}</td>
-                <td>${element[0].financialAuthority}</td>
-                <td>${element[0].marketingAuthority}</td>
-                <td>${element[0].customerServiceAuthority}</td>
-                <td>
-                    <button type="button" id="account_settings" class="btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#account_settings">帳號設定</button>
-                </td>
-                <td>
-                    <button type="button" id="delete_user" class="btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#delete_user">刪除成員</button>
-                </td>
+                <td>${element.userName}</td>
+                <td>${element.userAcct}</td>
+                <td>${element.password}</td>
+                <td>${element.hrAuthority}</td>
+                <td>${element.financialAuthority}</td>
+                <td>${element.marketingAuthority}</td>
+                <td>${element.customerServiceAuthority}</td>
+                <td><button type="button" id="accountSettings" class="btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#account_settings">帳號設定</button></td>
+                <td><button type="button" id="deleteUser" class="btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#delete_user">刪除成員</button></td>
             </tr>`;
             let rowData = "<tr>"
 
             tbody.innerHTML += row;
 
+
+
             console.log(data)
         });
     })
 }
+// window.addEventListener("load", init);
 init();
