@@ -116,7 +116,7 @@ CREATE TABLE `Suppliers` (
   `pauseOrderAcceptance` ENUM('0', '1') default('0') COMMENT '暫停接單：0正常,1暫停',
   `pauseShipping` ENUM('0', '1') default('0') COMMENT '暫停出貨：0正常,1暫停',
   `pauseNotification` ENUM('0', '1') default('0') COMMENT '暫停通知： 0正常,1暫停',
-  `approvalStatus` ENUM('0', '1') default('0') COMMENT '審核狀態：0通過,1不通過',
+  `approvalStatus` ENUM('0','1','2') default('2') COMMENT '審核狀態：0通過,1不通過,2待審核',
   `approvalRemark` VARCHAR(150) COMMENT '審核備註',
   `enableTime` TIMESTAMP default(NOW()) COMMENT '開通時間',
   `grossProfitRatio` DECIMAL(3, 2) default(0.15) COMMENT '毛利率',
