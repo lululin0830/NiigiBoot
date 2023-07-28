@@ -109,8 +109,10 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public String getAllBySearch(String searchCase, String searchSelect) {
-		String hql = "FROM Users WHERE " + searchSelect + " LIKE '%" + searchCase ;
-		return gson.toJson(session.createQuery(hql, Users.class)
-				.getResultList());
+	    String hql = "FROM Users WHERE " + searchSelect + " LIKE :searchCase";
+	    return gson.toJson(session.createQuery(hql, Users.class)
+	            .setParameter("searchCase", "%" + searchCase + "%")
+	            .getResultList());
 	}
+
 }
