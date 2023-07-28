@@ -48,6 +48,10 @@ public class OrderServiceImpl implements OrderService {
 
 	// 取得自動編號
 	private String generateOrderId() throws Exception {
+		
+		String lastId = mainOrderDAO.selectLastOrder();
+		LocalDate lastDate = LocalDate.parse(lastId.substring(0, 8), DateTimeFormatter.ofPattern("yyyyMMdd"));
+		
 		LocalDate currentDate = LocalDate.now();
 		String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
@@ -55,8 +59,11 @@ public class OrderServiceImpl implements OrderService {
 
 		synchronized (counterLock) {
 
+			
 			if (mainOrderDAO.selectById(orderId) == null || orderCounter >= 999999999) {
 				orderCounter = 1;
+			}else if(mainOrderDAO.selectById(orderId) != null && lastDate.isEqual(currentDate) ){
+				orderCounter = Integer.parseInt(lastId.substring(8))+1;
 			}
 			orderId = formattedDate + String.format("%09d", orderCounter);
 			orderCounter++;
