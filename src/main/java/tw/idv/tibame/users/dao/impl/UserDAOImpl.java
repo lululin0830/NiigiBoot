@@ -3,8 +3,10 @@ package tw.idv.tibame.users.dao.impl;
 import java.util.List;
 
 import org.hibernate.Session;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.google.gson.Gson;
 
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -19,6 +21,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@PersistenceContext
 	private Session session;
+	@Autowired
+	private Gson gson;
 
 	@Override
 	public Boolean insert(Users entity) throws Exception {
@@ -95,5 +99,18 @@ public class UserDAOImpl implements UserDAO {
 				.setParameter("userAcct", userAcct)
 				.setParameter("password", password)
 				.uniqueResult();
+	}
+
+	@Override
+	public String getAllInit() {
+		String result = gson.toJson(session.createQuery("FROM Users", Users.class).getResultList());
+		return result;
+	}
+
+	@Override
+	public String getAllBySearch(String searchCase, String searchSelect) {
+		String hql = "FROM Users WHERE " + searchSelect + " LIKE '%" + searchCase ;
+		return gson.toJson(session.createQuery(hql, Users.class)
+				.getResultList());
 	}
 }

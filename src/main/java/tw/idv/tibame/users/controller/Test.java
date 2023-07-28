@@ -2,7 +2,6 @@ package tw.idv.tibame.users.controller;
 
 import java.io.IOException;
 
-import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -30,11 +29,17 @@ public class Test extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		Users users = new Users();
-		users.setUserName("12345");
-		users.setUserAcct("12345");
-		users.setPassword("12345");
-		System.out.println(12345);
+		try {
+			Users users = new Users();
+			users.setUserName("12345");
+			users.setUserAcct("12345");
+			users.setPassword("12345");
+			Boolean b = dao.insert(users);
+			System.out.println(b);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
