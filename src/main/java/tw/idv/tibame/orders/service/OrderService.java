@@ -30,7 +30,7 @@ public interface OrderService {
 	
 	public String getSupplierSubOrderInit(String supplierId);
 	
-	public String getSupplierSubOrderSearch();
+	public String getSupplierSubOrderBySearch(JsonObject SearchCondition);
 	
 	//======================前台商家訂單區塊======================
 	

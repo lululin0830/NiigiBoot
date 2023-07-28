@@ -1,6 +1,7 @@
 package tw.idv.tibame.shoppingcart.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,6 +28,8 @@ import tw.idv.tibame.products.entity.ProductSpec;
 import tw.idv.tibame.shoppingcart.dao.ShoppingCartDAO;
 import tw.idv.tibame.shoppingcart.pojo.CartItem;
 import tw.idv.tibame.shoppingcart.service.ShoppingCartService;
+import tw.idv.tibame.suppliers.dao.SupplierDAO;
+import tw.idv.tibame.suppliers.entity.Suppliers;
 
 @Service
 @Transactional
@@ -41,126 +44,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Autowired
 	private EventSingleThresholdDAOImpl eventInfoDAO;
 	@Autowired
+	private SupplierDAO supplierDAO;
+	@Autowired
 	private Gson gson;
 
-	@Override
-	public String init(String memberId) throws Exception {
-
-//		// 購物車是否存在
-//		if (cartDAO.hasExistsCart(memberId)) {
-//			// 排序
-//			cartDAO.sort(memberId);
-//
-//			// 取出購物車列表
-//			List<String> cartList = cartDAO.getCartList(memberId);
-//
-//			// 取出商品資料
-//			List<ProductSpec> productList = new ArrayList<ProductSpec>();
-//			for (String temp : cartList) {
-//				productList.add(specDAO.selectById(temp));
-//			}
-//
-//			// 取出所有商品ID
-//			Integer[] productIds = new Integer[cartList.size()];
-//
-//			for (int i = 0; i < productIds.length; i++) {
-//				productIds[i] = productList.get(i).getProductId();
-//			}
-//
-//			List<String> list = new ArrayList<>();
-//
-//			// 核對單品折價券活動資訊+取最優價
-//			for (ProductSpec temp : productList) {
-//				Integer productId = temp.getProductId();
-//				Integer price = temp.getProduct().getProductPrice();
-//
-//				List<EventApplicableProducts> coupons = eventDAO.selectCoupontByProductId(productId);
-//				Map<Integer, String> priceMap = new TreeMap<>();
-//
-//				if (!coupons.isEmpty()) {
-//					int i = 0;
-//
-//					for (EventApplicableProducts coupon : coupons) {
-//
-//						ThresholdType type = coupon.getEventSingleThreshold().getThresholdType();
-//						String couponCode = coupon.getEventSingleThreshold().getCouponCode();
-//
-//						if (type == ThresholdType.FULL_PURCHASE) {
-//
-//							Integer minPurchaseAmount = coupon.getEventSingleThreshold().getMinPurchaseAmount();
-//							Double discountRate = coupon.getEventSingleThreshold().getDiscountRate();
-//							Integer discountAmount = coupon.getEventSingleThreshold().getDiscountAmount();
-//
-//							if (price > minPurchaseAmount) {
-//
-//								if (discountRate != null) {
-//									priceMap.put((int) (price * discountRate), couponCode);
-//								}
-//								if (discountAmount != null) {
-//									priceMap.put(price - discountAmount, couponCode);
-//								}
-//							}
-//							i++;
-//						}
-//					}
-//
-//					Set<Integer> set = priceMap.keySet();
-//					String couponCode = "";
-//
-//					for (Integer key : set) {
-//						price = key;
-//						couponCode = priceMap.get(key);
-//						break;
-//					}
-//
-//					String jsonString = gson.toJson(temp);
-//					jsonString = jsonString.substring(0, jsonString.lastIndexOf("}")) + ",\"couponPrice\":"
-//							+ price.toString() + ",\"couponCode\":" + couponCode + "}";
-//
-//					list.add(jsonString);
-//
-//				}
-//
-//			}
-//
-//			Integer[] productIds = new Integer[cartList.size()];
-//
-//			for (int i = 0; i < productIds.length; i++) {
-//				productIds[i] = productList.get(i).getProductId();
-//			}
-//			
-//			// 取出所有商品活動
-//			List<EventApplicableProducts> allEvents = eventDAO.selectByCartList(productIds);
-//
-//			for (EventApplicableProducts event : allEvents) {
-//
-//				EventType eventType = event.getEventSingleThreshold().getEventType();
-//				ThresholdType thresholdType = event.getEventSingleThreshold().getThresholdType();
-//
-//				switch (eventType) {
-//
-//				case PRODUCT_DISCOUNT:
-//
-//					break;
-//
-//				case PRODUCT_GIFT:
-//					break;
-//
-//				default:
-//					break;
-//				}
-//
-//			}
-//
-//			return null;
-//		} else
-//
-//		{
-//
-		return "購物車內尚無商品";
-//		}
-
-	}
+	
 
 	@Override
 	public boolean addToCart(JsonObject data) {
@@ -181,7 +69,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		return cartDAO.delete(memberId, productSpecId);
 	}
 
-	public String init2(String memberId) throws Exception {
+	@Override
+	public String init(String memberId) throws Exception {
 
 		// 購物車是否存在
 		if (cartDAO.hasExistsCart(memberId)) {
@@ -238,6 +127,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 								ci.setCouponCode(priceMap.get(key));
 								break; // 只取最優惠的那張
 							}
+
+							EventSingleThreshold event = eventInfoDAO.selectEventInfoByCouponCode(ci.getCouponCode());
+							ci.setCouponName(event.getEventName());
+							ci.setCouponInfo(event.getEventInfo());
 						}
 					}
 					i++;
@@ -254,160 +147,506 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			int count = allEvents.size(), idCount = 0;
 			Integer[] eventProductIds = new Integer[count];
 
-			for (EventApplicableProducts event : allEvents) {
+			if (!allEvents.isEmpty()) { // 如果有活動，才往下走
 
-				String eventId = event.getEventId();
+				for (EventApplicableProducts event : allEvents) {
 
-				// 若有重複的活動，取出商品編號後從List移除
-				for (EventApplicableProducts temp : allEvents) {
+					String eventId = event.getEventId();
 
-					if (Objects.equals(eventId, temp.getEventId())) {
-						eventProductIds[idCount] = temp.getProductId();
-						idCount++;
-						allEvents.remove(temp);
-					}
-				}
-				// 集中活動的商品編號
-				eventMap.put(eventId, eventProductIds);
-				idCount = 0;
-			}
+					// 若有重複的活動，取出商品編號後從List移除
+					for (EventApplicableProducts temp : allEvents) {
 
-			// 確認商品
-			for (Entry<String, Integer[]> entry : eventMap.entrySet()) {
-				String key = entry.getKey();
-				Integer[] val = entry.getValue();
-				int a = 0;
-				EventSingleThreshold eventInfo = eventInfoDAO.selectById(key);
-
-				EventType eventType = eventInfo.getEventType();
-				Integer minPurchase = eventInfo.getMinPurchaseAmount();
-				Integer minQuantity = eventInfo.getMinPurchaseQuantity();
-				Integer discountA = eventInfo.getDiscountAmount();
-				Double discountR = eventInfo.getDiscountRate();
-
-				if (val.length > 1) {
-
-					switch (eventInfo.getThresholdType()) {
-					case FULL_PURCHASE:
-						break;
-					case QUANTITY_PURCHASE:
-						break;
-					default:
-						break;
-					}
-
-					for (int j = 0; j < val.length; j++) {
-						for (CartItem item : list) {
-
+						if (Objects.equals(eventId, temp.getEventId())) {
+							eventProductIds[idCount] = temp.getProductId();
+							idCount++;
+							allEvents.remove(temp);
 						}
 					}
+					// 集中活動的商品編號
+					eventMap.put(eventId, eventProductIds);
+					idCount = 0;
+				}
 
-				} else { // 只有一樣商品符合此活動
-					for (CartItem item : list) {
-						if (item.getProductId().equals(val[1])) {
-							item.setEventIds(new ArrayList<String>());
-							item.getEventIds().add(key);
+				// 確認商品是否符合活動門檻，計算活動價
+				for (Entry<String, Integer[]> entry : eventMap.entrySet()) {
+					String key = entry.getKey();
+					Integer[] val = entry.getValue();
+					EventSingleThreshold eventInfo = eventInfoDAO.selectById(key);
 
-							Integer eventPrice = item.getEventPrice();
-							Integer couponPrice = item.getCouponPrice();
-							Integer price = item.getProductPrice();
+					EventType eventType = eventInfo.getEventType();
+					Integer minPurchase = eventInfo.getMinPurchaseAmount();
+					Integer minQuantity = eventInfo.getMinPurchaseQuantity();
+					Integer discountA = eventInfo.getDiscountAmount();
+					Double discountR = eventInfo.getDiscountRate();
+					EventSingleThreshold event = eventInfoDAO.selectEventInfoByCouponCode(key);
+					String eventName = event.getEventName();
+					String eventInfos = event.getEventInfo();
 
-							switch (eventInfo.getThresholdType()) {
-							case FULL_PURCHASE:
-								if (eventPrice != null && eventPrice > minPurchase) {
-									if (eventType == EventType.PRODUCT_DISCOUNT) {
-										if (discountA != null) {
-											item.setEventPrice(eventPrice * discountA);
-										} else {
-											item.setEventPrice((int) (eventPrice * discountR));
-										}
-									} else {
-										item.setGiftProductSpecId(new ArrayList<>());
-										item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
-									}
-								} else if (couponPrice != null && couponPrice > minPurchase) {
-									if (eventType == EventType.PRODUCT_DISCOUNT) {
-										if (discountA != null) {
-											item.setEventPrice(eventPrice * discountA);
-										} else {
-											item.setEventPrice((int) (eventPrice * discountR));
-										}
-									} else {
-										item.setGiftProductSpecId(new ArrayList<>());
-										item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
-									}
-								} else if (price > minPurchase) {
-									if (eventType == EventType.PRODUCT_DISCOUNT) {
-										if (discountA != null) {
-											item.setEventPrice(eventPrice * discountA);
-										} else {
-											item.setEventPrice((int) (eventPrice * discountR));
-										}
-									} else {
-										item.setGiftProductSpecId(new ArrayList<>());
-										item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
-									}
+					if (val.length > 1) {
+
+						switch (eventInfo.getThresholdType()) {
+						case FULL_PURCHASE:
+
+							int ttl = 0;
+							for (CartItem ci : list) {
+								if (Arrays.asList(val).contains(ci.getProductId())) {
+									ttl += (ci.getCouponPrice() == null ? ci.getProductPrice() : ci.getCouponPrice());
 								}
-								break;
-							case QUANTITY_PURCHASE:
-								if (minQuantity == 1) {
-									if (eventType == EventType.PRODUCT_DISCOUNT) {
-										if (discountA != null) {
-											item.setEventPrice(eventPrice * discountA);
-										} else {
-											item.setEventPrice((int) (eventPrice * discountR));
-										}
-									} else {
-										item.setGiftProductSpecId(new ArrayList<>());
-										item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
-									}
-								}
-								break;
-							default:
-								if (minQuantity == 1) {
-									if (eventPrice != null && eventPrice > minPurchase) {
+							}
+							if (ttl > minPurchase) {
+								for (CartItem item : list) {
+									if (Arrays.asList(val).contains(item.getProductId())) {
+										item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+												: item.getEventIds());
+										item.getEventIds().add(key);
+										item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+												: item.getEventName());
+										item.getEventName().add(eventName);
+										item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+												: item.getEventInfo());
+										item.getEventInfo().add(eventInfos);
+
+										Integer eventPrice = item.getEventPrice();
+										Integer couponPrice = item.getCouponPrice();
+										Integer price = item.getProductPrice();
+
 										if (eventType == EventType.PRODUCT_DISCOUNT) {
+
 											if (discountA != null) {
-												item.setEventPrice(eventPrice * discountA);
-											} else {
-												item.setEventPrice((int) (eventPrice * discountR));
+
+												if (eventPrice != null) {
+													item.setEventPrice(eventPrice * discountA);
+												} else if (couponPrice != null) {
+													item.setEventPrice(couponPrice * discountA);
+												} else {
+													item.setEventPrice(price * discountA);
+												}
+
+											} else if (discountR != null) {
+												if (eventPrice != null) {
+													item.setEventPrice((int) (eventPrice * discountR));
+												} else if (couponPrice != null) {
+													item.setEventPrice((int) (couponPrice * discountR));
+												} else {
+													item.setEventPrice((int) (price * discountR));
+												}
 											}
+
 										} else {
-											item.setGiftProductSpecId(new ArrayList<>());
-											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
-										}
-									} else if (couponPrice != null && couponPrice > minPurchase) {
-										if (eventType == EventType.PRODUCT_DISCOUNT) {
-											if (discountA != null) {
-												item.setEventPrice(eventPrice * discountA);
-											} else {
-												item.setEventPrice((int) (eventPrice * discountR));
-											}
-										} else {
-											item.setGiftProductSpecId(new ArrayList<>());
-											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
-										}
-									} else if (price > minPurchase) {
-										if (eventType == EventType.PRODUCT_DISCOUNT) {
-											if (discountA != null) {
-												item.setEventPrice(eventPrice * discountA);
-											} else {
-												item.setEventPrice((int) (eventPrice * discountR));
-											}
-										} else {
-											item.setGiftProductSpecId(new ArrayList<>());
+											item.setGiftProductSpecId(
+													item.getGiftProductSpecId() == null ? new ArrayList<String>()
+															: item.getGiftProductSpecId());
 											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
 										}
 									}
 								}
-								break;
+							}
+							break;
+
+						case QUANTITY_PURCHASE:
+
+							int productCount = 0;
+							for (CartItem ci : list) {
+								if (Arrays.asList(val).contains(ci.getProductId())) {
+									productCount++;
+								}
+							}
+
+							if (productCount > minQuantity) {
+								for (CartItem item : list) {
+									if (Arrays.asList(val).contains(item.getProductId())) {
+										item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+												: item.getEventIds());
+										item.getEventIds().add(key);
+										item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+												: item.getEventName());
+										item.getEventName().add(eventName);
+										item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+												: item.getEventInfo());
+										item.getEventInfo().add(eventInfos);
+										Integer eventPrice = item.getEventPrice();
+										Integer couponPrice = item.getCouponPrice();
+										Integer price = item.getProductPrice();
+
+										if (eventType == EventType.PRODUCT_DISCOUNT) {
+											if (discountA != null) {
+												if (eventPrice != null) {
+													item.setEventPrice(eventPrice * discountA);
+												} else if (couponPrice != null) {
+													item.setEventPrice(couponPrice * discountA);
+												} else {
+													item.setEventPrice(price * discountA);
+												}
+											} else if (discountR != null) {
+												if (eventPrice != null) {
+													item.setEventPrice((int) (eventPrice * discountR));
+												} else if (couponPrice != null) {
+													item.setEventPrice((int) (couponPrice * discountR));
+												} else {
+													item.setEventPrice((int) (price * discountR));
+												}
+											}
+										} else {
+											item.setGiftProductSpecId(
+													item.getGiftProductSpecId() == null ? new ArrayList<String>()
+															: item.getGiftProductSpecId());
+											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+										}
+									}
+								}
+							}
+							break;
+						default:
+
+							int ttlBoth = 0;
+							int bothCount = 0;
+
+							for (CartItem ci : list) {
+								if (Arrays.asList(val).contains(ci.getProductId())) {
+									ttlBoth += (ci.getCouponPrice() == null ? ci.getProductPrice()
+											: ci.getCouponPrice());
+									bothCount++;
+								}
+							}
+							if (ttlBoth > minPurchase && bothCount > minQuantity) {
+
+								for (CartItem item : list) {
+									if (Arrays.asList(val).contains(item.getProductId())) {
+										item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+												: item.getEventIds());
+										item.getEventIds().add(key);
+										item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+												: item.getEventName());
+										item.getEventName().add(eventName);
+										item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+												: item.getEventInfo());
+										item.getEventInfo().add(eventInfos);
+										Integer eventPrice = item.getEventPrice();
+										Integer couponPrice = item.getCouponPrice();
+										Integer price = item.getProductPrice();
+
+										if (eventType == EventType.PRODUCT_DISCOUNT) {
+											if (discountA != null) {
+												if (eventPrice != null) {
+													item.setEventPrice(eventPrice * discountA);
+												} else if (couponPrice != null) {
+													item.setEventPrice(couponPrice * discountA);
+												} else {
+													item.setEventPrice(price * discountA);
+												}
+											} else if (discountR != null) {
+												if (eventPrice != null) {
+													item.setEventPrice((int) (eventPrice * discountR));
+												} else if (couponPrice != null) {
+													item.setEventPrice((int) (couponPrice * discountR));
+												} else {
+													item.setEventPrice((int) (price * discountR));
+												}
+											}
+										} else {
+											if (eventPrice != null && eventPrice > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+														: item.getEventName());
+												item.getEventName().add(eventName);
+												item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+														: item.getEventInfo());
+												item.getEventInfo().add(eventInfos);
+												item.setGiftProductSpecId(
+														item.getGiftProductSpecId() == null ? new ArrayList<String>()
+																: item.getGiftProductSpecId());
+												item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+											} else if (couponPrice != null && couponPrice > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+														: item.getEventName());
+												item.getEventName().add(eventName);
+												item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+														: item.getEventInfo());
+												item.getEventInfo().add(eventInfos);
+												item.setGiftProductSpecId(
+														item.getGiftProductSpecId() == null ? new ArrayList<String>()
+																: item.getGiftProductSpecId());
+												item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+											} else if (price > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+														: item.getEventName());
+												item.getEventName().add(eventName);
+												item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+														: item.getEventInfo());
+												item.getEventInfo().add(eventInfos);
+												item.setGiftProductSpecId(
+														item.getGiftProductSpecId() == null ? new ArrayList<String>()
+																: item.getGiftProductSpecId());
+												item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+											}
+										}
+									}
+								}
+							}
+
+							break;
+						}
+
+					} else { // 只有一樣商品符合此活動
+						for (CartItem item : list) {
+							if (item.getProductId().equals(val[1])) {
+
+								Integer eventPrice = item.getEventPrice();
+								Integer couponPrice = item.getCouponPrice();
+								Integer price = item.getProductPrice();
+
+								switch (eventInfo.getThresholdType()) {
+								case FULL_PURCHASE:
+									if (eventType == EventType.PRODUCT_DISCOUNT) {
+										if (discountA != null) {
+											if (eventPrice != null && eventPrice > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+														: item.getEventName());
+												item.getEventName().add(eventName);
+												item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+														: item.getEventInfo());
+												item.getEventInfo().add(eventInfos);
+												item.setEventPrice(eventPrice * discountA);
+											} else if (couponPrice != null && couponPrice > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+														: item.getEventName());
+												item.getEventName().add(eventName);
+												item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+														: item.getEventInfo());
+												item.getEventInfo().add(eventInfos);
+												item.setEventPrice(couponPrice * discountA);
+											} else if (price > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+														: item.getEventName());
+												item.getEventName().add(eventName);
+												item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+														: item.getEventInfo());
+												item.getEventInfo().add(eventInfos);
+												item.setEventPrice(price * discountA);
+											}
+										} else if (discountR != null) {
+											if (eventPrice != null && eventPrice > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+														: item.getEventName());
+												item.getEventName().add(eventName);
+												item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+														: item.getEventInfo());
+												item.getEventInfo().add(eventInfos);
+												item.setEventPrice((int) (eventPrice * discountR));
+											} else if (couponPrice != null && couponPrice > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+														: item.getEventName());
+												item.getEventName().add(eventName);
+												item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+														: item.getEventInfo());
+												item.getEventInfo().add(eventInfos);
+												item.setEventPrice((int) (couponPrice * discountR));
+											} else if (price > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+														: item.getEventName());
+												item.getEventName().add(eventName);
+												item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+														: item.getEventInfo());
+												item.getEventInfo().add(eventInfos);
+												item.setEventPrice((int) (price * discountR));
+											}
+										}
+									} else {
+										if (eventPrice != null && eventPrice > minPurchase) {
+											item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+													: item.getEventIds());
+											item.getEventIds().add(key);
+											item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+													: item.getEventName());
+											item.getEventName().add(eventName);
+											item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+													: item.getEventInfo());
+											item.getEventInfo().add(eventInfos);
+											item.setGiftProductSpecId(
+													item.getGiftProductSpecId() == null ? new ArrayList<String>()
+															: item.getGiftProductSpecId());
+											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+										} else if (couponPrice != null && couponPrice > minPurchase) {
+											item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+													: item.getEventIds());
+											item.getEventIds().add(key);
+											item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+													: item.getEventName());
+											item.getEventName().add(eventName);
+											item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+													: item.getEventInfo());
+											item.getEventInfo().add(eventInfos);
+											item.setGiftProductSpecId(
+													item.getGiftProductSpecId() == null ? new ArrayList<String>()
+															: item.getGiftProductSpecId());
+											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+										} else if (price > minPurchase) {
+											item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+													: item.getEventIds());
+											item.getEventIds().add(key);
+											item.setEventName(item.getEventName() == null ? new ArrayList<String>()
+													: item.getEventName());
+											item.getEventName().add(eventName);
+											item.setEventInfo(item.getEventInfo() == null ? new ArrayList<String>()
+													: item.getEventInfo());
+											item.getEventInfo().add(eventInfos);
+											item.setGiftProductSpecId(
+													item.getGiftProductSpecId() == null ? new ArrayList<String>()
+															: item.getGiftProductSpecId());
+											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+										}
+									}
+
+									break;
+								case QUANTITY_PURCHASE:
+									if (minQuantity == 1) {
+										if (eventType == EventType.PRODUCT_DISCOUNT) {
+											if (discountA != null) {
+												if (eventPrice != null) {
+													item.setEventPrice(eventPrice * discountA);
+												} else if (couponPrice != null) {
+													item.setEventPrice(couponPrice * discountA);
+												} else {
+													item.setEventPrice(price * discountA);
+												}
+											} else if (discountR != null) {
+												if (eventPrice != null) {
+													item.setEventPrice((int) (eventPrice * discountR));
+												} else if (couponPrice != null) {
+													item.setEventPrice((int) (couponPrice * discountR));
+												} else {
+													item.setEventPrice((int) (price * discountR));
+												}
+											}
+										} else {
+											item.setGiftProductSpecId(
+													item.getGiftProductSpecId() == null ? new ArrayList<String>()
+															: item.getGiftProductSpecId());
+											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+										}
+									}
+									break;
+								default:
+									if (minQuantity == 1) {
+										if (eventType == EventType.PRODUCT_DISCOUNT) {
+											if (discountA != null) {
+												if (eventPrice != null && eventPrice > minPurchase) {
+													item.setEventIds(
+															item.getEventIds() == null ? new ArrayList<String>()
+																	: item.getEventIds());
+													item.getEventIds().add(key);
+													item.setEventPrice(eventPrice * discountA);
+												} else if (couponPrice != null && couponPrice > minPurchase) {
+													item.setEventIds(
+															item.getEventIds() == null ? new ArrayList<String>()
+																	: item.getEventIds());
+													item.getEventIds().add(key);
+													item.setEventPrice(couponPrice * discountA);
+												} else if (price > minPurchase) {
+													item.setEventIds(
+															item.getEventIds() == null ? new ArrayList<String>()
+																	: item.getEventIds());
+													item.getEventIds().add(key);
+													item.setEventPrice(price * discountA);
+												}
+											} else if (discountR != null) {
+												if (eventPrice != null && eventPrice > minPurchase) {
+													item.setEventIds(
+															item.getEventIds() == null ? new ArrayList<String>()
+																	: item.getEventIds());
+													item.getEventIds().add(key);
+													item.setEventPrice((int) (eventPrice * discountR));
+												} else if (couponPrice != null && couponPrice > minPurchase) {
+													item.setEventIds(
+															item.getEventIds() == null ? new ArrayList<String>()
+																	: item.getEventIds());
+													item.getEventIds().add(key);
+													item.setEventPrice((int) (couponPrice * discountR));
+												} else if (price > minPurchase) {
+													item.setEventIds(
+															item.getEventIds() == null ? new ArrayList<String>()
+																	: item.getEventIds());
+													item.getEventIds().add(key);
+													item.setEventPrice((int) (price * discountR));
+												}
+											}
+										} else {
+											if (eventPrice != null && eventPrice > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setGiftProductSpecId(
+														item.getGiftProductSpecId() == null ? new ArrayList<String>()
+																: item.getGiftProductSpecId());
+												item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+											} else if (couponPrice != null && couponPrice > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setGiftProductSpecId(
+														item.getGiftProductSpecId() == null ? new ArrayList<String>()
+																: item.getGiftProductSpecId());
+												item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+											} else if (price > minPurchase) {
+												item.setEventIds(item.getEventIds() == null ? new ArrayList<String>()
+														: item.getEventIds());
+												item.getEventIds().add(key);
+												item.setGiftProductSpecId(
+														item.getGiftProductSpecId() == null ? new ArrayList<String>()
+																: item.getGiftProductSpecId());
+												item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+											}
+										}
+									}
+									break;
+								}
 							}
 						}
 					}
-				}
-			} // for
+				} // 確認商品for
 
-			return null;
+				// 確認商家休假狀態
+				for (CartItem ci : list) {
+
+					Suppliers supplier = supplierDAO.getShopVacation(ci.getRegisterSupplier());
+					String vacation = supplier.getShopVacation();
+					if (vacation != null && !vacation.isBlank()) {
+
+						ci.setShopVacation(vacation);
+						ci.setPauseOrderAcceptance(supplier.getPauseOrderAcceptance());
+						ci.setPauseShipping(supplier.getPauseShipping());
+						ci.setVacationEnd(supplier.getVacationEnd());
+					}
+				}
+			}
+
+			return gson.toJson(list);
 		} else {
 
 			return "購物車內尚無商品";

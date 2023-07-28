@@ -2,6 +2,8 @@ package tw.idv.tibame.users.service;
 
 import java.util.List;
 
+import com.google.gson.JsonObject;
+
 import tw.idv.tibame.users.entity.Users;
 
 public interface UserService {
@@ -12,9 +14,13 @@ public interface UserService {
 		
 		Users edit(Users user);
 		
-		List<Users> findAll() throws Exception;
+		List<Users> findAll(JsonObject searchCondition) throws Exception;
 		
 		boolean remove(Integer userId);
 		
 		boolean save(Users user);
+		
+		public String getAllInit();
+		
+		public String getBySearch(JsonObject searchCondition);
 }

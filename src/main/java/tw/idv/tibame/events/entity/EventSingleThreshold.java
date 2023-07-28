@@ -42,4 +42,10 @@ public class EventSingleThreshold {
 	private Integer couponAvailableAmount;
 	private Integer couponUsedAmount;
 	private Integer couponAvailablePerPurchase;
+	
+	public EventSingleThreshold(String eventName, String eventInfo) {
+		this.eventName = eventName;
+		this.eventInfo = eventInfo;
+	}
+	
 }

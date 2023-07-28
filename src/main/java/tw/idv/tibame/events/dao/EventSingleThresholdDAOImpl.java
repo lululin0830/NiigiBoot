@@ -10,11 +10,11 @@ import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.events.entity.EventSingleThreshold;
 
 @Repository
-public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold, String>{
+public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold, String> {
 
 	@PersistenceContext
 	Session session;
-	
+
 	@Override
 	public Boolean insert(EventSingleThreshold entity) throws Exception {
 		return null;
@@ -28,6 +28,16 @@ public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold
 	@Override
 	public List<EventSingleThreshold> getAll() throws Exception {
 		return null;
+	}
+
+	public EventSingleThreshold selectEventInfoByCouponCode(String couponCode) throws Exception {
+
+		String hql = "SELECT new tw.idv.tibame.events.entity.EventSingleThreshold(eventName,eventInfo) "
+				+ "FROM EventSingleThreshold WHERE couponCode = :couponCode";
+
+		return session.createQuery(hql, EventSingleThreshold.class).setParameter("couponCode", couponCode)
+				.uniqueResult();
+
 	}
 
 }

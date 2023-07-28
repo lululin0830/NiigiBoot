@@ -1,5 +1,7 @@
 package tw.idv.tibame.users.dao;
 
+import java.sql.Timestamp;
+
 import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.users.entity.Users;
 
@@ -19,4 +21,8 @@ public interface UserDAO extends CoreDAO<Users, String>{
 
 		// 登入
 		public Users selectForLogin(String userAcct, String password);
+		
+		public String getAllInit();
+		
+		public String getAllBySearch(String searchCase,String searchSelect);
 }

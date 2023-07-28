@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -48,37 +49,32 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 
 		MainOrder mainOrder = null;
 
-		try {
-			mainOrder = session.get(MainOrder.class, newMainOrder.getOrderId());
+		mainOrder = session.get(MainOrder.class, newMainOrder.getOrderId());
 
-			final String orderStatus = newMainOrder.getOrderStatus();
-			final String paymentStatus = newMainOrder.getPaymentStatus();
-			final Timestamp paymentTime = newMainOrder.getPaymentTime();
-			final String billStatus = newMainOrder.getBillStatus();
-			final Date billDate = newMainOrder.getBillDate();
+		final String orderStatus = newMainOrder.getOrderStatus();
+		final String paymentStatus = newMainOrder.getPaymentStatus();
+		final Timestamp paymentTime = newMainOrder.getPaymentTime();
+		final String billStatus = newMainOrder.getBillStatus();
+		final Date billDate = newMainOrder.getBillDate();
 
-			if (orderStatus != null && !orderStatus.isBlank()) {
-				mainOrder.setOrderStatus(orderStatus);
-			}
-			if (paymentStatus != null && !paymentStatus.isBlank()) {
-				mainOrder.setPaymentStatus(paymentStatus);
-			}
-			if (paymentTime != null) {
-				mainOrder.setPaymentTime(paymentTime);
-			}
-			if (billStatus != null && !billStatus.isBlank()) {
-				mainOrder.setBillStatus(billStatus);
-			}
-			if (billDate != null) {
-				mainOrder.setBillDate(billDate);
-			}
-
-			return mainOrder;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		if (orderStatus != null && !orderStatus.isBlank()) {
+			mainOrder.setOrderStatus(orderStatus);
 		}
+		if (paymentStatus != null && !paymentStatus.isBlank()) {
+			mainOrder.setPaymentStatus(paymentStatus);
+		}
+		if (paymentTime != null) {
+			mainOrder.setPaymentTime(paymentTime);
+		}
+		if (billStatus != null && !billStatus.isBlank()) {
+			mainOrder.setBillStatus(billStatus);
+		}
+		if (billDate != null) {
+			mainOrder.setBillDate(billDate);
+		}
+
+		return mainOrder;
+
 	}
 
 	// 尚未改成Hibernate
@@ -129,6 +125,16 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 		}
 
 		return queryResultList;
+	}
+
+	@Override
+	public String selectLastOrder() {
+		String sql = "SELECT orderId FROM MainOrder ORDER BY orderId DESC";
+
+		NativeQuery<String> nativeQuery = session.createNativeQuery(sql, String.class).setFirstResult(0)
+				.setMaxResults(1);
+
+		return nativeQuery.uniqueResult();
 	}
 
 }
