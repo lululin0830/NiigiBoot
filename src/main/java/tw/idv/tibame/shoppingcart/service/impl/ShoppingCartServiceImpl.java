@@ -1,6 +1,8 @@
 package tw.idv.tibame.shoppingcart.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -276,7 +278,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			for (Entry<String, Integer[]> entry : eventMap.entrySet()) {
 				String key = entry.getKey();
 				Integer[] val = entry.getValue();
-				int a = 0;
 				EventSingleThreshold eventInfo = eventInfoDAO.selectById(key);
 
 				EventType eventType = eventInfo.getEventType();
@@ -289,10 +290,109 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 					switch (eventInfo.getThresholdType()) {
 					case FULL_PURCHASE:
+
+						int ttl = 0;
+						for (CartItem ci : list) {
+							if (Arrays.asList(val).contains(ci.getProductId())) {
+								ttl += (ci.getCouponPrice() == null ? ci.getProductPrice() : ci.getCouponPrice());
+							}
+						}
+						if (ttl > minPurchase) {
+							for (CartItem item : list) {
+								if (Arrays.asList(val).contains(item.getProductId())) {
+									item.getEventIds().add(key);
+									Integer eventPrice = item.getEventPrice();
+									Integer couponPrice = item.getCouponPrice();
+									Integer price = item.getProductPrice();
+
+									if (eventPrice != null && eventPrice > minPurchase) {
+										if (eventType == EventType.PRODUCT_DISCOUNT) {
+											if (discountA != null) {
+												item.setEventPrice(eventPrice * discountA);
+											} else {
+												item.setEventPrice((int) (eventPrice * discountR));
+											}
+										} else {
+											item.setGiftProductSpecId(new ArrayList<>());
+											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+										}
+									} else if (couponPrice != null && couponPrice > minPurchase) {
+										if (eventType == EventType.PRODUCT_DISCOUNT) {
+											if (discountA != null) {
+												item.setEventPrice(eventPrice * discountA);
+											} else {
+												item.setEventPrice((int) (eventPrice * discountR));
+											}
+										} else {
+											item.setGiftProductSpecId(new ArrayList<>());
+											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+										}
+									} else if (price > minPurchase) {
+										if (eventType == EventType.PRODUCT_DISCOUNT) {
+											if (discountA != null) {
+												item.setEventPrice(eventPrice * discountA);
+											} else {
+												item.setEventPrice((int) (eventPrice * discountR));
+											}
+										} else {
+											item.setGiftProductSpecId(new ArrayList<>());
+											item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+										}
+									}
+								}
+							}
+						}
+
 						break;
 					case QUANTITY_PURCHASE:
+
+						int productCount = 0;
+						for (CartItem ci : list) {
+							if (Arrays.asList(val).contains(ci.getProductId())) {
+								productCount++;
+							}
+						}
+
+						if (productCount > minQuantity) {
+							for (CartItem item : list) {
+								if (Arrays.asList(val).contains(item.getProductId())) {
+									item.getEventIds().add(key);
+									Integer eventPrice = item.getEventPrice();
+									Integer couponPrice = item.getCouponPrice();
+									Integer price = item.getProductPrice();
+
+									if (eventType == EventType.PRODUCT_DISCOUNT) {
+										if (discountA != null) {
+											if (eventPrice != null) {
+												item.setEventPrice(eventPrice * discountA);
+											} else if (couponPrice != null) {
+												item.setEventPrice(couponPrice * discountA);
+											} else {
+												item.setEventPrice(price * discountA);
+											}
+										} else {
+											if (eventPrice != null) {
+												item.setEventPrice((int) (eventPrice * discountR));
+											} else if (couponPrice != null) {
+												item.setEventPrice((int) (couponPrice * discountR));
+											} else {
+												item.setEventPrice((int) (price * discountR));
+											}
+										}
+
+									} else {
+										item.setGiftProductSpecId(new ArrayList<>());
+										item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+									}
+
+								}
+							}
+
+						}
+
 						break;
 					default:
+
 						break;
 					}
 
@@ -349,7 +449,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 									}
 								}
 								break;
-							case QUANTITY_PURCHASE:
+							case QUANTITY_PURCHASE: // 這邊邏輯有問題，待調
 								if (minQuantity == 1) {
 									if (eventType == EventType.PRODUCT_DISCOUNT) {
 										if (discountA != null) {
