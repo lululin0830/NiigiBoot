@@ -18,7 +18,7 @@ import tw.idv.tibame.users.service.UserService;
 public class UserController extends HttpServlet {
 
 	/**
-	 * 登入
+	 * 顯示畫面跟搜尋
 	 */
 	private static final long serialVersionUID = 141076132593739320L;
 
