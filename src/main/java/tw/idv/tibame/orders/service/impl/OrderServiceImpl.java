@@ -350,4 +350,11 @@ public class OrderServiceImpl implements OrderService {
 		return (subOrderDAO.supplierSubOrderCancel(subOrderId));
 	}
 
+	@Override
+	public String memberCheckOrder(String memberId) {
+		
+		return(subOrderDAO.memberCheckOrder(memberId));
+	}
+	
+	
 }
