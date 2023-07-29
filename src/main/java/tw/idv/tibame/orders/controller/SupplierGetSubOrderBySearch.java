@@ -52,6 +52,5 @@ public class SupplierGetSubOrderBySearch extends HttpServlet{
 		resp.setHeader("Access-Control-Allow-Credentials", "true");
 		resp.setContentType("application/json; charset=utf-8");
 		resp.setStatus(HttpServletResponse.SC_OK);
-	}
-
+	}	
 }

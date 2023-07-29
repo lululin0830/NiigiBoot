@@ -34,7 +34,7 @@ public class SupplierGetSubOrder extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setHeader("Access-Control-Allow-Origin", "*"); // 允許來自所有網域的請求
-		response.setHeader("Access-Control-Allow-Methods", "GET"); // 允許的 HTTP 方法
+		response.setHeader("Access-Control-Allow-Methods", "POST"); // 允許的 HTTP 方法
 		response.setHeader("Access-Control-Allow-Headers", "Content-Type"); // 允許的請求Header
 		response.setHeader("Access-Control-Allow-Credentials", "true"); // 是否允許帶有憑證的請求
 		response.setContentType("application/json; charset=utf-8");
@@ -55,6 +55,20 @@ public class SupplierGetSubOrder extends HttpServlet {
 		resp.setHeader("Access-Control-Allow-Credentials", "true");
 		resp.setContentType("application/json; charset=utf-8");
 		resp.setStatus(HttpServletResponse.SC_OK);
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setHeader("Access-Control-Allow-Origin", "*");
+		resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+		resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
+		resp.setHeader("Access-Control-Allow-Credentials", "true");
+		resp.setContentType("application/json; charset=utf-8");
+		String subOrderId = req.getParameter("subOrderId");
+		System.out.println(subOrderId);
+		resp.getWriter().print(orderService.supplierSubOrderCancel(subOrderId));
+		
+		
 	}
 
 }

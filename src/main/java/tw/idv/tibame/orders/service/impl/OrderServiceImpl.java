@@ -48,10 +48,14 @@ public class OrderServiceImpl implements OrderService {
 
 	// 取得自動編號
 	private String generateOrderId() throws Exception {
-		
+
 		String lastId = mainOrderDAO.selectLastOrder();
-		LocalDate lastDate = LocalDate.parse(lastId.substring(0, 8), DateTimeFormatter.ofPattern("yyyyMMdd"));
-		
+		LocalDate lastDate = null;
+		if (lastId != null) {
+
+			lastDate = LocalDate.parse(lastId.substring(0, 8), DateTimeFormatter.ofPattern("yyyyMMdd"));
+		}
+
 		LocalDate currentDate = LocalDate.now();
 		String formattedDate = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
@@ -59,11 +63,10 @@ public class OrderServiceImpl implements OrderService {
 
 		synchronized (counterLock) {
 
-			
 			if (mainOrderDAO.selectById(orderId) == null || orderCounter >= 999999999) {
 				orderCounter = 1;
-			}else if(mainOrderDAO.selectById(orderId) != null && lastDate.isEqual(currentDate) ){
-				orderCounter = Integer.parseInt(lastId.substring(8))+1;
+			} else if (lastId != null && mainOrderDAO.selectById(orderId) != null && lastDate.isEqual(currentDate)) {
+				orderCounter = Integer.parseInt(lastId.substring(8)) + 1;
 			}
 			orderId = formattedDate + String.format("%09d", orderCounter);
 			orderCounter++;
@@ -114,13 +117,13 @@ public class OrderServiceImpl implements OrderService {
 
 			temp.setOrderId(mainOrder.getOrderId());
 			temp.setProductSpecId(itemObject.get("productSpecId").getAsString());
-			temp.setProductId(Integer.parseInt(itemObject.get("productSpecId").getAsString().substring(0,8)));
+			temp.setProductId(Integer.parseInt(itemObject.get("productSpecId").getAsString().substring(0, 8)));
 			temp.setProductPrice(itemObject.get("price").getAsInt());
 			temp.setEventPrice(itemObject.get("eventPrice").getAsInt());
 
 			subOrderDetails.add(temp);
 
-			stringBuilder.append(temp.getProductId()+",");
+			stringBuilder.append(temp.getProductId() + ",");
 
 			JsonArray eventIdArray = itemObject.getAsJsonArray("eventId");
 			for (JsonElement eventIdElement : eventIdArray) {
@@ -136,12 +139,11 @@ public class OrderServiceImpl implements OrderService {
 
 			// 新增主訂單
 			mainOrderDAO.insert(mainOrder);
-			
 
 			// 子訂單資料處理
 
 			// 取得廠商ID
-			
+
 			List<String> supplierIds = productDAO.getSupplierIdList(productIds);
 
 			// 產生子訂單編號 + set訂單基本資訊(訂編、子訂編、商編、時間、收件資訊)
@@ -166,11 +168,9 @@ public class OrderServiceImpl implements OrderService {
 
 					Product product = productDAO.selectById(sod.getProductId());
 					System.out.println(product);
-					
-					
-					
+
 					if (sod.getSubOrderId() == null
-							&& Objects.equals(product.getRegisterSupplier(),supplierIds.get(i)) ) {
+							&& Objects.equals(product.getRegisterSupplier(), supplierIds.get(i))) {
 						sod.setSubOrderId(temp.getSubOrderId());
 						sod.setOrderDetailId(temp.getSubOrderId() + "-" + String.format("%03d", count));
 						count++;
@@ -195,7 +195,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 
 			return true;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -289,11 +289,10 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 
-	
-	//前台 商家訂單中心 載入顯示全部
+	// 前台 商家訂單中心 載入顯示全部
 	@Override
 	public String getSupplierSubOrderInit(String supplierId) {
-		
+
 		String result = null;
 		try {
 			result = subOrderDAO.getSupplierSubOrderInit(supplierId);
@@ -302,11 +301,11 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return result;
 	}
-	
-	//前台 商家訂單中心 條件查詢
+
+	// 前台 商家訂單中心 條件查詢
 	@Override
 	public String getSupplierSubOrderBySearch(JsonObject SearchCondition) {
-		
+
 		String searchcase = SearchCondition.get("searchcase").getAsString();
 
 		String SearchSelect = SearchCondition.get("searchway").getAsString();
@@ -336,17 +335,19 @@ public class OrderServiceImpl implements OrderService {
 		String result = null;
 		try {
 
-			result = subOrderDAO.getSupplierSubOrderBySearch(searchcase, SearchSelect, startDate, closeDate, supplierId);
+			result = subOrderDAO.getSupplierSubOrderBySearch(searchcase, SearchSelect, startDate, closeDate,
+					supplierId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-
 		return result;
 	}
 
-	
+	@Override
+	public String supplierSubOrderCancel(String subOrderId) {
 
-	
-	
+		return (subOrderDAO.supplierSubOrderCancel(subOrderId));
+	}
+
 }

@@ -97,7 +97,7 @@ const SubOrderBody = function () {
                                 <p>宅配</p>
                             </div>
                             <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary btn-M"
+                            <button type="button" class="btn btn-primary btn-M cancelSubOrder"
                                 data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
                                 取消訂單
                             </button>
@@ -135,7 +135,7 @@ const init = function () {
     fetch('http://localhost:8080/Niigi/SupplierSubOrder', {
         method: 'POST',
         headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
         },
         body: JSON.stringify(searchdata)
     }).then(r => r.json()).then(data => {
@@ -180,6 +180,9 @@ const init = function () {
         document.querySelector("button[aria-controls='navs-top-refund']>span").innerText = tab3Count;
         document.querySelector("button[aria-controls='navs-top-complete']>span").innerText = tab4Count;
         document.querySelector("button[aria-controls='navs-top-cancel']>span").innerText = tab5Count;
+        document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
+            e.addEventListener("click", cancelSubOrder);
+        })
 
     })
 };
@@ -248,3 +251,52 @@ document.querySelectorAll(".search").forEach(function (e) {
 document.querySelectorAll(".clearSearch").forEach(function (e) {
     e.addEventListener("click", resetSearch);
 })
+
+
+
+const cancelSubOrder = function () {
+
+    const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
+    console.log(subOrderId)
+
+    // if (document.querySelector("button.confirmCancel")) {
+    //     fetch('http://localhost:8080/Niigi/SupplierSubOrder?subOrderId=' + subOrderId, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-type': 'application/json',
+    //         },
+    //         body: JSON.stringify(searchdata)
+    //     }).then(function () {
+    //         document.querySelector("button.confirmCancel").classList.remove("confirmCancel");
+    //     });
+    // }
+
+    async function updateSubOrder() {
+        if (document.querySelector("button.confirmCancel") !== null) {
+            await fetch('http://localhost:8080/Niigi/SupplierSubOrder?subOrderId=' + subOrderId, {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(searchdata)
+            });
+            document.querySelector("button.confirmCancel").classList.remove("confirmCancel");
+            document.querySelector("#cancelOrderModal button.btn-close").click();
+        }
+    }
+
+    document.querySelector("button.submitCancel").addEventListener("click", function () {
+        this.classList.add("confirmCancel");
+        updateSubOrder();
+    })
+
+}
+
+
+
+
+
+document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
+    e.addEventListener("click", cancelSubOrder);
+})
+

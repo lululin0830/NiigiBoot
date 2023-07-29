@@ -32,6 +32,8 @@ public interface OrderService {
 	
 	public String getSupplierSubOrderBySearch(JsonObject SearchCondition);
 	
+	public String supplierSubOrderCancel(String subOrderId);
+	
 	//======================前台商家訂單區塊======================
 	
 }

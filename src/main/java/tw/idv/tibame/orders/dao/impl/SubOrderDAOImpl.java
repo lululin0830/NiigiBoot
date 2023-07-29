@@ -137,6 +137,16 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		return gson.toJson(query.getResultList());
 	}
 
+	@Override
+	public String supplierSubOrderCancel(String subOrderId) {
+				
+			Query query = session.createQuery("update SubOrder SET subOrderStatus = '5' where subOrderId = :subOrderId");
+			query.setParameter("subOrderId", subOrderId);
+			query.executeUpdate();
+			System.out.println(subOrderId);
+		return "取消訂單成功";		
+	}
+
 	
 
 }
