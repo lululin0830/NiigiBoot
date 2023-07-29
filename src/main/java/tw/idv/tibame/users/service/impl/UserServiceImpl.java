@@ -42,7 +42,9 @@ public class UserServiceImpl implements UserService {
 			user.setSuccessful(false);
 			return user;
 		}
-
+		
+		userDAO.insert(user);
+		
 		user.setMessage("新增成功");
 		user.setSuccessful(true);
 		return user;
