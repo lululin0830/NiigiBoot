@@ -22,9 +22,6 @@ import lombok.ToString;
 @ToString
 public class SubOrder implements java.io.Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5618369222849326060L;
 	
 	@Id
@@ -39,9 +36,7 @@ public class SubOrder implements java.io.Serializable{
 	@Column(insertable = false)
 	private String subOrderStatus;
 	private Integer subPaidAmount;
-	@Column(insertable = false)
 	private Integer subPointsDiscount;
-	@Column(insertable = false)
 	private Integer subCouponDiscount;
 	private Integer grossProfit;
 	private Integer pointsReward;

@@ -23,10 +23,6 @@ import lombok.ToString;
 @ToString
 public class MainOrder implements java.io.Serializable {
 
-	/**
-	 * 主訂單(MainOrder)
-	 */
-	
 	private static final long serialVersionUID = 2442580178437547429L;
 
 	@Id
@@ -55,9 +51,9 @@ public class MainOrder implements java.io.Serializable {
 	private String recipient;
 	private String phoneNum;
 	private String deliveryAddress;
-	
+
 	@OneToMany
-	@JoinColumn(name = "orderId",referencedColumnName = "orderId",insertable = false,updatable = false)
+	@JoinColumn(name = "orderId", referencedColumnName = "orderId", insertable = false, updatable = false)
 	private List<SubOrder> subOrders;
 
 	public MainOrder(String memberId, Integer totalAmount, Integer totalGrossProfit, Integer pointsDiscount,
@@ -76,5 +72,4 @@ public class MainOrder implements java.io.Serializable {
 		this.deliveryAddress = deliveryAddress;
 	}
 
-	
 }
