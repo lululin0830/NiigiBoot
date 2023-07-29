@@ -2,12 +2,15 @@ package tw.idv.tibame.shoppingcart.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +83,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			List<CartItem> list = new ArrayList<CartItem>();
 			Integer[] productIds = new Integer[cartList.size()];
 			int i = 0; // productIds index 計數
+			Map<String, List<Integer>> couponMap = new HashMap<String, List<Integer>>();
 
 			for (String temp : cartList) {
 
@@ -88,7 +92,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 				if (ps.getShelvesStatus().equals("0") && ps.getSpecStock() > 0) { // 上架中&有庫存才往下走
 
 					Integer productId = ps.getProductId(), price = ps.getProduct().getProductPrice();
-					List<EventApplicableProducts> coupons = eventDAO.selectCoupontByProductId(productId);
 					CartItem ci = new CartItem();
 
 					productIds[i] = productId;
@@ -101,55 +104,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 					ci.setSpecInfo2(ps.getSpecInfo2());
 					ci.setRegisterSupplier(ps.getProduct().getRegisterSupplier());
 					ci.setSpecStock(ps.getSpecStock());
-					
+
 					/* ===確認商家休假狀態，並加入資料中=== */
 					Suppliers supplier = supplierDAO.getShopVacation(ci.getRegisterSupplier());
 					String vacation = supplier.getShopVacation();
-					
+
 					if (vacation != null && !vacation.isBlank()) {
-						
+
 						ci.setShopVacation(vacation);
 						ci.setPauseOrderAcceptance(supplier.getPauseOrderAcceptance());
 						ci.setPauseShipping(supplier.getPauseShipping());
 						ci.setVacationEnd(supplier.getVacationEnd());
-					}
-
-					/* ===確認商品是否有單品折價券可使用=== */
-					if (!coupons.isEmpty()) { 
-
-						Map<Integer, String> priceMap = new TreeMap<>();
-
-						for (EventApplicableProducts coupon : coupons) {
-
-							ThresholdType type = coupon.getEventSingleThreshold().getThresholdType();
-							String couponCode = coupon.getEventSingleThreshold().getCouponCode();
-
-							if (type == ThresholdType.FULL_PURCHASE) {
-
-								Double discountRate = coupon.getEventSingleThreshold().getDiscountRate();
-								Integer discountAmount = coupon.getEventSingleThreshold().getDiscountAmount();
-
-								if (price > coupon.getEventSingleThreshold().getMinPurchaseAmount()) {
-									if (discountRate != null) {
-										priceMap.put((int) (price * discountRate), couponCode);
-									}
-									if (discountAmount != null) {
-										priceMap.put(price - discountAmount, couponCode);
-									}
-								}
-							}
-
-							Set<Integer> set = priceMap.keySet();
-							for (Integer key : set) {
-								ci.setCouponPrice(key);
-								ci.setCouponCode(priceMap.get(key));
-								break; // 只取最優惠的那張
-							}
-
-							EventSingleThreshold event = eventInfoDAO.selectEventInfoByCouponCode(ci.getCouponCode());
-							ci.setCouponName(event.getEventName());
-							ci.setCouponInfo(event.getEventInfo());
-						}
 					}
 					i++;
 					list.add(ci);
@@ -159,166 +124,226 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 			} // 第一個ForEach迴圈結束(cartList)
 
-			// TODO 單品折價券檢查可使用數量
+			/* ===確認商品是否有單品折價券可使用=== */
+			List<CartItem> sortedList = list.stream()
+					.sorted(Comparator.comparingInt(CartItem::getProductPrice).reversed()).collect(Collectors.toList());
 
-			/* ===取出所有商品的活動id，並將相同iD的活動合併為一筆資料=== */
-			List<EventApplicableProducts> allEvents = eventDAO.selectByCartList(productIds);
-			Map<String, Integer[]> eventMap = new TreeMap<String, Integer[]>();
-			int size = allEvents.size(), idCount = 0; // eventProductIds size & index count
-			Integer[] eventProductIds = new Integer[size];
+			list = sortedList;
 
-			if (!allEvents.isEmpty()) { // 如果有活動，才往下走
+			for (CartItem ci : list) {
 
-				for (EventApplicableProducts event : allEvents) {
+				int price = ci.getProductPrice();
 
-					String eventId = event.getEventId();
+				List<EventApplicableProducts> coupons = eventDAO.selectCoupontByProductId(productIds);
+				if (!coupons.isEmpty()) {
 
-					for (EventApplicableProducts temp : allEvents) {
+					Map<Integer, String> priceMap = new TreeMap<>();
 
-						if (Objects.equals(eventId, temp.getEventId())) { // 若有重複的活動，取出商品編號後從List移除
+					for (EventApplicableProducts coupon : coupons) {
 
-							eventProductIds[idCount] = temp.getProductId();
-							idCount++;
-							allEvents.remove(temp);
+						ThresholdType type = coupon.getEventSingleThreshold().getThresholdType();
+						String couponCode = coupon.getEventSingleThreshold().getCouponCode();
+
+						if (type == ThresholdType.FULL_PURCHASE) {
+
+							Double discountRate = coupon.getEventSingleThreshold().getDiscountRate();
+							Integer discountAmount = coupon.getEventSingleThreshold().getDiscountAmount();
+
+							if (price > coupon.getEventSingleThreshold().getMinPurchaseAmount()) {
+
+								if (discountRate != null) {
+									priceMap.put((int) (price * discountRate), couponCode);
+								}
+								if (discountAmount != null) {
+									priceMap.put(price - discountAmount, couponCode);
+								}
+							}
 						}
+
+						Set<Integer> set = priceMap.keySet();
+						for (Integer key : set) {
+							String code = priceMap.get(key);
+							List<Integer> ids = couponMap.get(code);
+							int available = coupon.getEventSingleThreshold().getCouponAvailableAmount(),
+									availableP = coupon.getEventSingleThreshold().getCouponAvailablePerPurchase();
+							/* ===檢查折價券可使用量&單筆可使用量=== */
+							if (ids == null) { // 這張折價券第一次出現，直接收下
+								ids = new ArrayList<Integer>();
+								ids.add(ci.getProductId());
+								ci.setCouponPrice(key);
+								ci.setCouponCode(code);
+								break;
+							} else {
+								if (ids.size() < available && ids.size() < availableP) {
+									ids.add(ci.getProductId());
+									ci.setCouponPrice(key);
+									ci.setCouponCode(code);
+									break;
+
+								} else if (ids.size() > available || ids.size() > availableP) {
+									continue;
+								}
+							}
+						}
+
+						EventSingleThreshold event = eventInfoDAO.selectEventInfoByCouponCode(ci.getCouponCode());
+						ci.setCouponName(event.getEventName());
+						ci.setCouponInfo(event.getEventInfo());
 					}
-					// 將所有活動id & 適用整理成Map
-					eventMap.put(eventId, eventProductIds);
-					idCount = 0;
-				} // 第二個ForEach迴圈結束(allEvents)
-				
-				/* ===確認商品是否符合活動門檻，計算活動價&set贈品ID=== */
-				for (Entry<String, Integer[]> entry : eventMap.entrySet()) {
+				}
+			}
 
-					String key = entry.getKey();
-					EventSingleThreshold eventInfo = eventInfoDAO.selectById(key);
-					Integer[] val = entry.getValue();
-					Integer minPurchase = eventInfo.getMinPurchaseAmount(),
-							minQuantity = eventInfo.getMinPurchaseQuantity();
+			/* ===商品活動計算=== */
+			List<EventApplicableProducts> allDiscountR = eventDAO.selectDiscountRateByCartList(productIds);
+			List<EventApplicableProducts> allDiscountA = eventDAO.selectDiscountAmountByCartList(productIds);
+			List<EventApplicableProducts> allGift = eventDAO.selectGiftByCartList(productIds);
 
-					if (val.length > 1) { // 單一活動有多樣商品適用
+			if (!allDiscountR.isEmpty()) {
+				Map<String, Integer[]> discountMap = getEventMap(allDiscountR);
+				processEventMap(discountMap, list);
 
-						switch (eventInfo.getThresholdType()) {
+			}
 
-						case FULL_PURCHASE:
+			if (!allDiscountA.isEmpty()) {
 
-							int ttl = 0; // 訂購金額加總
+				Map<String, Integer[]> discountMap = getEventMap(allDiscountA);
+				processEventMap(discountMap, list);
+			}
 
-							for (CartItem ci : list) {
+			if (!allGift.isEmpty()) {
 
-								if (Arrays.asList(val).contains(ci.getProductId())) {
-
-									ttl += (ci.getCouponPrice() == null ? ci.getProductPrice() : ci.getCouponPrice());
-								}
-							}
-							if (ttl >= minPurchase) { // 總訂購金額有到門檻
-
-								for (CartItem item : list) {
-
-									if (Arrays.asList(val).contains(item.getProductId())) {
-
-										updateWithEventInfo(item, eventInfo);
-										updateEventPrice(item, eventInfo);
-									}
-								}
-							}
-							break;
-
-						case QUANTITY_PURCHASE:
-
-							int productCount = 0; // 商品總數
-
-							for (CartItem ci : list) {
-
-								if (Arrays.asList(val).contains(ci.getProductId())) {
-
-									productCount++;
-								}
-							}
-							if (productCount >= minQuantity) {
-
-								for (CartItem item : list) {
-
-									if (Arrays.asList(val).contains(item.getProductId())) {
-
-										updateWithEventInfo(item, eventInfo);
-										updateEventPrice(item, eventInfo);
-									}
-								}
-							}
-							break;
-
-						default:
-
-							int ttlBoth = 0, bothCount = 0;
-							
-							for (CartItem ci : list) {
-							
-								if (Arrays.asList(val).contains(ci.getProductId())) {
-								
-									ttlBoth += (ci.getCouponPrice() == null ? ci.getProductPrice()
-											: ci.getCouponPrice());
-									bothCount++;
-								}
-							}
-							if (ttlBoth >= minPurchase && bothCount >= minQuantity) {
-								
-								for (CartItem item : list) {
-								
-									if (Arrays.asList(val).contains(item.getProductId())) {
-										updateWithEventInfo(item, eventInfo);
-										updateEventPrice(item, eventInfo);
-									}
-								}
-							}
-							break;
-						}
-					} else { // 單一活動只有一樣商品適用
-						
-						for (CartItem item : list) {
-							
-							if (item.getProductId().equals(val[1])) {
-								
-								switch (eventInfo.getThresholdType()) {
-								
-								case FULL_PURCHASE:
-									
-									updateEventPriceForSingleItem(item, eventInfo);
-									break;
-									
-								case QUANTITY_PURCHASE:
-									
-									if (minQuantity == 1) {
-										
-										updateWithEventInfo(item, eventInfo);
-										updateEventPrice(item, eventInfo);
-									}
-									break;
-									
-								default:
-									
-									if (minQuantity == 1) {
-										
-										updateEventPriceForSingleItem(item, eventInfo);
-									}
-									break;
-								}
-							}
-						}
-					}
-				} // 第三個ForEach迴圈結束(eventMap)
-
-				
-				
-			} 
+				Map<String, Integer[]> giftMap = getEventMap(allGift);
+				processEventMap(giftMap, list);
+			}
 
 			return gson.toJson(list);
-			
+
 		} else {
 			return "購物車內尚無商品";
 		}
 	}
 
+	/**
+	 * 彙整活動資料，將相同ID的活動整理成一筆資料 Key：eventId , Value：productIds
+	 * 
+	 * @param allEvents
+	 * @return
+	 */
+	private Map<String, Integer[]> getEventMap(List<EventApplicableProducts> allEvents) {
+		Map<String, Integer[]> eventMap = new TreeMap<>();
+		int size = allEvents.size(), idCount = 0; // eventProductIds size & index count
+		Integer[] eventProductIds = new Integer[size];
+
+		for (EventApplicableProducts event : allEvents) {
+
+			String eventId = event.getEventId();
+
+			for (EventApplicableProducts temp : allEvents) {
+
+				if (Objects.equals(eventId, temp.getEventId())) { // 若有重複的活動，取出商品編號後從List移除
+
+					eventProductIds[idCount] = temp.getProductId();
+					idCount++;
+					allEvents.remove(temp);
+					break; // 離開迴圈 ConcurrentModificationException
+				}
+			}
+			// 將所有活動id & 適用整理成Map
+			eventMap.put(eventId, Arrays.copyOf(eventProductIds, idCount));
+			idCount = 0;
+		}
+
+		return eventMap;
+	}
+
+	/**
+	 * 商品活動門檻計算，設定活動價&贈品
+	 * @param discountMap
+	 * @param list
+	 * @throws Exception
+	 */
+	private void processEventMap(Map<String, Integer[]> discountMap, List<CartItem> list) throws Exception {
+
+		for (Map.Entry<String, Integer[]> entry : discountMap.entrySet()) {
+			String key = entry.getKey();
+			Integer[] val = entry.getValue();
+			EventSingleThreshold eventInfo = eventInfoDAO.selectById(key);
+			Integer minPurchase = eventInfo.getMinPurchaseAmount();
+			Integer minQuantity = eventInfo.getMinPurchaseQuantity();
+
+			if (val.length > 1) {
+				// 單一活動有多樣商品適用的情況
+				switch (eventInfo.getThresholdType()) {
+				case FULL_PURCHASE:
+					int ttl = list.stream().filter(ci -> Arrays.asList(val).contains(ci.getProductId()))
+							.mapToInt(ci -> ci.getCouponPrice() == null ? ci.getProductPrice() : ci.getCouponPrice())
+							.sum();
+
+					if (ttl >= minPurchase) {
+						list.stream().filter(item -> Arrays.asList(val).contains(item.getProductId())).forEach(item -> {
+							updateWithEventInfo(item, eventInfo);
+							updateEventPrice(item, eventInfo);
+						});
+					}
+					break;
+				case QUANTITY_PURCHASE:
+					int productCount = (int) list.stream()
+							.filter(item -> Arrays.asList(val).contains(item.getProductId())).count();
+
+					if (productCount >= minQuantity) {
+						list.stream().filter(item -> Arrays.asList(val).contains(item.getProductId())).forEach(item -> {
+							updateWithEventInfo(item, eventInfo);
+							updateEventPrice(item, eventInfo);
+						});
+					}
+					break;
+				default:
+					int ttlBoth = 0;
+					int bothCount = 0;
+
+					for (CartItem ci : list) {
+						if (Arrays.asList(val).contains(ci.getProductId())) {
+							ttlBoth += (ci.getCouponPrice() == null ? ci.getProductPrice() : ci.getCouponPrice());
+							bothCount++;
+						}
+					}
+
+					if (ttlBoth >= minPurchase && bothCount >= minQuantity) {
+						list.stream().filter(item -> Arrays.asList(val).contains(item.getProductId())).forEach(item -> {
+							updateWithEventInfo(item, eventInfo);
+							updateEventPrice(item, eventInfo);
+						});
+					}
+					break;
+				}
+			} else {
+				// 單一活動只有一樣商品適用的情況
+				if (minQuantity == 1) {
+
+					list.stream().filter(item -> item.getProductId().equals(val[0])).filter(item -> {
+
+						Integer eventPrice = Optional.ofNullable(item.getEventPrice()).orElse(0);
+						Integer couponPrice = Optional.ofNullable(item.getCouponPrice()).orElse(0);
+						return item.getProductPrice() > minPurchase || eventPrice > minPurchase
+								|| couponPrice > minPurchase;
+					}).forEach(item -> {
+
+						updateWithEventInfo(item, eventInfo);
+						updateEventPrice(item, eventInfo);
+
+					});
+
+				}
+
+			}
+		}
+	}
+
+	/**
+	 * 更新活動資訊
+	 * @param item
+	 * @param eventInfo
+	 */
 	private void updateWithEventInfo(CartItem item, EventSingleThreshold eventInfo) {
 
 		String eventName = eventInfo.getEventName();
@@ -335,15 +360,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		item.getEventInfo().add(eventInfos);
 	}
 
-	private void updateGift(CartItem item, String giftProductSpecId) {
-	
-		item.setGiftProductSpecId(
-				item.getGiftProductSpecId() == null ? new ArrayList<>() : item.getGiftProductSpecId());
-		item.getGiftProductSpecId().add(giftProductSpecId);
-	}
-
+	/**
+	 * 更新活動價&贈品
+	 * @param item
+	 * @param eventInfo
+	 */
 	private void updateEventPrice(CartItem item, EventSingleThreshold eventInfo) {
-		
+
 		EventType eventType = eventInfo.getEventType();
 		Integer discountA = eventInfo.getDiscountAmount();
 		Double discountR = eventInfo.getDiscountRate();
@@ -352,106 +375,41 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		Integer price = item.getProductPrice();
 
 		if (eventType == EventType.PRODUCT_DISCOUNT) {
-			
+
 			if (discountA != null) {
-				
+
 				if (eventPrice != null) {
-					
+
 					item.setEventPrice(eventPrice * discountA);
-					
+
 				} else if (couponPrice != null) {
-					
+
 					item.setEventPrice(couponPrice * discountA);
-					
+
 				} else {
-					
+
 					item.setEventPrice(price * discountA);
-					
+
 				}
 			} else if (discountR != null) {
-				
+
 				if (eventPrice != null) {
-					
+
 					item.setEventPrice((int) (eventPrice * discountR));
-					
+
 				} else if (couponPrice != null) {
-					
+
 					item.setEventPrice((int) (couponPrice * discountR));
-					
+
 				} else {
-					
+
 					item.setEventPrice((int) (price * discountR));
 				}
 			}
 		} else {
-			updateGift(item, eventInfo.getGiftProductSpecId());
-		}
-	}
-
-	private void updateEventPriceForSingleItem(CartItem item, EventSingleThreshold eventInfo) {
-
-		EventType eventType = eventInfo.getEventType();
-		Integer discountA = eventInfo.getDiscountAmount();
-		Double discountR = eventInfo.getDiscountRate();
-		Integer minPurchase = eventInfo.getMinPurchaseAmount();
-		Integer eventPrice = item.getEventPrice();
-		Integer couponPrice = item.getCouponPrice();
-		Integer price = item.getProductPrice();
-
-		if (eventType == EventType.PRODUCT_DISCOUNT) {
-			
-			if (discountA != null) {
-				
-				if (eventPrice != null && eventPrice > minPurchase) {
-					
-					updateWithEventInfo(item, eventInfo);
-					item.setEventPrice(eventPrice * discountA);
-					
-				} else if (couponPrice != null && couponPrice > minPurchase) {
-					
-					updateWithEventInfo(item, eventInfo);
-					item.setEventPrice(couponPrice * discountA);
-					
-				} else if (price > minPurchase) {
-					
-					updateWithEventInfo(item, eventInfo);
-					item.setEventPrice(price * discountA);
-				}
-			} else if (discountR != null) {
-				
-				if (eventPrice != null && eventPrice > minPurchase) {
-					
-					updateWithEventInfo(item, eventInfo);
-					item.setEventPrice((int) (eventPrice * discountR));
-					
-				} else if (couponPrice != null && couponPrice > minPurchase) {
-					
-					updateWithEventInfo(item, eventInfo);
-					item.setEventPrice((int) (couponPrice * discountR));
-					
-				} else if (price > minPurchase) {
-					
-					updateWithEventInfo(item, eventInfo);
-					item.setEventPrice((int) (price * discountR));
-				}
-			}
-		} else {
-			
-			if (eventPrice != null && eventPrice > minPurchase) {
-				
-				updateWithEventInfo(item, eventInfo);
-				updateGift(item, eventInfo.getGiftProductSpecId());
-				
-			} else if (couponPrice != null && couponPrice > minPurchase) {
-				
-				updateWithEventInfo(item, eventInfo);
-				updateGift(item, eventInfo.getGiftProductSpecId());
-				
-			} else if (price > minPurchase) {
-				
-				updateWithEventInfo(item, eventInfo);
-				updateGift(item, eventInfo.getGiftProductSpecId());
-			}
+			item.setGiftProductSpecId(
+					item.getGiftProductSpecId() == null ? new ArrayList<>() : item.getGiftProductSpecId());
+			item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
 		}
 	}
 
