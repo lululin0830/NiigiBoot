@@ -150,12 +150,14 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 	@Override
 	public String memberCheckOrder(String memberId) {
 		
-		String hql = "select mo.orderStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
-				+ "so.subOrderId,so.subPaidAmount,sod.productSpecId,pd.productName,pd.productPrice,sod.eventPrice,"
-				+ "sod.itemCouponDiscount,so.recipient,so.deliveryAddress,so.phoneNum "
-				+ "from MainOrder as mo,SubOrder as so,SubOrderDetail as sod,Suppliers as sp,Product as pd "
-				+ "where mo.orderId = so.orderId and so.subOrderId = sod.subOrderId and so.supplierId = sp.supplierId and sod.productId = pd.productId "		
-				+ "and mo.memberId = :memberId ";				
+		String hql = "select mo.paymentStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
+				+ "so.subOrderId,so.subPaidAmount "
+				+ "from MainOrder as mo,SubOrder as so,SubOrderDetail as sod,Suppliers as sp "
+				+ "where mo.orderId = so.orderId and so.subOrderId = sod.subOrderId and so.supplierId = sp.supplierId "		
+				+ "and mo.memberId = :memberId ";		
+		
+		String hql2 = "FROM MainOrder WHERE memberId = :memberId";
+				
 				Query <?> query = session.createQuery(hql);
 				query.setParameter("memberId", memberId);
 			
