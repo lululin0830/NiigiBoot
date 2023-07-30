@@ -2,7 +2,6 @@ package tw.idv.tibame.orders.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,9 +28,10 @@ public class SubOrderDetail implements Serializable{
 	private Integer productId;
 	private String productSpecId;
 	private Integer productPrice;
-	@Column(insertable = false)
 	private Integer itemCouponDiscount;
+	private String itemCouponCode;
 	private Integer eventPrice;
+	private String eventIds;
 	@Column(insertable = false)
 	private Integer ratingStar;
 	@Column(insertable = false)
@@ -46,48 +46,5 @@ public class SubOrderDetail implements Serializable{
 	private String refundRemark;
 	@Column(insertable = false)
 	private String itemStatus;
-	
-	
-	@Override
-	public int hashCode() {
-		// TODO Auto-generated method stub
-		return Objects.hash(orderDetailId);
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		if(this == obj) 
-			return true;
-		if(obj!=null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		
-		SubOrderDetail other = (SubOrderDetail) obj;
-		return Objects.equals(orderDetailId,other.orderDetailId);
-		
-	}
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		String result = "order_detail_id:" + orderDetailId + 
-						"sub_order_id:" + subOrderId +
-						"order_id:" + orderId +
-						"product_id:" + productId +
-						"product_spec_id:" + productSpecId +
-						"product_price:" + productPrice +
-						"item_coupon_discount:" + itemCouponDiscount +
-						"event_price:" + eventPrice +
-						"rating_price:" + ratingStar + 
-						"comment:" + comment +
-						"comment_date:" + commentDate +
-						"refund_deadline:" + refundDeadline +
-						"refund_date:" + refundReason +
-						"refund_reason:" + refundReason +
-						"refund_remark:" + refundRemark +
-						"item_status:" + itemStatus;
-		return result;
-	}
 	
 }

@@ -476,7 +476,7 @@
                 <button type="submit" class="btn-primary" id="search">搜尋</button>
                 <button type="submit" class="btn-primary float-end" data-bs-toggle="modal" data-bs-target="#add_user"
                     id="addUser">新增使用者</button>
-            </div>4
+            </div>
             <div style="height: 20px;"></div>
 
             <div>
@@ -533,16 +533,16 @@
                     <h3>新增使用者</h3>
                     <br>
                     <div class="form-group">
-                        <label for="username">使用者名稱：</label>
-                        <input type="text" id="username" name="username" value="">
+                        <label for="userName">使用者名稱：</label>
+                        <input type="text" id="userName" name="userName" value="">
                     </div>
                     <div class="form-group">
-                        <label for="username">使用者帳號：</label>
-                        <input type="text" id="username" name="username" value="">
+                        <label for="userAcct">使用者帳號：</label>
+                        <input type="text" id="userAcct" name="userAcct" value="">
                     </div>
                     <div class="form-group">
-                        <label for="username">預設密碼：</label>
-                        <input type="text" id="username" name="username" value="">
+                        <label for="password">預設密碼：</label>
+                        <input type="text" id="password" name="password" value="">
                     </div>
                     <!-- <div class="form-group">
                         <label for="username">權限設定：</label>
@@ -555,9 +555,10 @@
                         <input type="radio" id="customer_service" name="quantity" value="customer_service">
                         <label for="female">客服</label>
                     </div> -->
+                    <div id="msg" class="error"></div>
                     <div class="form-group">
                         <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
-                        <button type="button" class="btn-primary">新增</button>
+                        <button type="button" class="btn-primary" id="add">新增</button>
                     </div>
                 </div>
             </div>

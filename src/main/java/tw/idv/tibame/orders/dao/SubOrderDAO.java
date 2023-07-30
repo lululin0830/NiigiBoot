@@ -18,4 +18,6 @@ public interface SubOrderDAO extends CoreDAO<SubOrder, String>{
     public String getSupplierSubOrderBySearch(String searchcase,String SearchSelect,Timestamp startDate,Timestamp closeDate,String supplierId);
     //商家訂單中心 取消子訂單
     public String supplierSubOrderCancel(String subOrderId);
+    //會員訂單心中 取全部
+    public String memberCheckOrder(String memberId);
 }

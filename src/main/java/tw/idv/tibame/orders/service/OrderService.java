@@ -36,4 +36,6 @@ public interface OrderService {
 	
 	//======================前台商家訂單區塊======================
 	
+	//======================前台會員訂單中心======================
+	public String memberCheckOrder(String memberId);
 }
