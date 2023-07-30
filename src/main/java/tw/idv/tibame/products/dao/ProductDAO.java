@@ -3,7 +3,6 @@ package tw.idv.tibame.products.dao;
 import java.util.List;
 
 import tw.idv.tibame.core.dao.CoreDAO;
-import tw.idv.tibame.products.dto.ProductInfoDTO;
 import tw.idv.tibame.products.entity.Product;
 
 public interface ProductDAO extends CoreDAO<Product, Integer> {
