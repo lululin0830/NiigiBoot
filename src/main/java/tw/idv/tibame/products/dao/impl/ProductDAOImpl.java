@@ -1,23 +1,17 @@
 package tw.idv.tibame.products.dao.impl;
 
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import jakarta.persistence.PersistenceContext;
 import tw.idv.tibame.products.dao.ProductDAO;
-import tw.idv.tibame.products.dto.ProductInfoDTO;
 import tw.idv.tibame.products.entity.Product;
 
 @Repository
@@ -25,9 +19,6 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@PersistenceContext
 	private Session session;
-	@Autowired
-	private Gson gson;
-	
 
 	@Override
 	public Boolean insert(Product entity) throws Exception {
@@ -145,16 +136,15 @@ public class ProductDAOImpl implements ProductDAO {
 
 		return nativeQuery.getResultList();
 	}
-	
+
 	@Override
 	public List<Product> findLatestProducts() throws Exception {
 		return session.createQuery("FROM Product ORDER BY firstOnShelvesDate", Product.class).getResultList();
 	}
-	
+
 	@Override
 	public List<Product> findMostExpensiveProduct() throws Exception {
 		return session.createQuery("FROM Product ORDER BY productPrice DESC", Product.class).getResultList();
 	}
-
 
 }
