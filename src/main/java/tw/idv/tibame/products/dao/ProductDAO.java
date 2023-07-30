@@ -23,9 +23,9 @@ public interface ProductDAO extends CoreDAO<Product, Integer> {
 	public List<String> getSupplierIdList (String productIds);
 	
 	//最新的上市4筆
-	public List<ProductInfoDTO> findLatestProducts() throws Exception;
+	public List<Product> findLatestProducts() throws Exception;
 	
 	//最貴的商品4筆
-	public List<ProductInfoDTO> findMostExpensiveProduct() throws Exception;
+	public List<Product> findMostExpensiveProduct() throws Exception;
 	
 }

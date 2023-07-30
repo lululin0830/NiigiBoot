@@ -147,19 +147,13 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
-	public List<ProductInfoDTO> findLatestProducts() throws Exception {
-	    String sql = "select p.productId,p.productName,p.productprice,p.picture1,s.shopName from Product p INNER JOIN Suppliers s ON p.registerSupplier = s.supplierId ORDER BY firstOnShelvesDate";
-		NativeQuery<ProductInfoDTO> nativeQuery = session.createNativeQuery(sql, ProductInfoDTO.class);
-
-		return nativeQuery.getResultList();
+	public List<Product> findLatestProducts() throws Exception {
+		return session.createQuery("FROM Product ORDER BY firstOnShelvesDate", Product.class).getResultList();
 	}
 	
 	@Override
-	public List<ProductInfoDTO> findMostExpensiveProduct() throws Exception {
-	    String sql = "select p.productId,p.productName,p.productprice,p.picture1,s.shopName from Product p INNER JOIN Suppliers s ON p.registerSupplier = s.supplierId ORDER BY productprice desc";
-		NativeQuery<ProductInfoDTO> nativeQuery = session.createNativeQuery(sql, ProductInfoDTO.class);
-
-		return nativeQuery.getResultList();
+	public List<Product> findMostExpensiveProduct() throws Exception {
+		return session.createQuery("FROM Product ORDER BY productPrice DESC", Product.class).getResultList();
 	}
 
 
