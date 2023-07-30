@@ -62,4 +62,6 @@ public interface ProductService {
 //		    return resultList;
 //		}
 
+	
+	public String productPageInit(Integer productId) throws Exception;
 }
