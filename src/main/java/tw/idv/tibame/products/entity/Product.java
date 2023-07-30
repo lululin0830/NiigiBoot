@@ -7,11 +7,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import tw.idv.tibame.suppliers.entity.Suppliers;
 
 @Entity
 @Getter
@@ -20,6 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Product {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,5 +44,10 @@ public class Product {
 	private Double avgRating;
 	@Column(insertable = false)
 	private Date firstOnShelvesDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "registerSupplier", insertable = false, updatable = false)
+	private Suppliers suppliers;
+	
 	
 }
