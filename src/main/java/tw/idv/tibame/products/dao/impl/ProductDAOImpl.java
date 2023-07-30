@@ -1,16 +1,23 @@
 package tw.idv.tibame.products.dao.impl;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import tw.idv.tibame.products.dao.ProductDAO;
+import tw.idv.tibame.products.dto.ProductInfoDTO;
 import tw.idv.tibame.products.entity.Product;
 
 @Repository
@@ -18,6 +25,9 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@PersistenceContext
 	private Session session;
+	@Autowired
+	private Gson gson;
+	
 
 	@Override
 	public Boolean insert(Product entity) throws Exception {
@@ -81,33 +91,34 @@ public class ProductDAOImpl implements ProductDAO {
 	// 關鍵字搜尋
 	@Override
 	public List<Product> selectByKeywords(String[] keywords) {
-	    StringBuilder sql = new StringBuilder().append("SELECT p.*, s.shopName ").append("FROM Product p ")
-	            .append("LEFT JOIN Suppliers s ON p.registerSupplier = s.supplierId ").append("WHERE 1=1 ")
-	            .append("AND p.productStatus = '0' ").append("AND ("); // 新增商品狀態條件
+		StringBuilder sql = new StringBuilder().append("SELECT p.*, s.shopName ").append("FROM Product p ")
+				.append("LEFT JOIN Suppliers s ON p.registerSupplier = s.supplierId ").append("WHERE 1=1 ")
+				.append("AND p.productStatus = '0' ").append("AND ("); // 新增商品狀態條件
 
-	    Map<String, Object> parameters = new HashMap<>();
+		Map<String, Object> parameters = new HashMap<>();
 
-	    // 動態添加搜尋條件
-	    for (int i = 0; i < keywords.length; i++) {
-	        String paramName = "keyword" + i;
-	        if (i > 0) {
-	            sql.append(" OR ");
-	        }
-	        sql.append("(p.productName LIKE :").append(paramName).append(" OR p.productInfo LIKE :").append(paramName).append(")");
+		// 動態添加搜尋條件
+		for (int i = 0; i < keywords.length; i++) {
+			String paramName = "keyword" + i;
+			if (i > 0) {
+				sql.append(" OR ");
+			}
+			sql.append("(p.productName LIKE :").append(paramName).append(" OR p.productInfo LIKE :").append(paramName)
+					.append(")");
 
-	        parameters.put(paramName, "%" + keywords[i] + "%");
-	    }
-	    sql.append(") ");
-	    
-	    NativeQuery<Product> nativeQuery = session.createNativeQuery(sql.toString(), Product.class);
+			parameters.put(paramName, "%" + keywords[i] + "%");
+		}
+		sql.append(") ");
 
-	    // 設置參數值
-	    for (String paramName : parameters.keySet()) {
-	        nativeQuery.setParameter(paramName, parameters.get(paramName));
-	    }
+		NativeQuery<Product> nativeQuery = session.createNativeQuery(sql.toString(), Product.class);
 
-	    return nativeQuery.getResultList();
-		
+		// 設置參數值
+		for (String paramName : parameters.keySet()) {
+			nativeQuery.setParameter(paramName, parameters.get(paramName));
+		}
+
+		return nativeQuery.getResultList();
+
 	}
 
 	// 分類頁查詢
@@ -134,5 +145,22 @@ public class ProductDAOImpl implements ProductDAO {
 
 		return nativeQuery.getResultList();
 	}
+	
+	@Override
+	public List<ProductInfoDTO> findLatestProducts() throws Exception {
+	    String sql = "select p.productId,p.productName,p.productprice,p.picture1,s.shopName from Product p INNER JOIN Suppliers s ON p.registerSupplier = s.supplierId ORDER BY firstOnShelvesDate";
+		NativeQuery<ProductInfoDTO> nativeQuery = session.createNativeQuery(sql, ProductInfoDTO.class);
+
+		return nativeQuery.getResultList();
+	}
+	
+	@Override
+	public List<ProductInfoDTO> findMostExpensiveProduct() throws Exception {
+	    String sql = "select p.productId,p.productName,p.productprice,p.picture1,s.shopName from Product p INNER JOIN Suppliers s ON p.registerSupplier = s.supplierId ORDER BY productprice desc";
+		NativeQuery<ProductInfoDTO> nativeQuery = session.createNativeQuery(sql, ProductInfoDTO.class);
+
+		return nativeQuery.getResultList();
+	}
+
 
 }

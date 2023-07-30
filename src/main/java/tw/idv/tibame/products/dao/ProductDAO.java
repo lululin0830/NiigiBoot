@@ -3,6 +3,7 @@ package tw.idv.tibame.products.dao;
 import java.util.List;
 
 import tw.idv.tibame.core.dao.CoreDAO;
+import tw.idv.tibame.products.dto.ProductInfoDTO;
 import tw.idv.tibame.products.entity.Product;
 
 public interface ProductDAO extends CoreDAO<Product, Integer> {
@@ -20,4 +21,11 @@ public interface ProductDAO extends CoreDAO<Product, Integer> {
 	public List<Product> selectByCategorie (String categorie);
 	
 	public List<String> getSupplierIdList (String productIds);
+	
+	//最新的上市4筆
+	public List<ProductInfoDTO> findLatestProducts() throws Exception;
+	
+	//最貴的商品4筆
+	public List<ProductInfoDTO> findMostExpensiveProduct() throws Exception;
+	
 }
