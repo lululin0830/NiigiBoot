@@ -1,6 +1,7 @@
 package tw.idv.tibame.orders.dao;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.orders.entity.SubOrder;
@@ -20,4 +21,6 @@ public interface SubOrderDAO extends CoreDAO<SubOrder, String>{
     public String supplierSubOrderCancel(String subOrderId);
     //會員訂單心中 取全部
     public String memberCheckOrder(String memberId);
+    
+    public List<Object[]> memberCheckOrder2(String memberId);
 }
