@@ -29,9 +29,9 @@ public class SubOrderDetail implements Serializable{
 	private String productSpecId;
 	private Integer productPrice;
 	private Integer itemCouponDiscount;
-	private String itemCouponCode;
+//	private String itemCouponCode;
 	private Integer eventPrice;
-	private String eventIds;
+//	private String eventIds;
 	@Column(insertable = false)
 	private Integer ratingStar;
 	@Column(insertable = false)
