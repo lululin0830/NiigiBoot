@@ -1,3 +1,4 @@
+
 // 數量加總
 function increaseQuantity() {
     var quantityInput = document.getElementById('quantity');
@@ -41,14 +42,14 @@ $(document).ready(function () {
 //關注鈕
 $(".join_store").click(function () {
     if ($(this).text() == "加入關注") {
-        $(this).text("關注");
+        $(this).text("關注中");
     } else {
         $(this).text("加入關注");
     }
 })
 
 const productId = 10000001;
-
+const productInfo = document.querySelector("#productInfo")
 
 const init = function () {
 
@@ -100,9 +101,9 @@ const init = function () {
             </div>
 
             <div class="text store_illustrate">
-                付款後，從備貨到寄出商品為 5 個工作天。（不包含假日）
-                由商家提供統一發票或免用統一發票收據
-                出貨天數、贈品安全字.....等說明文字的區塊
+                <p>付款後，從備貨到寄出商品為 5 個工作天（不包含假日)</p>
+                <p>由商家提供統一發票或免用統一發票收據</p>
+                <p>活動贈品數量有限，以購物車結帳畫面為主</p>
             </div>
             <hr>
             <div class="text discount">
@@ -118,10 +119,29 @@ const init = function () {
                 商品特色、商品規格.....等說明文字的區塊
             </div>`;
 
-            $("#productInfo").insertAdjacentHTML("beforeend", html);
+            productInfo.insertAdjacentHTML("beforeend", html);
         })
 
 
 }
 
-init();
+// init();
+
+document.addEventListener("DOMContentLoaded", function () {
+    const eventList = document.getElementById("eventList");
+    const expandButton = document.getElementById("expandButton");
+    let isExpanded = false; // 初始状态为未展开
+
+    // 监听展开按钮的点击事件
+    expandButton.addEventListener("click", function () {
+        // 切换超过第三个 li 元素的显示状态
+        const hiddenItems = eventList.querySelectorAll("li:nth-child(n+4)");
+        hiddenItems.forEach(item => {
+            item.style.display = isExpanded ? "none" : "list-item";
+        });
+
+        // 根据 isExpanded 变量切换按钮文字
+        expandButton.textContent = isExpanded ? "顯示更多優惠活動" : "收起";
+        isExpanded = !isExpanded; // 切换展开状态
+    });
+});
