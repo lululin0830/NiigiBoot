@@ -138,6 +138,44 @@
             width: 200px;
             height: 200px;
         }
+
+        /* 隱藏真實的<input type="file"> */
+input[type="file"] {
+  display: none;
+}
+
+/* 自訂標籤的樣式 */
+.custom-file-upload {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+/* 滑鼠懸停時的樣式 */
+.custom-file-upload:hover {
+  background-color: #0056b3;
+}
+
+/* 字體圖標的樣式 */
+.custom-file-upload i {
+  margin-right: 4px;
+}
+
+/* 選擇檔案文字置中 */
+.custom-file-upload span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-size: 14px; /* 調整字體大小 */
+}
+
     </style>
 
 </head>
@@ -568,9 +606,11 @@
                                 <img id="preview-image" class="img-fluid fixed-size" src="./image/product.svg" alt="">
                             </div>
                             <div class="form-group">
-                                <input type="file" id="profile-picture" name="profile-picture"
-                                    accept="image/jpeg, image/png" max-size="1048576">
-                            </div>
+                                <label for="file-upload" class="custom-file-upload">
+                                  選擇檔案
+                                </label>
+                                <input type="file" id="file-upload" name="profile-picture" accept="image/jpeg, image/png" max-size="1048576">
+                              </div>
                             <div class="text description">
                                 <p>檔案大小:最大1MB</p>
                                 <p>檔案限制:.JPEG,.PNG</p>
