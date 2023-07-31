@@ -1,9 +1,6 @@
 package tw.idv.tibame.products.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +16,7 @@ import tw.idv.tibame.products.service.ProductService;
 
 @Service
 @Transactional
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductDAO productDAO;
@@ -36,5 +33,19 @@ public class ProductServiceImpl implements ProductService{
 		
 		return gson.toJson(spec);
 	}
+	
+
+	public List<Product> getAllFindLatestProducts() throws Exception {
+		return productDAO.findLatestProducts();
+
+	}
+	
+	public List<Product> getAllExpensiveProducts() throws Exception{
+		return productDAO.findMostExpensiveProduct();
+	}
+	
+
+	
+	
 	
 }

@@ -6,15 +6,15 @@ import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import tw.idv.tibame.products.dao.ProductDAO;
 import tw.idv.tibame.products.entity.Product;
 
 @Repository
-@Transactional
 public class ProductDAOImpl implements ProductDAO {
 
 	@PersistenceContext
@@ -82,33 +82,34 @@ public class ProductDAOImpl implements ProductDAO {
 	// 關鍵字搜尋
 	@Override
 	public List<Product> selectByKeywords(String[] keywords) {
-	    StringBuilder sql = new StringBuilder().append("SELECT p.*, s.shopName ").append("FROM Product p ")
-	            .append("LEFT JOIN Suppliers s ON p.registerSupplier = s.supplierId ").append("WHERE 1=1 ")
-	            .append("AND p.productStatus = '0' ").append("AND ("); // 新增商品狀態條件
+		StringBuilder sql = new StringBuilder().append("SELECT p.*, s.shopName ").append("FROM Product p ")
+				.append("LEFT JOIN Suppliers s ON p.registerSupplier = s.supplierId ").append("WHERE 1=1 ")
+				.append("AND p.productStatus = '0' ").append("AND ("); // 新增商品狀態條件
 
-	    Map<String, Object> parameters = new HashMap<>();
+		Map<String, Object> parameters = new HashMap<>();
 
-	    // 動態添加搜尋條件
-	    for (int i = 0; i < keywords.length; i++) {
-	        String paramName = "keyword" + i;
-	        if (i > 0) {
-	            sql.append(" OR ");
-	        }
-	        sql.append("(p.productName LIKE :").append(paramName).append(" OR p.productInfo LIKE :").append(paramName).append(")");
+		// 動態添加搜尋條件
+		for (int i = 0; i < keywords.length; i++) {
+			String paramName = "keyword" + i;
+			if (i > 0) {
+				sql.append(" OR ");
+			}
+			sql.append("(p.productName LIKE :").append(paramName).append(" OR p.productInfo LIKE :").append(paramName)
+					.append(")");
 
-	        parameters.put(paramName, "%" + keywords[i] + "%");
-	    }
-	    sql.append(") ");
-	    
-	    NativeQuery<Product> nativeQuery = session.createNativeQuery(sql.toString(), Product.class);
+			parameters.put(paramName, "%" + keywords[i] + "%");
+		}
+		sql.append(") ");
 
-	    // 設置參數值
-	    for (String paramName : parameters.keySet()) {
-	        nativeQuery.setParameter(paramName, parameters.get(paramName));
-	    }
+		NativeQuery<Product> nativeQuery = session.createNativeQuery(sql.toString(), Product.class);
 
-	    return nativeQuery.getResultList();
-		
+		// 設置參數值
+		for (String paramName : parameters.keySet()) {
+			nativeQuery.setParameter(paramName, parameters.get(paramName));
+		}
+
+		return nativeQuery.getResultList();
+
 	}
 
 	// 分類頁查詢
@@ -134,6 +135,16 @@ public class ProductDAOImpl implements ProductDAO {
 		NativeQuery<String> nativeQuery = session.createNativeQuery(sql, String.class);
 
 		return nativeQuery.getResultList();
+	}
+
+	@Override
+	public List<Product> findLatestProducts() throws Exception {
+		return session.createQuery("FROM Product ORDER BY firstOnShelvesDate", Product.class).getResultList();
+	}
+
+	@Override
+	public List<Product> findMostExpensiveProduct() throws Exception {
+		return session.createQuery("FROM Product ORDER BY productPrice DESC", Product.class).getResultList();
 	}
 
 }

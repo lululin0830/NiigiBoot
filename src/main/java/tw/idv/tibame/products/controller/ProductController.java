@@ -1,5 +1,8 @@
 package tw.idv.tibame.products.controller;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.idv.tibame.products.entity.Product;
 import tw.idv.tibame.products.service.ProductService;
 
 @RestController
@@ -36,5 +40,21 @@ public class ProductController {
 		
 	}
 	
+
+    @GetMapping("/products")
+    public List<Product> getAllFindLatestProducts() throws Exception {
+    	System.out.println("into controller");
+        return service.getAllFindLatestProducts();
+    }
+    
+    
+    @GetMapping("/exproducts")
+    public List<Product> getAllExpensiveProducts() throws Exception {
+    	System.out.println("into controller");
+        return service.getAllExpensiveProducts();
+    }
+    
+    
+
 	
 }

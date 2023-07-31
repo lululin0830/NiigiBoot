@@ -20,4 +20,11 @@ public interface ProductDAO extends CoreDAO<Product, Integer> {
 	public List<Product> selectByCategorie (String categorie);
 	
 	public List<String> getSupplierIdList (String productIds);
+	
+	//最新的上市4筆
+	public List<Product> findLatestProducts() throws Exception;
+	
+	//最貴的商品4筆
+	public List<Product> findMostExpensiveProduct() throws Exception;
+	
 }
