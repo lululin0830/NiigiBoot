@@ -69,7 +69,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int deleteByUserId(Integer userId) {
-		Users users = session.get(Users.class, userId);
+		Users users = session.load(Users.class, userId);
 		session.remove(users);		
 		return 1;
 	}
