@@ -229,7 +229,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 * @param allEvents
 	 * @return
 	 */
-	private Map<String, Integer[]> getEventMap(List<EventApplicableProducts> allEvents) {
+	public Map<String, Integer[]> getEventMap(List<EventApplicableProducts> allEvents) {
 		Map<String, Integer[]> eventMap = new TreeMap<>();
 		int size = allEvents.size(), idCount = 0; // eventProductIds size & index count
 		Integer[] eventProductIds = new Integer[size];
@@ -262,7 +262,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 * @param list
 	 * @throws Exception
 	 */
-	private void processEventMap(Map<String, Integer[]> discountMap, List<CartItem> list) throws Exception {
+	public void processEventMap(Map<String, Integer[]> discountMap, List<CartItem> list) throws Exception {
 
 		for (Map.Entry<String, Integer[]> entry : discountMap.entrySet()) {
 			String key = entry.getKey();
@@ -344,7 +344,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 * @param item
 	 * @param eventInfo
 	 */
-	private void updateWithEventInfo(CartItem item, EventSingleThreshold eventInfo) {
+	public void updateWithEventInfo(CartItem item, EventSingleThreshold eventInfo) {
 
 		String eventName = eventInfo.getEventName();
 		String eventInfos = eventInfo.getEventInfo();
@@ -365,7 +365,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 * @param item
 	 * @param eventInfo
 	 */
-	private void updateEventPrice(CartItem item, EventSingleThreshold eventInfo) {
+	public void updateEventPrice(CartItem item, EventSingleThreshold eventInfo) {
 
 		EventType eventType = eventInfo.getEventType();
 		Integer discountA = eventInfo.getDiscountAmount();
