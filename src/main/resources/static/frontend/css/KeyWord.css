@@ -2,45 +2,45 @@
   .horizontal-container {
     display: flex;
     justify-content: center;
-  } 
-  
+  }
+
   /* 設定廣告商品內的愛心位置 */
   .card-title.item__store {
     position: relative;
   }
-  
+
   .card-title.item__store .fa-heart {
     position: absolute;
     top: 0;
     right: 0;
-  } 
+  }
 
   /* 關鍵字搜尋結果文字 */
   .serch_Keyword {
     width: 75%;
     margin-left: 13%;
   }
-  
+
   /* 設定分類table整體的上下空隙 */
-  .container.tableone{
+  .container.tableone {
     width: 800px;
-    padding: 40px 0 0  0;
+    padding: 40px 0 0 0;
     margin-left: 14%;
   }
 
   /* 分類table內的設定 */
-  div.alldro{
+  div.alldro {
     padding: 20px 0;
   }
 
-  .dropdown{
-    padding-bottom:2px;
+  .dropdown {
+    padding-bottom: 2px;
   }
 
   /* 設定排序table整體 */
   .container.tabletwo {
     width: 800px;
-    padding: 40px 0 50px  0;
+    padding: 40px 0 50px 0;
     margin-left: 14%;
   }
 
@@ -48,41 +48,34 @@
   table td {
     text-align: center;
   }
+  
+  /*商品card下面空出*/
+  .container.tablethird {
+	  padding-bottom:30px ;
+  }
+  
+  
 
   /* 固定愛心位置，商品列表 */
   .container.tablethird .card .card-title.item__name {
     position: relative;
   }
-  
-  .container.tablethird .card .card-title.item__name .fa-heart {
+
+  .container.tablethird .card .card-title.item__name .heart {
     position: absolute;
     top: 0;
     right: 0;
-  } 
+  }
 
   /* 設定商品列表內的商品名、價格、商店名 */
   .container.tablethird .card .card-title.item__name {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .container.tablethird .card .card-text.item__price {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .container.tablethird .card .card-text.item__store {
     font-size: 10px;
   }
-
-
-  
-
- 
-  
-  
-
-
-
-
-
-
-
