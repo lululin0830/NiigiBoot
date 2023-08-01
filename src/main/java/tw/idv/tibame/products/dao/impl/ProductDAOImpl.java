@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
@@ -82,9 +81,10 @@ public class ProductDAOImpl implements ProductDAO {
 	// 關鍵字搜尋
 	@Override
 	public List<Product> selectByKeywords(String[] keywords) {
-		StringBuilder sql = new StringBuilder().append("SELECT p.*, s.shopName ").append("FROM Product p ")
-				.append("LEFT JOIN Suppliers s ON p.registerSupplier = s.supplierId ").append("WHERE 1=1 ")
-				.append("AND p.productStatus = '0' ").append("AND ("); // 新增商品狀態條件
+		StringBuilder sql = new StringBuilder().append("SELECT * ").append("FROM Product ")
+//				.append("LEFT JOIN Suppliers s ON p.registerSupplier = s.supplierId ")
+				.append("WHERE 1=1 ")
+				.append("AND productStatus = '0' ").append("AND ("); // 新增商品狀態條件
 
 		Map<String, Object> parameters = new HashMap<>();
 
@@ -94,7 +94,7 @@ public class ProductDAOImpl implements ProductDAO {
 			if (i > 0) {
 				sql.append(" OR ");
 			}
-			sql.append("(p.productName LIKE :").append(paramName).append(" OR p.productInfo LIKE :").append(paramName)
+			sql.append("(productName LIKE :").append(paramName).append(" OR productInfo LIKE :").append(paramName)
 					.append(")");
 
 			parameters.put(paramName, "%" + keywords[i] + "%");

@@ -39,13 +39,18 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findLatestProducts();
 
 	}
-	
-	public List<Product> getAllExpensiveProducts() throws Exception{
+
+	public List<Product> getAllExpensiveProducts() throws Exception {
 		return productDAO.findMostExpensiveProduct();
 	}
-	
 
+	public List<Product> getKeywordProducts(String keyword) throws Exception {
+		String[] keywords = keyword.split("\\s+");
+		return productDAO.selectByKeywords(keywords);
+	}
 	
-	
-	
+	public List<Product> getCategorieProducts(String categorie) throws Exception{
+		return productDAO.selectByCategorie(categorie);
+	}
+
 }

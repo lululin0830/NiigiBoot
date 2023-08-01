@@ -10,7 +10,9 @@ public interface ProductService {
 	
 	public List<Product> getAllExpensiveProducts() throws Exception;
 	
+	public List<Product> getKeywordProducts(String keyword) throws Exception;
 	
+	public List<Product> getCategorieProducts(String categorie) throws Exception;
 	
 	
 	
