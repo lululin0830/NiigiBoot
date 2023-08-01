@@ -1,22 +1,57 @@
 
-const productId = 10000001;
+const productId = new URLSearchParams(window.location.search).get("productId");
 const productPicture = document.querySelector("div.productPicture")
 const productInfo = document.querySelector("#productInfoBox")
 const commentList = document.querySelector("#commentList")
 const shopInfoBox = document.querySelector("#shopInfoBox")
-
+const commentListTitle = document.querySelector(".commentListBox > h3")
 
 let product = '';
 let productSpecs = '';
 
-
-// JavaScript
+// 圖片轉換
 function createImageURL(byteArray) {
     const blob = new Blob([new Uint8Array(byteArray)], { type: 'image/jpeg' });
     return URL.createObjectURL(blob);
 }
 
+// 數量加減
+function increaseQuantity() {
+    let quantityInput = document.querySelector("#quantity");
+    quantityInput.value = parseInt(quantityInput.value) + 1;
+}
 
+function decreaseQuantity() {
+    let quantityInput = document.querySelector("#quantity");
+    let currentValue = parseInt(quantityInput.value);
+    if (currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+    }
+}
+
+//大小圖更換
+function changeImage(element) {
+    document.querySelector("#show_L > img").setAttribute("src", element.getAttribute("src"));
+}
+
+// 庫存顯示
+function showStock(element) {
+    let index = element.selectedOptions[0].dataset.index;
+    if (index) {
+        document.querySelector("#specStock").innerText = "庫存 " + productSpecs[index].specStock
+    } else {
+        document.querySelector("#specStock").innerText = "";
+    }
+}
+
+//關注鈕
+$(".join_store").click(function () {
+    if ($(this).text() == "加入關注") {
+        $(this).text("關注中");
+    } else {
+        $(this).text("加入關注");
+    }
+})
 
 const init = function () {
 
@@ -114,7 +149,7 @@ const init = function () {
                         value="1" />
                     <button type="button" class="col-sm-1 minus" onclick="decreaseQuantity()"><img
                             src="./image/square-minus-regular.svg"></button>
-                    <button class="btn btn-primary btn-M mx-3">加入購物車</button>
+                    <button class="btn btn-primary btn-M mx-3" onclick="addToCart();">加入購物車</button>
                     <button class="btn btn-primary btn-M mx-3">收藏此商品</button>
                 </div>
                 <div class="text store_illustrate">
@@ -151,6 +186,8 @@ const init = function () {
 
 
             // ========================= 商品評論區 ===============================
+
+            commentListTitle.innerText = '商品評價';
 
             if (data[2] !== "noComment") {
 
@@ -287,61 +324,82 @@ const init = function () {
 
 init();
 
+// 展開優惠活動
 document.addEventListener("DOMContentLoaded", function () {
     const eventList = document.getElementById("eventList");
     const expandButton = document.getElementById("expandButton");
-    let isExpanded = false; // 初始状态为未展开
+    let isExpanded = false;
 
-    // 监听展开按钮的点击事件
-    expandButton.addEventListener("click", function () {
-        // 切换超过第三个 li 元素的显示状态
-        const hiddenItems = eventList.querySelectorAll("li:nth-child(n+4)");
-        hiddenItems.forEach(item => {
-            item.style.display = isExpanded ? "none" : "list-item";
+    if (eventList) {
+        expandButton.addEventListener("click", function () {
+
+            const hiddenItems = eventList.querySelectorAll("li:nth-child(n+4)");
+            hiddenItems.forEach(item => {
+                item.style.display = isExpanded ? "none" : "list-item";
+            });
+
+            expandButton.textContent = isExpanded ? "顯示更多優惠活動" : "收起";
+            isExpanded = !isExpanded;
         });
+    }
 
-        // 根据 isExpanded 变量切换按钮文字
-        expandButton.textContent = isExpanded ? "顯示更多優惠活動" : "收起";
-        isExpanded = !isExpanded; // 切换展开状态
-    });
 });
 
 
-// 數量加總
-function increaseQuantity() {
-    let quantityInput = document.querySelector("#quantity");
-    quantityInput.value = parseInt(quantityInput.value) + 1;
+// 取出Cookie中指定名稱的值
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-function decreaseQuantity() {
-    let quantityInput = document.querySelector("#quantity");
-    let currentValue = parseInt(quantityInput.value);
-    if (currentValue > 1) {
-        quantityInput.value = currentValue - 1;
-    }
-}
+const addToCart = function () {
+    console.log("Hi")
+    const jwtToken = getCookie('jwt')
+    let productSpecIds = JSON.parse(sessionStorage.getItem("NiigiCart"))
+    let productSpecId = document.querySelector("#specSelector").selectedOptions[0].value
 
+    if (productSpecIds) {
 
-//大小圖更換
-function changeImage(element) {
-    document.querySelector("#show_L > img").setAttribute("src", element.getAttribute("src"));
-}
+        productSpecIds.push(productSpecId);
+        sessionStorage.setItem("NiigiCart", JSON.stringify(productSpecIds));
 
-// 庫存顯示
-function showStock(element) {
-    let index = element.selectedOptions[0].dataset.index;
-    if (index) {
-        document.querySelector("#specStock").innerText = "庫存 " + productSpecs[index].specStock
     } else {
-        document.querySelector("#specStock").innerText = "";
+        sessionStorage.setItem("NiigiCart", JSON.stringify([productSpecId]));
     }
+
+    // if (jwtToken) {
+
+    fetch("http://localhost:8080/Niigi/shoppingCart/add", {
+        method: 'PUT',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        },
+        body: JSON.stringify({
+            'memberId': 'M000000001',
+            'productSpecIds': JSON.parse(sessionStorage.getItem("NiigiCart"))
+        })
+    }).then(resp => {
+
+        if (!resp.ok) {
+            throw new Error("系統繁忙中...請稍後再試")
+        }
+
+        return resp.text();
+    }).then(msg => {
+
+        alert(msg);
+        sessionStorage.removeItem("NiigiCart")
+    }).catch(error => alert(error))
+
+
+    // } else {
+
+
+
+    // }
+
+
 }
 
-//關注鈕
-$(".join_store").click(function () {
-    if ($(this).text() == "加入關注") {
-        $(this).text("關注中");
-    } else {
-        $(this).text("加入關注");
-    }
-})
