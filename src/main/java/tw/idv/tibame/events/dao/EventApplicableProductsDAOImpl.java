@@ -14,10 +14,21 @@ public class EventApplicableProductsDAOImpl {
 	@PersistenceContext
 	Session session;
 
+	public List<Object[]> selectAllByProductId (Integer productId){
+		
+		String hql = "FROM EventApplicableProducts AS eap , EventSingleThreshold AS est "
+				+ "WHERE eap.eventId = est.eventId AND productId = :productId "
+				+ "AND est.eventEnd >= CURDATE() AND est.eventType in ('1','3','4')";
+
+		return session.createQuery(hql, Object[].class).setParameter("productId", productId)
+				.getResultList();
+	}
+	
+	
 	public List<EventApplicableProducts> selectCoupontByProductId(Integer[] productId) {
 
 		String hql = "FROM EventApplicableProducts AS eap , EventSingleThreshold AS est "
-				+ "WHERE eap.eventId = est.eventId AND ProductSpecId = :productId "
+				+ "WHERE eap.eventId = est.eventId AND productId = :productId "
 				+ "AND est.eventEnd >= CURDATE() AND est.eventType ='1'";
 
 		return session.createQuery(hql, EventApplicableProducts.class).setParameter("productId", productId)
@@ -28,7 +39,7 @@ public class EventApplicableProductsDAOImpl {
 	public List<EventApplicableProducts> selectDiscountByProductId(Integer productId) {
 
 		String hql = "FROM EventApplicableProducts AS eap , EventSingleThreshold AS est "
-				+ "WHERE eap.eventId = est.eventId AND ProductSpecId = :productId "
+				+ "WHERE eap.eventId = est.eventId AND productId = :productId "
 				+ "AND est.eventEnd >= CURDATE() AND est.eventType ='3'";
 
 		return session.createQuery(hql, EventApplicableProducts.class).setParameter("productId", productId)
@@ -39,7 +50,7 @@ public class EventApplicableProductsDAOImpl {
 	public List<EventApplicableProducts> selectGiftByProductId(Integer productId) {
 
 		String hql = "FROM EventApplicableProducts AS eap , EventSingleThreshold AS est "
-				+ "WHERE eap.eventId = est.eventId AND ProductSpecId = :productId "
+				+ "WHERE eap.eventId = est.eventId AND productId = :productId "
 				+ "AND est.eventEnd >= CURDATE() AND est.eventType ='4'";
 
 		return session.createQuery(hql, EventApplicableProducts.class).setParameter("productId", productId)

@@ -1,6 +1,7 @@
 package tw.idv.tibame.orders.dao;
 
 import java.sql.Date;
+import java.util.List;
 
 import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.orders.entity.SubOrderDetail;
@@ -22,5 +23,7 @@ public interface SubOrderDetailDAO extends CoreDAO<SubOrderDetail, String>{
 		
 	public void delete(SubOrderDetail SubOrderDetail);
 	
+	List<Object[]> selectCommentByProductId(Integer productId);
 	
+	double selectAvgRatingByProductId(Integer productId);
 }

@@ -15,7 +15,6 @@
 #left {
     display: flex;
     flex-wrap: wrap;
-    /* height: 120rem; */
     height: fit-content;
 }
 
@@ -268,7 +267,7 @@ ul#eventList li.eventInfo {
 /* 左下角評價滾輪 */
 .member_evaluate-container {
     min-height: calc(90% -50rem);
-    height: 70rem;
+    height: 50rem;
     overflow-x: hidden;
     overflow-y: auto;
     margin-bottom: 2rem;
@@ -281,10 +280,6 @@ ul#eventList li.eventInfo {
 
 }
 
-/* 上線紀錄 */
-.store-action-all {
-    font-size: 1.6rem;
-}
 
 /* --------------商品列表----------------- */
 div.product-S {
@@ -296,4 +291,12 @@ p.productName {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+img.heart {
+    z-index: 1000;
+}
+
+a.product-S {
+    text-decoration: none;
 }
