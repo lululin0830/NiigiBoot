@@ -1,6 +1,9 @@
 package tw.idv.tibame.members.service.impl;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,7 @@ import com.google.gson.JsonObject;
 import tw.idv.tibame.core.util.JwtUtil;
 import tw.idv.tibame.core.util.PasswordEncryptor;
 import tw.idv.tibame.members.dao.MemberDAO;
+import tw.idv.tibame.members.dao.impl.MemberDAOImpl;
 import tw.idv.tibame.members.entity.Members;
 import tw.idv.tibame.members.service.MemberService;
 
@@ -23,6 +27,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberDAO memberDAO;
+	
+	@Autowired
+	MemberDAOImpl memberDAOImpl;
 
 	public String generateId() throws Exception {
 
@@ -105,6 +112,58 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String initForHeader(JsonObject memberInfo) {
 		return null;
+	}
+
+	@Override
+	public List<Members> getAll() {
+		List<Members> getAll = null;
+		
+		try {
+			getAll = memberDAOImpl.getAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return getAll;
+	}
+
+	@Override
+	public String getBySearch(JsonObject searchCondition) {
+		String searchcase = searchCondition.get("searchcase").getAsString();
+
+		String SearchSelect = searchCondition.get("searchway").getAsString();
+
+		String startDateString = searchCondition.get("StartDate").getAsString();
+
+		Timestamp startDate, closeDate;
+
+		if (startDateString.length() > 0) {
+			startDateString += " 00:00:00";
+			startDate = Timestamp.valueOf(startDateString);
+		} else {
+			startDate = Timestamp.valueOf("1970-01-01 00:00:00");
+		}
+
+		String closeDateString = searchCondition.get("EndDate").getAsString();
+
+		if (closeDateString.length() > 0) {
+			closeDateString += " 00:00:00";
+			closeDate = Timestamp.valueOf(closeDateString);
+		} else {
+			closeDate = Timestamp.valueOf(LocalDateTime.now());
+		}
+
+		String dateSelect = searchCondition.get("DateSelect").getAsString();
+		
+		String result = null;
+		
+		try {
+			result = memberDAOImpl.getAllBySearch(searchcase, SearchSelect, startDate, closeDate, dateSelect);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
