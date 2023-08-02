@@ -190,4 +190,14 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	public String ConfirmReceipt(String subOrderId) {
+		
+		Query query = session.createQuery("update SubOrder SET subOrderStatus = '3' where subOrderId = :subOrderId");
+		query.setParameter("subOrderId", subOrderId);
+		query.executeUpdate();		
+		
+		return "確認收貨成功";
+	}
+	
 }

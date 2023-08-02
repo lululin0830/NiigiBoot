@@ -389,4 +389,10 @@ public class OrderServiceImpl implements OrderService {
 		return subOrderDetailDAO.checkOrderDetail(subOrderId);
 	}
 
+	@Override
+	public String subOrderReceipt(String subOrderId) {
+		return subOrderDAO.ConfirmReceipt(subOrderId);
+		 
+	}
+
 }

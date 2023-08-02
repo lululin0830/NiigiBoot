@@ -251,7 +251,7 @@ const transportBody = function (element) {
                 </button>
             </div>
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
+                <button type="button" class="btn btn-primary btn-XL submitReceipt"
                     data-bs-toggle="modal" data-bs-target="#closeOrderModal">
                     確認收貨
                 </button>
@@ -492,9 +492,14 @@ const init = function () {
         let cancelOrder = data[2]
         cancelBody(cancelOrder)
         mainorder5.insertAdjacentHTML("beforeend", bodyHtml);
-
+        // =====================各分頁按鈕區=====================
+        //查看訂單綁定事件
         document.querySelectorAll("button.checkDetail").forEach(function (e) {
             e.addEventListener("click", checkOrderDetail);
+        })
+        //確認收貨綁定事件
+        document.querySelectorAll("button.submitReceipt").forEach(function (e) {
+            e.addEventListener("click", confirmReceipt);
         })
 
     })
@@ -502,6 +507,7 @@ const init = function () {
 }
 init();
 
+//查看訂單方法
 const checkOrderDetail = function () {
 
     const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
@@ -542,3 +548,29 @@ const checkOrderDetail = function () {
 
     })
 }
+//確認收貨方法
+const confirmReceipt = function () {
+    const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
+    console.log(subOrderId)
+    console.log(document.querySelector("button.confirmReceipt"))
+
+    async function updateReceipt() {
+        if (document.querySelector("button.confirmReceipt") !== null) {
+            await fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderConfirmReceipt', {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: subOrderId
+            });
+            console.log("收貨")
+            document.querySelector("#cancelOrderModal button.btn-close").click();
+
+        }
+    }
+
+    document.querySelector("button.confirmReceipt").addEventListener("click", function () {
+        updateReceipt();
+    })
+}
+

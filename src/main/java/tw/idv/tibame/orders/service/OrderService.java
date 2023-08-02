@@ -40,4 +40,6 @@ public interface OrderService {
 	public String memberCheckOrder(String memberId);
 	
 	public String checkOrderDetail(String subOrderId);
+	
+	public String subOrderReceipt(String subOrderId);
 }
