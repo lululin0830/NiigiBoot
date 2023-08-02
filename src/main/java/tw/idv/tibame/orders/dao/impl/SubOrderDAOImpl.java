@@ -178,7 +178,7 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 //	}
 //	
 	public List<Object[]> memberCheckOrder2(String memberId) {
-		
+		System.out.println(memberId);
 		String hql = "select mo.paymentStatus,mo.orderStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
 				+ "so.subOrderId,so.subPaidAmount "				
 				+ "from MainOrder as mo,SubOrder as so,SubOrderDetail as sod,Suppliers as sp "
@@ -190,4 +190,14 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		return query.getResultList();
 	}
 
+	@Override
+	public String ConfirmReceipt(String subOrderId) {
+		
+		Query query = session.createQuery("update SubOrder SET subOrderStatus = '3' where subOrderId = :subOrderId");
+		query.setParameter("subOrderId", subOrderId);
+		query.executeUpdate();		
+		
+		return "確認收貨成功";
+	}
+	
 }

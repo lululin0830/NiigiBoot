@@ -16,6 +16,23 @@ const mainorder4 = document.querySelector("#navs-top-complete>ul.sub-order-list"
 //已取消分頁
 const mainorder5 = document.querySelector("#navs-top-cancel>ul.sub-order-list");
 
+// //查看訂單明細-規格編號
+// let detailSpectId = null;
+// //查看訂單明細-產品名稱
+// let detailproductName = null;
+// //查看訂單明細-商品售價
+// let detailproductPrice = null;
+// //查看訂單明細-收件人
+// let detailrecipient = null;
+// //查看訂單明細-收件地址
+// let detailPhoneNumber = null;
+// //查看訂單明細-收件人電話
+// let detailDeliveryAddress = null;
+// //查看訂單明細-折價券
+// let detailevent = null;
+// //查看訂單明細-折價金額
+// let detaileventprice = null;
+
 let EIF = null;
 let bodyHtml = null;
 const paymentPendingBody = function (arr) {
@@ -234,7 +251,7 @@ const transportBody = function (element) {
                 </button>
             </div>
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
+                <button type="button" class="btn btn-primary btn-XL submitReceipt"
                     data-bs-toggle="modal" data-bs-target="#closeOrderModal">
                     確認收貨
                 </button>
@@ -424,18 +441,20 @@ function groupByField(data, index) {
 
 const init = function () {
     console.log(mainorder1)
+    console.log("memberId", memberId)
 
-    fetch('http://localhost:8080/Niigi/MemberCheckOrder?memberId=' + memberId, {
-        method: 'GET',
+    fetch('http://localhost:8080/Niigi/MemberCheckOrder/orderAll', {
+        method: 'POST',
         headers: {
             'Content-type': 'application/json',
-        }
+        },
+        body: memberId
     }).then(r => r.json()).then(data => {
         console.log("我是data", data)
 
         //===================================尚未付款區===================================
         let paymentPending = groupByField(data[0], 4)
-        // console.log("我是pay")
+        // console.log("我是pay")s
         console.log(paymentPending)
         paymentPendingBody(paymentPending)
         mainorder1.insertAdjacentHTML("beforeend", bodyHtml);
@@ -473,9 +492,14 @@ const init = function () {
         let cancelOrder = data[2]
         cancelBody(cancelOrder)
         mainorder5.insertAdjacentHTML("beforeend", bodyHtml);
-
+        // =====================各分頁按鈕區=====================
+        //查看訂單綁定事件
         document.querySelectorAll("button.checkDetail").forEach(function (e) {
             e.addEventListener("click", checkOrderDetail);
+        })
+        //確認收貨綁定事件
+        document.querySelectorAll("button.submitReceipt").forEach(function (e) {
+            e.addEventListener("click", confirmReceipt);
         })
 
     })
@@ -483,29 +507,70 @@ const init = function () {
 }
 init();
 
+//查看訂單方法
 const checkOrderDetail = function () {
-    console.log("進來了")
 
     const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
     console.log("看看我", subOrderId)
 
-    async function updateSubOrder() {
-        if (document.querySelector("button.confirmCancel") !== null) {
-            await fetch('http://localhost:8080/Niigi/SupplierSubOrder?subOrderId=' + subOrderId, {
+    fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetail', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: subOrderId
+    }).then(r => r.json()).then(data => {
+        console.log("查看訂單", data)
+
+        let detailSpectId = document.getElementById('detailSpectId');
+        detailSpectId.innerHTML = data[0][0];
+
+        let detailproductName = document.getElementById('detailproductName');
+        detailproductName.innerHTML = data[0][1];
+
+        let detailproductPrice = document.getElementById('detailproductPrice');
+        detailproductPrice.innerHTML = data[0][2];
+
+        let detailrecipient = document.getElementById('detailrecipient');
+        detailrecipient.innerHTML = data[0][3];
+
+        let detailPhoneNumber = document.getElementById('detailPhoneNumber');
+        detailPhoneNumber.innerHTML = data[0][4];
+
+        let detailDeliveryAddress = document.getElementById('detailDeliveryAddress');
+        detailDeliveryAddress.innerHTML = data[0][5];
+
+        let detailevent = document.getElementById('detailevent');
+        detailevent.innerHTML = data[0][6];
+
+        let detaileventprice = document.getElementById('detaileventprice');
+        detaileventprice.innerHTML = data[0][7];
+
+    })
+}
+//確認收貨方法
+const confirmReceipt = function () {
+    const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
+    console.log(subOrderId)
+    console.log(document.querySelector("button.confirmReceipt"))
+
+    async function updateReceipt() {
+        if (document.querySelector("button.confirmReceipt") !== null) {
+            await fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderConfirmReceipt', {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(searchdata)
+                body: subOrderId
             });
-            document.querySelector("button.confirmCancel").classList.remove("confirmCancel");
+            console.log("收貨")
             document.querySelector("#cancelOrderModal button.btn-close").click();
+
         }
     }
 
-    // document.querySelector("button.submitCancel").addEventListener("click", function () {
-    //     this.classList.add("confirmCancel");
-    //     updateSubOrder();
-    // })
+    document.querySelector("button.confirmReceipt").addEventListener("click", function () {
+        updateReceipt();
+    })
 }
 

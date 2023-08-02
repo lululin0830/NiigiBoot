@@ -949,7 +949,8 @@
                                                 data-bs-dismiss="modal">
                                                 取消
                                             </button>
-                                            <button type="submit" class="btn btn-primary btn-M">確認收貨</button>
+                                            <button type="submit"
+                                                class="btn btn-primary btn-M confirmReceipt">確認收貨</button>
                                         </div>
                                     </div>
                                 </div>
@@ -973,38 +974,18 @@
                                                         <img src="./image/product.svg" alt="">
                                                     </div>
                                                     <div class="col-sm-8">
-                                                        <h5 class="product-id">
-                                                            #<span>10000001</span></h5>
-                                                        <h4 class="product-name">
-                                                            品名XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                        <h5 class="product-id" id="detailSpectId">
+                                                            #<span></span></h5>
+                                                        <h4 class="product-name" id="detailproductName">
                                                         </h4>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <h4 class="product-price">
+                                                        <h4 class="product-price" id="detailproductPrice">
                                                             NT$<span>100,000,000</span>
                                                         </h4>
                                                     </div>
                                                     <hr>
                                                 </li>
-                                                <li class="order-item row">
-                                                    <div class="col-sm-1">
-                                                        <img src="./image/product.svg" alt="">
-                                                    </div>
-                                                    <div class="col-sm-8">
-                                                        <h5 class="product-id">
-                                                            #<span>10000001</span></h5>
-                                                        <h4 class="product-name">
-                                                            品名XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                                        </h4>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <h4 class="product-price">
-                                                            NT$<span>100,000,000</span>
-                                                        </h4>
-                                                    </div>
-                                                    <hr>
-                                                </li>
-
                                             </ul>
                                             <hr>
                                             <ul id="discountList" class="discount-list">
@@ -1027,12 +1008,12 @@
                                             <div id="deliveryInfo" class="delivery-info col-sm-10">
                                                 <h5 class="text-center">收件資訊</h5>
                                                 <p class="recipient">
-                                                    收件人：<span>XXXXXXXXXX</span></p>
+                                                    收件人：<span id="detailrecipient">XXXXXXXXXX</span></p>
                                                 <p class="address">收件地址：
-                                                    <span>104 台北市中山區南京東路三段219號5樓</span>
+                                                    <span id="detailDeliveryAddress">104 台北市中山區南京東路三段219號5樓</span>
                                                 </p>
                                                 <p class="phone">
-                                                    收件人電話：<span>0939-000-000</span></p>
+                                                    收件人電話：<span id="detailPhoneNumber">0939-000-000</span></p>
                                             </div>
                                         </div>
                                     </div>

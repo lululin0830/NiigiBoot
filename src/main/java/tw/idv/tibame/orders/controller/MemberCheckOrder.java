@@ -1,53 +1,40 @@
 package tw.idv.tibame.orders.controller;
 
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.google.gson.Gson;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import tw.idv.tibame.core.util.CommonUtils;
 import tw.idv.tibame.orders.service.OrderService;
-@WebServlet("/MemberCheckOrder")
-public class MemberCheckOrder extends HttpServlet{
+
+@RestController
+@RequestMapping("/MemberCheckOrder")
+@CrossOrigin(origins = "*")
+public class MemberCheckOrder{
 	
-	private OrderService orderService;
+	@Autowired
+	OrderService orderService;
+	
+	@PostMapping("/orderAll")
+	public String memberOrderAllInitString(@RequestBody String memberId){
+
+		return orderService.memberCheckOrder(memberId);		
+	}
+
+	@PostMapping("/subOrderDetail")
+	public String checkOrderDetail(@RequestBody String subOrderId) {
 		
-	@Override
-	public void init() throws ServletException {
-		orderService = CommonUtils.getBean(getServletContext(), OrderService.class);
-	};
-
-	private static final long serialVersionUID = -8448155337500716470L;
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setHeader("Access-Control-Allow-Origin", "*");
-		resp.setHeader("Access-Control-Allow-Methods", "GET");
-		resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
-		resp.setHeader("Access-Control-Allow-Credentials", "true");
-		resp.setContentType("application/json; charset=utf-8");
-		String memberId = req.getParameter("memberId");
-		resp.getWriter().print(orderService.memberCheckOrder(memberId));
+		return orderService.checkOrderDetail(subOrderId);	
 	}
+	
+	@PutMapping("/subOrderConfirmReceipt")
+	public String ConfirmReceipt(@RequestBody String subOrderId) {
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
-	}
-
-	@Override
-	protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setHeader("Access-Control-Allow-Origin", "*");
-		resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-		resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
-		resp.setHeader("Access-Control-Allow-Credentials", "true");
-		resp.setContentType("application/json; charset=utf-8");
-		resp.setStatus(HttpServletResponse.SC_OK);
+		return orderService.subOrderReceipt(subOrderId);
 	}
 
 }
