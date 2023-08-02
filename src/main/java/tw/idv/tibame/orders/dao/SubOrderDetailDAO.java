@@ -26,4 +26,7 @@ public interface SubOrderDetailDAO extends CoreDAO<SubOrderDetail, String>{
 	List<Object[]> selectCommentByProductId(Integer productId);
 	
 	double selectAvgRatingByProductId(Integer productId);
+	
+	//=======前台 會員訂單中心 查看訂單明細
+	public String checkOrderDetail(String subOrderId);
 }

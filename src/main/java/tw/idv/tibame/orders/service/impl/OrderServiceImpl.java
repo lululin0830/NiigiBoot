@@ -54,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	Gson gson;
 
+
 	// 取得自動編號
 	private String generateOrderId() throws Exception {
 
@@ -382,6 +383,10 @@ public class OrderServiceImpl implements OrderService {
 //			                 Collectors.groupingBy(li -> li[2], LinkedHashMap::new, Collectors.toList()))));
 
 		return gson.toJson(result);
+	}
+	
+	public String checkOrderDetail(String subOrderId) {
+		return subOrderDetailDAO.checkOrderDetail(subOrderId);
 	}
 
 }

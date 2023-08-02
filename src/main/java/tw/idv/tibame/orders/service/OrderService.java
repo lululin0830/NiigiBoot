@@ -38,4 +38,6 @@ public interface OrderService {
 	
 	//======================前台會員訂單中心======================
 	public String memberCheckOrder(String memberId);
+	
+	public String checkOrderDetail(String subOrderId);
 }

@@ -4,7 +4,11 @@ import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.google.gson.Gson;
 
 import jakarta.persistence.PersistenceContext;
 import tw.idv.tibame.orders.dao.SubOrderDetailDAO;
@@ -12,10 +16,13 @@ import tw.idv.tibame.orders.entity.SubOrderDetail;
 
 @Repository
 public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
-
+	
 	@PersistenceContext
 	private Session session;
-
+	
+	@Autowired 
+	private Gson gson;
+	
 	@Override
 	public Boolean insert(SubOrderDetail entity) {
 		session.persist(entity);
@@ -87,5 +94,21 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 		
 		return 0;
 	}
+
+	@Override
+	public String checkOrderDetail(String subOrderId) {
+		
+		String hql = "SELECT sod.productSpecId,pd.productName,sod.productPrice,so.recipient,"
+				+ "so.phoneNum,so.deliveryAddress,so.deliveryAddress,so.deliveryAddress FROM "
+				+ "SubOrder as so,SubOrderDetail as sod,Product as pd where so.subOrderId = :subOrderId AND "
+				+ "so.subOrderId = sod.subOrderId and sod.productId = pd.productId ";
+		
+		Query<?> query = session.createQuery(hql);
+		query.setParameter("subOrderId", subOrderId);
+		
+		return gson.toJson(query.getResultList());
+	}
+	
+	
 
 }
