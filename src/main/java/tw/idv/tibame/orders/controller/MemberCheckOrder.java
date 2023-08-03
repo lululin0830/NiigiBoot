@@ -2,7 +2,7 @@ package tw.idv.tibame.orders.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +32,7 @@ public class MemberCheckOrder{
 		return orderService.checkOrderDetail(subOrderId);	
 	}
 	
-	@PutMapping("/subOrderConfirmReceipt")
+	@PatchMapping("/subOrderConfirmReceipt")
 	public String ConfirmReceipt(@RequestBody String subOrderId) {
 
 		return orderService.subOrderReceipt(subOrderId);
