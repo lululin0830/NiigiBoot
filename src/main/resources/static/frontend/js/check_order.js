@@ -548,11 +548,11 @@ const checkOrderDetail = function () {
         let detailDeliveryAddress = document.getElementById('detailDeliveryAddress');
         detailDeliveryAddress.innerHTML = data[0][5];
 
-        let detailevent = document.getElementById('detailevent');
-        detailevent.innerHTML = data[0][6];
-
-        let detaileventprice = document.getElementById('detaileventprice');
-        detaileventprice.innerHTML = data[0][7];
+//        let detailevent = document.getElementById('detailevent');
+//        detailevent.innerHTML = data[0][6] ? data[0][6] : '';
+//
+//        let detaileventprice = document.getElementById('detaileventprice');
+//        detaileventprice.innerHTML = data[0][7];
 
     })
 }
@@ -603,7 +603,7 @@ const cancelMainOrder = function () {
                 body: OrderId
             })
 
-            document.getElementById('closeOrderModal').click();
+            document.querySelector("#closeOrderModal .btn-close").click();
             // $('#cancelOrderModal').modal('hide');
             mainorder1.innerHTML = ''
             mainorder2.innerHTML = ''
