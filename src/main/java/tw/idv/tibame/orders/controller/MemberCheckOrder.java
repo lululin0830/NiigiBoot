@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.idv.tibame.orders.dao.MainOrderDAO;
 import tw.idv.tibame.orders.service.OrderService;
 
 @RestController
@@ -36,5 +37,16 @@ public class MemberCheckOrder{
 
 		return orderService.subOrderReceipt(subOrderId);
 	}
-
+	
+	@PostMapping("/cancelMainOrder")
+	public String cancelMainOrder(@RequestBody String mainOrderId) {
+		
+		return orderService.cancelMainOrder(mainOrderId);
+		
+	}
+	
+	@PostMapping("cancelSubOrder")
+	public String cancelSubOrder(@RequestBody String subOrderId) {
+		return orderService.cancelSubOrder(subOrderId);
+	}
 }

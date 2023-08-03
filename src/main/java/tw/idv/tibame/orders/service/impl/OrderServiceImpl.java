@@ -395,4 +395,20 @@ public class OrderServiceImpl implements OrderService {
 		 
 	}
 
+	@Override
+	public String cancelMainOrder(String mainOrderId) {
+		
+		return mainOrderDAO.cancelMainOrder(mainOrderId);
+	}
+
+	@Override
+	public String cancelSubOrder(String subOrderId) {
+		
+		return subOrderDAO.cancelSubOrder(subOrderId);
+	}
+	
+	
+	
+	
+
 }

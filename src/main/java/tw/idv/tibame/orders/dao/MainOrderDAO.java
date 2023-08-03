@@ -12,5 +12,7 @@ public interface MainOrderDAO extends CoreDAO<MainOrder, String> {
 	public List<MainOrder> selectByMemberID(String memberId);
 	
 	String selectLastOrder();
-
+	
+	//會員訂單中心 取消主訂單
+	public String cancelMainOrder(String mainOrderId);
 }

@@ -25,4 +25,6 @@ public interface SubOrderDAO extends CoreDAO<SubOrder, String>{
     public List<Object[]> memberCheckOrder2(String memberId);
     //會員訂單中心 確認取貨
     public String ConfirmReceipt(String subOrderId);
+    //會員訂單中心 取消子訂單
+    public String cancelSubOrder(String subOrderId);
 }

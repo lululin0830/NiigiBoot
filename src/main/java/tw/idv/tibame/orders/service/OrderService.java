@@ -42,4 +42,8 @@ public interface OrderService {
 	public String checkOrderDetail(String subOrderId);
 	
 	public String subOrderReceipt(String subOrderId);
+	
+	public String cancelMainOrder(String mainOrderId);
+	
+	public String cancelSubOrder(String subOrderId);
 }

@@ -137,4 +137,16 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 		return nativeQuery.uniqueResult();
 	}
 
+	@Override
+	public String cancelMainOrder(String mainOrderId) {
+		
+		Query query = session.createQuery("update MainOrder SET orderStatus = '1' where orderId = :orderId");
+		query.setParameter("orderId", mainOrderId);
+		query.executeUpdate();		
+		
+		return "取消訂單成功";
+		
+	}
+	
+	
 }
