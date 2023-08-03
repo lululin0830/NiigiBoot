@@ -27,6 +27,7 @@ public class CartItem {
 	private List<String> eventIds;
 	private List<String> eventName;
 	private List<String> eventInfo;
+	private List<Integer> eventDiscounts;
 	private Integer eventPrice;
 	private List<String> giftProductSpecId;
 }

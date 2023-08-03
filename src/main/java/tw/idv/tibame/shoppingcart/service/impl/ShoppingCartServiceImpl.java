@@ -381,14 +381,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 				if (eventPrice != null) {
 
 					item.setEventPrice(eventPrice * discountA);
+					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.getEventDiscounts().add(discountA);
+					
 
 				} else if (couponPrice != null) {
 
 					item.setEventPrice(couponPrice * discountA);
+					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.getEventDiscounts().add(discountA);
 
 				} else {
 
 					item.setEventPrice(price * discountA);
+					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.getEventDiscounts().add(discountA);
 
 				}
 			} else if (discountR != null) {
@@ -396,14 +403,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 				if (eventPrice != null) {
 
 					item.setEventPrice((int) (eventPrice * discountR));
+					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.getEventDiscounts().add(eventPrice - item.getEventPrice());
 
 				} else if (couponPrice != null) {
 
 					item.setEventPrice((int) (couponPrice * discountR));
+					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.getEventDiscounts().add(couponPrice - item.getEventPrice());
 
 				} else {
 
 					item.setEventPrice((int) (price * discountR));
+					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.getEventDiscounts().add(price - item.getEventPrice());
 				}
 			}
 		} else {
