@@ -199,5 +199,15 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		
 		return "確認收貨成功";
 	}
+
+	@Override
+	public String cancelSubOrder(String subOrderId) {
+		
+		Query query = session.createQuery("update SubOrder SET subOrderStatus = '5' where subOrderId = :subOrderId");
+		query.setParameter("subOrderId", subOrderId);
+		query.executeUpdate();
+		
+		return "取消訂單成功";
+	}
 	
 }

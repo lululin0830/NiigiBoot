@@ -503,7 +503,7 @@ const init = function () {
         })
 
     })
-
+    bodyHtml = null;
 }
 init();
 
