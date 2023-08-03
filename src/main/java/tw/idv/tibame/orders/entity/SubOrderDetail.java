@@ -1,7 +1,10 @@
 package tw.idv.tibame.orders.entity;
 
+
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,9 +32,10 @@ public class SubOrderDetail implements Serializable{
 	private String productSpecId;
 	private Integer productPrice;
 	private Integer itemCouponDiscount;
-//	private String itemCouponCode;
+	private String itemCouponCode;
 	private Integer eventPrice;
-//	private String eventIds;
+	private String eventIds;
+	private String evevtDiscounts;
 	@Column(insertable = false)
 	private Integer ratingStar;
 	@Column(insertable = false)
