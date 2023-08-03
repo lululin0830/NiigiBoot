@@ -1,6 +1,9 @@
 package tw.idv.tibame.products.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import tw.idv.tibame.products.entity.Product;
 
@@ -14,7 +17,7 @@ public interface ProductService {
 	
 	public List<Product> getCategorieProducts(String categorie) throws Exception;
 	
-	
+	public void saveProductImages(Integer productId, MultipartFile[] images) throws IOException;
 	
 	// 新增商品(欄位不得為空值)
 
