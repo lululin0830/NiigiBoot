@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>File Upload</title>
+</head>
+
+<body>
+    <!-- 單隻商品上傳圖檔 -->
+    <input type="file" id="fileInput1" />
+    <input type="file" id="fileInput2" />
+    <input type="file" id="fileInput3" />
+    <input type="file" id="fileInput4" />
+    <input type="file" id="fileInput5" />
+    <button onclick="uploadImages()">Upload</button>
+
+    <div id="imagePreview"></div>
+
+    <script>
+        const productId = 10000001;
+        const imageFiles = []; // 存儲圖片檔案
+
+        function uploadImages() {
+            // 定義上傳圖片的函式
+            function uploadImage(fileInput) {
+                const file = fileInput.files[0];
+                if (!file) return;
+
+                imageFiles.push(file);
+            }
+
+            // 依次呼叫上傳圖片函式
+            uploadImage(document.getElementById('fileInput1'));
+            uploadImage(document.getElementById('fileInput2'));
+            uploadImage(document.getElementById('fileInput3'));
+            uploadImage(document.getElementById('fileInput4'));
+            uploadImage(document.getElementById('fileInput5'));
+
+            // 使用fetch API將所有圖片檔案一次性傳送至後端
+            uploadToBackend(productId, imageFiles);
+        }
+
+        function uploadToBackend(productId, files) {
+            const formData = new FormData();
+            formData.append('productId', productId);
+
+            files.forEach((file, index) => {
+                formData.append('images', file);
+            });
+
+            // 使用fetch API傳送FormData格式的圖片資料至後端
+            fetch('http://localhost:8080/Niigi/product/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('All images uploaded successfully!');
+                    } else {
+                        console.error('Image upload failed!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>
