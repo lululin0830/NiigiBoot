@@ -8,9 +8,6 @@ import java.util.Map;
 
 import javax.crypto.spec.SecretKeySpec;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.google.gson.Gson;
 
 import io.jsonwebtoken.Claims;
@@ -26,11 +23,11 @@ import io.jsonwebtoken.gson.io.GsonSerializer;
  * @author Lulu Lin
  * @version 1.0
  */
-@Component
+
 public class JwtUtil implements Serializable{
 
-	@Autowired
-	private static Gson gson;
+
+	private static Gson gson = new Gson();
 
 	private static final long serialVersionUID = -7699280065575291990L;
 	
