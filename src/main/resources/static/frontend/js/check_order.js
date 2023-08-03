@@ -557,15 +557,19 @@ const confirmReceipt = function () {
     async function updateReceipt() {
         if (document.querySelector("button.confirmReceipt") !== null) {
             await fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderConfirmReceipt', {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: {
                     'Content-type': 'application/json',
                 },
                 body: subOrderId
             });
-            console.log("收貨")
-            document.querySelector("#cancelOrderModal button.btn-close").click();
-
+            document.querySelector("#closeOrderModal button.btn-close").click();
+            document.querySelector("#navs-top-home>ul.order-list").innerHTML = ''
+            document.querySelector("#navs-top-inprogress>ul.sub-order-list").innerHTML = ''
+            document.querySelector("#navs-top-transport>ul.sub-order-list").innerHTML = ''
+            document.querySelector("#navs-top-complete>ul.sub-order-list").innerHTML = ''
+            document.querySelector("#navs-top-cancel>ul.sub-order-list").innerHTML = ''
+            init();
         }
     }
 
