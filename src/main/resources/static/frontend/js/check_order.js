@@ -590,29 +590,37 @@ const cancelMainOrder = function () {
     const OrderId = $(this).closest('li.order').find('span.order-id').text()
     console.log(OrderId)
 
+
     async function updateMainOrderStatus() {
 
         if (document.querySelector("button.confirmCancelOrder") !== null) {
-            await fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderConfirmReceipt', {
-                method: 'PATCH',
+
+            await fetch('http://localhost:8080/Niigi/MemberCheckOrder/cancelMainOrder', {
+                method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
                 },
                 body: OrderId
-            });
-            document.querySelector("#closeOrderModal button.btn-close").click();
-            document.querySelector("#navs-top-home>ul.order-list").innerHTML = ''
-            document.querySelector("#navs-top-inprogress>ul.sub-order-list").innerHTML = ''
-            document.querySelector("#navs-top-transport>ul.sub-order-list").innerHTML = ''
-            document.querySelector("#navs-top-complete>ul.sub-order-list").innerHTML = ''
-            document.querySelector("#navs-top-cancel>ul.sub-order-list").innerHTML = ''
+            })
+
+            document.getElementById('closeOrderModal').click();
+            // $('#cancelOrderModal').modal('hide');
+            mainorder1.innerHTML = ''
+            mainorder2.innerHTML = ''
+            mainorder3.innerHTML = ''
+            mainorder4.innerHTML = ''
+            mainorder5.innerHTML = ''
             init();
+
         }
+
     }
 
     document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
         updateMainOrderStatus();
+
     })
+
 
 }
 
