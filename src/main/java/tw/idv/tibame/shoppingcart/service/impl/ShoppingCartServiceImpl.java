@@ -38,6 +38,10 @@ import tw.idv.tibame.suppliers.entity.Suppliers;
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
+	private static final String FULL_PURCHASE = "1";
+	private static final String QUANTITY_PURCHASE = "2";
+	private static final String PRODUCT_DISCOUNT = "3";
+
 	@Autowired
 	private ShoppingCartDAO cartDAO;
 	@Autowired
@@ -141,10 +145,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 					for (EventApplicableProducts coupon : coupons) {
 
-						ThresholdType type = coupon.getEventSingleThreshold().getThresholdType();
+						String type = coupon.getEventSingleThreshold().getThresholdType();
 						String couponCode = coupon.getEventSingleThreshold().getCouponCode();
 
-						if (type == ThresholdType.FULL_PURCHASE) {
+						if (type.equals(FULL_PURCHASE)) {
 
 							Double discountRate = coupon.getEventSingleThreshold().getDiscountRate();
 							Integer discountAmount = coupon.getEventSingleThreshold().getDiscountAmount();
@@ -258,6 +262,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	/**
 	 * 商品活動門檻計算，設定活動價&贈品
+	 * 
 	 * @param discountMap
 	 * @param list
 	 * @throws Exception
@@ -341,6 +346,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	/**
 	 * 更新活動資訊
+	 * 
 	 * @param item
 	 * @param eventInfo
 	 */
@@ -362,39 +368,42 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	/**
 	 * 更新活動價&贈品
+	 * 
 	 * @param item
 	 * @param eventInfo
 	 */
 	public void updateEventPrice(CartItem item, EventSingleThreshold eventInfo) {
 
-		EventType eventType = eventInfo.getEventType();
+		String eventType = eventInfo.getEventType();
 		Integer discountA = eventInfo.getDiscountAmount();
 		Double discountR = eventInfo.getDiscountRate();
 		Integer eventPrice = item.getEventPrice();
 		Integer couponPrice = item.getCouponPrice();
 		Integer price = item.getProductPrice();
 
-		if (eventType == EventType.PRODUCT_DISCOUNT) {
+		if (eventType.equals(PRODUCT_DISCOUNT)) {
 
 			if (discountA != null) {
 
 				if (eventPrice != null) {
 
 					item.setEventPrice(eventPrice * discountA);
-					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.setEventDiscounts(
+							item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
 					item.getEventDiscounts().add(discountA);
-					
 
 				} else if (couponPrice != null) {
 
 					item.setEventPrice(couponPrice * discountA);
-					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.setEventDiscounts(
+							item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
 					item.getEventDiscounts().add(discountA);
 
 				} else {
 
 					item.setEventPrice(price * discountA);
-					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.setEventDiscounts(
+							item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
 					item.getEventDiscounts().add(discountA);
 
 				}
@@ -403,19 +412,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 				if (eventPrice != null) {
 
 					item.setEventPrice((int) (eventPrice * discountR));
-					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.setEventDiscounts(
+							item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
 					item.getEventDiscounts().add(eventPrice - item.getEventPrice());
 
 				} else if (couponPrice != null) {
 
 					item.setEventPrice((int) (couponPrice * discountR));
-					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.setEventDiscounts(
+							item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
 					item.getEventDiscounts().add(couponPrice - item.getEventPrice());
 
 				} else {
 
 					item.setEventPrice((int) (price * discountR));
-					item.setEventDiscounts(item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
+					item.setEventDiscounts(
+							item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
 					item.getEventDiscounts().add(price - item.getEventPrice());
 				}
 			}
