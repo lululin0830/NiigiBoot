@@ -82,7 +82,7 @@ function getCookie(name) {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
-
+//登入
 (() => {
     const memberAcct = document.querySelector('#memberAcct');
     const currentPassword = document.querySelector('#currentPassword');
@@ -103,9 +103,101 @@ function getCookie(name) {
 
                 // 假設您的JWT存儲在名為"jwt"的Cookie中
                 const jwtToken = getCookie('jwt');
-                console.log(jwtToken)
+                console.log(jwtToken);
 
+                window.location.href = 'customer_point_record.html';
             })
     });
 })();
 
+// function togglePasswordVisibility(inputId) {
+//     const input = document.getElementById(inputId);
+//     if (input.type === "password") {
+//         input.type = "text";
+//     } else {
+//         input.type = "password";
+//     }
+// }
+
+const registerButton = document.getElementById('register');
+registerButton.addEventListener('click', async () => {
+    const newMember = {
+        memberAcct: document.getElementById('newmemberAcct').value,
+        password: document.getElementById('newPassword').value,
+        name: document.getElementById('fullname').value,
+        phone: document.getElementById('phone').value,
+        gender: document.querySelector('input[name="quantity"]:checked')?.value === 'male' ? '0' : '1',
+        birthday: document.getElementById('birthday').value,
+    };
+
+    const newPassword = document.getElementById('newPassword').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+    // 清空之前的錯誤訊息
+    const errorElements = document.querySelectorAll('.error');
+    errorElements.forEach(error => error.textContent = '');
+
+    document.getElementById('passwordError').textContent = '';
+    document.getElementById('confirmPasswordError').textContent = '';
+
+    
+
+    // 進行表單驗證
+    let isValid = true;
+
+    if (!newMember.memberAcct) {
+        document.getElementById('acctError').textContent = '請輸入帳號';
+        isValid = false;
+    }
+
+    if (!newMember.password) {
+        document.getElementById('passwordError').textContent = '請輸入密碼';
+        isValid = false;
+    }
+
+    if (!newMember.name) {
+        document.getElementById('fullnameError').textContent = '請輸入姓名';
+        isValid = false;
+    }
+
+    if (!newMember.phone) {
+        document.getElementById('phoneError').textContent = '請輸入電話';
+        isValid = false;
+    }
+
+    if (!newMember.gender) {
+        document.getElementById('genderError').textContent = '請選擇性別';
+        isValid = false;
+    }
+
+    if (!newMember.birthday) {
+        document.getElementById('birthdayError').textContent = '請輸入生日';
+        isValid = false;
+    }
+
+    if (!isValid) {
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        document.getElementById('passwordError').textContent = '兩次輸入的密碼不相同。';
+        document.getElementById('confirmPasswordError').textContent = '兩次輸入的密碼不相同。';
+        return; // 如果密碼不相同，停止註冊
+      }
+
+    const response = await fetch('http://localhost:8080/Niigi/member/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newMember),
+    });
+
+    const data = await response.text();
+
+    if (response.ok) {
+        alert(data); // 註冊成功
+        window.location.replace('home_pop_ups.html'); // 導向到home_pop_ups.html
+    } else {
+        alert(data); // 註冊失敗，顯示錯誤訊息
+    }
+});

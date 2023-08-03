@@ -4,6 +4,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberDAO memberDAO;
-	
+
 	@Autowired
 	MemberDAOImpl memberDAOImpl;
 
@@ -56,6 +58,22 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String register(Members newMember) throws Exception {
 
+		// 驗證 memberAcct (email 格式)
+		String emailPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+		Pattern pattern = Pattern.compile(emailPattern);
+		Matcher matcher = pattern.matcher(newMember.getMemberAcct());
+		if (!matcher.matches()) {
+			return "email格式不對";
+		}
+
+		// 驗證 phone (09xx-xxx-xxx 格式)
+		String phonePattern = "^09\\d{2}-\\d{3}-\\d{3}$";
+		pattern = Pattern.compile(phonePattern);
+		matcher = pattern.matcher(newMember.getPhone());
+		if (!matcher.matches()) {
+			return "手機格式不對，應為09xx-xxx-xxx";
+		}
+
 		if (newMember.getMemberAcct() == null || newMember.getMemberAcct().isBlank()) {
 			return "使用者帳號未輸入";
 		}
@@ -64,7 +82,7 @@ public class MemberServiceImpl implements MemberService {
 			return "密碼未輸入";
 		}
 
-		if (newMember.getName() == null || newMember.getPassword().isBlank()) {
+		if (newMember.getName() == null || newMember.getName().isBlank()) {
 			return "姓名未輸入";
 		}
 
@@ -117,14 +135,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Members> getAll() {
 		List<Members> getAll = null;
-		
+
 		try {
 			getAll = memberDAOImpl.getAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return getAll;
 	}
 
@@ -155,9 +173,9 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		String dateSelect = searchCondition.get("DateSelect").getAsString();
-		
+
 		String result = null;
-		
+
 		try {
 			result = memberDAOImpl.getAllBySearch(searchcase, SearchSelect, startDate, closeDate, dateSelect);
 		} catch (Exception e) {
