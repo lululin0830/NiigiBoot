@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>File Upload</title>
+</head>
+
+<body>
+    <!-- 多隻商品批次上傳 -->
+    <input type="file" id="fileInput" multiple />
+    <button onclick="uploadImages()">Upload</button>
+
+    <div id="imagePreview"></div>
+
+    <script>
+        function uploadImages() {
+            const filesInput = document.getElementById('fileInput');
+            const files = filesInput.files;
+
+            if (files.length === 0) {
+                console.error('No files selected.');
+                return;
+            }
+
+            const imageFiles = {}; // 使用Object來分組圖片檔案，鍵值為productId，值為該productId的圖片檔案
+
+            // 分組圖片檔案
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const fileName = file.name;
+                const productId = fileName.substring(0, 8); // 假設productId為檔名的前8位數
+
+                if (imageFiles[productId]) {
+                    imageFiles[productId].push(file);
+                } else {
+                    imageFiles[productId] = [file];
+                }
+            }
+
+            // 依次發送fetch請求至後端
+            for (const productId in imageFiles) {
+                const filesForProductId = imageFiles[productId];
+                const formData = new FormData();
+                formData.append('productId', productId);
+
+                filesForProductId.forEach((file, index) => {
+                    formData.append('images', file);
+                });
+
+                // 使用fetch API傳送FormData格式的圖片資料至後端
+                fetch('http://localhost:8080/Niigi/product/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log(`Images for productId ${productId} uploaded successfully!`);
+                        } else {
+                            console.error(`Image upload for productId ${productId} failed!`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,20 +1,26 @@
 package tw.idv.tibame.products.service.impl;
 
+import java.io.IOException;
+import java.sql.Blob;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
 import tw.idv.tibame.events.dao.EventApplicableProductsDAOImpl;
 import tw.idv.tibame.orders.dao.SubOrderDetailDAO;
 import tw.idv.tibame.products.dao.ProductDAO;
+import tw.idv.tibame.products.dao.ProductRepository;
 import tw.idv.tibame.products.dao.ProductSpecDAO;
 import tw.idv.tibame.products.entity.Product;
 import tw.idv.tibame.products.entity.ProductSpec;
@@ -34,6 +40,13 @@ public class ProductServiceImpl implements ProductService {
 	private SubOrderDetailDAO detailDAO;
 	@Autowired
 	private Gson gson;
+
+	private final ProductRepository productRepository;
+
+	@Autowired
+	public ProductServiceImpl(ProductRepository productRepository) {
+		this.productRepository = productRepository;
+	}
 
 	@Override
 	public String productPageInit(Integer productId) throws Exception {
@@ -66,6 +79,38 @@ public class ProductServiceImpl implements ProductService {
 		return gson.toJson(result);
 	}
 
+	 public void saveProductImages(Integer productId, MultipartFile[] images) throws IOException {
+		 
+	            Product product = productRepository.findById(productId).orElse(null);
+	            if (product == null) {
+	                throw new IllegalArgumentException("Product with ID " + productId + " not found.");
+	            }
+
+	            for (int i = 0; i < images.length; i++) {
+	                MultipartFile image = images[i];
+	                byte[] imageData = image.getBytes();
+	                switch (i) {
+	                    case 0:
+	                        product.setPicture1(imageData);
+	                        break;
+	                    case 1:
+	                        product.setPicture2(imageData);
+	                        break;
+	                    case 2:
+	                        product.setPicture3(imageData);
+	                        break;
+	                    case 3:
+	                        product.setPicture4(imageData);
+	                        break;
+	                    case 4:
+	                        product.setPicture5(imageData);
+	                        break;
+	                }
+	            }
+
+	            productRepository.save(product);
+	    }
+
 	public List<Product> getAllFindLatestProducts() throws Exception {
 		return productDAO.findLatestProducts();
 
@@ -79,8 +124,8 @@ public class ProductServiceImpl implements ProductService {
 		String[] keywords = keyword.split("\\s+");
 		return productDAO.selectByKeywords(keywords);
 	}
-	
-	public List<Product> getCategorieProducts(String categorie) throws Exception{
+
+	public List<Product> getCategorieProducts(String categorie) throws Exception {
 		return productDAO.selectByCategorie(categorie);
 	}
 
