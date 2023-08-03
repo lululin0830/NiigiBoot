@@ -151,7 +151,7 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Object> selectSameShopProductByProductId(Integer productId) {
 		String sql = "SELECT productId,productName,productPrice,picture1 FROM Product "
 				+ "WHERE registerSupplier = ( SELECT registerSupplier FROM Product WHERE productId = :productId ) "
-				+ "AND productStatus = '0' ORDER BY firstOnShelvesDate DESC ";
+				+ "AND productStatus = '0' AND productId != :productId ORDER BY firstOnShelvesDate DESC ";
 		return session.createNativeQuery(sql, Object.class).setParameter("productId", productId)
 				.setFirstResult(0).setMaxResults(3).getResultList();
 	}

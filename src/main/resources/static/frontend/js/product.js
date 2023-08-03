@@ -31,7 +31,11 @@ function decreaseQuantity() {
 
 //大小圖更換
 function changeImage(element) {
-    document.querySelector("#show_L > img").setAttribute("src", element.getAttribute("src"));
+
+    if (element.getAttribute("src") !== "./image/square.svg") {
+
+        document.querySelector("#show_L > img").setAttribute("src", element.getAttribute("src"));
+    }
 }
 
 // 庫存顯示
@@ -44,14 +48,6 @@ function showStock(element) {
     }
 }
 
-//關注鈕
-$(".join_store").click(function () {
-    if ($(this).text() == "加入關注") {
-        $(this).text("關注中");
-    } else {
-        $(this).text("加入關注");
-    }
-})
 
 const init = function () {
 
@@ -81,16 +77,16 @@ const init = function () {
                         <img class="small_img" src="${product.picture1 ? createImageURL(product.picture1) : './image/square.svg'}" onclick="changeImage(this);" alt="">
                     </div>
                     <div>
-                        <img class="small_img" src="${product.picture2 ? createImageURL(product.picture1) : './image/square.svg'}" onclick="changeImage(this);" alt="">
+                        <img class="small_img" src="${product.picture2 ? createImageURL(product.picture2) : './image/square.svg'}" onclick="changeImage(this);" alt="">
                     </div>
                     <div>
-                        <img class="small_img" src="${product.picture3 ? createImageURL(product.picture1) : './image/square.svg'}" onclick="changeImage(this);" alt="">
+                        <img class="small_img" src="${product.picture3 ? createImageURL(product.picture3) : './image/square.svg'}" onclick="changeImage(this);" alt="">
                     </div>
                     <div>
-                        <img class="small_img" src="${product.picture4 ? createImageURL(product.picture1) : './image/square.svg'}" onclick="changeImage(this);" alt="">
+                        <img class="small_img" src="${product.picture4 ? createImageURL(product.picture4) : './image/square.svg'}" onclick="changeImage(this);" alt="">
                     </div>
                     <div>
-                        <img class="small_img" src="${product.picture5 ? createImageURL(product.picture1) : './image/square.svg'}" onclick="changeImage(this);" alt="">
+                        <img class="small_img" src="${product.picture5 ? createImageURL(product.picture5) : './image/square.svg'}" onclick="changeImage(this);" alt="">
                     </div>
                 </div>
             </div>
@@ -120,7 +116,7 @@ const init = function () {
             infoBody +=
                 `
                     <span id="avgRating">${product.avgRating}</span>
-                    <span class="star_totoal">(187)</span>
+                    <span class="star_totoal">(${data[2].length})</span>
                 </div>
 
                 <p class="price">
@@ -144,11 +140,11 @@ const init = function () {
                 <div class="col-sm-11 d-flex align-items-center py-3">
                     <span style="font-size: 1.6rem;">數量</span>
                     <button type="button" class="col-sm-1 plus" onclick="increaseQuantity()"><img
-                            src="./image/square-plus-regular.svg"></button>
+                            src="./image/Plus.svg"></button>
                     <input type="number" id="quantity" name="quantity" class="custom-input form-control"
                         value="1" />
                     <button type="button" class="col-sm-1 minus" onclick="decreaseQuantity()"><img
-                            src="./image/square-minus-regular.svg"></button>
+                            src="./image/Minus.svg"></button>
                     <button class="btn btn-primary btn-M mx-3" onclick="addToCart();">加入購物車</button>
                     <button class="btn btn-primary btn-M mx-3">收藏此商品</button>
                 </div>
@@ -193,28 +189,26 @@ const init = function () {
 
                 data[2].forEach(commnet => {
 
-                    const dateString = commnet.commentDate;
-                    const date = new Date(dateString);
-                    const year = date.getFullYear();
-                    const month = date.getMonth() + 1;
-                    const day = date.getDate();
+                    const dateString = commnet[2];
+                    const dateParts = dateString.match(/(\d{1,2})月 (\d{1,2}), (\d{4})/);
+                    const year = dateParts[3];
+                    const month = dateParts[1].padStart(2, '0');
+                    const day = dateParts[2].padStart(2, '0');
 
                     let commentBody = `
                     <li class="commentContent">
                         <div class="memberInfo row align-items-center">
                             <div class="memberPhoto col-sm-1">
-                                <img src="${commnet.memPhoto ? createImageURL(commnet.memPhoto) : './image/Profile1.svg'}">
+                                <img src="${commnet[4] ? createImageURL(commnet[4]) : './image/Profile1.svg'}">
                             </div>
-                            <span class="col-sm-4">${commnet.memberAcct.split("@")[0]}</span>
+                            <span class="col-sm-4">${commnet[3] ? commnet[3].split("@")[0] : ''}</span>
                             <div class="col-sm-4 ratingStar">`;
 
                     // 星星
                     for (let i = 1; i <= 5; i++) {
 
-                        if (commnet.ratingStar >= i) {
-                            commentBody += `<span class="star -on" ><img src="./image/Star_zero.svg" alt=""></span>`
-                        } else if (commnet.ratingStar > (i - 1) & commnet.ratingStar % 1 < 1) {
-                            commentBody += `<span class="star -halfon" ><img src="./image/Star_zero.svg" alt=""></span>`
+                        if (commnet[0] >= i) {
+                            commentBody += `<span class="star -on" ><img src="./image/Star-on.svg" alt=""></span>`
                         } else {
                             commentBody += `<span class="star" ><img src="./image/Star_zero.svg" alt=""></span>`
                         }
@@ -223,13 +217,13 @@ const init = function () {
 
                     commentBody +=
                         `</div>
-                            <span class="col">${year + "-" + month + "-" + day}</span>
+                            <span class="col">${year}-${month}-${day}</span>
                         </div>
-                        <p class="comment col-sm-10">${commnet.comment}</p>
+                        <p class="comment col-sm-10">${commnet[1]}</p>
                         <hr>
                     </li>`;
 
-                    commentList.insertAdjacentHTML("beforebegin", commentBody)
+                    commentList.insertAdjacentHTML("afterbegin", commentBody)
 
                 })
 
@@ -298,7 +292,7 @@ const init = function () {
             sameShopProducts.forEach(product => {
                 shopInfoBody +=
                     `<div class="col-sm-4">
-                    <a href="#" class="product-S" data-id="${product[0]}">
+                    <a href="/frontend/product.html?productId=${product[0]}" class="product-S" data-id="${product[0]}">
                         <div class="card product-S">
                             <img src="${product[3] ? createImageURL(product[3]) : './image/square.svg'}" class="card-img-top" >
                             <div class="card-body">
