@@ -53,7 +53,7 @@ const paymentPendingBody = function (arr) {
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
                 </div>
                 <div class="col-sm-7">
-                    <h4 class="order-id">訂單編號：<span class="sub-order-id">${arr[0][4]}</span></h4>
+                    <h4 class="order-id">訂單編號：<span class="order-id">${arr[0][4]}</span></h4>
                     <h4 class="order-amount">訂購金額：<span>${arr[0][5]}</span><span
                         style="font-size: 1.4rem"> (已折抵)</span>
                     </h4>
@@ -69,7 +69,7 @@ const paymentPendingBody = function (arr) {
 
                     <div class="navs-top-btn">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-XL"
+                        <button type="button" class="btn btn-primary btn-XL cancelMainOrder"
                             data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
                             取消訂單
                         </button>
@@ -169,7 +169,7 @@ const inprogressBody = function (element) {
 
             <!-- Button trigger modal -->
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
+                <button type="button" class="btn btn-primary btn-XL cancelSubOrder"
                     data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
                     取消訂單
                 </button>
@@ -501,6 +501,14 @@ const init = function () {
         document.querySelectorAll("button.submitReceipt").forEach(function (e) {
             e.addEventListener("click", confirmReceipt);
         })
+        //取消主訂單按鈕
+        document.querySelectorAll("button.cancelMainOrder").forEach(function (e) {
+            e.addEventListener("click", cancelMainOrder);
+        })
+        //取消子訂單按鈕
+        document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
+            e.addEventListener("click", cancelSubOrder);
+        })
 
     })
 
@@ -511,7 +519,7 @@ init();
 const checkOrderDetail = function () {
 
     const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
-    console.log("看看我", subOrderId)
+    console.log("subOrderId", subOrderId)
 
     fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetail', {
         method: 'POST',
@@ -578,3 +586,36 @@ const confirmReceipt = function () {
     })
 }
 
+const cancelMainOrder = function () {
+    const OrderId = $(this).closest('li.order').find('span.order-id').text()
+    console.log(OrderId)
+
+    async function updateMainOrderStatus() {
+
+        if (document.querySelector("button.confirmCancelOrder") !== null) {
+            await fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderConfirmReceipt', {
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: OrderId
+            });
+            document.querySelector("#closeOrderModal button.btn-close").click();
+            document.querySelector("#navs-top-home>ul.order-list").innerHTML = ''
+            document.querySelector("#navs-top-inprogress>ul.sub-order-list").innerHTML = ''
+            document.querySelector("#navs-top-transport>ul.sub-order-list").innerHTML = ''
+            document.querySelector("#navs-top-complete>ul.sub-order-list").innerHTML = ''
+            document.querySelector("#navs-top-cancel>ul.sub-order-list").innerHTML = ''
+            init();
+        }
+    }
+
+    document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
+        updateMainOrderStatus();
+    })
+
+}
+
+const cancelSubOrder = function () {
+
+}
