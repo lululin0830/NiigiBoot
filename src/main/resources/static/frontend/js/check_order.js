@@ -36,18 +36,18 @@ const mainorder5 = document.querySelector("#navs-top-cancel>ul.sub-order-list");
 let EIF = null;
 let bodyHtml = null;
 const paymentPendingBody = function (arr) {
-    // console.log("我是arr")
-    // console.log(arr)
-    arr.forEach(arr => {
+	// console.log("我是arr")
+	// console.log(arr)
+	arr.forEach(arr => {
 
-        let dateString = arr[0][3];
-        let date = new Date(dateString);
-        let year = date.getFullYear(); // 獲得年份
-        let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
-        let day = date.getDate();
+		let dateString = arr[0][3];
+		let date = new Date(dateString);
+		let year = date.getFullYear(); // 獲得年份
+		let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
+		let day = date.getDate();
 
-        let html =
-            `<li class="order">
+		let html =
+			`<li class="order">
             <div class="navs-top">
                 <div class="col-sm-2">
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
@@ -78,11 +78,11 @@ const paymentPendingBody = function (arr) {
                 <hr>
             </div>`
 
-        //可能重複結構(多個子訂單)
-        for (i = 0; i < arr.length; i++) {
+		//可能重複結構(多個子訂單)
+		for (i = 0; i < arr.length; i++) {
 
-            html +=
-                `< div class="navs-top-content" >
+			html +=
+				`< div class="navs-top-content" >
             <ul class="sub-order-list">
                 <li class="sub-order">
                     <div class="col-sm-2">
@@ -114,44 +114,46 @@ const paymentPendingBody = function (arr) {
             </div >
         <hr>
     </li>`
-        }
-        bodyHtml += html;
-    });
+		}
+		bodyHtml += html;
+	});
 
 }
+
+
 const inprogressBody = function (element) {
 
-    let dateString = element[3];
-    let date = new Date(dateString);
-    let year = date.getFullYear(); // 獲得年份
-    let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
-    let day = date.getDate();
+	let dateString = element[3];
+	let date = new Date(dateString);
+	let year = date.getFullYear(); // 獲得年份
+	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
+	let day = date.getDate();
 
-    let orderStatus;
-    switch (element[2]) {
+	let orderStatus;
+	switch (element[2]) {
 
-        case '0':
-            orderStatus = '待處理';
-            break;
-        case '1':
-            orderStatus = '配送中';
-            break;
-        case '2':
-            orderStatus = '已送達';
-            break;
-        case '3':
-            orderStatus = '已完成';
-            break;
-        case '4':
-            orderStatus = '已退貨/退款';
-            break;
-        case '5':
-            orderStatus = '已取消';
-            break;
-    }
+		case '0':
+			orderStatus = '待處理';
+			break;
+		case '1':
+			orderStatus = '配送中';
+			break;
+		case '2':
+			orderStatus = '已送達';
+			break;
+		case '3':
+			orderStatus = '已完成';
+			break;
+		case '4':
+			orderStatus = '已退貨/退款';
+			break;
+		case '5':
+			orderStatus = '已取消';
+			break;
+	}
 
-    let html =
-        `<li class="sub-order">
+	let html =
+		`<li class="sub-order">
         <div class="col-sm-2">
             <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
             <div class="order_item_priview">
@@ -175,12 +177,6 @@ const inprogressBody = function (element) {
                 </button>
             </div>
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
-                    data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                    聯絡客服
-                </button>
-            </div>
-            <div class="navs-top-btn">
                 <button type="button" class="btn btn-primary btn-XL checkDetail"
                     data-bs-toggle="modal" data-bs-target="#orderDetilModal">
                     查看訂單明細
@@ -190,43 +186,43 @@ const inprogressBody = function (element) {
         </div>
         <hr>
     </li>`
-    bodyHtml += html;
+	bodyHtml += html;
 
 
 
 }
 const transportBody = function (element) {
 
-    let dateString = element[3];
-    let date = new Date(dateString);
-    let year = date.getFullYear(); // 獲得年份
-    let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
-    let day = date.getDate();
+	let dateString = element[3];
+	let date = new Date(dateString);
+	let year = date.getFullYear(); // 獲得年份
+	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
+	let day = date.getDate();
 
-    let orderStatus;
-    switch (element[2]) {
+	let orderStatus;
+	switch (element[2]) {
 
-        case '0':
-            orderStatus = '待處理';
-            break;
-        case '1':
-            orderStatus = '配送中';
-            break;
-        case '2':
-            orderStatus = '已送達';
-            break;
-        case '3':
-            orderStatus = '已完成';
-            break;
-        case '4':
-            orderStatus = '已退貨/退款';
-            break;
-        case '5':
-            orderStatus = '已取消';
-            break;
-    }
-    let html =
-        `<li class="sub-order">
+		case '0':
+			orderStatus = '待處理';
+			break;
+		case '1':
+			orderStatus = '配送中';
+			break;
+		case '2':
+			orderStatus = '已送達';
+			break;
+		case '3':
+			orderStatus = '已完成';
+			break;
+		case '4':
+			orderStatus = '已退貨/退款';
+			break;
+		case '5':
+			orderStatus = '已取消';
+			break;
+	}
+	let html =
+		`<li class="sub-order">
         <div class="col-sm-2">
             <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
             <div class="order_item_priview">
@@ -257,12 +253,6 @@ const transportBody = function (element) {
                 </button>
             </div>
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
-                    data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                    聯絡客服
-                </button>
-            </div>
-            <div class="navs-top-btn">
                 <button type="button" class="btn btn-primary btn-XL checkDetail"
                     data-bs-toggle="modal" data-bs-target="#orderDetilModal">
                     查看訂單明細
@@ -272,18 +262,18 @@ const transportBody = function (element) {
         </div>
         <hr>
     </li>`
-    bodyHtml += html;
+	bodyHtml += html;
 }
 
 const completeBody = function (element) {
 
-    let dateString = element[3];
-    let date = new Date(dateString);
-    let year = date.getFullYear(); // 獲得年份
-    let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
-    let day = date.getDate();
-    let html =
-        `<li class="sub-order">
+	let dateString = element[3];
+	let date = new Date(dateString);
+	let year = date.getFullYear(); // 獲得年份
+	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
+	let day = date.getDate();
+	let html =
+		`<li class="sub-order">
         <div class="col-sm-2">
             <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
             <div class="order_item_priview">
@@ -300,12 +290,6 @@ const completeBody = function (element) {
 
             <!-- Button trigger modal -->
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
-                    data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                    聯絡客服
-                </button>
-            </div>
-            <div class="navs-top-btn">
                 <button type="button" class="btn btn-primary btn-XL checkDetail"
                     data-bs-toggle="modal" data-bs-target="#orderDetilModal">
                     查看訂單明細
@@ -321,20 +305,20 @@ const completeBody = function (element) {
         </div>
         <hr>
     </li>`
-    bodyHtml += html;
+	bodyHtml += html;
 }
 
 const cancelBody = function (arr) {
-    console.log("我是arr", arr)
-    arr.forEach(arr => {
-        let dateString = arr[3];
-        let date = new Date(dateString);
-        let year = date.getFullYear(); // 獲得年份
-        let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
-        let day = date.getDate();
+	console.log("我是arr", arr)
+	arr.forEach(arr => {
+		let dateString = arr[3];
+		let date = new Date(dateString);
+		let year = date.getFullYear(); // 獲得年份
+		let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
+		let day = date.getDate();
 
-        let html =
-            `<li class="sub-order">
+		let html =
+			`<li class="sub-order">
                 <div class="col-sm-2">
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
                     <div class="order_item_priview">
@@ -366,21 +350,20 @@ const cancelBody = function (arr) {
                 </div>
                 <hr>
             </li>`
-        bodyHtml += html;
-    })
+		bodyHtml += html;
+	})
 
 }
 const cancelPayOrder = function (element) {
+	console.log("element", element)
+	let dateString = element[3];
+	let date = new Date(dateString);
+	let year = date.getFullYear(); // 獲得年份
+	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
+	let day = date.getDate();
 
-
-    let dateString = element[3];
-    let date = new Date(dateString);
-    let year = date.getFullYear(); // 獲得年份
-    let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
-    let day = date.getDate();
-
-    let html =
-        `<li class="sub-order">
+	let html =
+		`<li class="sub-order">
                 <div class="col-sm-2">
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
                     <div class="order_item_priview">
@@ -412,218 +395,252 @@ const cancelPayOrder = function (element) {
                 </div>
                 <hr>
             </li>`
-    bodyHtml += html;
-
+	bodyHtml += html;
 }
 
 function groupByField(data, index) {
-    return data.reduce((result, item) => {
-        // 確保 array[index] 有效且為字串或數字型態
-        // console.log(item[3])
-        const groupBy = item[index];
-        if (groupBy !== undefined && (typeof groupBy === 'string' || typeof groupBy === 'number')) {
-            // 檢查 groupBy 是否已經有符合該 field 值的 arraylist
-            const grouplist = result.find((arr) => arr.length > 0 && arr[0][index] === item[index]);
-            if (grouplist) {
-                // 如果已存在，將 item 加入該 arraylist
-                grouplist.push(item);
-            } else {
-                // 如果不存在，創建新的 arraylist 並將 item 加入
-                result.push([item]);
-            }
-        } else {
-            console.warn(`Invalid field value at index ${index} for item:`, item);
-        }
-        return result;
-    }, []);
+	return data.reduce((result, item) => {
+		// 確保 array[index] 有效且為字串或數字型態
+		// console.log(item[3])
+		const groupBy = item[index];
+		if (groupBy !== undefined && (typeof groupBy === 'string' || typeof groupBy === 'number')) {
+			// 檢查 groupBy 是否已經有符合該 field 值的 arraylist
+			const grouplist = result.find((arr) => arr.length > 0 && arr[0][index] === item[index]);
+			if (grouplist) {
+				// 如果已存在，將 item 加入該 arraylist
+				grouplist.push(item);
+			} else {
+				// 如果不存在，創建新的 arraylist 並將 item 加入
+				result.push([item]);
+			}
+		} else {
+			console.warn(`Invalid field value at index ${index} for item:`, item);
+		}
+		return result;
+	}, []);
 }
 
 
 const init = function () {
-    console.log(mainorder1)
-    console.log("memberId", memberId)
+	console.log(mainorder1)
+	console.log("memberId", memberId)
 
-    fetch('http://localhost:8080/Niigi/MemberCheckOrder/orderAll', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: memberId
-    }).then(r => r.json()).then(data => {
-        console.log("我是data", data)
+	fetch('http://localhost:8080/Niigi/MemberCheckOrder/orderAll', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+		},
+		body: memberId
+	}).then(r => r.json()).then(data => {
 
-        //===================================尚未付款區===================================
-        let paymentPending = groupByField(data[0], 4)
-        // console.log("我是pay")s
-        console.log(paymentPending)
-        paymentPendingBody(paymentPending)
-        mainorder1.insertAdjacentHTML("beforeend", bodyHtml);
-        bodyHtml = null;
-        //===================================處理中區===================================
-        let paymentsuccess = data[1]
-        console.log("我是ps", paymentsuccess)
-        // let orderStatuscheck = groupByField(paymentsuccess, 1)
-        // console.log("主訂單狀態", orderStatuscheck)
+		console.log("我是data", data)
 
-        paymentsuccess.forEach(element => {
-            console.log("element", element)
-            if (element[2] == 0 || Element[2] == 1) {
-                inprogressBody(element)
-                mainorder2.insertAdjacentHTML("beforeend", bodyHtml);
-                bodyHtml = null
-                //===================================待收貨區===================================
-            } if (element[2] == 2) {
-                transportBody(element)
-                mainorder3.insertAdjacentHTML("beforeend", bodyHtml);
-                bodyHtml = null
-                //===================================已完成區===================================
-            } if (element[2] == 3) {
-                completeBody(element)
-                mainorder4.insertAdjacentHTML("beforeend", bodyHtml);
-                bodyHtml = null
-                //===================================已取消區===================================
-            } if (element[2] == 4 || element[2] == 5) {
-                cancelPayOrder(element)
-                mainorder5.insertAdjacentHTML("beforeend", bodyHtml);
-                bodyHtml = null
-            };
-        })
+		//===================================尚未付款區===================================
+		let paymentPending = groupByField(data[0], 4)
+		// console.log("我是pay")s
+		console.log(paymentPending)
+		paymentPendingBody(paymentPending)
+		mainorder1.insertAdjacentHTML("beforeend", bodyHtml);
+		bodyHtml = null;
+		//===================================處理中區===================================
+		let paymentsuccess = data[0]
+		console.log("我是ps", paymentsuccess)
+		// let orderStatuscheck = groupByField(paymentsuccess, 1)
+		// console.log("主訂單狀態", orderStatuscheck)
 
-        let cancelOrder = data[2]
-        cancelBody(cancelOrder)
-        mainorder5.insertAdjacentHTML("beforeend", bodyHtml);
-        // =====================各分頁按鈕區=====================
-        //查看訂單綁定事件
-        document.querySelectorAll("button.checkDetail").forEach(function (e) {
-            e.addEventListener("click", checkOrderDetail);
-        })
-        //確認收貨綁定事件
-        document.querySelectorAll("button.submitReceipt").forEach(function (e) {
-            e.addEventListener("click", confirmReceipt);
-        })
-        //取消主訂單按鈕
-        document.querySelectorAll("button.cancelMainOrder").forEach(function (e) {
-            e.addEventListener("click", cancelMainOrder);
-        })
-        //取消子訂單按鈕
-        document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
-            e.addEventListener("click", cancelSubOrder);
-        })
+		paymentsuccess.forEach(element => {
+			// console.log("element", element)
+			if (element[2] == 0 || Element[2] == 1) {
+				inprogressBody(element)
+				mainorder2.insertAdjacentHTML("beforeend", bodyHtml);
+				bodyHtml = null
+				//===================================待收貨區===================================
+			} if (element[2] == 2) {
+				transportBody(element)
+				mainorder3.insertAdjacentHTML("beforeend", bodyHtml);
+				bodyHtml = null
+				//===================================已完成區===================================
+			} if (element[2] == 3) {
+				completeBody(element)
+				mainorder4.insertAdjacentHTML("beforeend", bodyHtml);
+				bodyHtml = null
+				//===================================已取消區===================================
+			} if (element[2] == 4 || element[2] == 5) {
+				cancelPayOrder(element)
+				mainorder5.insertAdjacentHTML("beforeend", bodyHtml);
+				bodyHtml = null
+			};
+		})
 
-    })
-    bodyHtml = null;
+
+		if (data[1]) {
+
+			let cancelOrder = data[1]
+			cancelBody(cancelOrder)
+		}
+
+		mainorder5.insertAdjacentHTML("beforeend", bodyHtml);
+		// =====================各分頁按鈕區=====================
+		//查看訂單綁定事件
+		document.querySelectorAll("button.checkDetail").forEach(function (e) {
+			e.addEventListener("click", checkOrderDetail);
+		})
+		//確認收貨綁定事件
+		document.querySelectorAll("button.submitReceipt").forEach(function (e) {
+			e.addEventListener("click", confirmReceipt);
+		})
+		//取消主訂單按鈕
+		document.querySelectorAll("button.cancelMainOrder").forEach(function (e) {
+			e.addEventListener("click", cancelMainOrder);
+		})
+		//取消子訂單按鈕
+		document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
+			e.addEventListener("click", cancelSubOrder);
+		})
+
+	})
+	bodyHtml = null;
 }
 init();
 
 //查看訂單方法
 const checkOrderDetail = function () {
 
-    const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
-    console.log("subOrderId", subOrderId)
+	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
+	// console.log("subOrderId", subOrderId)
 
-    fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetail', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: subOrderId
-    }).then(r => r.json()).then(data => {
-        console.log("查看訂單", data)
+	fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetail', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+		},
+		body: subOrderId
+	}).then(r => r.json()).then(data => {
+		console.log("查看訂單", data)
 
-        let detailSpectId = document.getElementById('detailSpectId');
-        detailSpectId.innerHTML = data[0][0];
+		let detailSpectId = document.getElementById('detailSpectId');
+		detailSpectId.innerHTML = data[0][0];
 
-        let detailproductName = document.getElementById('detailproductName');
-        detailproductName.innerHTML = data[0][1];
+		let detailproductName = document.getElementById('detailproductName');
+		detailproductName.innerHTML = data[0][1];
 
-        let detailproductPrice = document.getElementById('detailproductPrice');
-        detailproductPrice.innerHTML = data[0][2];
+		let detailproductPrice = document.getElementById('detailproductPrice');
+		detailproductPrice.innerHTML = data[0][2];
 
-        let detailrecipient = document.getElementById('detailrecipient');
-        detailrecipient.innerHTML = data[0][3];
+		let detailrecipient = document.getElementById('detailrecipient');
+		detailrecipient.innerHTML = data[0][3];
 
-        let detailPhoneNumber = document.getElementById('detailPhoneNumber');
-        detailPhoneNumber.innerHTML = data[0][4];
+		let detailPhoneNumber = document.getElementById('detailPhoneNumber');
+		detailPhoneNumber.innerHTML = data[0][4];
 
-        let detailDeliveryAddress = document.getElementById('detailDeliveryAddress');
-        detailDeliveryAddress.innerHTML = data[0][5];
+		let detailDeliveryAddress = document.getElementById('detailDeliveryAddress');
+		detailDeliveryAddress.innerHTML = data[0][5];
 
-        //        let detailevent = document.getElementById('detailevent');
-        //        detailevent.innerHTML = data[0][6] ? data[0][6] : '';
-        //
-        //        let detaileventprice = document.getElementById('detaileventprice');
-        //        detaileventprice.innerHTML = data[0][7];
+		//        let detailevent = document.getElementById('detailevent');
+		//        detailevent.innerHTML = data[0][6] ? data[0][6] : '';
+		//
+		//        let detaileventprice = document.getElementById('detaileventprice');
+		//        detaileventprice.innerHTML = data[0][7];
 
-    })
+	})
 }
 //確認收貨方法
 const confirmReceipt = function () {
-    const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
-    console.log(subOrderId)
-    console.log(document.querySelector("button.confirmReceipt"))
+	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
+	// console.log(subOrderId)
+	// console.log(document.querySelector("button.confirmReceipt"))
 
-    async function updateReceipt() {
-        if (document.querySelector("button.confirmReceipt") !== null) {
-            await fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderConfirmReceipt', {
-                method: 'PATCH',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: subOrderId
-            });
-            document.querySelector("#closeOrderModal button.btn-close").click();
-            document.querySelector("#navs-top-home>ul.order-list").innerHTML = ''
-            document.querySelector("#navs-top-inprogress>ul.sub-order-list").innerHTML = ''
-            document.querySelector("#navs-top-transport>ul.sub-order-list").innerHTML = ''
-            document.querySelector("#navs-top-complete>ul.sub-order-list").innerHTML = ''
-            document.querySelector("#navs-top-cancel>ul.sub-order-list").innerHTML = ''
-            init();
-        }
-    }
+	async function updateReceipt() {
+		if (document.querySelector("button.confirmReceipt") !== null) {
+			await fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderConfirmReceipt', {
+				method: 'PATCH',
+				headers: {
+					'Content-type': 'application/json',
+				},
+				body: subOrderId
+			});
+			document.querySelector("#closeOrderModal button.btn-close").click();
+			document.querySelector("#navs-top-home>ul.order-list").innerHTML = ''
+			document.querySelector("#navs-top-inprogress>ul.sub-order-list").innerHTML = ''
+			document.querySelector("#navs-top-transport>ul.sub-order-list").innerHTML = ''
+			document.querySelector("#navs-top-complete>ul.sub-order-list").innerHTML = ''
+			document.querySelector("#navs-top-cancel>ul.sub-order-list").innerHTML = ''
+			init();
+		}
+	}
 
-    document.querySelector("button.confirmReceipt").addEventListener("click", function () {
-        updateReceipt();
-    })
+	document.querySelector("button.confirmReceipt").addEventListener("click", function () {
+		updateReceipt();
+	})
 }
 
 const cancelMainOrder = function () {
-    const OrderId = $(this).closest('li.order').find('span.order-id').text()
-    console.log(OrderId)
+	const OrderId = $(this).closest('li.order').find('span.order-id').text()
 
+	async function updateMainOrderStatus() {
 
-    async function updateMainOrderStatus() {
+		if (document.querySelector("button.confirmCancelOrder")) {
 
-        if (document.querySelector("button.confirmCancelOrder")) {
+			await fetch('http://localhost:8080/Niigi/MemberCheckOrder/cancelMainOrder', {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json',
+				},
+				body: OrderId
+			})
 
-            await fetch('http://localhost:8080/Niigi/MemberCheckOrder/cancelMainOrder', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                },
-                body: OrderId
-            })
+			document.querySelector("#cancelOrderModal .btn-close").click();
+			// $('#cancelOrderModal').modal('hide');
+			mainorder1.innerHTML = ''
+			mainorder2.innerHTML = ''
+			mainorder3.innerHTML = ''
+			mainorder4.innerHTML = ''
+			mainorder5.innerHTML = ''
+			bodyHtml = null;
+			init();
 
-            document.querySelector("#cancelOrderModal .btn-close").click();
-            // $('#cancelOrderModal').modal('hide');
-            mainorder1.innerHTML = ''
-            mainorder2.innerHTML = ''
-            mainorder3.innerHTML = ''
-            mainorder4.innerHTML = ''
-            mainorder5.innerHTML = ''
-            init();
+		}
 
-        }
+	}
 
-    }
-
-
-    document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
-        updateMainOrderStatus();
-    })
+	document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
+		updateMainOrderStatus();
+	})
 
 
 }
 
 const cancelSubOrder = function () {
+	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
+	console.log("subOrderId", subOrderId)
 
+	async function updatesubOrderStatus() {
+
+		if (document.querySelector("button.confirmCancelOrder")) {
+
+			await fetch('http://localhost:8080/Niigi/MemberCheckOrder/cancelSubOrder', {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json',
+				},
+				body: subOrderId
+			})
+
+			document.querySelector("#cancelOrderModal .btn-close").click();
+			// $('#cancelOrderModal').modal('hide');
+			mainorder1.innerHTML = ''
+			mainorder2.innerHTML = ''
+			mainorder3.innerHTML = ''
+			mainorder4.innerHTML = ''
+			mainorder5.innerHTML = ''
+			bodyHtml = null;
+			init();
+
+		}
+	}
+	document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
+		updatesubOrderStatus();
+	})
 }
+
+const subOrderDetailcomment

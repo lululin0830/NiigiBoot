@@ -2,6 +2,7 @@ package tw.idv.tibame.orders.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,8 +46,13 @@ public class MemberCheckOrder{
 		
 	}
 	
-	@PostMapping("cancelSubOrder")
+	@PostMapping("/cancelSubOrder")
 	public String cancelSubOrder(@RequestBody String subOrderId) {
 		return orderService.cancelSubOrder(subOrderId);
+	}
+	
+	@PostMapping("/subOrderDetailcomment")
+	public String subOrderDetailcomment(@RequestBody String subOrderId) {
+		return orderService.subOrderDetailcomment(subOrderId);
 	}
 }

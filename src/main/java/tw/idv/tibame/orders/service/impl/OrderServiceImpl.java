@@ -443,4 +443,11 @@ public class OrderServiceImpl implements OrderService {
 		return subOrderDAO.cancelSubOrder(subOrderId);
 	}
 
+	@Override
+	public String subOrderDetailcomment(String subOrderId) {
+		
+		return subOrderDAO.subOrderDetailcomment(subOrderId);
+	}
+	
+	
 }

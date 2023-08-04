@@ -46,4 +46,6 @@ public interface OrderService {
 	public String cancelMainOrder(String mainOrderId);
 	
 	public String cancelSubOrder(String subOrderId);
+	
+	public String subOrderDetailcomment(String subOrderId);
 }

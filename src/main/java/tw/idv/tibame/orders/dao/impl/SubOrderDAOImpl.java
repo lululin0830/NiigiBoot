@@ -179,7 +179,7 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 //	
 	public List<Object[]> memberCheckOrder2(String memberId) {
 		System.out.println(memberId);
-		String hql = "select mo.paymentStatus,mo.orderStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
+		String hql = "select mo.orderStatus,mo.paymentStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
 				+ "so.subOrderId,so.subPaidAmount "				
 				+ "from MainOrder as mo,SubOrder as so,SubOrderDetail as sod,Suppliers as sp "
 				+ "where mo.orderId = so.orderId and so.subOrderId = sod.subOrderId and so.supplierId = sp.supplierId "		
@@ -208,6 +208,22 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		query.executeUpdate();
 		
 		return "取消訂單成功";
+	}
+
+	@Override
+	public String subOrderDetailcomment(String subOrderId) {
+		String hql = "SELECT so.subOrderId,sod.orderDetailId,pd.productName,pd.picture1 "
+				+ "FROM SubOrderDetail as sod,Product as pd,SubOrder as so "
+				+ "where so.subOrderId = sod.subOrderId and sod.productId = pd.productId and so.subOrderId = :subOrderId";
+		
+		Query<?> query = session.createQuery(hql);
+		query.setParameter("subOrderId", subOrderId);
+		
+		return gson.toJson(query.getResultList());
+		
+		
+		
+		
 	}
 	
 }
