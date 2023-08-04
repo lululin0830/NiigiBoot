@@ -548,11 +548,11 @@ const checkOrderDetail = function () {
         let detailDeliveryAddress = document.getElementById('detailDeliveryAddress');
         detailDeliveryAddress.innerHTML = data[0][5];
 
-//        let detailevent = document.getElementById('detailevent');
-//        detailevent.innerHTML = data[0][6] ? data[0][6] : '';
-//
-//        let detaileventprice = document.getElementById('detaileventprice');
-//        detaileventprice.innerHTML = data[0][7];
+        //        let detailevent = document.getElementById('detailevent');
+        //        detailevent.innerHTML = data[0][6] ? data[0][6] : '';
+        //
+        //        let detaileventprice = document.getElementById('detaileventprice');
+        //        detaileventprice.innerHTML = data[0][7];
 
     })
 }
@@ -593,7 +593,7 @@ const cancelMainOrder = function () {
 
     async function updateMainOrderStatus() {
 
-        if (document.querySelector("button.confirmCancelOrder") !== null) {
+        if (document.querySelector("button.confirmCancelOrder")) {
 
             await fetch('http://localhost:8080/Niigi/MemberCheckOrder/cancelMainOrder', {
                 method: 'POST',
@@ -603,7 +603,7 @@ const cancelMainOrder = function () {
                 body: OrderId
             })
 
-            document.querySelector("#closeOrderModal .btn-close").click();
+            document.querySelector("#cancelOrderModal .btn-close").click();
             // $('#cancelOrderModal').modal('hide');
             mainorder1.innerHTML = ''
             mainorder2.innerHTML = ''
@@ -616,9 +616,9 @@ const cancelMainOrder = function () {
 
     }
 
+
     document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
         updateMainOrderStatus();
-
     })
 
 
