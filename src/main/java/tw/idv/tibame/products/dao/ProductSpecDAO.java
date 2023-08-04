@@ -20,6 +20,27 @@ public interface ProductSpecDAO extends CoreDAO<ProductSpec, String> {
 	public Integer selectByProductSpecId(Integer productIds);
 
 	// 更新庫存
-	public Boolean updateSpecStock(String productSpecId,Integer specStock);
+	public Boolean updateSpecStock(String productSpecId, Integer specStock);
 
+	// 列出全部規格，已下架或上架中+BY商家編號
+	public List<ProductSpec> findActiveSpecificationsBySupplierId(String shelvesStatus, String registerSupplier);
+
+	// 列出全部規格，all+BY商家編號
+	public List<ProductSpec> findInactiveSpecificationsBySupplierId(String registerSupplier);
+
+	// 算出總數量，已下架或上架中+BY商家編號
+	public Integer getTotalCountOfProductsByStatusAndSupplierId(String shelvesStatus, String registerSupplier);
+
+	// 算出總數量，all+BY商家編號
+	public Integer getTotalCountOfActiveProductsBySupplierId(String registerSupplier);
+
+	// 以規格編號算出已售出多少數量+BY商品狀態(需0)(這個是借放的，等等要移位)
+	public Integer getSoldQuantityBySpecIdAndStatus(String productSpecId);
+
+	// 列出全部規格，已售完(要去除強制下架)+BY商家編號
+	public List<ProductSpec> getAllSpecsForSoldOutProductsBySupplierId(String registerSupplier);
+	
+	//算出總數量，已售完(要去除強制下架)+BY商家編號
+	public Integer getCountForSoldOutProductsBySupplierId (String registerSupplier);
+	
 }
