@@ -127,7 +127,7 @@ const init = function () {
                 </div>
 
                 <p class="price">
-                    <span id="eventPrice">NT$${product.productPrice.toLocaleString()}</span>
+                    <span id="eventPrice">NT$${data[5].toLocaleString()}</span>
                     <span id="productPrice">NT$${product.productPrice.toLocaleString()}</span>
                 </p>`;
 
@@ -170,10 +170,10 @@ const init = function () {
                 <ul id="eventList">`;
 
                 for (let i = 0; i < data[1].length; i++) {
-                    infoBody += `<li class="eventInfo">【6/30-8/30】全館不限金額結帳9折</li>`
+                    infoBody += `<li class="eventInfo">${data[1][i][1].eventName + data[1][i][1].eventInfo}</li>`
                 }
-                if (data[1].length > 3) {
-                    infoBody += `<button id="expandButton">顯示更多優惠活動</button>`
+                if (data[1].length >= 3) {
+                    infoBody += `<button id="expandButton" onclick="expandEventList();">顯示更多優惠活動</button>`
                 }
                 infoBody += `</ul></div><hr>`
             }
@@ -326,25 +326,25 @@ const init = function () {
 init();
 
 // 展開優惠活動
-document.addEventListener("DOMContentLoaded", function () {
-    const eventList = document.getElementById("eventList");
-    const expandButton = document.getElementById("expandButton");
-    let isExpanded = false;
 
-    if (eventList) {
-        expandButton.addEventListener("click", function () {
+let isExpanded = false;
 
-            const hiddenItems = eventList.querySelectorAll("li:nth-child(n+4)");
-            hiddenItems.forEach(item => {
-                item.style.display = isExpanded ? "none" : "list-item";
-            });
 
-            expandButton.textContent = isExpanded ? "顯示更多優惠活動" : "收起";
-            isExpanded = !isExpanded;
-        });
-    }
+function expandEventList() {
 
-});
+    const hiddenItems = eventList.querySelectorAll("li:nth-child(n+3)");
+    hiddenItems.forEach(item => {
+        item.style.display = isExpanded ? "none" : "list-item";
+    });
+
+    expandButton.textContent = isExpanded ? "顯示更多優惠活動" : "收起";
+    isExpanded = !isExpanded;
+};
+
+
+
+
+
 
 
 // 取出Cookie中指定名稱的值
@@ -360,46 +360,52 @@ const addToCart = function () {
     let productSpecIds = JSON.parse(sessionStorage.getItem("NiigiCart"))
     let productSpecId = document.querySelector("#specSelector").selectedOptions[0].value
 
-    if (productSpecIds) {
+    if (productSpecId.trim().length !== 0) {
+        if (productSpecIds) {
 
-        productSpecIds.push(productSpecId);
-        sessionStorage.setItem("NiigiCart", JSON.stringify(productSpecIds));
+            productSpecIds.push(productSpecId);
+            sessionStorage.setItem("NiigiCart", JSON.stringify(productSpecIds));
 
-    } else {
-        sessionStorage.setItem("NiigiCart", JSON.stringify([productSpecId]));
-    }
-
-    // if (jwtToken) {
-
-    fetch("http://localhost:8080/Niigi/shoppingCart/add", {
-        method: 'PUT',
-        headers: {
-            'Content-type': 'application/json',
-            'Authorization': `Bearer ${jwtToken}`
-        },
-        body: JSON.stringify({
-            'memberId': 'M000000001',
-            'productSpecIds': JSON.parse(sessionStorage.getItem("NiigiCart"))
-        })
-    }).then(resp => {
-
-        if (!resp.ok) {
-            throw new Error("系統繁忙中...請稍後再試")
+        } else {
+            sessionStorage.setItem("NiigiCart", JSON.stringify([productSpecId]));
         }
 
-        return resp.text();
-    }).then(msg => {
+        // if (jwtToken) {
 
-        alert(msg);
-        sessionStorage.removeItem("NiigiCart")
-    }).catch(error => alert(error))
+        fetch("http://localhost:8080/Niigi/shoppingCart/add", {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
+            },
+            body: JSON.stringify({
+                'memberId': 'M000000001',
+                'productSpecIds': JSON.parse(sessionStorage.getItem("NiigiCart"))
+            })
+        }).then(resp => {
+
+            if (!resp.ok) {
+                throw new Error("系統繁忙中...請稍後再試")
+            }
+
+            return resp.text();
+        }).then(msg => {
+
+            alert(msg);
+            sessionStorage.removeItem("NiigiCart")
+        }).catch(error => alert(error))
 
 
-    // } else {
+        // } else {
 
 
 
-    // }
+        // }
+    } else {
+        alert("請選擇商品規格")
+    }
+
+
 
 
 }
