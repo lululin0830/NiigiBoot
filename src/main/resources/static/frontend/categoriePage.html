@@ -429,7 +429,7 @@
 
 
 		<!-- -------------放page碼的地方--------------- -->
-		 <div id="pagination"></div>
+		 <div id="pagination" class="pagination justify-content-center"></div>
 
 	</main>
 
@@ -554,7 +554,6 @@
 			if (textData == "新品上市") {
 				// 在這裡處理後續邏輯，例如將文字送往後端處理
 				// console.log("接收到的文字資料：" + textData);
-				/////////////////////////////////////////////////////////////////////////////////////////////////
 				fetch('http://localhost:8080/Niigi/products', {
 					method: 'GET'
 				})
@@ -603,7 +602,6 @@
 					.catch((error) => {
 						console.error('Fetch error:', error);
 					});
-				////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			} else if (textData == "推薦商品") {
 
@@ -619,39 +617,38 @@
 						return response.json();
 					})
 					.then((data) => {
-						console.log(data[0].suppliers.shopName);
-						let list_html = "";
 						$('.serch_Keyword').text(`${textData}`);
-						data.forEach(function (product) {
-							// 在這裡對每個產品進行處理
-							//取得產品ID
-							const productId = product.productId;
-							// 取得產品名稱
-							const productName = product.productName;
-							// 取得產品價格
-							const productPrice = product.productPrice;
-							// 取得產品圖片的 Base64 字串
-							const base64Image = displayImageFromBase64(product.picture1);
-							//取得商店名稱
-							const ShopName = product.suppliers.shopName;
+						const totalPages = Math.ceil(data.length / 12); // 總頁數
+						let currentPage = 1; // 當前頁數，預設為第1頁
 
-							// 也可以將其他產品資料顯示在網頁上
-							list_html += `
-							<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird" style="padding-bottom:30px;">
-								<div class="card" style="width:200px;height:28rem;">
-									<img src="${base64Image}" id="${productId}" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
-									<div class="card-body">
-										<h5 class="card-title item__name">${productName}<img class="heart"
-											src="./image/heart_store.svg" alt=""></i></h5>
-										<p class="card-text item__price">$${productPrice}</p>
-										<p class="card-text item__store">${ShopName}</p>
-									</div>
-								</div>
-							</div>
-									`;
-						});
-						$('#ExProduct').html(list_html);
-						console.log(data[0].productPrice);
+						// 顯示特定頁面的資料
+						function renderPage() {
+							showDataForPage(data, currentPage);
+						}
+
+						// 初始化顯示第1頁的資料
+						renderPage();
+
+						// 顯示分頁按鈕
+						function renderPaginationButtons() {
+							const paginationContainer = $('#pagination');
+							paginationContainer.html(''); // 清空分頁容器
+
+							for (let i = 1; i <= totalPages; i++) {
+								const buttonHtml = `<button class="pagination-button" data-page="${i}">${i}</button>`;
+								paginationContainer.append(buttonHtml);
+							}
+
+							// 加入分頁按鈕的點擊事件處理
+							$('.pagination-button').click(function () {
+								const page = parseInt($(this).data('page'));
+								currentPage = page;
+								renderPage();
+							});
+						}
+
+						// 顯示分頁按鈕
+						renderPaginationButtons();
 					})
 					.catch((error) => {
 						console.error('Fetch error:', error);
