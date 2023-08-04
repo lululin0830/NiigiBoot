@@ -223,7 +223,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			return gson.toJson(list);
 
 		} else {
-			return "購物車內尚無商品";
+			return gson.toJson("購物車內尚無商品") ;
 		}
 	}
 
