@@ -209,5 +209,21 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		
 		return "取消訂單成功";
 	}
+
+	@Override
+	public String subOrderDetailcomment(String subOrderId) {
+		String hql = "SELECT so.subOrderId,sod.orderDetailId,pd.productName,pd.picture1 "
+				+ "FROM SubOrderDetail as sod,Product as pd,SubOrder as so "
+				+ "where so.subOrderId = sod.subOrderId and sod.productId = pd.productId and so.subOrderId = :subOrderId";
+		
+		Query<?> query = session.createQuery(hql);
+		query.setParameter("subOrderId", subOrderId);
+		
+		return gson.toJson(query.getResultList());
+		
+		
+		
+		
+	}
 	
 }

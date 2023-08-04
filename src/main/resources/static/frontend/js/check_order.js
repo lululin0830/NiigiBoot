@@ -177,12 +177,6 @@ const inprogressBody = function (element) {
                 </button>
             </div>
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
-                    data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                    聯絡客服
-                </button>
-            </div>
-            <div class="navs-top-btn">
                 <button type="button" class="btn btn-primary btn-XL checkDetail"
                     data-bs-toggle="modal" data-bs-target="#orderDetilModal">
                     查看訂單明細
@@ -259,12 +253,6 @@ const transportBody = function (element) {
                 </button>
             </div>
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
-                    data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                    聯絡客服
-                </button>
-            </div>
-            <div class="navs-top-btn">
                 <button type="button" class="btn btn-primary btn-XL checkDetail"
                     data-bs-toggle="modal" data-bs-target="#orderDetilModal">
                     查看訂單明細
@@ -301,12 +289,6 @@ const completeBody = function (element) {
         <div class="col-sm-3 position-relative ">
 
             <!-- Button trigger modal -->
-            <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
-                    data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                    聯絡客服
-                </button>
-            </div>
             <div class="navs-top-btn">
                 <button type="button" class="btn btn-primary btn-XL checkDetail"
                     data-bs-toggle="modal" data-bs-target="#orderDetilModal">
@@ -660,3 +642,5 @@ const cancelSubOrder = function () {
 		updatesubOrderStatus();
 	})
 }
+
+const subOrderDetailcomment
