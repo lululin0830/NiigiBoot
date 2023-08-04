@@ -18,7 +18,11 @@ function createImageURL(byteArray) {
 // 數量加減
 function increaseQuantity() {
     let quantityInput = document.querySelector("#quantity");
-    quantityInput.value = parseInt(quantityInput.value) + 1;
+    if (!quantityInput.value) {
+        quantityInput.value = 1;
+    } else {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+    }
 }
 
 function decreaseQuantity() {
@@ -26,6 +30,9 @@ function decreaseQuantity() {
     let currentValue = parseInt(quantityInput.value);
     if (currentValue > 1) {
         quantityInput.value = currentValue - 1;
+    }
+    if (!currentValue) {
+        quantityInput.value = 1;
     }
 }
 
