@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 
 public interface OrderService {
 	
-	public boolean createOrder(JsonObject orderData);
+	public boolean createOrder(JsonObject orderData) throws Exception;
 
 	public boolean cancelOrder();
 	

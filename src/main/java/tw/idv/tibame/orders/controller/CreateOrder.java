@@ -21,15 +21,15 @@ public class CreateOrder extends HttpServlet {
 	 * 成立訂單(2023-07-15 v1)
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private OrderService orderService ;
+
+	private OrderService orderService;
 	private Gson gson;
-	@Override	
+
+	@Override
 	public void init() throws ServletException {
 		orderService = CommonUtils.getBean(getServletContext(), OrderService.class);
 		gson = CommonUtils.getBean(getServletContext(), Gson.class);
-	}
-;
+	};
 
 	@Override
 	protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,19 +52,14 @@ public class CreateOrder extends HttpServlet {
 
 		JsonObject orderData = gson.fromJson(req.getReader(), JsonObject.class);
 
-		
-
-		boolean state = orderService.createOrder(orderData);
-
 		PrintWriter out = resp.getWriter();
-		if (state == true) {
-			System.out.println("成功");
-			out.print("訂單成立！！");
-		} else {
-			System.out.println("失敗");
+
+		try {
+			out.print(orderService.createOrder(orderData) ? "訂單成立！！" : "系統忙碌中");
+		} catch (Exception e) {
+			e.printStackTrace();
 			out.print("系統忙碌中");
 		}
-
 	}
 
 }
