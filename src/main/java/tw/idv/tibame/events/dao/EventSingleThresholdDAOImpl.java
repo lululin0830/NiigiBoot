@@ -40,4 +40,39 @@ public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold
 
 	}
 
+	public List<EventSingleThreshold> selectAllCouponByProductId(Integer productId) {
+
+		String hql = "FROM EventSingleThreshold WHERE eventId IN ( "
+				+ "SELECT eventId FROM EventApplicableProducts WHERE productId = :productId "
+				+ "AND eventEnd >= CURDATE() AND eventType = '1' )";
+
+		return session.createQuery(hql, EventSingleThreshold.class).setParameter("productId", productId)
+				.getResultList();
+
+	}
+	
+	public List<EventSingleThreshold> selectAllDiscountRateByProductId(Integer productId) {
+
+		String hql = "FROM EventSingleThreshold WHERE eventId IN ( "
+				+ "SELECT eventId FROM EventApplicableProducts WHERE productId = :productId "
+				+ "AND eventEnd >= CURDATE() AND eventType = '3' "
+				+ "AND discountRate IS NOT NULL )";
+
+		return session.createQuery(hql, EventSingleThreshold.class).setParameter("productId", productId)
+				.getResultList();
+
+	}
+	
+	public List<EventSingleThreshold> selectAllDiscountAmountByProductId(Integer productId) {
+
+		String hql = "FROM EventSingleThreshold WHERE eventId IN ( "
+				+ "SELECT eventId FROM EventApplicableProducts WHERE productId = :productId "
+				+ "AND eventEnd >= CURDATE() AND eventType = '3' "
+				+ "AND discountAmount IS NOT NULL )";
+
+		return session.createQuery(hql, EventSingleThreshold.class).setParameter("productId", productId)
+				.getResultList();
+
+	}
+
 }
