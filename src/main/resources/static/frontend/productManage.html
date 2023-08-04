@@ -2,1476 +2,1403 @@
 <html lang="zh-tw">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Member Check Order</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Member Check Order</title>
 
-    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/core.css">
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/button.css">
-    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/customer.aside.css">
+	<link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/core.css">
+	<link rel="stylesheet" href="./css/font.css">
+	<link rel="stylesheet" href="./css/button.css">
+	<link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/customer.aside.css">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-
-
-    <style>
-        main.main_content {
-            height: 100;
-            background-color: #ffffff;
-        }
-
-        div.main_content {
-            font-size: 0;
-        }
-
-        /* main content */
-        main.member-check-order {
-            display: inline-block;
-            vertical-align: top;
-            padding-left: 25px;
-        }
-
-        div.main-content-icon {
-            width: 6rem;
-        }
-
-        div.main-content-header img,
-        div.main-content-header>h1 {
-            display: inline-block;
-            vertical-align: bottom;
-            margin: 4.5rem 0 0 0;
-        }
-
-        hr.main-content-divider {
-            width: 100%;
-            border: 1px solid #EEEEEE;
-            margin: 18px 0 28px 0;
-            opacity: 1;
-        }
-
-        /* Tab */
-        .nav-tabs {
-            --bs-nav-tabs-border-color: #f7f7f7;
-            --bs-nav-tabs-border-width: 2px;
-            --bs-nav-tabs-border-radius: 0.5rem
-        }
-
-        .nav-tabs .nav-link {
-            margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
-            border: var(--bs-nav-tabs-border-width);
-            border-top-left-radius: var(--bs-nav-tabs-border-radius);
-            border-top-right-radius: var(--bs-nav-tabs-border-radius);
-            width: 12rem;
-            height: 5rem;
-            text-align: center;
-            vertical-align: middle;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 2.4rem;
-            color: #4C4C4C;
-            background-color: #f7f7f7;
-            margin-right: 1.5px;
-        }
-
-        .nav-tabs .nav-item.show .nav-link,
-        .nav-tabs .nav-link.active {
-            color: #4C4C4C;
-            background-color: rgba(183, 221, 229, 0.60);
-        }
-
-        /* Tab content */
-        div.tab-content {
-            color-scheme: light;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            font-size: 0;
-            padding: 1.5rem;
-            flex-shrink: 1;
-            background: #fff;
-            z-index: 1;
-            box-shadow: 0px 6px 7px -1px rgba(67, 89, 113, 0.12);
-            border-radius: 0 0 0.375rem 0.375rem;
-            border-top-right-radius: 0.375rem;
-        }
-
-        .navs-top-home_top>div {
-            display: inline-block;
-            vertical-align: baseline;
-        }
-
-        div.navs-top-home_top_btn {
-            width: fit-content;
-            margin: 15px auto auto auto;
-        }
-
-        div.navs-top-home_top_btn:first-child {
-            width: fit-content;
-            margin: 0 auto auto auto;
-        }
-
-        .navs-top-home_top>.col-sm-2 {
-            vertical-align: text-bottom;
-            margin-bottom: 2.2rem;
-        }
-
-        div.navs-top-home_top>hr {
-            border: 1px solid #EEEEEE;
-            margin: 28px 0 18px 0;
-            opacity: 1;
-        }
-
-        div.divider {
-            text-align: center;
-            vertical-align: bottom;
-            padding: 0;
-            width: fit-content;
-        }
-
-        tbody,
-        td,
-        tfoot,
-        th,
-        thead,
-        tr {
-            border-color: inherit;
-            border-style: solid;
-            border-width: 0;
-            font-size: initial;
-        }
-
-        h4.modal-title {
-            text-align: center;
-            transform: translateX(+10px);
-        }
-
-        div.saveCredit {
-            vertical-align: baseline;
-        }
-
-        input#saveCredit,
-        input#saveCredit~label {
-            margin-right: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #A0A0A0;
-        }
-
-        div#cancelOrderModal div.modal-header {
-            border-bottom: 0px;
-        }
-
-        div#cancelOrderModal div.modal-footer {
-            border-top: 0px;
-        }
-
-        ul.order-list {
-            list-style: none;
-            padding: 0.5rem;
-        }
-
-        ul.sub-order-list {
-            list-style: none;
-            padding: 0 1.5rem;
-            background-color: none;
-        }
-
-        .sub-order>div {
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        div.order_item_priview {
-            width: 12rem;
-            height: 12rem;
-            overflow: hidden;
-        }
-
-        img.order_item_priview {
-            height: 100%;
-        }
-
-        div.navs-top-home-content {
-            background-color: white;
-        }
-
-        div.navs-top-home-content-btn {
-            width: fit-content;
-            margin: auto 0 auto 15%;
-        }
-
-        div.navs-top-home-content hr {
-            border: 1px solid #EEEEEE;
-            margin: 18px 0;
-            opacity: 1;
-        }
-
-        /* ---------------------------------- */
-
-        .tableOne {
-            width: 885px;
-            background-color: #EEEEEE;
-        }
-
-        .tableOne .productTotal {
-            width: 360px;
-            padding: 0 10px;
-        }
-
-        .tableTwo {
-            width: 885px;
-        }
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
 
-        .tableTwo th {
-            background-color: #EEEEEE;
-            width: 100px;
-            height: 50px;
-            text-align: center;
-            padding: 3px;
-        }
+	<style>
+		main.main_content {
+			height: 100;
+			background-color: #ffffff;
+		}
 
-        .tableTwo tr {
-            border-bottom: 1px solid #EEEEEE;
-        }
+		div.main_content {
+			font-size: 0;
+		}
 
-        .tableTwo td {
-            width: 100px;
-            text-align: center;
-            padding: 3px;
-        }
+		/* main content */
+		main.member-check-order {
+			display: inline-block;
+			vertical-align: top;
+			padding-left: 25px;
+		}
 
-        .tableTwo thead th.checkAll {
-            width: 30px;
-            text-align: left;
-            padding: 0 10px;
-        }
+		div.main-content-icon {
+			width: 6rem;
+		}
 
-        .tableTwo tbody td.check {
-            width: 30px;
-            text-align: left;
-            padding: 0 10px;
-        }
+		div.main-content-header img,
+		div.main-content-header>h1 {
+			display: inline-block;
+			vertical-align: bottom;
+			margin: 4.5rem 0 0 0;
+		}
 
-        .productImg {
-            width: 70px;
-            height: 70px;
-        }
+		hr.main-content-divider {
+			width: 100%;
+			border: 1px solid #EEEEEE;
+			margin: 18px 0 28px 0;
+			opacity: 1;
+		}
 
-        .tableTwo thead th.productNameTh {
-            width: 200px;
-        }
+		/* Tab */
+		.nav-tabs {
+			--bs-nav-tabs-border-color: #f7f7f7;
+			--bs-nav-tabs-border-width: 2px;
+			--bs-nav-tabs-border-radius: 0.5rem
+		}
 
-        .tableTwo tbody td.productNameTd {
-            width: 200px;
-            text-align: left;
-            padding: 0 30px;
-        }
+		.nav-tabs .nav-link {
+			margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
+			border: var(--bs-nav-tabs-border-width);
+			border-top-left-radius: var(--bs-nav-tabs-border-radius);
+			border-top-right-radius: var(--bs-nav-tabs-border-radius);
+			width: 12rem;
+			height: 5rem;
+			text-align: center;
+			vertical-align: middle;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 2.4rem;
+			color: #4C4C4C;
+			background-color: #f7f7f7;
+			margin-right: 1.5px;
+		}
 
-        .tableTwo tbody td p {
-            width: 200px;
-            text-align: left;
-            margin: 0 0 0 0px
-        }
+		.nav-tabs .nav-item.show .nav-link,
+		.nav-tabs .nav-link.active {
+			color: #4C4C4C;
+			background-color: rgba(183, 221, 229, 0.60);
+		}
 
-        .productId {
-            color: #94A3B8;
-        }
+		/* Tab content */
+		div.tab-content {
+			color-scheme: light;
+			text-rendering: optimizeLegibility;
+			-webkit-font-smoothing: antialiased;
+			font-size: 0;
+			padding: 1.5rem;
+			flex-shrink: 1;
+			background: #fff;
+			z-index: 1;
+			box-shadow: 0px 6px 7px -1px rgba(67, 89, 113, 0.12);
+			border-radius: 0 0 0.375rem 0.375rem;
+			border-top-right-radius: 0.375rem;
+		}
 
-        .tableTwo tbody td button.edit_btn {
-            margin-bottom: 10px;
-        }
-    </style>
+		.navs-top-home_top>div {
+			display: inline-block;
+			vertical-align: baseline;
+		}
+
+		div.navs-top-home_top_btn {
+			width: fit-content;
+			margin: 15px auto auto auto;
+		}
+
+		div.navs-top-home_top_btn:first-child {
+			width: fit-content;
+			margin: 0 auto auto auto;
+		}
+
+		.navs-top-home_top>.col-sm-2 {
+			vertical-align: text-bottom;
+			margin-bottom: 2.2rem;
+		}
+
+		div.navs-top-home_top>hr {
+			border: 1px solid #EEEEEE;
+			margin: 28px 0 18px 0;
+			opacity: 1;
+		}
+
+		div.divider {
+			text-align: center;
+			vertical-align: bottom;
+			padding: 0;
+			width: fit-content;
+		}
+
+		tbody,
+		td,
+		tfoot,
+		th,
+		thead,
+		tr {
+			border-color: inherit;
+			border-style: solid;
+			border-width: 0;
+			font-size: initial;
+		}
+
+		h4.modal-title {
+			text-align: center;
+			transform: translateX(+10px);
+		}
+
+		div.saveCredit {
+			vertical-align: baseline;
+		}
+
+		input#saveCredit,
+		input#saveCredit~label {
+			margin-right: 10px;
+			font-size: 14px;
+			font-weight: 500;
+			color: #A0A0A0;
+		}
+
+		div#cancelOrderModal div.modal-header {
+			border-bottom: 0px;
+		}
+
+		div#cancelOrderModal div.modal-footer {
+			border-top: 0px;
+		}
+
+		ul.order-list {
+			list-style: none;
+			padding: 0.5rem;
+		}
+
+		ul.sub-order-list {
+			list-style: none;
+			padding: 0 1.5rem;
+			background-color: none;
+		}
+
+		.sub-order>div {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		div.order_item_priview {
+			width: 12rem;
+			height: 12rem;
+			overflow: hidden;
+		}
+
+		img.order_item_priview {
+			height: 100%;
+		}
+
+		div.navs-top-home-content {
+			background-color: white;
+		}
+
+		div.navs-top-home-content-btn {
+			width: fit-content;
+			margin: auto 0 auto 15%;
+		}
+
+		div.navs-top-home-content hr {
+			border: 1px solid #EEEEEE;
+			margin: 18px 0;
+			opacity: 1;
+		}
+
+		/* ---------------------------------- */
+
+		.tableOne {
+			width: 885px;
+			background-color: #EEEEEE;
+		}
+
+		.tableOne .productTotal {
+			width: 360px;
+			padding: 0 10px;
+		}
+
+		.tableTwo {
+			width: 885px;
+		}
+
+
+		.tableTwo th {
+			background-color: #EEEEEE;
+			width: 100px;
+			height: 50px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.tableTwo tr {
+			border-bottom: 1px solid #EEEEEE;
+		}
+
+		.tableTwo td {
+			width: 100px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.tableTwo thead th.checkAll {
+			width: 30px;
+			text-align: left;
+			padding: 0 10px;
+		}
+
+		.tableTwo tbody td.check {
+			width: 30px;
+			text-align: left;
+			padding: 0 10px;
+		}
+
+		.productImg {
+			width: 70px;
+			height: 70px;
+		}
+
+		.tableTwo thead th.productNameTh {
+			width: 200px;
+		}
+
+		.tableTwo tbody td.productNameTd {
+			width: 200px;
+			text-align: left;
+			padding: 0 30px;
+		}
+
+		.tableTwo tbody td p {
+			width: 200px;
+			text-align: left;
+			margin: 0 0 0 0px
+		}
+
+		.productId {
+			color: #94A3B8;
+		}
+
+		.tableTwo tbody td button.edit_btn {
+			margin-bottom: 10px;
+		}
+	</style>
 
 </head>
 
 <body>
-    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
-    <header id="main-header" class="header">
-
-        <div class="container-sm">
-
-            <div class="header-top row">
-
-                <div class="col-sm-2">
-                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-                </div>
-
-                <div class="col-sm-6">
-                    <form action="" method="get" class="header-search row">
-                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
-                            maxlength="50" value="">
-
-                        <button type="submit" class="header-search-submit col-sm-1"><img
-                                src="./image/search.svg"></button>
-                    </form>
-
-                    <div class="Search-hot ">
-                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
-                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
-                    </div>
-
-                </div>
-
-                <nav class="fixed-nav col-sm-4">
-
-                    <div class="fixed-nav-list login row">
-                        <a href="" class="SCM-Center col">
-                            <div class="SCM_icon">
-                                <button class="btn_SCM-Center">商家中心</button>
-                            </div>
-                        </a>
-
-                        <a href="" class="User-Center col">
-                            <div class="User_icon">
-                                <img src="./image/Profile.svg" alt="">
-                            </div>
-                        </a>
-
-                        <a href="" class="Favorite col">
-                            <div class="header_icon">
-                                <img src="./image/heart.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                        <a href="" class="Shopping-Cart col">
-                            <div class="header_icon">
-                                <img src="./image/Buy.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                        <a href="" class="Notification col">
-                            <div class="header_icon">
-                                <img src="./image/Notification.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                    </div>
-
-                </nav>
-            </div>
-
-        </div>
-
-    </header>
-
-    <!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
-    <nav id="main-navigation" class="main-navigation">
-        <ul class="main-nav"> <!--主選單-->
-            <li
-                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
-                <div class="navigation_title navigation_title--bold navigation_title--salmon">
-                    <span class="navigation_title-inner">主題活動</span>
-                </div>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">3C周邊</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">家用電器</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">美妝個清</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">流行服飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">鞋包配飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">母嬰用品</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">日用生活</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">圖書文具</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">旅遊戶外</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-        </ul>
-
-    </nav>
-
-    <main class="main_content">
-
-        <div class="main_content container-sm">
-
-            <aside class="member-aside col-sm-2">
-
-                <div class="member-profile row ">
-                    <div class="memberPhoto col-sm-4">
-                        <img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
-                    </div>
-                    <div class="member-info col-sm-8">
-                        <h4 class="memberAccount">jeffrey47</h4>
-                        <h6 class="memberId">M123456789</h6>
-                    </div>
-                </div>
-                <ul class="nav1_list">
-                    <li>
-                        <h4>MENU</h4>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Chart.svg" alt="">
-                            <img src="./image/Chart-a.svg" alt="">個人中心
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/heart-s.svg" alt="">
-                            <img src="./image/heart-s-a.svg" alt="">收藏夾</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Buy1.svg" alt="">
-                            <img src="./image/Buy1-a.svg" alt="">購物車</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            <img src="./image/DocumentAsh.svg" alt="">
-                            <img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Discount.svg" alt="">
-                            <img src="./image/Discount-a.svg" alt="">會員點數</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Ticket Star.svg" alt="">
-                            <img src="./image/Ticket Star-a.svg" alt="">我的折價券</a>
-                    </li>
-                    <li>
-                        <h4>OTHERS</h4>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Profile1.svg" alt="">
-                            <img src="./image/Profile1-a.svg" alt="">個人資訊</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Setting.svg" alt="">
-                            <img src="./image/Setting-a.svg" alt="">帳號管理</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Info Square.svg" alt="">
-                            <img src="./image/Info Square-a.svg" alt="">取得協助</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Logout.svg" alt="">
-                            <img src="./image/Logout-a.svg" alt="">登出</a>
-                    </li>
-                </ul>
-
-            </aside>
-            <main class="member-check-order col-sm-10">
-                <div class="main-content-header row">
-                    <div class="main-content-icon col-sm-1">
-                        <img calss="main-content-icon" src="./image/Document.svg">
-                    </div>
-                    <h1 class="main-content-title col-sm-10">我的訂單</h1>
-                    <hr class="main-content-divider">
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="nav-align-top mb-4 d-flex justify-content-between">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <!-- 分頁清單 -->
-                                <li class="nav-item">
-                                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-home" aria-controls="navs-top-home"
-                                        aria-selected="true">
-                                        全部
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-inprogress" aria-controls="navs-top-inprogress"
-                                        aria-selected="false">
-                                        上架中
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-transport" aria-controls="navs-top-transport"
-                                        aria-selected="false">
-                                        已下架
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-complete" aria-controls="navs-top-complete"
-                                        aria-selected="false">
-                                        已售完
-                                    </button>
-                                </li>
-                            </ul>
-                            <button class="stock_update btn btn-primary">庫存更新</button>
-                        </div>
-
-                        <div class="tab-content">
-                            <!-- 分頁內容 -->
-                            <!-- 全部 -->
-                            <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-                                <table class="tableOne">
-                                    <thead>
-                                        <tr>
-                                            <th class="productTotal">1,000商品</th>
-                                            <th>
-                                                <div class="dropdown">
-                                                    <button class="dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        商品名稱
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <li><a class="dropdown-item" href="#">商品名稱</a></li>
-                                                        <li><a class="dropdown-item" href="#">商品編號</a></li>
-                                                    </ul>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div class="search-box">
-                                                    <input class="search-KeyWord" type="text" placeholder="Search">
-                                                </div>
-                                            </th>
-                                            <th><button class="Search_btn" type="submit">搜尋</button></th>
-                                            <th><button class="product_new" type="submit">新增商品</button></th>
-                                            <th><button class="status_btn" type="submit">上/下架</button></th>
-                                        </tr>
-                                    </thead>
-
-                                </table>
-                                <table class="tableTwo">
-                                    <thead>
-                                        <tr>
-                                            <th class="checkAll">
-                                                <input type="checkbox" id="selectAll">
-                                            </th>
-                                            <th></th>
-                                            <th class="productNameTh">商品名稱</th>
-                                            <th>商品規格</th>
-                                            <th>商品規格</th>
-                                            <th>售價</th>
-                                            <th>即時庫存</th>
-                                            <th>已售出</th>
-                                            <th>狀態</th>
-                                            <th class="operate_txt">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">上架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">上架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">上架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-
-
-
-
-
-                                    </tbody>
-
-                                </table>
-                            </div>
-                            <!-- 上架中 -->
-                            <div class="tab-pane fade" id="navs-top-inprogress" role="tabpanel">
-                                <table class="tableOne">
-                                    <thead>
-                                        <tr>
-                                            <th class="productTotal">1,000商品</th>
-                                            <th>
-                                                <div class="dropdown">
-                                                    <button class="dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        商品名稱
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <li><a class="dropdown-item" href="#">商品名稱</a></li>
-                                                        <li><a class="dropdown-item" href="#">商品編號</a></li>
-                                                    </ul>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div class="search-box">
-                                                    <input class="search-KeyWord" type="text" placeholder="Search">
-                                                </div>
-                                            </th>
-                                            <th><button class="Search_btn" type="submit">搜尋</button></th>
-                                            <th><button class="status_btn" type="submit">下架</button></th>
-                                        </tr>
-                                    </thead>
-
-                                </table>
-                                <table class="tableTwo">
-                                    <thead>
-                                        <tr>
-                                            <th class="checkAll">
-                                                <input type="checkbox" id="selectAll">
-                                            </th>
-                                            <th></th>
-                                            <th class="productNameTh">商品名稱</th>
-                                            <th>商品規格</th>
-                                            <th>商品規格</th>
-                                            <th>售價</th>
-                                            <th>即時庫存</th>
-                                            <th>已售出</th>
-                                            <th>狀態</th>
-                                            <th class="operate_txt">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">上架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">上架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">上架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-
-
-
-
-
-                                    </tbody>
-
-                                </table>
-                            </div>
-                            <!-- 已下架 -->
-                            <div class="tab-pane fade" id="navs-top-transport" role="tabpanel">
-                                <table class="tableOne">
-                                    <thead>
-                                        <tr>
-                                            <th class="productTotal">1,000商品</th>
-                                            <th>
-                                                <div class="dropdown">
-                                                    <button class="dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        商品名稱
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <li><a class="dropdown-item" href="#">商品名稱</a></li>
-                                                        <li><a class="dropdown-item" href="#">商品編號</a></li>
-                                                    </ul>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div class="search-box">
-                                                    <input class="search-KeyWord" type="text" placeholder="Search">
-                                                </div>
-                                            </th>
-                                            <th><button class="Search_btn" type="submit">搜尋</button></th>
-                                            <th><button class="status_btn" type="submit">上架</button></th>
-                                        </tr>
-                                    </thead>
-
-                                </table>
-                                <table class="tableTwo">
-                                    <thead>
-                                        <tr>
-                                            <th class="checkAll">
-                                                <input type="checkbox" id="selectAll">
-                                            </th>
-                                            <th></th>
-                                            <th class="productNameTh">商品名稱</th>
-                                            <th>商品規格</th>
-                                            <th>商品規格</th>
-                                            <th>售價</th>
-                                            <th>即時庫存</th>
-                                            <th>已售出</th>
-                                            <th>狀態</th>
-                                            <th class="operate_txt">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">下架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">下架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">下架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-
-
-
-
-
-                                    </tbody>
-
-                                </table>
-                            </div>
-                            <!-- 已售完 -->
-                            <div class="tab-pane fade" id="navs-top-complete" role="tabpanel">
-                                <table class="tableOne">
-                                    <thead>
-                                        <tr>
-                                            <th class="productTotal">1,000商品</th>
-                                            <th>
-                                                <div class="dropdown">
-                                                    <button class="dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        商品名稱
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <li><a class="dropdown-item" href="#">商品名稱</a></li>
-                                                        <li><a class="dropdown-item" href="#">商品編號</a></li>
-                                                    </ul>
-                                                </div>
-                                            </th>
-                                            <th>
-                                                <div class="search-box">
-                                                    <input class="search-KeyWord" type="text" placeholder="Search">
-                                                </div>
-                                            </th>
-                                            <th><button class="Search_btn" type="submit">搜尋</button></th>
-                                            <th><button class="status_btn" type="submit">上/下架</button></th>
-                                        </tr>
-                                    </thead>
-
-                                </table>
-                                <table class="tableTwo">
-                                    <thead>
-                                        <tr>
-                                            <th class="checkAll">
-                                                <input type="checkbox" id="selectAll">
-                                            </th>
-                                            <th></th>
-                                            <th class="productNameTh">商品名稱</th>
-                                            <th>商品規格</th>
-                                            <th>商品規格</th>
-                                            <th>售價</th>
-                                            <th>即時庫存</th>
-                                            <th>已售出</th>
-                                            <th>狀態</th>
-                                            <th class="operate_txt">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">上架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">上架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="check">
-                                                <input type="checkbox" class="selectRow">
-                                            </td>
-                                            <td><img class="productImg" src="./image/square.svg" alt=""></td>
-                                            <td class="productNameTd">
-                                                <p class="productName">哈利波特</p>
-                                                <p class="productId">xxxxxxxxx</p>
-                                            </td>
-                                            <td class="spec1">????</td>
-                                            <td class="spec2">????</td>
-                                            <td class="price">NT$2000</td>
-                                            <td class="stock">100,000</td>
-                                            <td class="soldNum">100,000</td>
-                                            <td class="status">上架中</td>
-                                            <td class="edit_delete_btn">
-                                                <button class="edit_btn btn btn-primary" type="button">輯編</button>
-                                                <button class="delete_btn btn btn-primary" type="button">刪除</button>
-                                            </td>
-                                        </tr>
-
-
-
-
-
-                                    </tbody>
-
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </main>
-
-        </div>
-
-
-
-    </main>
-
-
-
-
-    <!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
-    <footer id="main-footer" class="footer">
-
-        <div class="container-sm">
-
-            <div class="footer-top row">
-                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-            </div>
-
-            <hr class="footer_divider">
-
-            <div class="footer-bottom row justify-content-end">
-
-                <nav class="SNS-nav-list ">
-
-                    <a href="" class="Instagram col">
-                        <div class="Instagram_icon">
-                            <img src="./image/ant-design_instagram-filled.svg" alt="">
-                        </div>
-                    </a>
-
-                    <a href="" class="Facebook col">
-                        <div class="Facebook_icon">
-                            <img src="./image/mdi_facebook.svg" alt="">
-                        </div>
-                    </a>
-
-                    <a href="" class="Twitter col ">
-                        <div class="Twitter_icon">
-                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
-                        </div>
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </footer>
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-
-
-    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    <script>
-        // 獲取.member_account元素
-        var memberAccount = document.querySelector('.memberAccount');
-
-        // 獲取.member_account的文字內容
-        var textContent = memberAccount.textContent.trim();
-
-        // 計算文字內容的長度
-        var textLength = textContent.length;
-
-        // 設定字體大小變數
-        var fontSizeVar = '--font-size';
-
-        // 設定文字長度與字體大小的映射關係
-        var lengthToFontSize = {
-            5: '16px',
-            10: '14px',
-            15: '12px',
-            20: '10px',
-            25: '8px',
-            30: '6px',
-            35: '4px',
-            40: '2px'
-            // 根據需要添加更多的映射關係
-        };
-
-        // 檢查文字長度是否在映射表中，並設置對應的字體大小
-        if (lengthToFontSize.hasOwnProperty(textLength)) {
-            memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
-        }
-
-        ///////////////////////////////////////////////////////
-        // //javaSCIPT寫法
-        // // 取得表頭的複選框
-        // const selectAll = document.getElementById('selectAll');
-        // // 取得表格內的每一行的複選框
-        // const selectRows = document.querySelectorAll('.selectRow');
-        // // 監聽表頭複選框的變更事件
-        // selectAll.addEventListener('change', function () {
-        //     const isChecked = this.checked;
-        //     // 將表格內的每一行的複選框設置為與表頭複選框相同的狀態
-        //     selectRows.forEach(function (selectRow) {
-        //         selectRow.checked = isChecked;
-        //     });
-        // });
-
-        //下拉式選單
-        document.querySelectorAll('.dropdown-item').forEach(function (item) {
-            item.addEventListener('click', function () {
-                var selectedText = this.textContent; // 取得選擇的項目文字
-                var dropdownToggle = this.closest('.dropdown').querySelector('.dropdown-toggle');
-                dropdownToggle.textContent = selectedText; // 將選擇的項目文字顯示在按鈕上
-            });
-        });
-
-        //庫存更新鈕
-
-        // $(document).ready(function () {
-        //     // 監聽表頭複選框的變更事件
-        //     $('#selectAll').change(function () {
-        //         const isChecked = $(this).prop('checked');
-
-        //         // 將表格內的每一行的複選框設置為與表頭複選框相同的狀態
-        //         $('.selectRow').prop('checked', isChecked);
-        //     });
-
-
-
-        //     $('.stock_update').click(function () {
-        //         // 按下庫存更新按鈕時的處理邏輯
-        //         if ($('.stock_update').hasClass('-on')) {
-        //             $('.stock_update').removeClass('-on'); // 移除 `-on` 的 class
-        //             $('th.operate_txt').text('操作');
-        //             $('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">輯編</button><button class="delete_btn btn btn-primary" type="button">刪除</button>');
-        //         } else {
-        //             $('.stock_update').addClass('-on'); // 新增 `-on` 的 class
-        //             $('th.operate_txt').text('庫存更新');
-        //             $('.edit_delete_btn').empty().append('<input class="stock_update_num" style="width:50px;text-align: center;" type="text">');
-        //         }
-        //     });
-        // });
-
-        let activeTab_up = 0;
-        $(document).ready(function () {
-
-            $('#navs-top-home #selectAll').change(function () {
-                const isChecked = $(this).prop('checked');
-                $('#navs-top-home').find('.selectRow').prop('checked', isChecked);
-            });
-
-            // 監聽表頭複選框的變更事件
-            $('.nav-link').click(function () {
-                // 獲取目標元素的ID
-                const targetId = $(this).data('bs-target');
-
-                // 在控制台上輸出目標ID
-                console.log(targetId);
-
-                $(targetId + ' #selectAll').change(function () {
-                    const isChecked = $(this).prop('checked');
-
-                    // 將該分頁內的每一行的複選框設置為與表頭複選框相同的狀態
-                    $(targetId).find('.selectRow').prop('checked', isChecked);
-                });
-
-            });
-
-
-
-
-
-
-            $('.stock_update').click(function () {
-                // 按下库存更新按钮时的处理逻辑
-                // 根据当前活动分页执行相应的操作
-                const activeTab = $('.nav-link.active').attr('aria-controls');
-                if (!(activeTab_up == 0 || activeTab == activeTab_up)) {
-                    $('.stock_update').removeClass('-on');
-                    $('#' + activeTab_up).find('th.operate_txt').text('操作');
-                    $('#' + activeTab_up).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button><button class="delete_btn btn btn-primary" type="button">删除</button>');
-                }
-                if ($('.stock_update').hasClass('-on')) {
-                    $('.stock_update').removeClass('-on');
-                    $('#' + activeTab).find('th.operate_txt').text('操作');
-                    $('#' + activeTab).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button><button class="delete_btn btn btn-primary" type="button">删除</button>');
-                } else {
-                    $('.stock_update').addClass('-on');
-                    $('#' + activeTab).find('th.operate_txt').text('库存更新');
-                    $('#' + activeTab).find('.edit_delete_btn').empty().append('<input class="stock_update_num" style="width:50px;text-align: center;" type="text">');
-                }
-                activeTab_up = activeTab;
-            });
-        });
-
-
-
-
-
-
-        /*為分頁寫法
-        $(document).ready(function () {
-            // 資料
-            const data = [
-                { productName: '哈利波特', productId: 'xxxxxxxxx', spec1: '????', spec2: '????', price: 'NT$2000', stock: '100,000', soldNum: '100,000', status: '上架中' },
-                // 其他資料項目
-            ];
-
-            // 分頁參數
-            const itemsPerPage = 10;
-            let currentPage = 1;
-
-            // 顯示表格內容
-            function displayTable() {
-                const tableBody = $('#myTable tbody');
-                tableBody.empty();
-
-                const startIndex = (currentPage - 1) * itemsPerPage;
-                const endIndex = startIndex + itemsPerPage;
-
-                for (let i = startIndex; i < endIndex && i < data.length; i++) {
-                    const rowData = data[i];
-
-                    // 建立表格行
-                    const row = $('<tr>');
-
-                    // 建立複選框欄位
-                    const checkboxCell = $('<td>', { class: 'check' });
-                    const checkbox = $('<input>', { type: 'checkbox', class: 'selectRow' });
-                    checkboxCell.append(checkbox);
-                    row.append(checkboxCell);
-
-                    // 建立圖片欄位
-                    const imgCell = $('<td>');
-                    const img = $('<img>', { class: 'productImg', src: './image/square.svg', alt: '' });
-                    imgCell.append(img);
-                    row.append(imgCell);
-
-                    // 建立商品名稱欄位
-                    const productNameCell = $('<td>', { class: 'productNameTd' });
-                    const productName = $('<p>', { class: 'productName', text: rowData.productName });
-                    const productId = $('<p>', { class: 'productId', text: rowData.productId });
-                    productNameCell.append(productName, productId);
-                    row.append(productNameCell);
-
-                    // 建立其他欄位
-                    const spec1Cell = $('<td>', { class: 'spec1', text: rowData.spec1 });
-                    const spec2Cell = $('<td>', { class: 'spec2', text: rowData.spec2 });
-                    const priceCell = $('<td>', { class: 'price', text: rowData.price });
-                    const stockCell = $('<td>', { class: 'stock', text: rowData.stock });
-                    const soldNumCell = $('<td>', { class: 'soldNum', text: rowData.soldNum });
-                    const statusCell = $('<td>', { class: 'status', text: rowData.status });
-                    const editCell = $('<td>');
-                    const dropdown = $('<div>', { class: 'dropdown' });
-                    const editButton = $('<button>', { class: 'edit dropdown-toggle btn btn-primary', type: 'button', id: 'dropdownMenuButton', 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false', text: '編輯' });
-                    const dropdownMenu = $('<ul>', { class: 'dropdown-menu', 'aria-labelledby': 'dropdownMenuButton' });
-                    const dropdownItem1 = $('<li>').append($('<a>', { class: 'dropdown-item', href: '#', text: '項目1' }));
-                    const dropdownItem2 = $('<li>').append($('<a>', { class: 'dropdown-item', href: '#', text: '項目2' }));
-                    const dropdownItem3 = $('<li>').append($('<a>', { class: 'dropdown-item', href: '#', text: '項目3' }));
-                    dropdownMenu.append(dropdownItem1, dropdownItem2, dropdownItem3);
-                    dropdown.append(editButton, dropdownMenu);
-                    editCell.append(dropdown);
-                    row.append(spec1Cell, spec2Cell, priceCell, stockCell, soldNumCell, statusCell, editCell);
-
-                    // 將表格行加入表格主體
-                    tableBody.append(row);
-                }
-            }
-
-            // 切換到前一頁
-            function previousPage() {
-                if (currentPage > 1) {
-                    currentPage--;
-                    displayTable();
-                }
-            }
-
-            // 切換到下一頁
-            function nextPage() {
-                const totalPages = Math.ceil(data.length / itemsPerPage);
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    displayTable();
-                }
-            }
-
-            // 監聽分頁按鈕點擊事件
-            $('#prevPage').on('click', previousPage);
-            $('#nextPage').on('click', nextPage);
-
-            // 顯示初始表格
-            displayTable();
-        });
-
-        */
-
-
-
-
-
-
-    </script>
+	<!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
+	<header id="main-header" class="header">
+
+		<div class="container-sm">
+
+			<div class="header-top row">
+
+				<div class="col-sm-2">
+					<a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+				</div>
+
+				<div class="col-sm-6">
+					<form action="" method="get" class="header-search row">
+						<input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
+							maxlength="50" value="">
+
+						<button type="submit" class="header-search-submit col-sm-1"><img
+								src="./image/search.svg"></button>
+					</form>
+
+					<div class="Search-hot ">
+						<a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
+						<a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
+					</div>
+
+				</div>
+
+				<nav class="fixed-nav col-sm-4">
+
+					<div class="fixed-nav-list login row">
+						<a href="" class="SCM-Center col">
+							<div class="SCM_icon">
+								<button class="btn_SCM-Center">商家中心</button>
+							</div>
+						</a>
+
+						<a href="" class="User-Center col">
+							<div class="User_icon">
+								<img src="./image/Profile.svg" alt="">
+							</div>
+						</a>
+
+						<a href="" class="Favorite col">
+							<div class="header_icon">
+								<img src="./image/heart.svg" alt="">
+								<span class="count -active">0</span>
+							</div>
+						</a>
+
+						<a href="" class="Shopping-Cart col">
+							<div class="header_icon">
+								<img src="./image/Buy.svg" alt="">
+								<span class="count -active">0</span>
+							</div>
+						</a>
+
+						<a href="" class="Notification col">
+							<div class="header_icon">
+								<img src="./image/Notification.svg" alt="">
+								<span class="count -active">0</span>
+							</div>
+						</a>
+
+					</div>
+
+				</nav>
+			</div>
+
+		</div>
+
+	</header>
+
+	<!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
+	<nav id="main-navigation" class="main-navigation">
+		<ul class="main-nav"> <!--主選單-->
+			<li
+				class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+				<div class="navigation_title navigation_title--bold navigation_title--salmon">
+					<span class="navigation_title-inner">主題活動</span>
+				</div>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">3C周邊</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">家用電器</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">美妝個清</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">流行服飾</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">鞋包配飾</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">母嬰用品</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">日用生活</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">圖書文具</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">旅遊戶外</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+
+		</ul>
+
+	</nav>
+
+	<main class="main_content">
+
+		<div class="main_content container-sm">
+
+			<aside class="member-aside col-sm-2">
+
+				<div class="member-profile row ">
+					<div class="memberPhoto col-sm-4">
+						<img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
+					</div>
+					<div class="member-info col-sm-8">
+						<h4 class="memberAccount">jeffrey47</h4>
+						<h6 class="memberId">M123456789</h6>
+					</div>
+				</div>
+				<ul class="nav1_list">
+					<li>
+						<h4>MENU</h4>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Chart.svg" alt="">
+							<img src="./image/Chart-a.svg" alt="">個人中心
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/heart-s.svg" alt="">
+							<img src="./image/heart-s-a.svg" alt="">收藏夾</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Buy1.svg" alt="">
+							<img src="./image/Buy1-a.svg" alt="">購物車</a>
+					</li>
+					<li class="active">
+						<a href="#">
+							<img src="./image/DocumentAsh.svg" alt="">
+							<img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Discount.svg" alt="">
+							<img src="./image/Discount-a.svg" alt="">會員點數</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Ticket Star.svg" alt="">
+							<img src="./image/Ticket Star-a.svg" alt="">我的折價券</a>
+					</li>
+					<li>
+						<h4>OTHERS</h4>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Profile1.svg" alt="">
+							<img src="./image/Profile1-a.svg" alt="">個人資訊</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Setting.svg" alt="">
+							<img src="./image/Setting-a.svg" alt="">帳號管理</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Info Square.svg" alt="">
+							<img src="./image/Info Square-a.svg" alt="">取得協助</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Logout.svg" alt="">
+							<img src="./image/Logout-a.svg" alt="">登出</a>
+					</li>
+				</ul>
+
+			</aside>
+			<main class="member-check-order col-sm-10">
+				<div class="main-content-header row">
+					<div class="main-content-icon col-sm-1">
+						<img calss="main-content-icon" src="./image/Document.svg">
+					</div>
+					<h1 class="main-content-title col-sm-10">我的訂單</h1>
+					<hr class="main-content-divider">
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="nav-align-top mb-4 d-flex justify-content-between">
+							<ul class="nav nav-tabs" role="tablist">
+								<!-- 分頁清單 -->
+								<li class="nav-item">
+									<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+										data-bs-target="#navs-top-home" aria-controls="navs-top-home"
+										aria-selected="true">
+										全部
+									</button>
+								</li>
+								<li class="nav-item">
+									<button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+										data-bs-target="#navs-top-inprogress" aria-controls="navs-top-inprogress"
+										aria-selected="false">
+										上架中
+									</button>
+								</li>
+								<li class="nav-item">
+									<button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+										data-bs-target="#navs-top-transport" aria-controls="navs-top-transport"
+										aria-selected="false">
+										已下架
+									</button>
+								</li>
+								<li class="nav-item">
+									<button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+										data-bs-target="#navs-top-complete" aria-controls="navs-top-complete"
+										aria-selected="false">
+										已售完
+									</button>
+								</li>
+							</ul>
+							<button class="stock_update btn btn-primary">庫存更新</button>
+						</div>
+
+						<div class="tab-content">
+							<!-- 分頁內容 -->
+							<!-- 全部 -->
+							<div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+								<table class="tableOne">
+									<thead>
+										<tr>
+											<th class="productTotal">1,000商品</th>
+											<th>
+												<div class="dropdown">
+													<button class="dropdown-toggle" type="button"
+														id="dropdownMenuButton" data-bs-toggle="dropdown"
+														aria-expanded="false">
+														商品名稱
+													</button>
+													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<li><a class="dropdown-item" href="#">商品名稱</a></li>
+														<li><a class="dropdown-item" href="#">商品編號</a></li>
+													</ul>
+												</div>
+											</th>
+											<th>
+												<div class="search-box">
+													<input class="search-KeyWord" type="text" placeholder="Search">
+												</div>
+											</th>
+											<th><button class="Search_btn" type="submit">搜尋</button></th>
+											<th><button class="product_new" type="submit">新增商品</button></th>
+											<th><button class="status_btn" type="submit">上/下架</button></th>
+										</tr>
+									</thead>
+
+								</table>
+								<table class="tableTwo">
+									<thead>
+										<tr>
+											<th class="checkAll">
+												<input type="checkbox" id="selectAll">
+											</th>
+											<th></th>
+											<th class="productNameTh">商品名稱</th>
+											<th>商品規格</th>
+											<th>商品規格</th>
+											<th>售價</th>
+											<th>即時庫存</th>
+											<th>已售出</th>
+											<th>狀態</th>
+											<th class="operate_txt">操作</th>
+										</tr>
+									</thead>
+									<tbody id="AllProduct">
+										
+
+									</tbody>
+
+								</table>
+							</div>
+							<!-- 上架中 -->
+							<div class="tab-pane fade" id="navs-top-inprogress" role="tabpanel">
+								<table class="tableOne">
+									<thead>
+										<tr>
+											<th class="productTotal">1,000商品</th>
+											<th>
+												<div class="dropdown">
+													<button class="dropdown-toggle" type="button"
+														id="dropdownMenuButton" data-bs-toggle="dropdown"
+														aria-expanded="false">
+														商品名稱
+													</button>
+													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<li><a class="dropdown-item" href="#">商品名稱</a></li>
+														<li><a class="dropdown-item" href="#">商品編號</a></li>
+													</ul>
+												</div>
+											</th>
+											<th>
+												<div class="search-box">
+													<input class="search-KeyWord" type="text" placeholder="Search">
+												</div>
+											</th>
+											<th><button class="Search_btn" type="submit">搜尋</button></th>
+											<th><button class="status_btn" type="submit">下架</button></th>
+										</tr>
+									</thead>
+
+								</table>
+								<table class="tableTwo">
+									<thead>
+										<tr>
+											<th class="checkAll">
+												<input type="checkbox" id="selectAll">
+											</th>
+											<th></th>
+											<th class="productNameTh">商品名稱</th>
+											<th>商品規格</th>
+											<th>商品規格</th>
+											<th>售價</th>
+											<th>即時庫存</th>
+											<th>已售出</th>
+											<th>狀態</th>
+											<th class="operate_txt">操作</th>
+										</tr>
+									</thead>
+									<tbody id="UpProduct">
+										
+
+									</tbody>
+
+								</table>
+							</div>
+							<!-- 已下架 -->
+							<div class="tab-pane fade" id="navs-top-transport" role="tabpanel">
+								<table class="tableOne">
+									<thead>
+										<tr>
+											<th class="productTotal">1,000商品</th>
+											<th>
+												<div class="dropdown">
+													<button class="dropdown-toggle" type="button"
+														id="dropdownMenuButton" data-bs-toggle="dropdown"
+														aria-expanded="false">
+														商品名稱
+													</button>
+													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<li><a class="dropdown-item" href="#">商品名稱</a></li>
+														<li><a class="dropdown-item" href="#">商品編號</a></li>
+													</ul>
+												</div>
+											</th>
+											<th>
+												<div class="search-box">
+													<input class="search-KeyWord" type="text" placeholder="Search">
+												</div>
+											</th>
+											<th><button class="Search_btn" type="submit">搜尋</button></th>
+											<th><button class="status_btn" type="submit">上架</button></th>
+										</tr>
+									</thead>
+
+								</table>
+								<table class="tableTwo">
+									<thead>
+										<tr>
+											<th class="checkAll">
+												<input type="checkbox" id="selectAll">
+											</th>
+											<th></th>
+											<th class="productNameTh">商品名稱</th>
+											<th>商品規格</th>
+											<th>商品規格</th>
+											<th>售價</th>
+											<th>即時庫存</th>
+											<th>已售出</th>
+											<th>狀態</th>
+											<th class="operate_txt">操作</th>
+										</tr>
+									</thead>
+									<tbody id="DownProduct">
+										
+									</tbody>
+
+								</table>
+							</div>
+							<!-- 已售完 -->
+							<div class="tab-pane fade" id="navs-top-complete" role="tabpanel">
+								<table class="tableOne">
+									<thead>
+										<tr>
+											<th class="productTotal">1,000商品</th>
+											<th>
+												<div class="dropdown">
+													<button class="dropdown-toggle" type="button"
+														id="dropdownMenuButton" data-bs-toggle="dropdown"
+														aria-expanded="false">
+														商品名稱
+													</button>
+													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<li><a class="dropdown-item" href="#">商品名稱</a></li>
+														<li><a class="dropdown-item" href="#">商品編號</a></li>
+													</ul>
+												</div>
+											</th>
+											<th>
+												<div class="search-box">
+													<input class="search-KeyWord" type="text" placeholder="Search">
+												</div>
+											</th>
+											<th><button class="Search_btn" type="submit">搜尋</button></th>
+											<th><button class="status_btn" type="submit">上/下架</button></th>
+										</tr>
+									</thead>
+
+								</table>
+								<table class="tableTwo">
+									<thead>
+										<tr>
+											<th class="checkAll">
+												<input type="checkbox" id="selectAll">
+											</th>
+											<th></th>
+											<th class="productNameTh">商品名稱</th>
+											<th>商品規格</th>
+											<th>商品規格</th>
+											<th>售價</th>
+											<th>即時庫存</th>
+											<th>已售出</th>
+											<th>狀態</th>
+											<th class="operate_txt">操作</th>
+										</tr>
+									</thead>
+									<tbody id="SoldProduct">
+										
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</main>
+
+		</div>
+
+
+
+	</main>
+
+
+
+
+	<!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
+	<footer id="main-footer" class="footer">
+
+		<div class="container-sm">
+
+			<div class="footer-top row">
+				<a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+			</div>
+
+			<hr class="footer_divider">
+
+			<div class="footer-bottom row justify-content-end">
+
+				<nav class="SNS-nav-list ">
+
+					<a href="" class="Instagram col">
+						<div class="Instagram_icon">
+							<img src="./image/ant-design_instagram-filled.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Facebook col">
+						<div class="Facebook_icon">
+							<img src="./image/mdi_facebook.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Twitter col ">
+						<div class="Twitter_icon">
+							<img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+						</div>
+					</a>
+				</nav>
+			</div>
+		</div>
+	</footer>
+
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+	<script>
+		// 獲取.member_account元素
+		var memberAccount = document.querySelector('.memberAccount');
+
+		// 獲取.member_account的文字內容
+		var textContent = memberAccount.textContent.trim();
+
+		// 計算文字內容的長度
+		var textLength = textContent.length;
+
+		// 設定字體大小變數
+		var fontSizeVar = '--font-size';
+
+		// 設定文字長度與字體大小的映射關係
+		var lengthToFontSize = {
+			5: '16px',
+			10: '14px',
+			15: '12px',
+			20: '10px',
+			25: '8px',
+			30: '6px',
+			35: '4px',
+			40: '2px'
+			// 根據需要添加更多的映射關係
+		};
+
+		// 檢查文字長度是否在映射表中，並設置對應的字體大小
+		if (lengthToFontSize.hasOwnProperty(textLength)) {
+			memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
+		}
+
+		//針對規格1、2、3、4的整理
+		function specTypeName(Str) {
+			switch (Str) {
+				case '1':
+					return '尺寸';
+				case '2':
+					return '顏色';
+				case '3':
+					return '容量';
+				case '4':
+					return '材質';
+			}
+		}
+
+		//針對上架狀態的整理
+		function shelvesStatusName(Str) {
+			switch (Str) {
+				case '0':
+					return '上架中';
+				case '1':
+					return '下架中';
+			}
+		}
+
+		//針對分頁整理
+		function navsTopName(target) {
+			switch (target) {
+				case '#navs-top-home':
+					return 'AllProductSpecManage';
+				case '#navs-top-inprogress':
+					return 'UpStatusProductSpecManage';
+				case '#navs-top-transport':
+					return 'DownStatusProductSpecManage';
+				case '#navs-top-complete':
+					return 'SoldProductSpecManage';
+			}
+		}
+
+		//針對分頁內容的tbody定位
+		function productTbody(target) {
+			switch (target) {
+				case '#navs-top-home':
+					return '#AllProduct';
+				case '#navs-top-inprogress':
+					return '#UpProduct';
+				case '#navs-top-transport':
+					return '#DownProduct';
+				case '#navs-top-complete':
+					return '#SoldProduct';
+			}
+		}
+
+
+
+		//針對圖片整理
+		function displayImageFromBase64(base64ImageData) {
+			const imageBinaryStr = atob(base64ImageData);
+			let len = imageBinaryStr.length;
+			const uint8Array = new Uint8Array(len);
+			while (len--) {
+				uint8Array[len] = imageBinaryStr.charCodeAt(len);
+			}
+			const blob = new Blob([uint8Array]);
+			const blobUrl = URL.createObjectURL(blob); // 產生 Blob URL
+			// document.querySelector('#avatar').src = blobUrl; // 設定圖片的 src 屬性
+			return blobUrl; // 返回 Blob URL
+		}
+
+
+		//下拉式選單
+		document.querySelectorAll('.dropdown-item').forEach(function (item) {
+			item.addEventListener('click', function () {
+				var selectedText = this.textContent; // 取得選擇的項目文字
+				var dropdownToggle = this.closest('.dropdown').querySelector('.dropdown-toggle');
+				dropdownToggle.textContent = selectedText; // 將選擇的項目文字顯示在按鈕上
+			});
+		});
+		let activeTab_up = 0;
+
+
+
+
+
+		$(document).ready(function () {
+
+
+			// 獲取所有分頁按鈕
+			const tabButtons = document.querySelectorAll(".nav-link");
+
+			// 在每個按鈕上添加點擊事件監聽器
+			tabButtons.forEach(button => {
+				button.addEventListener("click", function () {
+					// 獲取分頁目標
+					const target = this.getAttribute("data-bs-target");
+
+					fetch(`http://localhost:8080/Niigi/${navsTopName(target)}`, {
+						method: 'GET'
+					})
+						.then((response) => {
+							// 檢查回應的狀態碼
+							if (!response.ok) {
+								throw new Error('Network response was not ok');
+							}
+							// 解析JSON格式的回應
+							return response.json();
+						})
+						.then((data) => {
+							let list_html = "";
+							console.log(data);
+							data.forEach(function (productSpec) {
+								// 在這裡對每個產品進行處理
+								// 取得產品圖片的 Base64 字串
+								const base64Image = displayImageFromBase64(productSpec.specPicture);
+								//取得產品規格id
+								const productSpecId = productSpec.productSpecId;
+								// 取得產品名稱
+								const productName = productSpec.productName;
+								//取得對規格1
+								const specType1 = specTypeName(productSpec.specType1) + "：" + productSpec.specInfo1;
+								//取得對規格2
+								const specType2 = specTypeName(productSpec.specType2) + "：" + productSpec.specInfo2;
+								// 取得產品價格
+								const productPrice = productSpec.productPrice;
+								//取得即時庫存
+								const specStock = productSpec.specStock;
+								//取得已售出
+								const soldStock = productSpec.soldStock;
+								//取得狀態
+								const shelvesStatus = shelvesStatusName(productSpec.shelvesStatus);
+
+
+								// 也可以將其他產品資料顯示在網頁上
+								list_html += `
+										<tr>
+											<td class="check">
+												<input type="checkbox" class="selectRow">
+											</td>
+											<td><img class="productImg" src="${base64Image}" alt=""></td>
+											<td class="productNameTd">
+												<p class="productName">${productName}</p>
+												<p class="productId">${productSpecId}</p>
+											</td>
+											<td class="spec1">${specType1}</td>
+											<td class="spec2">${specType2}</td>
+											<td class="price">NT$${productPrice}</td>
+											<td class="stock">${specStock}</td>
+											<td class="soldNum">${soldStock}</td>
+											<td class="status">${shelvesStatus}</td>
+											<td class="edit_delete_btn">
+												<button class="edit_btn btn btn-primary" type="button">輯編</button>
+												<button class="delete_btn btn btn-primary" type="button">刪除</button>
+											</td>
+										</tr>
+									`;
+							});
+							$(`${productTbody(target)}`).html(list_html);
+
+						})
+						.catch((error) => {
+							console.error('Fetch error:', error);
+						});
+
+
+				});
+			});
+
+
+
+			//////////////////////////////////////////////
+
+			//一開始進入頁面時，分頁第一個要顯示的資料
+			fetch('http://localhost:8080/Niigi/AllProductSpecManage', {
+				method: 'GET'
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					let list_html = "";
+					console.log(data);
+					data.forEach(function (productSpec) {
+						// 在這裡對每個產品進行處理
+						// 取得產品圖片的 Base64 字串
+						const base64Image = displayImageFromBase64(productSpec.specPicture);
+						//取得產品規格id
+						const productSpecId = productSpec.productSpecId;
+						// 取得產品名稱
+						const productName = productSpec.productName;
+						//取得對規格1
+						const specType1 = specTypeName(productSpec.specType1) + "：" + productSpec.specInfo1;
+						//取得對規格2
+						const specType2 = specTypeName(productSpec.specType2) + "：" + productSpec.specInfo2;
+						// 取得產品價格
+						const productPrice = productSpec.productPrice;
+						//取得即時庫存
+						const specStock = productSpec.specStock;
+						//取得已售出
+						const soldStock = productSpec.soldStock;
+						//取得狀態
+						const shelvesStatus = shelvesStatusName(productSpec.shelvesStatus);
+
+
+						// 也可以將其他產品資料顯示在網頁上
+						list_html += `
+										<tr>
+											<td class="check">
+												<input type="checkbox" class="selectRow">
+											</td>
+											<td><img class="productImg" src="${base64Image}" alt=""></td>
+											<td class="productNameTd">
+												<p class="productName">${productName}</p>
+												<p class="productId">${productSpecId}</p>
+											</td>
+											<td class="spec1">${specType1}</td>
+											<td class="spec2">${specType2}</td>
+											<td class="price">NT$${productPrice}</td>
+											<td class="stock">${specStock}</td>
+											<td class="soldNum">${soldStock}</td>
+											<td class="status">${shelvesStatus}</td>
+											<td class="edit_delete_btn">
+												<button class="edit_btn btn btn-primary" type="button">輯編</button>
+												<button class="delete_btn btn btn-primary" type="button">刪除</button>
+											</td>
+										</tr>
+									`;
+					});
+					$('#AllProduct').html(list_html);
+
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+
+			/////////////////////////////////////////////////////
+
+			$('#navs-top-home #selectAll').change(function () {
+				const isChecked = $(this).prop('checked');
+				$('#navs-top-home').find('.selectRow').prop('checked', isChecked);
+			});
+
+			// 監聽表頭複選框的變更事件
+			$('.nav-link').click(function () {
+				// 獲取目標元素的ID
+				const targetId = $(this).data('bs-target');
+
+				// 在控制台上輸出目標ID
+				console.log(targetId);
+
+				$(targetId + ' #selectAll').change(function () {
+					const isChecked = $(this).prop('checked');
+
+					// 將該分頁內的每一行的複選框設置為與表頭複選框相同的狀態
+					$(targetId).find('.selectRow').prop('checked', isChecked);
+				});
+
+			});
+
+
+
+			$('.stock_update').click(function () {
+				// 按下库存更新按钮时的处理逻辑
+				// 根据当前活动分页执行相应的操作
+				const activeTab = $('.nav-link.active').attr('aria-controls');
+				if (!(activeTab_up == 0 || activeTab == activeTab_up)) {
+					$('.stock_update').removeClass('-on');
+					$('#' + activeTab_up).find('th.operate_txt').text('操作');
+					$('#' + activeTab_up).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button><button class="delete_btn btn btn-primary" type="button">删除</button>');
+				}
+				if ($('.stock_update').hasClass('-on')) {
+					$('.stock_update').removeClass('-on');
+					$('#' + activeTab).find('th.operate_txt').text('操作');
+					$('#' + activeTab).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button><button class="delete_btn btn btn-primary" type="button">删除</button>');
+				} else {
+					$('.stock_update').addClass('-on');
+					$('#' + activeTab).find('th.operate_txt').text('库存更新');
+					$('#' + activeTab).find('.edit_delete_btn').empty().append('<input class="stock_update_num" style="width:50px;text-align: center;" type="text">');
+				}
+				activeTab_up = activeTab;
+			});
+		});
+
+
+
+
+
+
+		/*為分頁寫法
+		$(document).ready(function () {
+			// 資料
+			const data = [
+				{ productName: '哈利波特', productId: 'xxxxxxxxx', spec1: '????', spec2: '????', price: 'NT$2000', stock: '100,000', soldNum: '100,000', status: '上架中' },
+				// 其他資料項目
+			];
+
+			// 分頁參數
+			const itemsPerPage = 10;
+			let currentPage = 1;
+
+			// 顯示表格內容
+			function displayTable() {
+				const tableBody = $('#myTable tbody');
+				tableBody.empty();
+
+				const startIndex = (currentPage - 1) * itemsPerPage;
+				const endIndex = startIndex + itemsPerPage;
+
+				for (let i = startIndex; i < endIndex && i < data.length; i++) {
+					const rowData = data[i];
+
+					// 建立表格行
+					const row = $('<tr>');
+
+					// 建立複選框欄位
+					const checkboxCell = $('<td>', { class: 'check' });
+					const checkbox = $('<input>', { type: 'checkbox', class: 'selectRow' });
+					checkboxCell.append(checkbox);
+					row.append(checkboxCell);
+
+					// 建立圖片欄位
+					const imgCell = $('<td>');
+					const img = $('<img>', { class: 'productImg', src: './image/square.svg', alt: '' });
+					imgCell.append(img);
+					row.append(imgCell);
+
+					// 建立商品名稱欄位
+					const productNameCell = $('<td>', { class: 'productNameTd' });
+					const productName = $('<p>', { class: 'productName', text: rowData.productName });
+					const productId = $('<p>', { class: 'productId', text: rowData.productId });
+					productNameCell.append(productName, productId);
+					row.append(productNameCell);
+
+					// 建立其他欄位
+					const spec1Cell = $('<td>', { class: 'spec1', text: rowData.spec1 });
+					const spec2Cell = $('<td>', { class: 'spec2', text: rowData.spec2 });
+					const priceCell = $('<td>', { class: 'price', text: rowData.price });
+					const stockCell = $('<td>', { class: 'stock', text: rowData.stock });
+					const soldNumCell = $('<td>', { class: 'soldNum', text: rowData.soldNum });
+					const statusCell = $('<td>', { class: 'status', text: rowData.status });
+					const editCell = $('<td>');
+					const dropdown = $('<div>', { class: 'dropdown' });
+					const editButton = $('<button>', { class: 'edit dropdown-toggle btn btn-primary', type: 'button', id: 'dropdownMenuButton', 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false', text: '編輯' });
+					const dropdownMenu = $('<ul>', { class: 'dropdown-menu', 'aria-labelledby': 'dropdownMenuButton' });
+					const dropdownItem1 = $('<li>').append($('<a>', { class: 'dropdown-item', href: '#', text: '項目1' }));
+					const dropdownItem2 = $('<li>').append($('<a>', { class: 'dropdown-item', href: '#', text: '項目2' }));
+					const dropdownItem3 = $('<li>').append($('<a>', { class: 'dropdown-item', href: '#', text: '項目3' }));
+					dropdownMenu.append(dropdownItem1, dropdownItem2, dropdownItem3);
+					dropdown.append(editButton, dropdownMenu);
+					editCell.append(dropdown);
+					row.append(spec1Cell, spec2Cell, priceCell, stockCell, soldNumCell, statusCell, editCell);
+
+					// 將表格行加入表格主體
+					tableBody.append(row);
+				}
+			}
+
+			// 切換到前一頁
+			function previousPage() {
+				if (currentPage > 1) {
+					currentPage--;
+					displayTable();
+				}
+			}
+
+			// 切換到下一頁
+			function nextPage() {
+				const totalPages = Math.ceil(data.length / itemsPerPage);
+				if (currentPage < totalPages) {
+					currentPage++;
+					displayTable();
+				}
+			}
+
+			// 監聽分頁按鈕點擊事件
+			$('#prevPage').on('click', previousPage);
+			$('#nextPage').on('click', nextPage);
+
+			// 顯示初始表格
+			displayTable();
+		});
+
+		*/
+
+
+
+
+
+
+	</script>
 
 
 

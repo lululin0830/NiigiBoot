@@ -2,518 +2,723 @@
 <html lang="zh-tw">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Homepage</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Homepage</title>
 
 
-    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/core.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
-    <link rel="stylesheet" href="./css/font.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
-    <link rel="stylesheet" href="./css/button.css"> <!-- 所有按鈕共同的CSS 勿動，勿覆蓋！！！！！ 若沒用到按鈕可移除 -->
-    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/KeyWord.css">
+	<link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/core.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
+	<link rel="stylesheet" href="./css/font.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
+	<link rel="stylesheet" href="./css/button.css"> <!-- 所有按鈕共同的CSS 勿動，勿覆蓋！！！！！ 若沒用到按鈕可移除 -->
+	<link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/KeyWord.css">
 
-    <style>
-        main {
-            min-height: max(800px, calc(100vh - 150px));
-            height: 100%;
-            background-color: #F7F7F7;
-            /* overflow: visible; */
-            display: flex;
-            flex-direction: column;
+	<style>
+		main {
+			min-height: max(800px, calc(100vh - 150px));
+			height: 100%;
+			background-color: #F7F7F7;
+			/* overflow: visible; */
+			display: flex;
+			flex-direction: column;
 
-        }
-
-    </style>
+		}
+	</style>
 
 </head>
 
 <body>
-    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
-    <header id="main-header" class="header">
+	<!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
+	<header id="main-header" class="header">
 
-        <div class="container-sm">
+		<div class="container-sm">
 
-            <div class="header-top row">
+			<div class="header-top row">
 
-                <div class="col-sm-2">
-                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-                </div>
+				<div class="col-sm-2">
+					<a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+				</div>
 
-                <div class="col-sm-6">
-                    <form action="" method="get" class="header-search row">
-                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
-                            maxlength="50" value="">
+				<div class="col-sm-6">
+					<form action="KeyWordSerch.html" method="get" class="header-search row"
+						onsubmit="return validateForm()">
+						<input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
+							maxlength="50" value="">
 
-                        <button type="submit" class="header-search-submit col-sm-1"><img
-                                src="./image/search.svg"></button>
-                    </form>
+						<button type="submit" class="header-search-submit col-sm-1"><img
+								src="./image/search.svg"></button>
+					</form>
 
-                    <div class="Search-hot ">
-                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
-                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
-                    </div>
+					<div class="Search-hot ">
+						<a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
+						<a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
+					</div>
 
-                </div>
+				</div>
 
-                <nav class="fixed-nav col-sm-4">
+				<nav class="fixed-nav col-sm-4">
 
-                    <div class="fixed-nav-list login row">
-                        <a href="" class="SCM-Center col">
-                            <div class="SCM_icon">
-                                <button class="btn_SCM-Center">商家中心</button>
-                            </div>
-                        </a>
+					<div class="fixed-nav-list login row">
+						<a href="" class="SCM-Center col">
+							<div class="SCM_icon">
+								<button class="btn_SCM-Center">商家中心</button>
+							</div>
+						</a>
 
-                        <a href="" class="User-Center col">
-                            <div class="User_icon">
-                                <img src="./image/Profile.svg" alt="">
-                            </div>
-                        </a>
+						<a href="" class="User-Center col">
+							<div class="User_icon">
+								<img src="./image/Profile.svg" alt="">
+							</div>
+						</a>
 
-                        <a href="" class="Favorite col">
-                            <div class="header_icon">
-                                <img src="./image/heart.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
+						<a href="" class="Favorite col">
+							<div class="header_icon">
+								<img src="./image/heart.svg" alt="">
+								<span class="count -active">0</span>
+							</div>
+						</a>
 
-                        <a href="" class="Shopping-Cart col">
-                            <div class="header_icon">
-                                <img src="./image/Buy.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
+						<a href="" class="Shopping-Cart col">
+							<div class="header_icon">
+								<img src="./image/Buy.svg" alt="">
+								<span class="count -active">0</span>
+							</div>
+						</a>
 
-                        <a href="" class="Notification col">
-                            <div class="header_icon">
-                                <img src="./image/Notification.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
+						<a href="" class="Notification col">
+							<div class="header_icon">
+								<img src="./image/Notification.svg" alt="">
+								<span class="count -active">0</span>
+							</div>
+						</a>
 
-                    </div>
+					</div>
 
-                </nav>
-            </div>
+				</nav>
+			</div>
 
-        </div>
+		</div>
 
-    </header>
+	</header>
 
-    <!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
-    <nav id="main-navigation" class="main-navigation">
-        <ul class="main-nav"> <!--主選單-->
-            <li
-                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
-                <div class="navigation_title navigation_title--bold navigation_title--salmon">
-                    <span class="navigation_title-inner">主題活動</span>
-                </div>
+	<!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
+	<nav id="main-navigation" class="main-navigation">
+		<ul class="main-nav"> <!--主選單-->
+			<li
+				class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+				<div class="navigation_title navigation_title--bold navigation_title--salmon">
+					<span class="navigation_title-inner">主題活動</span>
+				</div>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
+					</ul>
+				</div>
+			</li>
 
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">3C周邊</span>
-                </a>
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('3C周邊')">
+					<span class="navigation_title-inner">3C周邊</span>
+				</a>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">家用電器</span>
-                </a>
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('家用電器')">
+					<span class="navigation_title-inner">家用電器</span>
+				</a>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">美妝個清</span>
-                </a>
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('美妝個清')">
+					<span class="navigation_title-inner">美妝個清</span>
+				</a>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">流行服飾</span>
-                </a>
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('流行服飾')">
+					<span class="navigation_title-inner">流行服飾</span>
+				</a>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">鞋包配飾</span>
-                </a>
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('鞋包配飾')">
+					<span class="navigation_title-inner">鞋包配飾</span>
+				</a>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">母嬰用品</span>
-                </a>
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('母嬰用品')">
+					<span class="navigation_title-inner">母嬰用品</span>
+				</a>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">日用生活</span>
-                </a>
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('日用生活')">
+					<span class="navigation_title-inner">日用生活</span>
+				</a>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">圖書文具</span>
-                </a>
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('圖書文具')">
+					<span class="navigation_title-inner">圖書文具</span>
+				</a>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">旅遊戶外</span>
-                </a>
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('旅遊戶外')">
+					<span class="navigation_title-inner">旅遊戶外</span>
+				</a>
 
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
 
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
 
-                    </ul>
-                </div>
-            </li>
+					</ul>
+				</div>
+			</li>
 
-        </ul>
+		</ul>
 
-    </nav>
+	</nav>
 
-    <main>
-        <!-- -------------分類table---------------- -->
-        <div class="container tableone">
-            <div class="row">
-              <div class="col">
-                <div class="table-responsive">
-                  <table class="table table-bordered">
-                    <table class="table table-bordered">
-                        <tbody>
-                          <tr>
-                            <td class="bg-light">分類</td>
-                            <td>資料 2</td>
-                            <td>資料 3</td>
-                            <td>資料 4</td>
-                          </tr>
-                          <tr>
-                            <td class="bg-light">規格</td>
-                            <td>資料 6</td>
-                            <td>資料 7</td>
-                            <td>資料 8</td>
-                          </tr>
-                        </tbody>
-                    </table>
-                  </table>
+	<main>
+		<!-- -------------分類table---------------- -->
+		<div class="container tableone">
+			<div class="row">
+				<div class="col">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<td class="bg-light">分類</td>
+										<td>資料 2</td>
+										<td>資料 3</td>
+										<td>資料 4</td>
+									</tr>
+									<tr>
+										<td class="bg-light">規格</td>
+										<td>資料 6</td>
+										<td>資料 7</td>
+										<td>資料 8</td>
+									</tr>
+								</tbody>
+							</table>
+						</table>
+					</div>
+				</div>
+				<div class="col">
+					<div class="alldro">
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								Dropdown button
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="所有選項">
+								<li><a class="dropdown-item" href="#">Action</a></li>
+								<li><a class="dropdown-item" href="#">Another action</a></li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</div>
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								Dropdown button
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="所有選項">
+								<li><a class="dropdown-item" href="#">Action</a></li>
+								<li><a class="dropdown-item" href="#">Another action</a></li>
+								<li><a class="dropdown-item" href="#">Something else here</a></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- -------------水平線與搜尋字樣---------------- -->
+		<div style="display: flex; justify-content: center;">
+			<hr class="hr" style="width: 73%; height: 3px; background-color: black;">
+		</div>
+		<h2 class="serch_Keyword"></h2>
+
+		<!-- -------------排序table--------------- -->
+		<div class="container tabletwo">
+			<div class="row">
+				<div class="col">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<td class="bg-light">綜合排序</td>
+										<td>月銷量</td>
+										<td>新上市</td>
+										<td>評價</td>
+										<td>價格</td>
+										<td>活動</td>
+									</tr>
+								</tbody>
+							</table>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- -------------商品列表--------------- -->
+
+		<div class="container tablethird">
+			<div class="row" id="ExProduct">
+
+
+
+			</div>
+		</div>
+
+
+		<!-- -------------放page碼的地方--------------- -->
+		 <div id="pagination" class="pagination justify-content-center"></div>
+
+	</main>
+
+
+
+	<!-- --------------------------------以下是Footer 勿動！！-------------------------------- -->
+	<footer id="main-footer" class="footer">
+
+		<div class="container-sm">
+
+			<div class="footer-top row">
+				<a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+			</div>
+
+			<hr class="footer_divider">
+
+			<div class="footer-bottom row justify-content-end">
+
+				<nav class="SNS-nav-list ">
+
+					<a href="" class="Instagram col">
+						<div class="Instagram_icon">
+							<img src="./image/ant-design_instagram-filled.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Facebook col">
+						<div class="Facebook_icon">
+							<img src="./image/mdi_facebook.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Twitter col ">
+						<div class="Twitter_icon">
+							<img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+						</div>
+					</a>
+				</nav>
+			</div>
+		</div>
+	</footer>
+
+	<script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="./vendors/jquery/jquery-3.7.0.min.js"></script>
+	<script>
+		function passTextToNextPage(text) {
+			// 將文字傳遞給下一頁
+			localStorage.setItem('textData', text);
+		}
+
+		function validateForm() {
+			var inputText = document.querySelector('.header-search-input').value.trim();
+			if (inputText === '') {
+				return false; // 阻止表單提交
+			}
+			// 如果不是空值或空字串，允許表單提交
+			return true;
+		}
+
+		function displayImageFromBase64(base64ImageData) {
+			const imageBinaryStr = atob(base64ImageData);
+			let len = imageBinaryStr.length;
+			const uint8Array = new Uint8Array(len);
+			while (len--) {
+				uint8Array[len] = imageBinaryStr.charCodeAt(len);
+			}
+			const blob = new Blob([uint8Array]);
+			const blobUrl = URL.createObjectURL(blob); // 產生 Blob URL
+			// document.querySelector('#avatar').src = blobUrl; // 設定圖片的 src 屬性
+			return blobUrl; // 返回 Blob URL
+		}
+
+
+		// 顯示特定頁面的資料
+		function showDataForPage(data, page) {
+			const itemsPerPage = 12; // 每頁顯示的資料數量
+			const listContainer = $('#ExProduct'); // 資料顯示的容器
+
+			listContainer.html(''); // 清空容器
+			const startIndex = (page - 1) * itemsPerPage;
+			const endIndex = Math.min(startIndex + itemsPerPage, data.length);
+
+			for (let i = startIndex; i < endIndex; i++) {
+				const product = data[i];
+				// 取得產品ID
+				const productId = product.productId;
+				// 取得產品名稱
+				const productName = product.productName;
+				// 取得產品價格
+				const productPrice = product.productPrice;
+				// 取得產品圖片的 Base64 字串
+				const base64Image = displayImageFromBase64(product.picture1);
+				// 取得商店名稱
+				const ShopName = product.suppliers.shopName;
+
+				// 也可以將其他產品資料顯示在網頁上
+				const itemHtml = `
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird" style="padding-bottom:30px;">
+              <div class="card" style="width:200px;height:28rem;">
+                <img src="${base64Image}" id="${productId}" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                <div class="card-body">
+                  <h5 class="card-title item__name">${productName}<img class="heart"
+                    src="./image/heart_store.svg" alt=""></i></h5>
+                  <p class="card-text item__price">$${productPrice}</p>
+                  <p class="card-text item__store">${ShopName}</p>
                 </div>
               </div>
-              <div class="col">
-                <div class="alldro">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Dropdown button
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="所有選項">
-                          <li><a class="dropdown-item" href="#">Action</a></li>
-                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Dropdown button
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="所有選項">
-                          <li><a class="dropdown-item" href="#">Action</a></li>
-                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-              </div>
             </div>
-        </div>
-
-        <!-- -------------水平線與搜尋字樣---------------- -->
-        <div style="display: flex; justify-content: center;">
-            <hr class="hr" style="width: 73%; height: 3px; background-color: black;">
-        </div>
-        <h2 class="serch_Keyword">'XX'商品搜尋結果</h2>
-
-        <!-- -------------排序table--------------- -->
-        <div class="container tabletwo" >
-            <div class="row">
-              <div class="col">
-                <div class="table-responsive">
-                  <table class="table table-bordered">
-                    <table class="table table-bordered">
-                        <tbody>
-                          <tr>
-                            <td class="bg-light">綜合排序</td>
-                            <td>月銷量</td>
-                            <td>新上市</td>
-                            <td>評價</td>
-                            <td>價格</td>
-                            <td>活動</td>
-                          </tr>
-                        </tbody>
-                    </table>
-                  </table>
-                </div>
-              </div>
-            </div>
-        </div>
-        
-        <!-- -------------商品列表--------------- -->
-        
-        <div class="container tablethird">
-            <div class="row">
-                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
-                    <div class="card" style="width: 14rem;height:18rem;">
-                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
-                        <div class="card-body">
-                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
-                          <p class="card-text item__price">$24,000</p>
-                          <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
-                    <div class="card" style="width: 14rem;height:18rem;">
-                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
-                        <div class="card-body">
-                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
-                          <p class="card-text item__price">$24,000</p>
-                          <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
-                    <div class="card" style="width: 14rem;height:18rem;">
-                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
-                        <div class="card-body">
-                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
-                          <p class="card-text item__price">$24,000</p>
-                          <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
-                    <div class="card" style="width: 14rem;height:18rem;">
-                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
-                        <div class="card-body">
-                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
-                          <p class="card-text item__price">$24,000</p>
-                          <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class = "col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 mb-4 tablethird">
-                    <div class="card" style="width: 14rem;height:18rem;">
-                        <img src="./image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
-                        <div class="card-body">
-                          <h5 class="card-title item__name">APPPLE AIR 5 粉金 <i class="fas fa-heart"></i></h5>
-                          <p class="card-text item__price">$24,000</p>
-                          <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-
-
-                
-
-                
-            </div>
-        </div>
-        
-
-        <!-- -------------放page碼的地方--------------- -->
-        
-        
-    </main>
+          `;
+				listContainer.append(itemHtml); // 將資料加入容器
+			}
+		}
 
 
 
-    <!-- --------------------------------以下是Footer 勿動！！-------------------------------- -->
-    <footer id="main-footer" class="footer">
 
-        <div class="container-sm">
+		document.addEventListener("DOMContentLoaded", function () {
+			// 從 localStorage 中取得文字資料
+			var textData = localStorage.getItem('textData');
 
-            <div class="footer-top row">
-                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-            </div>
+			// 如果有文字資料，就使用它來處理後續邏輯
+			if (textData == "新品上市") {
+				// 在這裡處理後續邏輯，例如將文字送往後端處理
+				// console.log("接收到的文字資料：" + textData);
+				fetch('http://localhost:8080/Niigi/products', {
+					method: 'GET'
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						$('.serch_Keyword').text(`${textData}`);
+						const totalPages = Math.ceil(data.length / 12); // 總頁數
+						let currentPage = 1; // 當前頁數，預設為第1頁
 
-            <hr class="footer_divider">
+						// 顯示特定頁面的資料
+						function renderPage() {
+							showDataForPage(data, currentPage);
+						}
 
-            <div class="footer-bottom row justify-content-end">
+						// 初始化顯示第1頁的資料
+						renderPage();
 
-                <nav class="SNS-nav-list ">
+						// 顯示分頁按鈕
+						function renderPaginationButtons() {
+							const paginationContainer = $('#pagination');
+							paginationContainer.html(''); // 清空分頁容器
 
-                    <a href="" class="Instagram col">
-                        <div class="Instagram_icon">
-                            <img src="./image/ant-design_instagram-filled.svg" alt="">
-                        </div>
-                    </a>
+							for (let i = 1; i <= totalPages; i++) {
+								const buttonHtml = `<button class="pagination-button" data-page="${i}">${i}</button>`;
+								paginationContainer.append(buttonHtml);
+							}
 
-                    <a href="" class="Facebook col">
-                        <div class="Facebook_icon">
-                            <img src="./image/mdi_facebook.svg" alt="">
-                        </div>
-                    </a>
+							// 加入分頁按鈕的點擊事件處理
+							$('.pagination-button').click(function () {
+								const page = parseInt($(this).data('page'));
+								currentPage = page;
+								renderPage();
+							});
+						}
 
-                    <a href="" class="Twitter col ">
-                        <div class="Twitter_icon">
-                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
-                        </div>
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </footer>
+						// 顯示分頁按鈕
+						renderPaginationButtons();
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
 
-    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+			} else if (textData == "推薦商品") {
+
+				fetch('http://localhost:8080/Niigi/exproducts', {
+					method: 'GET',
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						$('.serch_Keyword').text(`${textData}`);
+						const totalPages = Math.ceil(data.length / 12); // 總頁數
+						let currentPage = 1; // 當前頁數，預設為第1頁
+
+						// 顯示特定頁面的資料
+						function renderPage() {
+							showDataForPage(data, currentPage);
+						}
+
+						// 初始化顯示第1頁的資料
+						renderPage();
+
+						// 顯示分頁按鈕
+						function renderPaginationButtons() {
+							const paginationContainer = $('#pagination');
+							paginationContainer.html(''); // 清空分頁容器
+
+							for (let i = 1; i <= totalPages; i++) {
+								const buttonHtml = `<button class="pagination-button" data-page="${i}">${i}</button>`;
+								paginationContainer.append(buttonHtml);
+							}
+
+							// 加入分頁按鈕的點擊事件處理
+							$('.pagination-button').click(function () {
+								const page = parseInt($(this).data('page'));
+								currentPage = page;
+								renderPage();
+							});
+						}
+
+						// 顯示分頁按鈕
+						renderPaginationButtons();
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
+
+			} else {
+
+				// 使用fetch API向後端發送請求
+				fetch('http://localhost:8080/Niigi/searchCategorie?text=' + encodeURIComponent(textData), {
+					method: 'GET'
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						// 在這裡你可以處理後端回傳的資料，並將整理後的資料呈現在當前頁面上
+						console.log(data);
+						let list_html = "";
+						$('.serch_Keyword').text(`${textData}`);
+
+						data.forEach(function (product) {
+							// 在這裡對每個產品進行處理
+							//取得產品ID
+							const productId = product.productId;
+							// 取得產品名稱
+							const productName = product.productName;
+							// 取得產品價格
+							const productPrice = product.productPrice;
+							// 取得產品圖片的 Base64 字串
+							const base64Image = displayImageFromBase64(product.picture1);
+							//取得商店名稱
+							const ShopName = product.suppliers.shopName;
+
+							// 也可以將其他產品資料顯示在網頁上
+							list_html += `
+							<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird" style="padding-bottom:30px;">
+								<div class="card" style="width:200px;height:28rem;">
+									<img src="${base64Image}" id="${productId}" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+									<div class="card-body">
+										<h5 class="card-title item__name">${productName}<img class="heart"
+											src="./image/heart_store.svg" alt=""></i></h5>
+										<p class="card-text item__price">$${productPrice}</p>
+										<p class="card-text item__store">${ShopName}</p>
+									</div>
+								</div>
+							</div>
+									`;
+						});
+
+						$('#ExProduct').html(list_html);
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
+
+			}
+
+			// 使用完畢後，可以將 localStorage 中的 textData 清空，避免影響下一次的使用
+			localStorage.removeItem('textData');
+
+		});
+
+
+	</script>
+
 </body>
 
 </html>
