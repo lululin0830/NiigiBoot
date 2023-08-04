@@ -242,7 +242,9 @@ button.plus {
 }
 
 ul#eventList li.eventInfo {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    font-weight: 550;
+    color: #6DC2D2;
 }
 
 /* 展開按鈕 */

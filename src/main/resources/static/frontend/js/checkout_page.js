@@ -28,20 +28,20 @@ function createOrder() {
 
     const body = {
         'memberId': 'M000000001',
-        'itemList': [
-            {
-                'productSpecId': '10000001001',
-                'price': 250,
-                'eventPrice': 250,
-                'eventId': ['2023072000000001']
-            },
-            {
-                'productSpecId': '10000020001',
-                'price': 900,
-                'eventPrice': 900,
-                'eventId': ['2023072000000003']
-            },],
-        'totalAmount': 1150,
+        // 'itemList': [
+        //     {
+        //         'productSpecId': '10000001001',
+        //         'price': 250,
+        //         'eventPrice': 250,
+        //         'eventId': ['2023072000000001']
+        //     },
+        //     {
+        //         'productSpecId': '10000020001',
+        //         'price': 900,
+        //         'eventPrice': 900,
+        //         'eventId': ['2023072000000003']
+        //     },],
+        // 'totalAmount': 1150,
         'pointsDiscount': 100,
         'couponDiscount': 200,
         'paymentType': '1',

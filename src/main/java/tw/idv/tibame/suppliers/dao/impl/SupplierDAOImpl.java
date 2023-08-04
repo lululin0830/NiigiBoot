@@ -57,7 +57,7 @@ public class SupplierDAOImpl implements SupplierDAO {
 	@Override
 	public Suppliers getShopVacation(String supplierId) {
 
-		String hql = "SELECT new tw.idv.tibame.suppliers.entity.Suppliers(shopVacation,pauseOrderAcceptance,pauseShipping,vacationEnd) "
+		String hql = "SELECT new tw.idv.tibame.suppliers.entity.Suppliers(shopVacation,vacationEnd,pauseOrderAcceptance,pauseShipping) "
 				+ "FROM Suppliers WHERE supplierId = :supplierId";
 
 		return session.createQuery(hql, Suppliers.class).setParameter("supplierId", supplierId).uniqueResult();

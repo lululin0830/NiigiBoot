@@ -72,4 +72,13 @@ public class MainOrder implements java.io.Serializable {
 		this.deliveryAddress = deliveryAddress;
 	}
 
+	public MainOrder(String memberId, String paymentType, String recipient, String phoneNum, String deliveryAddress) {
+		super();
+		this.memberId = memberId;
+		this.paymentType = paymentType;
+		this.recipient = recipient;
+		this.phoneNum = phoneNum;
+		this.deliveryAddress = deliveryAddress;
+	}
+
 }

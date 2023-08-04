@@ -95,7 +95,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 				if (ps.getShelvesStatus().equals("0") && ps.getSpecStock() > 0) { // 上架中&有庫存才往下走
 
-					Integer productId = ps.getProductId(), price = ps.getProduct().getProductPrice();
+					Integer productId = ps.getProductId(), price = ps != null ? ps.getProduct().getProductPrice() : 0;
 					CartItem ci = new CartItem();
 
 					productIds[i] = productId;
@@ -138,22 +138,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 				int price = ci.getProductPrice();
 
-				List<EventApplicableProducts> coupons = eventDAO.selectCoupontByProductId(productIds);
+				List<EventSingleThreshold> coupons = eventDAO.selectCoupontByProductId(ci.getProductId());
 				if (!coupons.isEmpty()) {
 
 					Map<Integer, String> priceMap = new TreeMap<>();
 
-					for (EventApplicableProducts coupon : coupons) {
+					for (EventSingleThreshold coupon : coupons) {
 
-						String type = coupon.getEventSingleThreshold().getThresholdType();
-						String couponCode = coupon.getEventSingleThreshold().getCouponCode();
+						String type = coupon.getThresholdType();
+						String couponCode = coupon.getCouponCode();
 
 						if (type.equals(FULL_PURCHASE)) {
 
-							Double discountRate = coupon.getEventSingleThreshold().getDiscountRate();
-							Integer discountAmount = coupon.getEventSingleThreshold().getDiscountAmount();
+							Double discountRate = coupon.getDiscountRate();
+							Integer discountAmount = coupon.getDiscountAmount();
 
-							if (price > coupon.getEventSingleThreshold().getMinPurchaseAmount()) {
+							if (price > coupon.getMinPurchaseAmount()) {
 
 								if (discountRate != null) {
 									priceMap.put((int) (price * discountRate), couponCode);
@@ -168,8 +168,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 						for (Integer key : set) {
 							String code = priceMap.get(key);
 							List<Integer> ids = couponMap.get(code);
-							int available = coupon.getEventSingleThreshold().getCouponAvailableAmount(),
-									availableP = coupon.getEventSingleThreshold().getCouponAvailablePerPurchase();
+							int available = coupon.getCouponAvailableAmount(),
+									availableP = coupon.getCouponAvailablePerPurchase();
 							/* ===檢查折價券可使用量&單筆可使用量=== */
 							if (ids == null) { // 這張折價券第一次出現，直接收下
 								ids = new ArrayList<Integer>();
@@ -234,11 +234,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 * @return
 	 */
 	public Map<String, Integer[]> getEventMap(List<EventApplicableProducts> allEvents) {
+		List<EventApplicableProducts> copy = new ArrayList<EventApplicableProducts>(allEvents);
 		Map<String, Integer[]> eventMap = new TreeMap<>();
 		int size = allEvents.size(), idCount = 0; // eventProductIds size & index count
 		Integer[] eventProductIds = new Integer[size];
 
-		for (EventApplicableProducts event : allEvents) {
+		for (EventApplicableProducts event : copy) {
 
 			String eventId = event.getEventId();
 
@@ -273,8 +274,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			String key = entry.getKey();
 			Integer[] val = entry.getValue();
 			EventSingleThreshold eventInfo = eventInfoDAO.selectById(key);
-			Integer minPurchase = eventInfo.getMinPurchaseAmount();
-			Integer minQuantity = eventInfo.getMinPurchaseQuantity();
+			int minPurchase = eventInfo.getMinPurchaseAmount() != null ? eventInfo.getMinPurchaseAmount() : 0;
+			int minQuantity = eventInfo.getMinPurchaseQuantity() != null ? eventInfo.getMinPurchaseQuantity() : 1;
 
 			if (val.length > 1) {
 				// 單一活動有多樣商品適用的情況
@@ -435,6 +436,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			item.setGiftProductSpecId(
 					item.getGiftProductSpecId() == null ? new ArrayList<>() : item.getGiftProductSpecId());
 			item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+			item.getEventDiscounts().add(0);
 		}
 	}
 
