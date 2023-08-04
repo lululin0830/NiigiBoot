@@ -179,7 +179,7 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 //	
 	public List<Object[]> memberCheckOrder2(String memberId) {
 		System.out.println(memberId);
-		String hql = "select mo.paymentStatus,mo.orderStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
+		String hql = "select mo.orderStatus,mo.paymentStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
 				+ "so.subOrderId,so.subPaidAmount "				
 				+ "from MainOrder as mo,SubOrder as so,SubOrderDetail as sod,Suppliers as sp "
 				+ "where mo.orderId = so.orderId and so.subOrderId = sod.subOrderId and so.supplierId = sp.supplierId "		

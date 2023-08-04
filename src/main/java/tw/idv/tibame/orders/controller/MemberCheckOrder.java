@@ -45,7 +45,7 @@ public class MemberCheckOrder{
 		
 	}
 	
-	@PostMapping("cancelSubOrder")
+	@PostMapping("/cancelSubOrder")
 	public String cancelSubOrder(@RequestBody String subOrderId) {
 		return orderService.cancelSubOrder(subOrderId);
 	}
