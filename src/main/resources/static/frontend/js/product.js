@@ -299,7 +299,7 @@ const init = function () {
             sameShopProducts.forEach(product => {
                 shopInfoBody +=
                     `<div class="col-sm-4">
-                    <a href="/frontend/product.html?productId=${product[0]}" class="product-S" data-id="${product[0]}">
+                    <a href="./product.html?productId=${product[0]}" class="product-S" data-id="${product[0]}">
                         <div class="card product-S">
                             <img src="${product[3] ? createImageURL(product[3]) : './image/square.svg'}" class="card-img-top" >
                             <div class="card-body">
@@ -359,16 +359,17 @@ const addToCart = function () {
     const jwtToken = getCookie('jwt')
     let productSpecIds = JSON.parse(sessionStorage.getItem("NiigiCart"))
     let productSpecId = document.querySelector("#specSelector").selectedOptions[0].value
+    let count = document.querySelector("#quantity").value
 
     if (productSpecId.trim().length !== 0) {
-        if (productSpecIds) {
-
-            productSpecIds.push(productSpecId);
-            sessionStorage.setItem("NiigiCart", JSON.stringify(productSpecIds));
-
-        } else {
-            sessionStorage.setItem("NiigiCart", JSON.stringify([productSpecId]));
+        if (!productSpecIds) {
+            productSpecIds = [];
         }
+
+        for (let i = 0; i < count; i++) {
+            productSpecIds.push(productSpecId);
+        }
+        sessionStorage.setItem("NiigiCart", JSON.stringify(productSpecIds));
 
         // if (jwtToken) {
 
