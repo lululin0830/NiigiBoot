@@ -126,13 +126,7 @@
             cursor: default;
         }
 
-        .form-container .button-store {
-            margin-top: 20px; 
-            text-align: right; 
-            justify-content: center;
-            align-items: center; 
-           
-        }
+        
 
         .fixed-size {
             width: 200px;
@@ -565,45 +559,45 @@ input[type="file"] {
                     <div class="form-container">
                         <div class="left-section">
                             <div class="form-group">
-                                <label for="username">使用者帳號：</label>
-                                <input type="text" id="username" name="username" readonly value="Tom1234@gmail.com">
+                                <label for="memberAcct">使用者帳號：</label>
+                                <input type="text" id="memberAcct" name="memberAcct" readonly value="">
                             </div>
 
                             <div class="form-group">
-                                <label for="fullname">姓名：</label>
-                                <input type="text" id="fullname" name="fullname" value="xxx">
+                                <label for="name">姓名：</label>
+                                <input type="text" id="name" name="name" value="">
                             </div>
 
                             <div class="form-group">
                                 <label for="phone">手機：</label>
-                                <input type="tel" id="phone" name="phone" value="0912345678">
+                                <input type="text" id="phone" name="phone" value="">
                             </div>
 
                             <div class="form-group">
-                                <label for="email">備用信箱：</label>
-                                <input type="email" id="email" name="email" required>
-                                <button type="button" class="btn_SCM-Center">寄送驗證信</button>
+                                <label for="backupEmail">備用信箱：</label>
+                                <input type="email" id="backupEmail" name="backupEmail" required>
+                                <!-- <button type="button" class="btn_SCM-Center">寄送驗證信</button> -->
                             </div>
 
                             <div class="form-group">
                                 <label for="gender">性別：</label>
                                 <label for="gender-male">
-                                    <input type="text" id="gender-male" name="gender" value="男or女" readonly>                                  
+                                    <input type="text" id="gender-male" name="gender" value="" readonly>                                  
                                 </label>
                             </div>
 
                             <div class="form-group">
-                                <label for="birthdate">生日：</label>
-                                <input type="text" id="birthdate" name="birthdate" readonly value="2000/12/12">
+                                <label for="birthday">生日：</label>
+                                <input type="text" id="birthday" name="birthday" readonly value="">
                             </div>
-                            <div class="button-store">
+                            <div class="form-group">
                                 <button type="submit" class="btn_SCM-Center">儲存</button>
                             </div>
                         </div>
-
+                        
                         <div class="center-section">
                             <div class="preview">
-                                <img id="preview-image" class="img-fluid fixed-size" src="./image/product.svg" alt="">
+                                <img id="memPhoto" class="img-fluid fixed-size" src="./image/product.svg" alt="">
                             </div>
                             <div class="form-group">
                                 <label for="file-upload" class="custom-file-upload">
@@ -616,11 +610,8 @@ input[type="file"] {
                                 <p>檔案限制:.JPEG,.PNG</p>
                             </div>
                         </div>
-
-
                     </div>
-                </div>
-                
+                </div>              
             </main>
         </div>
     </main>
@@ -694,34 +685,7 @@ input[type="file"] {
             memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
         } 
     </script>
-    <script>
-        // 選擇圖片時顯示預覽圖片
-        var profilePictureInput = document.getElementById('profile-picture');
-        var previewImage = document.getElementById('preview-image');
-
-        profilePictureInput.addEventListener('change', function (event) {
-            var file = event.target.files[0];
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                previewImage.src = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        });
-
-        // 檢查選擇圖片的檔案大小
-        profilePictureInput.addEventListener('change', function (event) {
-            var file = event.target.files[0];
-            var maxSize = parseInt(profilePictureInput.getAttribute('max-size'));
-
-            if (file && file.size > maxSize) {
-                alert('檔案大小超過限制，請選擇小於1MB的檔案。');
-                profilePictureInput.value = '';
-                previewImage.src = '#';
-            }
-        });
-    </script>
+    <script src="../frontend/js/customer_Information.js"></script>
 </body>
 
 </html>
