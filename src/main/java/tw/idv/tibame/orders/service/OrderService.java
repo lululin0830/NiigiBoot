@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 
 public interface OrderService {
 	
+	String checkoutInit(String memberId);
+	
 	public boolean createOrder(JsonObject orderData) throws Exception;
 
 	public boolean cancelOrder();
@@ -48,4 +50,6 @@ public interface OrderService {
 	public String cancelSubOrder(String subOrderId);
 	
 	public String subOrderDetailcomment(String subOrderId);
+
+	
 }

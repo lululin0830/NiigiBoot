@@ -21,6 +21,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import tw.idv.tibame.events.dao.EventApplicableProductsDAOImpl;
+import tw.idv.tibame.members.dao.MemberDAO;
 import tw.idv.tibame.orders.dao.MainOrderDAO;
 import tw.idv.tibame.orders.dao.SubOrderDAO;
 import tw.idv.tibame.orders.dao.SubOrderDetailDAO;
@@ -60,6 +61,8 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	EventApplicableProductsDAOImpl eventDAO;
 	@Autowired
+	MemberDAO memberDAO;
+	@Autowired
 	Gson gson;
 
 	// 取得自動編號
@@ -91,6 +94,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public String checkoutInit(String memberId) {
+		
+		return gson.toJson(memberDAO.selectForCheckout(memberId));
+		
+	}
+	
+	@Override
 	public boolean createOrder(JsonObject orderData) throws Exception {
 
 		// 主訂單資料處理
@@ -106,7 +116,6 @@ public class OrderServiceImpl implements OrderService {
 
 		String productIds = "''";
 		StringBuilder stringBuilder = new StringBuilder();
-		List<String> eventIdList = new ArrayList<>();
 		List<SubOrderDetail> subOrderDetails = new ArrayList<SubOrderDetail>();
 
 		Type cartItemType = new TypeToken<List<CartItem>>(){}.getType();
@@ -119,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
 
 			SubOrderDetail item = new SubOrderDetail();
 
-			Integer eventPrice = null;
+			Integer eventPrice = cartItem.getProductPrice();
 
 			if (cartItem.getEventPrice() != null) {
 
