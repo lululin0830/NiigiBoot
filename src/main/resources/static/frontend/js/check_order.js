@@ -70,10 +70,10 @@ const paymentPendingBody = function (arr) {
 			html +=
 				`< div class="navs-top-content" >
             <ul class="sub-order-list">
-                <li class="sub-order">
+                <li class="sub-order home">
                     <div class="col-sm-2">
                         <div class="order_item_priview">
-                            <img class="order_item_priview" src=${imageElement}
+                            <img class="order_item_priview" src="${imageElement}" 
                                 alt="">
                         </div>
                     </div>
@@ -139,11 +139,11 @@ const inprogressBody = function (element) {
 	}
 	const imageElement = createImageURL(element[9])
 	let html =
-		`<li class="sub-order">
+		`<li class="sub-order inprogress">
         <div class="col-sm-2">
             <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
             <div class="order_item_priview">
-                <img class="order_item_priview" src=${imageElement} alt="">
+                <img class="order_item_priview" src="${imageElement}" alt="">
             </div>
         </div>
         <div class="col-sm-7 ps-3">
@@ -211,7 +211,7 @@ const transportBody = function (element) {
 	const imageElement = createImageURL(element[9])
 
 	let html =
-		`<li class="sub-order">
+		`<li class="sub-order transport">
         <div class="col-sm-2">
             <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
             <div class="order_item_priview">
@@ -264,7 +264,7 @@ const completeBody = function (element) {
 
 	const imageElement = createImageURL(element[9])
 	let html =
-		`<li class="sub-order">
+		`<li class="sub-order complete">
         <div class="col-sm-2">
             <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
             <div class="order_item_priview">
@@ -312,11 +312,11 @@ const cancelBody = function (arr) {
 		console.log(imageElement)
 
 		let html =
-			`<li class="sub-order">
+			`<li class="sub-order cancel">
                 <div class="col-sm-2">
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
                     <div class="order_item_priview">                        
-						<img class="order_item_priview" src= ${imageElement} alt="">
+						<img class="order_item_priview" src="${imageElement}" alt="">
                     </div>
                 </div>
                 <div class="col-sm-7 ps-3">
@@ -355,13 +355,13 @@ const cancelPayOrder = function (element) {
 	let year = date.getFullYear(); // 獲得年份
 	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
 	let day = date.getDate();
-
+	const imageElement = createImageURL(element[9])
 	let html =
 		`<li class="sub-order">
                 <div class="col-sm-2">
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
                     <div class="order_item_priview">
-                        <img class="order_item_priview" src="./image/product.svg" alt="">
+                        <img class="order_item_priview" src="${imageElement}" alt="">
                     </div>
                 </div>
                 <div class="col-sm-7 ps-3">
