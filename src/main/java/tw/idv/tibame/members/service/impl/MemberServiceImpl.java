@@ -184,4 +184,38 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public boolean changePassword(String memberId, String oldPassword, String newPassword) {
+		Members members = memberDAO.selectOneByMemberId(memberId);
+
+		if (members == null) {
+			return false;
+		}
+		// 檢查輸入的舊密碼是否與資料庫中的密碼相符
+	    String oldPasswordHash = null;
+	    try {
+	        oldPasswordHash = PasswordEncryptor.encrypt(oldPassword);
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	        return false; // 處理加密錯誤
+	    }
+
+	    if (!members.getPassword().equals(oldPasswordHash)) {
+	        return false; // 舊密碼不正確
+	    }
+
+	    // 將新密碼加密並更新到資料庫
+	    String newPasswordHash = null;
+	    try {
+	        newPasswordHash = PasswordEncryptor.encrypt(newPassword);
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	        return false; // 處理加密錯誤
+	    }
+	    
+	    members.setPassword(newPasswordHash);
+	    memberDAO.update(members);
+	    return true;
+	}
+
 }

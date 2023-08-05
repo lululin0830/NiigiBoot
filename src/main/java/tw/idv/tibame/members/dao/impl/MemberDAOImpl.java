@@ -44,7 +44,10 @@ public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO {
 
 	@Override
 	public Members update(Members newMember) {
-		// TODO Auto-generated method stub
+		if(newMember!=null) {
+			newMember=session.merge(newMember);
+			return newMember;
+		}
 		return null;
 	}
 
@@ -57,8 +60,8 @@ public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO {
 
 	@Override
 	public Members selectOneByMemberId(String memberId) {
-		// TODO Auto-generated method stub
-		return null;
+		String hql = "FROM Members WHERE memberId = :memberId";
+		return session.createQuery(hql, Members.class).setParameter("memberId", memberId).uniqueResult();
 	}
 
 	@Override
