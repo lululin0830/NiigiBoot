@@ -396,27 +396,11 @@ public class OrderServiceImpl implements OrderService {
 		return (subOrderDAO.supplierSubOrderCancel(subOrderId));
 	}
 
-//	@Override
-//	public String memberCheckOrder(String memberId) {
-//		String json = subOrderDAO.memberCheckOrder(memberId); // 假設memberCheckOrder返回的是JSON字串
-//		Type type = new TypeToken<List<Object[]>>() {}.getType();
-//		List<Object[]> list = gson.fromJson(json, type);
-//
-//		Map<Object, List<Object[]>> result = list.stream()
-//				.collect(Collectors.groupingBy(li -> li[3], LinkedHashMap::new, Collectors.toList()));
-//
-//		return gson.toJson(result);
-//	}
-//
-//	
 	public String memberCheckOrder(String memberId) {
 		List<Object[]> list = subOrderDAO.memberCheckOrder2(memberId);
 
-//		Map<Object, Map<Object, >>> result = list.stream()
 		Map<Object, List<Object[]>> result = list.stream()
 				.collect(Collectors.groupingBy(li -> li[0], LinkedHashMap::new, Collectors.toList()));
-//			             Collectors.groupingBy(li -> li[1], LinkedHashMap::new, 
-//			                 Collectors.groupingBy(li -> li[2], LinkedHashMap::new, Collectors.toList()))));
 
 		return gson.toJson(result);
 	}
