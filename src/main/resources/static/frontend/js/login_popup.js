@@ -105,20 +105,12 @@ function getCookie(name) {
                 const jwtToken = getCookie('jwt');
                 console.log(jwtToken);
 
-                window.location.href = 'customer_point_record.html';
+                window.location.href = 'customer_Information.html';
             })
     });
 })();
 
-// function togglePasswordVisibility(inputId) {
-//     const input = document.getElementById(inputId);
-//     if (input.type === "password") {
-//         input.type = "text";
-//     } else {
-//         input.type = "password";
-//     }
-// }
-
+//註冊
 const registerButton = document.getElementById('register');
 registerButton.addEventListener('click', async () => {
     const newMember = {
