@@ -93,6 +93,11 @@
         }
 
         /* 折價券清單 */
+
+        div.coupon {
+            display: none;
+        }
+
         ul#couponList {
             list-style: none;
             padding: 0;
@@ -129,8 +134,21 @@
             padding: 1.5rem;
         }
 
+        div.recipient-info.hidden {
+            display: none;
+        }
+
         div.recipient-form.hidden {
             display: none;
+        }
+
+        div.recipient-form {
+            align-items: center;
+            font-size: 1.6rem;
+        }
+
+        div.recipient-form>div.col-sm-3 {
+            padding: 0 0.8rem;
         }
 
         div.shop-policy {
@@ -147,6 +165,11 @@
             font-weight: 400;
             line-height: normal;
             letter-spacing: 0.2px;
+        }
+
+        .form-control,
+        .form-select {
+            font-size: 1.6rem;
         }
     </style>
 
@@ -535,7 +558,7 @@
                 <!-- -------------------------------- 頁面的內容請從這裡往下寫 -------------------------------- -->
                 <div class="row">
                     <h2>填寫付款資訊</h2>
-                    <form action="" method="post" id="paymentInfo">
+                    <form method="post" id="paymentInfo">
 
                         <div class="row">
                             <h3>運送方式</h3>
@@ -559,10 +582,10 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 <input name="point" class="form-radio" type="radio" id="point">
                                 <label class="form-check-label" for="point">使用會員點數折抵</label>
-                                <p>當前可用點數：<span id="memberPointBalance">100,000</span></p>
+                                <p>當前可用點數：<span id="memberPointBalance"></span></p>
                                 <div class="row">
                                     <input type="number" class="form-control" id="pointsDiscount">
                                     <button type="button" class="btn btn-primary btn-XS">確認</button>
@@ -570,7 +593,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 coupon">
                                 <input name="coupon" class="form-radio" type="radio" id="coupon">
                                 <label class="form-check-label" for="coupon">使用折價券</label>
 
@@ -598,32 +621,35 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <h3>姓名</h3>
-                                <input type="text" class="form-control" id="name" value="member.name">
+                                <input type="text" class="form-control" name="buyerInfo" id="name" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
                                 <h3>電話</h3>
-                                <input type="text" class="form-control" id="phone" value="member.phone">
+                                <input type="text" class="form-control" name="buyerInfo" id="phone" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-8">
                                 <h3>購買人地址</h3>
-                                <div class="twzipcode row">
-                                    <select data-role="county" class="form-select col"></select>
-                                    <select data-role="district" class="form-select col"></select>
-                                    <input data-role="zipcode" class="form-control col" />
+                                <div class="twzipcode row" id="memberAddress">
+                                    <select data-role="county" name="buyerInfo" class="form-select col"
+                                        required></select>
+                                    <select data-role="district" name="buyerInfo" class="form-select col"
+                                        required></select>
+                                    <input data-role="zipcode" name="buyerInfo" class="form-control col" required />
                                 </div>
-                                <input type="text" class="form-control mt-3" id="addressShort" placeholder="請輸入地址">
+                                <input type="text" name="buyerInfo" class="form-control mt-3" id="addressShort"
+                                    placeholder="請輸入地址" required>
                             </div>
                         </div>
 
-                        <div class="row">
-
+                        <div class="row align-items-center">
+                            <h3 class="col-sm-2 m-0">收件人資訊</h3>
                             <div class="recipient-type col-sm-2">
                                 <input name="recipient" class="form-radio" type="radio" value="same-as-buyer"
-                                    id="same-as-buyer">
+                                    id="same-as-buyer" checked>
                                 <label class="form-check-label" for="same-as-buyer">同購買人</label>
                             </div>
                             <div class="recipient-type col-sm-3">
@@ -638,19 +664,33 @@
                             </div>
 
                             <div id="recipient-form">
-                                <h3>收件人資訊</h3>
+
                                 <div class="recipient-info">
-                                    <h5>姓名：<span class="same-as-buyer name">XXXXX</span></h5>
-                                    <h5>連絡電話：<span class="same-as-buyer phone">0939-000-000</span></h5>
-                                    <h5>收件人地址：<span class="same-as-buyer address">104 台北市中山區南京東路三段219號5樓</span></h5>
+                                    <h5>姓名：<span class="same-as-buyer name"></span></h5>
+                                    <h5>連絡電話：<span class="same-as-buyer phone"></span></h5>
+                                    <h5>收件人地址：<span class="same-as-buyer address"></span></h5>
                                 </div>
-                                <div class="recipient-form hidden">
-                                    <div class="twzipcode row">
-                                        <select data-role="county" class="form-select col"></select>
-                                        <select data-role="district" class="form-select col"></select>
-                                        <input data-role="zipcode" class="form-control col" />
+                                <div class="recipient-form hidden row py-3">
+
+                                    <div class="col-sm-4">
+                                        <input type="text" name="recipientInfo" id="newRecipient" class="form-control"
+                                            placeholder="收件人姓名">
                                     </div>
-                                    <input type="text" class="form-control mt-3" id="newAddress" placeholder="請輸入地址">
+
+                                    <div class="col-sm-4">
+                                        <input type="text" name="recipientInfo" id="newPhone" class="form-control"
+                                            placeholder="收件人電話">
+                                    </div>
+                                    <div class="col-sm-8">
+
+                                        <div class="twzipcode row mt-3" id="recipientAddress">
+                                            <select data-role="county" class="form-select col"></select>
+                                            <select data-role="district" class="form-select col"></select>
+                                            <input data-role="zipcode" class="form-control col" />
+                                        </div>
+                                        <input type="text" class="form-control mt-3" id="newAddress"
+                                            placeholder="請輸入地址">
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -763,9 +803,7 @@
             });
         });
     </script>
-    <script>
-        const twzipcode = new TWzipcode();
-    </script>
+
     <script src="./js/checkout_page.js"></script>
 </body>
 
