@@ -189,6 +189,7 @@ public class OrderServiceImpl implements OrderService {
 		double pDiscountRatio = pointsDiscount / totalAmount;
 		double cDiscountRatio = couponDiscount / totalAmount;
 
+		mainOrder.setTotalAmount(totalAmount);
 		mainOrder.setTotalGrossProfit(totalGrossProfit);
 		mainOrder.setPaidAmount(paidAmount);
 
