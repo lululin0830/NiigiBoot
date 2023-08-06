@@ -389,14 +389,89 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">頁面標題寫在這邊</h1>
+                            <h1 class="m-0">新增全站折價券</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
 
             <!-- =================================內容寫在這邊================================= -->
-
+            <form class="mb-3">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">折價券名稱:</label>
+                    <div class="col-sm-6 row">
+                      <input type="text" class="col-sm-12">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">折價券代碼:</label>
+                    <div class="col-sm-6 row">
+                      <input type="text" class="col-sm-12">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">可使用期間:</label>
+                    <div class="col-sm-2 row">
+                      <input type="date" class="form-control" id="">
+                    </div>
+                    <span class="row col-sm-1 justify-content-center" style="font-size: 2rem">~</span>
+                    <div class="col-sm-2 row">
+                        <input type="date" class="form-control" id="">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">總張數:</label>
+                    <div class="col-sm-2 row">
+                        <input type="text" class="col-sm-12" id="">
+                    </div>
+                    <div class="col-sm-2 row justify-content-md-center" style="font-size: 1rem;">單筆可用張數:</div>
+                    <div class="col-sm-2 row">
+                        <input type="text" class="col-sm-12" id="">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">活動類型|折扣額度限制:</label>
+                    <div class="col-sm-2 row">
+                        <select name="" class="col-sm-9">
+                            <option value="">折扣折數</option>
+                            <option value="">折扣金額</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 row">
+                        <input type="text" class="col-sm-12" id="">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">門檻類型:</label>
+                    <div class="col-sm-2 row">
+                        <select name="" class="col-sm-9">
+                            <option value="">滿額</option>
+                            <option value="">滿件</option>
+                            <option value="">滿件且滿額</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5 row">
+                        <div class="col-sm-1">滿</div>
+                        <input type="text" class="col-sm-3" id="">
+                        <div class="col-sm-1 row ">件</div>
+                        <div class="col-sm-1 row justify-content-center">,</div>
+                        <div class="col-sm-1 row">滿</div>
+                        <input type="text" class="col-sm-3" id="">
+                        <div class="col-sm-1 row">元</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">可使用數量:</label>
+                    <div class="col-sm-3 row">
+                        <input type="text" class="col-sm-8">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-5"></div>
+                    <button class="btn col-sm-2" style="background-color: rgba(183, 221, 229, 0.90);">送出</button>
+                    <div class="col-sm-5"></div>
+                </div>
+            </form>
         </div>
         <!-- ./wrapper -->
 

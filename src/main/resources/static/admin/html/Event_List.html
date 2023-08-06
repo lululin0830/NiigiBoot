@@ -389,13 +389,48 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">頁面標題寫在這邊</h1>
+                            <h1 class="m-0">行銷活動列表</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
-
-            <!-- =================================內容寫在這邊================================= -->
+            <div>
+                <a href="./Discount_Coupon.html">
+                    <input type="button" id="Discount_Coupon" value="新增折價券" style="margin-left: 36rem;">
+                </a>
+                <br>
+                <input id="StartDate" type="date">
+                <span>~</span>
+                <input id="EndDate" type="date">
+                <input id="Searchcase" type="text" value="" >
+                <select id="SearchSelect">
+                    <option value="eventId">行銷編號</option>
+                    <option value="eventName">活動名稱</option>
+                    <option value="eventRegisterSupplier">商家編號</option>
+                </select>
+                <input type="button" id="search" value="搜尋">
+                <input type="button" id="search" value="清空搜尋">
+            </div>
+            <br>
+            <div>
+                <table>
+                    <thead>
+                        <th>行銷編號</th>
+                        <th>商家編號</th>
+                        <th>活動名稱</th>
+                        <th>活動說明</th>
+                        <th>起始日</th>
+                        <th>結束日</th>
+                        <th>門檻類型</th>
+                        <th>滿件門檻</th>
+                        <th>滿額門檻</th>
+                        <th>折扣比例</th>
+                        <th>贈品商品編號</th>
+                    </thead>
+                    <tbody id="searchResult">
+                    </tbody>
+                </table>
+            </div>
 
         </div>
         <!-- ./wrapper -->
@@ -423,6 +458,8 @@
         <script src="../js/demo.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="../js/dashboard2.js"></script>
+        <!-- 活動列表功能 -->
+        <script src="../js/Event_List.js"></script>
 </body>
 
 </html>
