@@ -13,6 +13,8 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +26,6 @@ import tw.idv.tibame.events.dao.EventApplicableProductsDAOImpl;
 import tw.idv.tibame.events.dao.EventSingleThresholdDAOImpl;
 import tw.idv.tibame.events.entity.EventApplicableProducts;
 import tw.idv.tibame.events.entity.EventSingleThreshold;
-import tw.idv.tibame.events.entity.enumtype.EventType;
-import tw.idv.tibame.events.entity.enumtype.ThresholdType;
 import tw.idv.tibame.products.dao.ProductSpecDAO;
 import tw.idv.tibame.products.entity.ProductSpec;
 import tw.idv.tibame.shoppingcart.dao.ShoppingCartDAO;
@@ -67,11 +67,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 
 	@Override
-	public boolean removeFromCart(JsonObject data) {
+	public ResponseEntity<String> removeFromCart(JsonObject data) {
+
 		final String memberId = data.get("memberId").getAsString();
 		final String productSpecId = data.get("productSpecId").getAsString();
-
-		return cartDAO.delete(memberId, productSpecId);
+		
+		if(cartDAO.delete(memberId, productSpecId)) {
+			return ResponseEntity.status(HttpStatus.OK).body("移除成功");
+		}
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("系統繁忙中...請稍後再試");
 	}
 
 	@Override
@@ -223,7 +228,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			return gson.toJson(list);
 
 		} else {
-			return gson.toJson("購物車內尚無商品") ;
+			return gson.toJson("購物車內尚無商品");
 		}
 	}
 
