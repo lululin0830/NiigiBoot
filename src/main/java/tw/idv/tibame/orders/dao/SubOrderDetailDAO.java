@@ -29,4 +29,7 @@ public interface SubOrderDetailDAO extends CoreDAO<SubOrderDetail, String>{
 	
 	//=======前台 會員訂單中心 查看訂單明細
 	public String checkOrderDetail(String subOrderId);
+	
+	//
+	public String updateSubOrderDetailComment(int ratingStar,String comment,String orderDetailId);
 }

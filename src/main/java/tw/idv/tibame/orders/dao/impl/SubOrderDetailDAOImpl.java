@@ -108,6 +108,17 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 		
 		return gson.toJson(query.getResultList());
 	}
+
+	@Override
+	public String updateSubOrderDetailComment(int ratingStar, String comment,String orderDetailId) {
+		String hql = "update SubOrderDetail SET ratingStar = :ratingStar,comment = :comment where orderDetailId = :orderDetailId ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ratingStar", ratingStar);
+		query.setParameter("comment", comment);
+		query.setParameter("orderDetailId", orderDetailId);
+		query.executeUpdate();
+		return "評價成功";
+	}
 	
 	
 

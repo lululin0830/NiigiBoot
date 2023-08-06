@@ -20,7 +20,8 @@ const comment = document.querySelector('.commentbox');
 
 let EIF = null;
 let bodyHtml = null;
-const paymentPendingBody = function (arr) {
+let updateCommentlist = []
+const paymentPendingBody = function(arr) {
 
 	console.log("我是arr", arr)
 	arr.forEach(arr => {
@@ -107,7 +108,7 @@ const paymentPendingBody = function (arr) {
 }
 
 
-const inprogressBody = function (element) {
+const inprogressBody = function(element) {
 
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -177,7 +178,7 @@ const inprogressBody = function (element) {
 
 
 }
-const transportBody = function (element) {
+const transportBody = function(element) {
 
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -254,7 +255,7 @@ const transportBody = function (element) {
 	bodyHtml += html;
 }
 
-const completeBody = function (element) {
+const completeBody = function(element) {
 
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -299,7 +300,7 @@ const completeBody = function (element) {
 	bodyHtml += html;
 }
 
-const cancelBody = function (arr) {
+const cancelBody = function(arr) {
 	console.log("已取消arr", arr)
 	arr.forEach(arr => {
 		let dateString = arr[3];
@@ -348,7 +349,7 @@ const cancelBody = function (arr) {
 	})
 
 }
-const cancelPayOrder = function (element) {
+const cancelPayOrder = function(element) {
 	console.log("element", element)
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -391,12 +392,12 @@ const cancelPayOrder = function (element) {
             </li>`
 	bodyHtml += html;
 }
-const commentbox = function (arr) {
+const commentbox = function(arr) {
 
 	const imageElement = createImageURL(arr[3])
 
 	let html =
-		`<li class="comment-item row">
+		`<li class="comment-item row" data-id="${arr[1]}">
 			<div class="item-review col-sm-4">
 				<img src=${imageElement} alt="" id="imageElement">
 			</div>
@@ -404,9 +405,9 @@ const commentbox = function (arr) {
 				<h4 class="product-name" id="comment-product-name">${arr[2]}</h4>
 
 				<div class="product-star col-sm-7">
-					<span class="star -on" data-star="1"><img src=""
-						alt="./image/Star-off.svg"></span>
-					<span class="star -halfon" data-star="2"><img
+					<span class="star" data-star="1"><img
+					src="./image/Star-off.svg" alt=""></span>
+					<span class="star" data-star="2"><img
 						src="./image/Star-off.svg" alt=""></span>
 					<span class="star" data-star="3"><img
 						src="./image/Star-off.svg" alt=""></span>
@@ -416,7 +417,7 @@ const commentbox = function (arr) {
 						src="./image/Star-off.svg" alt=""></span>
 				</div>
 
-				<textarea class="comment form-control mt-3" rows="2"
+				<textarea class="comment form-control mt-3 commentArea" rows="2"
 					placeholder="請留下你的評論"></textarea>
 			</div>
 			<hr>
@@ -453,7 +454,7 @@ function groupByField(data, index) {
 }
 
 
-const init = function () {
+const init = function() {
 	console.log(mainorder1)
 	console.log("memberId", memberId)
 
@@ -514,24 +515,25 @@ const init = function () {
 		mainorder5.insertAdjacentHTML("beforeend", bodyHtml);
 		// =====================各分頁按鈕區=====================
 		//查看訂單綁定事件
-		document.querySelectorAll("button.checkDetail").forEach(function (e) {
+		document.querySelectorAll("button.checkDetail").forEach(function(e) {
 			e.addEventListener("click", checkOrderDetail);
 		})
 		//確認收貨綁定事件
-		document.querySelectorAll("button.submitReceipt").forEach(function (e) {
+		document.querySelectorAll("button.submitReceipt").forEach(function(e) {
 			e.addEventListener("click", confirmReceipt);
 		})
 		//取消主訂單按鈕
-		document.querySelectorAll("button.cancelMainOrder").forEach(function (e) {
+		document.querySelectorAll("button.cancelMainOrder").forEach(function(e) {
 			e.addEventListener("click", cancelMainOrder);
 		})
 		//取消子訂單按鈕
-		document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
+		document.querySelectorAll("button.cancelSubOrder").forEach(function(e) {
 			e.addEventListener("click", cancelSubOrder);
 		})
 		//去評價按鈕
-		document.querySelectorAll("button.evaluate").forEach(function (e) {
+		document.querySelectorAll("button.evaluate").forEach(function(e) {
 			e.addEventListener("click", subOrderDetailcomment);
+			console.log("綁定中")
 		})
 
 	})
@@ -540,7 +542,7 @@ const init = function () {
 init();
 
 //查看訂單方法
-const checkOrderDetail = function () {
+const checkOrderDetail = function() {
 
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	// console.log("subOrderId", subOrderId)
@@ -581,7 +583,7 @@ const checkOrderDetail = function () {
 	})
 }
 //確認收貨方法
-const confirmReceipt = function () {
+const confirmReceipt = function() {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	// console.log(subOrderId)
 	// console.log(document.querySelector("button.confirmReceipt"))
@@ -605,12 +607,12 @@ const confirmReceipt = function () {
 		}
 	}
 
-	document.querySelector("button.confirmReceipt").addEventListener("click", function () {
+	document.querySelector("button.confirmReceipt").addEventListener("click", function() {
 		updateReceipt();
 	})
 }
 //取消主訂單
-const cancelMainOrder = function () {
+const cancelMainOrder = function() {
 	const OrderId = $(this).closest('li.order').find('span.order-id').text()
 
 	async function updateMainOrderStatus() {
@@ -639,14 +641,14 @@ const cancelMainOrder = function () {
 
 	}
 
-	document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
+	document.querySelector("button.confirmCancelOrder").addEventListener("click", function() {
 		updateMainOrderStatus();
 	})
 
 
 }
 //取消子訂單
-const cancelSubOrder = function () {
+const cancelSubOrder = function() {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	console.log("subOrderId", subOrderId)
 
@@ -674,14 +676,15 @@ const cancelSubOrder = function () {
 
 		}
 	}
-	document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
+	document.querySelector("button.confirmCancelOrder").addEventListener("click", function() {
 		updatesubOrderStatus();
 	})
 }
-
-const subOrderDetailcomment = function () {
+//評價視窗資訊
+const subOrderDetailcomment = function() {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
-
+	comment.innerHTML = ''
+	let starvalues = null
 	fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetailcomment', {
 		method: 'POST',
 		headers: {
@@ -694,10 +697,71 @@ const subOrderDetailcomment = function () {
 			commentbox(data[i])
 			comment.insertAdjacentHTML("beforeend", bodyHtml);
 			createImageURL(data[i][3])
+		}
+		//=============星星=============
+		const stars = document.querySelectorAll('.star')
 
+		stars.forEach(star => {
+			star.addEventListener("click", function(e) {
+				var starValue = this.getAttribute("data-star");
+				starvalues = starValue
+				this.classList.add("-on");
+				const siblings = Array.from(this.parentNode.children).filter(sibling => sibling !== this);
+				siblings.forEach(sibling => {
+					if (sibling.getAttribute("data-star") <= starValue) {
+						sibling.classList.add("-on");
+					} else {
+						sibling.classList.remove("-on");
+					}
+				});
+			});
+		});
+		//=============星星=============
+
+	})
+
+	document.querySelector('.submitComment').onclick = () => {
+		const orderDetailIdList = document.querySelectorAll("#commentModal div.modal-body>ul>li")
+
+		orderDetailIdList.forEach(detail => {
+
+			const detailResult = {
+				orderDetailId: document.querySelector("#commentModal div.modal-body>ul>li").dataset.id,
+				ratingStar: document.querySelectorAll('.-on').length,
+				comment: document.querySelector('.commentArea').value
+			}
+			updateCommentlist.push(detailResult)
+		})
+		console.log(JSON.stringify(updateCommentlist));
+
+		submitComment();
+	}
+}
+
+
+//送出評價
+const submitComment = function() {
+	fetch('http://localhost:8080/Niigi/MemberCheckOrder/updateSubOrderDetailComment', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+		},
+		body: JSON.stringify(updateCommentlist)
+	}).then(function(resp) {
+
+		if (!resp.ok) {
+			throw new error("系統繁忙中...請稍後再試")
 		}
 
-		// const productName = document.getElementById("comment-product-name")
-		// productName.innerHTML = data[2]
+		return resp.text();
+
+	}).then(function(data) {
+		console.log(data);
+
+		document.querySelector("div#commentModal button.btn-outline-secondary").click();
+
+		setTimeout(function() {alert(data); } , 800);
+		
+		
 	})
 }
