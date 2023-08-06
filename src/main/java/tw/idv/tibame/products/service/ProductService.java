@@ -1,6 +1,23 @@
 package tw.idv.tibame.products.service;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import tw.idv.tibame.products.entity.Product;
+
 public interface ProductService {
+	
+	public List<Product> getAllFindLatestProducts() throws Exception;
+	
+	public List<Product> getAllExpensiveProducts() throws Exception;
+	
+	public List<Product> getKeywordProducts(String keyword) throws Exception;
+	
+	public List<Product> getCategorieProducts(String categorie) throws Exception;
+	
+	public void saveProductImages(Integer productId, MultipartFile[] images) throws IOException;
 	
 	// 新增商品(欄位不得為空值)
 
@@ -14,7 +31,6 @@ public interface ProductService {
 	// String[] keywords = searchQuery.split("\\s+");
 	//
 	// // keywords 陣列中將包含三個元素：{"手機", "冰箱", "水果"}
-	
 	
 	// 查詢後小分類
 //		public Map<String, Integer> getDistinctCategories(List<Product> productList) {
@@ -62,4 +78,6 @@ public interface ProductService {
 //		    return resultList;
 //		}
 
+	
+	public String productPageInit(Integer productId) throws Exception;
 }

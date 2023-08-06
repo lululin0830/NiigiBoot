@@ -24,14 +24,12 @@ public class EventSingleThreshold {
 	@Id
 	private String eventId;
 	private String eventRegisterSupplier;
-	@Enumerated(EnumType.STRING)
-	private EventType eventType;
+	private String eventType;
 	private String eventName;
 	private String eventInfo;
 	private Date eventStart;
 	private Date eventEnd;
-	@Enumerated(EnumType.STRING)
-	private ThresholdType thresholdType;
+	private String thresholdType;
 	private Integer minPurchaseQuantity;
 	private Integer minPurchaseAmount;
 	private Double discountRate;
@@ -42,4 +40,10 @@ public class EventSingleThreshold {
 	private Integer couponAvailableAmount;
 	private Integer couponUsedAmount;
 	private Integer couponAvailablePerPurchase;
+	
+	public EventSingleThreshold(String eventName, String eventInfo) {
+		this.eventName = eventName;
+		this.eventInfo = eventInfo;
+	}
+	
 }

@@ -1,118 +1,207 @@
-/* 上下row整體下調 */
-.container {
-    padding: 40px 0 0 0;
+/* 整體 */
+
+/* 上下row整體下調(與header的間距) */
+.productPage {
+    padding: 4rem 0 0 0;
 }
 
-/* 右側上、下 */
-.col-6.two {
-    padding: 0 0 0 40px;
+.productPage hr {
+    width: 100%;
+    border: 1px solid #EEEEEE;
+    margin: 1.8rem 0;
+    opacity: 1;
+}
+
+#left {
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+#right {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 4rem;
+}
+
+/* --------------------------左上角商品圖片區域-------------------------- */
+
+div.productPicture {
+    height: 50rem;
+}
+
+.box {
+    width: 40rem;
+}
+
+#show_L {
+    display: flex;
+    justify-content: center;
+    width: 40rem;
+    height: 40rem;
+    overflow: hidden;
+}
+
+#show_L img {
+    max-width: none;
+    max-height: 100%;
+}
+
+.all_img {
+    padding: 2rem 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    width: 40rem;
+}
+
+.all_img img {
+    cursor: pointer;
+    max-width: none;
+    max-height: 7rem;
+}
+
+.all_img>div {
+    display: flex;
+    align-items: center;
+    width: 7rem;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    justify-content: center;
 }
 
 
-/* --------------------------右上角區域-------------------------- */
-/* 右上角星星 */
-.card-text.star.one {
-    padding: 30px 0 0 0;
+/* --------------------------右上角商品資訊區域-------------------------- */
+
+/* 右上角星星  */
+
+div.product-star {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    vertical-align: bottom;
+    line-height: 1.6rem;
+    padding: 1rem 0;
 }
 
-.card-text.star.one i {
-    font-size: 20px;
+div.product-star span.star.-on img {
+    content: url("../image/Star-on.svg");
 }
 
-/* 右上角價格 */
-.priceone {
+div.product-star span.star.-halfon img {
+    content: url("../image/Star-halfon.svg");
+}
+
+/* 商品價格 */
+
+#eventPrice {
     color: #6DC2D2;
-    font-size: 20px;
+    font-size: 2.8rem;
     font-weight: bold;
 }
 
-.pricetwo {
+#productPrice {
     color: #D9D9D9;
     text-decoration: line-through;
 }
 
-/* 商品規格鈕 */
-.dropdown-toggle {
-    background-color: white;
-    color: black;
-}
+/* 商品規格 */
 
-.dropdown-menu {
-    background-color: white;
-    color: black;
+#specSelector {
+    width: 50%;
+    display: inline-block;
 }
-
 
 /* 數量輸入框 */
 .custom-input {
     -webkit-appearance: none;
     margin: 0;
-    
     -moz-appearance: textfield;
     appearance: textfield;
     text-align: center;
-    width: 80px;
-    height: 30px;
+    width: 8rem;
+    height: 3rem;
 }
 
 
-
-/* --------------------------左上角區域-------------------------- */
-/* 圖片切換區 */
-.col-6.one_img {
-    display: flex;
-    justify-content: center;
-    /* 水平置中 */
-    align-items: center;
-    /* 垂直置中 */
-}
-
-.box {
-    width: 400px;
-}
-
-#show_L img {
-    width: 100%;
-    height: 400px;
-}
-
-.all_img {
-    padding: 20px 0 0 0;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-}
-
-.all_img img {
-    width: 90%;
-    height: 100px;
-    cursor: pointer;
-}
-
-
+/* ------------------------左下角評論區------------------------ */
 
 /* 會員圖片 */
-#member {
+div.memberPhoto {
+    padding: 0;
     border: 1px solid lightgray;
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    /* 将高度与宽度设置为相同的值 */
-    position: relative;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
-    /* 将边框半径设置为50%实现正圆形效果 */
     overflow: hidden;
-    /* 隐藏超出圆形框的部分 */
+    margin: 0 1rem;
 }
 
-#member img.member_img {
+div.memberPhoto img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* 下半部區塊下移 */
-.downtwo {
-    padding: 50px 0 0 0;
+ul#commentList {
+    list-style: none;
+    padding: 0.1rem;
+}
+
+ul#commentList li.commentContent {
+    padding: 1rem 0;
+}
+
+div.ratingStar span img {
+    height: 2rem;
+}
+
+ul#commentList li.commentContent p.comment {
+    margin: 1rem auto;
+}
+
+/* --------------- 商家資訊區 ---------------------- */
+
+
+div#shopBackground {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 4/1;
+    overflow: hidden;
+}
+
+div#shopBackground img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+a#shopLink {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #6DC2D2;
+}
+
+div#shopLogo {
+    display: flex;
+    justify-content: center;
+    width: 6rem;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+div#shopLogo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+span.location-icon img {
+    height: 2.5rem;
 }
 
 .store-action-all {
@@ -128,47 +217,6 @@
     float: right;
 }
 
-/* 設定商品列表整體的上下空隙 */
-.container.tablethird {
-    padding: 30px 0 50px 0;
-}
-
-/* 固定愛心位置，商品列表 */
-.container.tablethird .card .card-title.item__name {
-    position: relative;
-}
-
-.container.tablethird .card .card-title.item__name .fa-heart {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
-/* 設定商品列表內的商品名、價格、商店名 */
-.container.tablethird .card .card-title.item__name {
-    font-size: 10px;
-}
-
-.container.tablethird .card .card-text.item__price {
-    font-size: 10px;
-}
-
-.container.tablethird .card .card-text.item__store {
-    font-size: 10px;
-}
-
-/* 下拉式選單按鈕 */
-.btn-check:checked+.btn,
-.btn.active,
-.btn.show,
-.btn:first-child:active,
-:not(.btn-check)+.btn:active {
-    color: var(--bs-btn-active-color);
-    background-color: white;
-    color: black;
-}
-
-
 /* 加加減減功能 */
 button.minus {
     border-width: 0px;
@@ -183,28 +231,33 @@ button.plus {
     cursor: pointer;
 }
 
-/* 加入購物車按鈕 */
-.join_car_btn {
-    margin-left: 10px;
-    margin-right: 10px;
-}
 
 /* 商品說明區(含優惠活動) */
 .text.store_illustrate {
-    padding: 20px 0 0 0;
-    width: 400px;
-    height: 80px;
+    padding: 2rem 0 0 0;
 }
 
-.text.discount {
-    width: 400px;
-    height: 100px;
+#eventList li.eventInfo:nth-child(n+3) {
+    display: none;
 }
 
-.text.product_illustrate {
-    width: 400px;
-    height: 80px;
+ul#eventList li.eventInfo {
+    font-size: 1.6rem;
+    font-weight: 550;
+    color: #6DC2D2;
 }
+
+/* 展開按鈕 */
+#expandButton {
+    background-color: transparent;
+    border: none;
+    color: #6DC2D2;
+    text-decoration: underline;
+    cursor: pointer;
+    outline: none;
+    font-weight: 600;
+}
+
 
 /* 左下角評價星星 */
 .star_member {
@@ -215,40 +268,37 @@ button.plus {
 
 /* 左下角評價滾輪 */
 .member_evaluate-container {
-    height: 670px;
-    /* 設置容器的固定高度 */
-    overflow: auto;
-    /* 啟用滾動功能 */
+    min-height: calc(90% -50rem);
+    height: 50rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 2rem;
 }
-
-
-
-/* 加入關注、聊聊 */
-.item__store {
-    position: relative;
-}
-
-.join_store {
-    position: absolute;
-    top: 0;
-    right: 60px;
-}
-
-.talk_store {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
 
 /* 右下角商家星星 */
 .star_store {
-    width: 20px;
-    height: 20px;
-    margin-bottom: 10px;
+    width: 2rem;
+    height: 2rem;
+
 }
 
-/* 上線紀錄 */
-.store-action-all {
-    font-size: 16px;
+
+/* --------------商品列表----------------- */
+div.product-S {
+    width: 100%;
+    aspect-ratio: 2/2.8;
+}
+
+p.productName {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+img.heart {
+    z-index: 1000;
+}
+
+a.product-S {
+    text-decoration: none;
 }

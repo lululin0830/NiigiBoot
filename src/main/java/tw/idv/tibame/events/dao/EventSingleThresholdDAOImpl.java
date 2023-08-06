@@ -10,11 +10,11 @@ import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.events.entity.EventSingleThreshold;
 
 @Repository
-public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold, String>{
+public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold, String> {
 
 	@PersistenceContext
 	Session session;
-	
+
 	@Override
 	public Boolean insert(EventSingleThreshold entity) throws Exception {
 		return null;
@@ -28,6 +28,51 @@ public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold
 	@Override
 	public List<EventSingleThreshold> getAll() throws Exception {
 		return null;
+	}
+
+	public EventSingleThreshold selectEventInfoByCouponCode(String couponCode) throws Exception {
+
+		String hql = "SELECT new tw.idv.tibame.events.entity.EventSingleThreshold(eventName,eventInfo) "
+				+ "FROM EventSingleThreshold WHERE couponCode = :couponCode";
+
+		return session.createQuery(hql, EventSingleThreshold.class).setParameter("couponCode", couponCode)
+				.uniqueResult();
+
+	}
+
+	public List<EventSingleThreshold> selectAllCouponByProductId(Integer productId) {
+
+		String hql = "FROM EventSingleThreshold WHERE eventId IN ( "
+				+ "SELECT eventId FROM EventApplicableProducts WHERE productId = :productId "
+				+ "AND eventEnd >= CURDATE() AND eventType = '1' )";
+
+		return session.createQuery(hql, EventSingleThreshold.class).setParameter("productId", productId)
+				.getResultList();
+
+	}
+	
+	public List<EventSingleThreshold> selectAllDiscountRateByProductId(Integer productId) {
+
+		String hql = "FROM EventSingleThreshold WHERE eventId IN ( "
+				+ "SELECT eventId FROM EventApplicableProducts WHERE productId = :productId "
+				+ "AND eventEnd >= CURDATE() AND eventType = '3' "
+				+ "AND discountRate IS NOT NULL )";
+
+		return session.createQuery(hql, EventSingleThreshold.class).setParameter("productId", productId)
+				.getResultList();
+
+	}
+	
+	public List<EventSingleThreshold> selectAllDiscountAmountByProductId(Integer productId) {
+
+		String hql = "FROM EventSingleThreshold WHERE eventId IN ( "
+				+ "SELECT eventId FROM EventApplicableProducts WHERE productId = :productId "
+				+ "AND eventEnd >= CURDATE() AND eventType = '3' "
+				+ "AND discountAmount IS NOT NULL )";
+
+		return session.createQuery(hql, EventSingleThreshold.class).setParameter("productId", productId)
+				.getResultList();
+
 	}
 
 }

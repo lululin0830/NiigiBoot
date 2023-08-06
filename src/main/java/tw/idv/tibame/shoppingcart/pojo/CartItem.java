@@ -1,5 +1,6 @@
 package tw.idv.tibame.shoppingcart.pojo;
 
+import java.sql.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -14,13 +15,19 @@ public class CartItem {
 	private Integer productPrice;
 	private String registerSupplier;
 	private String shopVacation;
+	private String pauseOrderAcceptance;
+	private String pauseShipping;
+	private Date vacationEnd;
 	private Integer specStock;
 	private String shelvesStatus;
 	private String couponCode;
+	private String couponName;
+	private String couponInfo;
 	private Integer couponPrice;
 	private List<String> eventIds;
-	private String eventName;
-	private String eventInfo;
+	private List<String> eventName;
+	private List<String> eventInfo;
+	private List<Integer> eventDiscounts;
 	private Integer eventPrice;
 	private List<String> giftProductSpecId;
 }

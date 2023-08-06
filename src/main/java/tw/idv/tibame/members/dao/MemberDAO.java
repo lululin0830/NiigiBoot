@@ -1,6 +1,7 @@
 package tw.idv.tibame.members.dao;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.members.entity.Members;
@@ -39,6 +40,9 @@ public interface MemberDAO extends CoreDAO<Members, String>{
 		String selectLastMember();
 
 		public String selectPasswordByMemberAcct(String memberAcct);
-
-
+		
+		//搜尋按鈕
+		public String getAllBySearch(String searchCase,String searchSelect,Timestamp startDate,Timestamp closeDate,String dateSelect);
+		
+		Members selectForCheckout(String memberId);
 }

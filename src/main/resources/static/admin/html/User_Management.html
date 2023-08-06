@@ -470,11 +470,11 @@
             <div class="search-container">
                 <input id="Searchcase" type="text" value="" placeholder="請輸入搜尋條件">
                 <select id="SearchSelect">
-                    <option value="All">全部</option>
-                    <option value="User_Name">使用者名稱</option>
+                    <!-- <option value="All">全部</option> -->
+                    <option value="userName">使用者名稱</option>
                 </select>
                 <button type="submit" class="btn-primary" id="search">搜尋</button>
-                <button type="submit" class="btn-primary " data-bs-toggle="modal" data-bs-target="#add_user"
+                <button type="submit" class="btn-primary float-end" data-bs-toggle="modal" data-bs-target="#add_user"
                     id="addUser">新增使用者</button>
             </div>
             <div style="height: 20px;"></div>
@@ -483,6 +483,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>使用者ID</th>
                             <th>使用者名稱</th>
                             <th>使用者帳號</th>
                             <th>密碼</th>
@@ -493,7 +494,7 @@
                             <th>帳號設定</th>
                             <th>刪除成員</th>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>資料 1,1</td>
                             <td>資料 1,2</td>
                             <td>資料 1,3</td>
@@ -510,7 +511,7 @@
                                 <button type="button" class="btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#delete_user" id="deleteUser">刪除成員</button>
                             </td>
-                        </tr>
+                        </tr> -->
                     </thead>
                     <tbody id="searchResult">
                     </tbody>
@@ -533,16 +534,16 @@
                     <h3>新增使用者</h3>
                     <br>
                     <div class="form-group">
-                        <label for="username">使用者名稱：</label>
-                        <input type="text" id="username" name="username" value="">
+                        <label for="userName">使用者名稱：</label>
+                        <input type="text" id="userName" name="userName" value="">
                     </div>
                     <div class="form-group">
-                        <label for="username">使用者帳號：</label>
-                        <input type="text" id="username" name="username" value="">
+                        <label for="userAcct">使用者帳號：</label>
+                        <input type="text" id="userAcct" name="userAcct" value="">
                     </div>
                     <div class="form-group">
-                        <label for="username">預設密碼：</label>
-                        <input type="text" id="username" name="username" value="">
+                        <label for="password">預設密碼：</label>
+                        <input type="text" id="password" name="password" value="">
                     </div>
                     <!-- <div class="form-group">
                         <label for="username">權限設定：</label>
@@ -555,9 +556,10 @@
                         <input type="radio" id="customer_service" name="quantity" value="customer_service">
                         <label for="female">客服</label>
                     </div> -->
+                    <div id="msg" class="error"></div>
                     <div class="form-group">
                         <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
-                        <button type="button" class="btn-primary">新增</button>
+                        <button type="button" class="btn-primary" id="add">新增</button>
                     </div>
                 </div>
             </div>
@@ -622,7 +624,7 @@
                     </div>
                     <div class="form-group">
                         <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
-                        <button type="button" class="btn-primary">刪除</button>
+                        <button type="button" class="btn-primary" id="remove" >刪除</button>
                     </div>
                 </div>
             </div>

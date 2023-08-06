@@ -10,4 +10,6 @@ public interface SupplierDAO extends CoreDAO<Suppliers,String>{
 	public String getAllBySearch(String searchCase,String searchSelect,Timestamp startDate,Timestamp closeDate,String dateSelect);
 	
 	public String getAllInit();
+	
+	Suppliers getShopVacation(String supplierId);
 }

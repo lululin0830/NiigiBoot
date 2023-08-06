@@ -4,7 +4,9 @@ import com.google.gson.JsonObject;
 
 public interface OrderService {
 	
-	public boolean createOrder(JsonObject orderData);
+	String checkoutInit(String memberId);
+	
+	public boolean createOrder(JsonObject orderData) throws Exception;
 
 	public boolean cancelOrder();
 	
@@ -30,8 +32,24 @@ public interface OrderService {
 	
 	public String getSupplierSubOrderInit(String supplierId);
 	
-	public String getSupplierSubOrderSearch();
+	public String getSupplierSubOrderBySearch(JsonObject SearchCondition);
+	
+	public String supplierSubOrderCancel(String subOrderId);
 	
 	//======================前台商家訂單區塊======================
+	
+	//======================前台會員訂單中心======================
+	public String memberCheckOrder(String memberId);
+	
+	public String checkOrderDetail(String subOrderId);
+	
+	public String subOrderReceipt(String subOrderId);
+	
+	public String cancelMainOrder(String mainOrderId);
+	
+	public String cancelSubOrder(String subOrderId);
+	
+	public String subOrderDetailcomment(String subOrderId);
+
 	
 }

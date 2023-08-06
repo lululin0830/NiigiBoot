@@ -55,6 +55,16 @@
             height: 30px;
             margin: 0 10px;
         }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            /* 可根據需要調整字體大小 */
+            display: inline-block;
+            /* 顯示在同一行 */
+            margin-left: 5px;
+            /* 加入間距以避免和輸入欄位重疊 */
+        }
     </style>
 
 </head>
@@ -96,7 +106,8 @@
                             </div>
                         </a>
 
-                        <a href="" class="User-Center col" id="myLink" data-bs-toggle="modal" data-bs-target="#login_popup">
+                        <a href="" class="User-Center col" id="myLink" data-bs-toggle="modal"
+                            data-bs-target="#login_popup">
                             <div class="User_icon">
                                 <img src="./image/Profile.svg">
                             </div>
@@ -173,7 +184,7 @@
                     <h4>使用Niigi帳號登入</h4>
                     <div style="height: 20px;"></div>
                     <div class="text-left">
-                        <input type="email" id="" name="" required placeholder="xxx帳號">
+                        <input type="email" id="memberAcct" name="" required placeholder="xxx帳號">
                         <div style="height: 20px;"></div>
                         <form id="changePasswordForm"
                             class="d-flex flex-column justify-content-center align-items-center">
@@ -186,7 +197,8 @@
                         </form>
                     </div>
                     <div style="height: 20px;"></div>
-                    <button type="button" class="btn-primary" data-bs-dismiss="modal">登入</button>
+                    <button type="button" id="login" class="btn-primary">登入</button>
+                    <div id="errMsg" class="error"></div>
                     <div style="height: 20px;"></div>
                     <div class="modal-footer d-flex justify-content-between align-items-center">
                         <button type="button" class="btn btn-link " data-bs-toggle="modal"
@@ -278,20 +290,26 @@
                     <div style="height: 20px;"></div>
                     <div class="d-flex justify-content-center align-items-center">
                         <form id="changePasswordForm" class="d-flex flex-column">
+                            <div id="msg" class="error"></div>
                             <div class="form-group">
                                 <label for="account-number">帳號：</label>
-                                <input type="email" id="" name="" required placeholder="請輸入信箱">
+                                <input type="email" id="newmemberAcct" name="newmemberAcct" required
+                                    placeholder="請輸入信箱">
+                                <div class="error" id="acctError"></div>
                             </div>
                             <div style="height: 20px;"></div>
                             <div class="form-group">
                                 <label for="newPassword1">密碼：</label>
-                                <input type="password" id="newPassword" name="newPassword" required placeholder="8-16位英文字母，數字和符號混合">
+                                <input type="password" id="newPassword" name="newPassword" required
+                                    placeholder="8-16位英文字母，數字和符號混合">
                                 <style>
                                     #newPassword::placeholder {
                                         font-size: 12px;
                                     }
                                 </style>
-                                <span class="show-password-btn" onclick="togglePasswordVisibility('newPassword')">&#128065;</span>
+                                <span class="show-password-btn"
+                                    onclick="togglePasswordVisibility('newPassword')">&#128065;</span>
+                                <div class="error" id="passwordError"></div>
                             </div>
                             <div style="height: 20px;"></div>
                             <div class="form-group">
@@ -300,16 +318,19 @@
                                     placeholder="再次確認密碼">
                                 <span class="show-password-btn"
                                     onclick="togglePasswordVisibility('confirmPassword')">&#128065;</span>
+                                <div class="error" id="confirmPasswordError"></div>
                             </div>
                             <div style="height: 20px;"></div>
                             <div class="form-group">
                                 <label for="fullname">姓名：</label>
                                 <input type="text" id="fullname" name="fullname" value="">
+                                <div class="error" id="fullnameError"></div>
                             </div>
                             <div style="height: 20px;"></div>
                             <div class="form-group">
                                 <label for="phone">手機：</label>
                                 <input type="tel" id="phone" name="phone" value="">
+                                <div class="error" id="phoneError"></div>
                             </div>
                             <div style="height: 20px;"></div>
                             <div class="form-group">
@@ -318,14 +339,16 @@
                                 <label for="male">男性</label>
                                 <input type="radio" id="female" name="quantity" value="female">
                                 <label for="female">女性</label>
+                                <div class="error" id="genderError"></div>
                             </div>
                             <div style="height: 20px;"></div>
                             <div class="form-group">
                                 <label for="birthday">生日：</label>
                                 <input type="date" id="birthday" name="birthday">
+                                <div class="error" id="birthdayError"></div>
                             </div>
                             <div style="height: 20px;"></div>
-                            <button type="button" class="btn-primary" data-bs-dismiss="modal">送出</button>
+                            <button type="button" class="btn-primary" id="register">註冊</button>
                         </form>
                     </div>
                 </div>

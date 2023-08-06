@@ -1,6 +1,11 @@
 package tw.idv.tibame.members.service.impl;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +16,7 @@ import com.google.gson.JsonObject;
 import tw.idv.tibame.core.util.JwtUtil;
 import tw.idv.tibame.core.util.PasswordEncryptor;
 import tw.idv.tibame.members.dao.MemberDAO;
+import tw.idv.tibame.members.dao.impl.MemberDAOImpl;
 import tw.idv.tibame.members.entity.Members;
 import tw.idv.tibame.members.service.MemberService;
 
@@ -23,6 +29,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberDAO memberDAO;
+
+	@Autowired
+	MemberDAOImpl memberDAOImpl;
 
 	public String generateId() throws Exception {
 
@@ -49,6 +58,22 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String register(Members newMember) throws Exception {
 
+		// 驗證 memberAcct (email 格式)
+		String emailPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+		Pattern pattern = Pattern.compile(emailPattern);
+		Matcher matcher = pattern.matcher(newMember.getMemberAcct());
+		if (!matcher.matches()) {
+			return "email格式不對";
+		}
+
+		// 驗證 phone (09xx-xxx-xxx 格式)
+		String phonePattern = "^09\\d{2}-\\d{3}-\\d{3}$";
+		pattern = Pattern.compile(phonePattern);
+		matcher = pattern.matcher(newMember.getPhone());
+		if (!matcher.matches()) {
+			return "手機格式不對，應為09xx-xxx-xxx";
+		}
+
 		if (newMember.getMemberAcct() == null || newMember.getMemberAcct().isBlank()) {
 			return "使用者帳號未輸入";
 		}
@@ -57,7 +82,7 @@ public class MemberServiceImpl implements MemberService {
 			return "密碼未輸入";
 		}
 
-		if (newMember.getName() == null || newMember.getPassword().isBlank()) {
+		if (newMember.getName() == null || newMember.getName().isBlank()) {
 			return "姓名未輸入";
 		}
 
@@ -105,6 +130,92 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String initForHeader(JsonObject memberInfo) {
 		return null;
+	}
+
+	@Override
+	public List<Members> getAll() {
+		List<Members> getAll = null;
+
+		try {
+			getAll = memberDAOImpl.getAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return getAll;
+	}
+
+	@Override
+	public String getBySearch(JsonObject searchCondition) {
+		String searchcase = searchCondition.get("searchcase").getAsString();
+
+		String SearchSelect = searchCondition.get("searchway").getAsString();
+
+		String startDateString = searchCondition.get("StartDate").getAsString();
+
+		Timestamp startDate, closeDate;
+
+		if (startDateString.length() > 0) {
+			startDateString += " 00:00:00";
+			startDate = Timestamp.valueOf(startDateString);
+		} else {
+			startDate = Timestamp.valueOf("1970-01-01 00:00:00");
+		}
+
+		String closeDateString = searchCondition.get("EndDate").getAsString();
+
+		if (closeDateString.length() > 0) {
+			closeDateString += " 00:00:00";
+			closeDate = Timestamp.valueOf(closeDateString);
+		} else {
+			closeDate = Timestamp.valueOf(LocalDateTime.now());
+		}
+
+		String dateSelect = searchCondition.get("DateSelect").getAsString();
+
+		String result = null;
+
+		try {
+			result = memberDAOImpl.getAllBySearch(searchcase, SearchSelect, startDate, closeDate, dateSelect);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public boolean changePassword(String memberId, String oldPassword, String newPassword) {
+		Members members = memberDAO.selectOneByMemberId(memberId);
+
+		if (members == null) {
+			return false;
+		}
+		// 檢查輸入的舊密碼是否與資料庫中的密碼相符
+	    String oldPasswordHash = null;
+	    try {
+	        oldPasswordHash = PasswordEncryptor.encrypt(oldPassword);
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	        return false; // 處理加密錯誤
+	    }
+
+	    if (!members.getPassword().equals(oldPasswordHash)) {
+	        return false; // 舊密碼不正確
+	    }
+
+	    // 將新密碼加密並更新到資料庫
+	    String newPasswordHash = null;
+	    try {
+	        newPasswordHash = PasswordEncryptor.encrypt(newPassword);
+	    } catch (NoSuchAlgorithmException e) {
+	        e.printStackTrace();
+	        return false; // 處理加密錯誤
+	    }
+	    
+	    members.setPassword(newPasswordHash);
+	    memberDAO.update(members);
+	    return true;
 	}
 
 }

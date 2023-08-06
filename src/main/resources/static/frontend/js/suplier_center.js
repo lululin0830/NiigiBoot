@@ -1,460 +1,302 @@
-const searchdata = JSON.stringify({
+document.write(`<script src="./vendors/jquery/jquery-3.7.0.min.js"></script>`)
+
+let searchdata = {
     supplierId: document.getElementById("supplierId").innerText,
-    searchcase: document.getElementById("selectKey-home").value,
+    searchcase: '',
     searchway: document.getElementById("selectCriteria-home").value,
     StartDate: document.getElementById("startDate").value,
     EndDate: document.getElementById("EndDate").value
-})
+}
 
+//待處理分頁
+const orderList = document.querySelector("#navs-top-home>ul.order-list");
+//配送中分頁
+const orderList2 = document.querySelector("#navs-top-inprogress>ul.order-list");
+//待退貨/款分頁
+const orderList3 = document.querySelector("#navs-top-refund>ul.order-list");
+//已完成分頁
+const orderList4 = document.querySelector("#navs-top-complete>ul.order-list");
+//已取消分頁
+const orderList5 = document.querySelector("#navs-top-cancel>ul.order-list");
 
+let EIF = null;
+let BodyHtml = null;
+const SubOrderBody = function () {
+
+    const dateString = EIF[0].orderCreateTime;
+    const date = new Date(dateString);
+    const year = date.getFullYear(); // 獲得年份
+    const month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
+    const day = date.getDate();
+
+    let html =
+        `<li class="sub-order row" data-id="${EIF[0].subOrderId}">
+                <div class="col-sm-4 order-select">
+                    <input type="checkbox" class="select me-3">
+                    <span class="memberAccount">${EIF[1].memberAcct}</span>
+                </div>
+                <div class="col-sm-6">
+                    <span>訂單編號：<span class="sub-order-id">${EIF[0].subOrderId}</span></span>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <span class="order-date">${year + "-" + month + "-" + day}</span>
+                </div>
+
+                <ul class="order-detail">`
+
+    // orderList.insertAdjacentHTML("beforeend", html);
+
+    for (i = 2; i < EIF.length; i += 2) {
+
+        console.log(EIF[i + 1].productName)
+
+        let orderStatus;
+        switch (EIF[i - 2].subOrderStatus) {
+
+            case '0':
+                orderStatus = '待處理';
+                break;
+            case '1':
+                orderStatus = '配送中';
+                break;
+            case '2':
+                orderStatus = '已送達';
+                break;
+            case '3':
+                orderStatus = '已完成';
+                break;
+            case '4':
+                orderStatus = '已退貨/退款';
+                break;
+            case '5':
+                orderStatus = '已取消';
+                break;
+        }
+
+        html +=
+            `<li class="order-item row">
+                            <div class="col-sm-2">
+                                <img src="./image/product.svg" alt="">
+                            </div>
+                            <div class=" col-sm-2">
+                                <p class="product-name">${EIF[i + 1].productName}</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p>${EIF[i].productSpecId}</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <p>1</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <p>${EIF[i].productPrice}</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <p>${orderStatus}</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <p>宅配</p>
+                            </div>
+                            <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary btn-M cancelSubOrder"
+                                data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
+                                取消訂單
+                            </button>
+                            </div>
+                            <hr>
+                        </li>`;
+
+        BodyHtml = html;
+    };
+}
+const cleanBody = function (orderlist) {
+    let clean = orderlist.querySelectorAll('.sub-order')
+    clean.forEach(function (element) {
+        orderlist.removeChild(element);
+    });
+}
+const resetSearch = function () {
+    $(this).closest("div.order-selector").find("input").each(function (e) {
+        $(this).val("");
+    })
+}
+
+let tab1Count = 0;
+let tab2Count = 0;
+let tab3Count = 0;
+let tab4Count = 0;
+let tab5Count = 0;
 
 
 const init = function () {
 
     const jsonData = JSON.stringify(searchdata);
 
-    //待處理分頁
-    const orderList = document.querySelector("#navs-top-home>ul.order-list");
-    //配送中分頁
-    const orderList2 = document.querySelector("#navs-top-inprogress>ul.order-list");
-    //待退貨/款分頁
-    const orderList3 = document.querySelector("#navs-top-refund>ul.order-list");
-    //已完成分頁
-    const orderList4 = document.querySelector("#navs-top-complete>ul.order-list");
-    //已取消分頁
-    const orderList5 = document.querySelector("#navs-top-cancel>ul.order-list");
-
-
     console.log(searchdata)
     fetch('http://localhost:8080/Niigi/SupplierSubOrder', {
         method: 'POST',
         headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
         },
-        body: searchdata
+        body: JSON.stringify(searchdata)
     }).then(r => r.json()).then(data => {
         console.log(data)
+
         data.forEach(element => {
-
-            const dateString = element[0].orderCreateTime;
-            const date = new Date(dateString);
-            const year = date.getFullYear(); // 獲得年份
-            const month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
-            const day = date.getDate(); // 獲得日期
-
+            EIF = element;
             //待處理分頁
             if (element[0].subOrderStatus == 0) {
-                let html =
-                    `<li class="sub-order row" data-id="${element[0].subOrderId}">
-                <div class="col-sm-4 order-select">
-                    <input type="checkbox" class="select me-3">
-                    <span class="memberAccount">${element[1].memberAcct}</span>
-                </div>
-                <div class="col-sm-6">
-                    <span>訂單編號：<span class="sub-order-id">${element[0].subOrderId}</span></span>
-                </div>
-                <div class="col d-flex justify-content-end">
-                    <span class="order-date">${year + "-" + month + "-" + day}</span>
-                </div>
-
-                <ul class="order-detail">`
-
-                // orderList.insertAdjacentHTML("beforeend", html);
-
-                for (i = 2; i < element.length; i += 2) {
-
-                    console.log(element[i + 1].productName)
-
-                    let orderStatus;
-                    switch (element[i - 2].subOrderStatus) {
-
-                        case '0':
-                            orderStatus = '待處理';
-                            break;
-                        case '1':
-                            orderStatus = '配送中';
-                            break;
-                        case '2':
-                            orderStatus = '已送達';
-                            break;
-                        case '3':
-                            orderStatus = '已完成';
-                            break;
-                        case '4':
-                            orderStatus = '已退貨/退款';
-                            break;
-                        case '5':
-                            orderStatus = '已取消';
-                            break;
-                    }
-
-                    html +=
-                        `<li class="order-item row">
-                            <div class="col-sm-2">
-                                <img src="../image/product.svg" alt="">
-                            </div>
-                            <div class=" col-sm-2">
-                                <p class="product-name">${element[i + 1].productName}</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>${element[i].productSpecId}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>1</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${element[i].productPrice}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${orderStatus}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>宅配</p>
-                            </div>
-                            <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary btn-M"
-                                data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                                取消訂單
-                            </button>
-                            </div>
-                            <hr>
-                        </li>`;
-
-                    // orderList.insertAdjacentHTML("beforeend", html);
-                };
-                orderList.insertAdjacentHTML("beforeend", html + `</ul></li>`);
+                SubOrderBody();
+                orderList.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+                tab1Count++;
             }
             //配送中分頁
             if (element[0].subOrderStatus == 1 || element[0].subOrderStatus == 2) {
-                let html =
-                    `<li class="sub-order row" data-id="${element[0].subOrderId}">
-                <div class="col-sm-4 order-select">
-                    <input type="checkbox" class="select me-3">
-                    <span class="memberAccount">${element[1].memberAcct}</span>
-                </div>
-                <div class="col-sm-6">
-                    <span>訂單編號：<span class="sub-order-id">${element[0].subOrderId}</span></span>
-                </div>
-                <div class="col d-flex justify-content-end">
-                    <span class="order-date">${year + "-" + month + "-" + day}</span>
-                </div>
-        
-                <ul class="order-detail">`
-
-                // orderList.insertAdjacentHTML("beforeend", html);
-
-                for (i = 2; i < element.length; i += 2) {
-
-                    console.log(element[i + 1].productName)
-                    console.log(element)
-                    let orderStatus;
-                    switch (element[i - 2].subOrderStatus) {
-
-                        case '0':
-                            orderStatus = '待處理';
-                            break;
-                        case '1':
-                            orderStatus = '配送中';
-                            break;
-                        case '2':
-                            orderStatus = '已送達';
-                            break;
-                        case '3':
-                            orderStatus = '已完成';
-                            break;
-                        case '4':
-                            orderStatus = '已退貨/退款';
-                            break;
-                        case '5':
-                            orderStatus = '已取消';
-                            break;
-                    }
-
-                    html +=
-                        `<li class="order-item row">
-                            <div class="col-sm-2">
-                                <img src="../image/product.svg" alt="">
-                            </div>
-                            <div class=" col-sm-2">
-                                <p class="product-name">${element[i + 1].productName}</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>${element[i].productSpecId}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>1</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${element[i].productPrice}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${orderStatus}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>宅配</p>
-                            </div>
-                            <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary btn-M"
-                                data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                                取消訂單
-                            </button>
-                            </div>
-                            <hr>
-                        </li>`;
-
-                    // orderList.insertAdjacentHTML("beforeend", html);
-                };
-                orderList2.insertAdjacentHTML("beforeend", html + `</ul></li>`);
+                SubOrderBody();
+                orderList2.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+                tab2Count++;
             }
             //待退貨/款
             if (element[0].subOrderStatus == 3) {
-                let html =
-                    `<li class="sub-order row" data-id="${element[0].subOrderId}">
-                <div class="col-sm-4 order-select">
-                    <input type="checkbox" class="select me-3">
-                    <span class="memberAccount">${element[1].memberAcct}</span>
-                </div>
-                <div class="col-sm-6">
-                    <span>訂單編號：<span class="sub-order-id">${element[0].subOrderId}</span></span>
-                </div>
-                <div class="col d-flex justify-content-end">
-                    <span class="order-date">${year + "-" + month + "-" + day}</span>
-                </div>
-        
-                <ul class="order-detail">`
-
-                // orderList.insertAdjacentHTML("beforeend", html);
-
-                for (i = 2; i < element.length; i += 2) {
-
-                    console.log(element[i + 1].productName)
-                    console.log(element)
-                    let orderStatus;
-                    switch (element[i - 2].subOrderStatus) {
-
-                        case '0':
-                            orderStatus = '待處理';
-                            break;
-                        case '1':
-                            orderStatus = '配送中';
-                            break;
-                        case '2':
-                            orderStatus = '已送達';
-                            break;
-                        case '3':
-                            orderStatus = '已完成';
-                            break;
-                        case '4':
-                            orderStatus = '已退貨/退款';
-                            break;
-                        case '5':
-                            orderStatus = '已取消';
-                            break;
-                    }
-
-                    html +=
-                        `<li class="order-item row">
-                            <div class="col-sm-2">
-                                <img src="../image/product.svg" alt="">
-                            </div>
-                            <div class=" col-sm-2">
-                                <p class="product-name">${element[i + 1].productName}</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>${element[i].productSpecId}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>1</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${element[i].productPrice}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${orderStatus}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>宅配</p>
-                            </div>
-                            <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary btn-M"
-                                data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                                取消訂單
-                            </button>
-                            </div>
-                            <hr>
-                        </li>`;
-
-                    // orderList.insertAdjacentHTML("beforeend", html);
-                };
-                orderList3.insertAdjacentHTML("beforeend", html + `</ul></li>`);
+                SubOrderBody();
+                orderList3.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+                tab3Count++;
             }
             //已完成分頁
             if (element[0].subOrderStatus == 4) {
-                let html =
-                    `<li class="sub-order row" data-id="${element[0].subOrderId}">
-                <div class="col-sm-4 order-select">
-                    <input type="checkbox" class="select me-3">
-                    <span class="memberAccount">${element[1].memberAcct}</span>
-                </div>
-                <div class="col-sm-6">
-                    <span>訂單編號：<span class="sub-order-id">${element[0].subOrderId}</span></span>
-                </div>
-                <div class="col d-flex justify-content-end">
-                    <span class="order-date">${year + "-" + month + "-" + day}</span>
-                </div>
-        
-                <ul class="order-detail">`
-
-                // orderList.insertAdjacentHTML("beforeend", html);
-
-                for (i = 2; i < element.length; i += 2) {
-
-                    console.log(element[i + 1].productName)
-                    console.log(element)
-                    let orderStatus;
-                    switch (element[i - 2].subOrderStatus) {
-
-                        case '0':
-                            orderStatus = '待處理';
-                            break;
-                        case '1':
-                            orderStatus = '配送中';
-                            break;
-                        case '2':
-                            orderStatus = '已送達';
-                            break;
-                        case '3':
-                            orderStatus = '已完成';
-                            break;
-                        case '4':
-                            orderStatus = '已退貨/退款';
-                            break;
-                        case '5':
-                            orderStatus = '已取消';
-                            break;
-                    }
-
-                    html +=
-                        `<li class="order-item row">
-                            <div class="col-sm-2">
-                                <img src="../image/product.svg" alt="">
-                            </div>
-                            <div class=" col-sm-2">
-                                <p class="product-name">${element[i + 1].productName}</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>${element[i].productSpecId}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>1</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${element[i].productPrice}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${orderStatus}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>宅配</p>
-                            </div>
-                            <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary btn-M"
-                                data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                                取消訂單
-                            </button>
-                            </div>
-                            <hr>
-                        </li>`;
-
-                    // orderList.insertAdjacentHTML("beforeend", html);
-                };
-                orderList4.insertAdjacentHTML("beforeend", html + `</ul></li>`);
+                SubOrderBody();
+                orderList4.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+                tab4Count++;
             }
             //已取消分頁
             if (element[0].subOrderStatus == 5) {
-                let html =
-                    `<li class="sub-order row" data-id="${element[0].subOrderId}">
-                <div class="col-sm-4 order-select">
-                    <input type="checkbox" class="select me-3">
-                    <span class="memberAccount">${element[1].memberAcct}</span>
-                </div>
-                <div class="col-sm-6">
-                    <span>訂單編號：<span class="sub-order-id">${element[0].subOrderId}</span></span>
-                </div>
-                <div class="col d-flex justify-content-end">
-                    <span class="order-date">${year + "-" + month + "-" + day}</span>
-                </div>
-        
-                <ul class="order-detail">`
+                SubOrderBody();
+                orderList5.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+                tab5Count++;
+            }
+        });
 
-                // orderList.insertAdjacentHTML("beforeend", html);
+        document.querySelector("button[aria-controls='navs-top-home']>span").innerText = tab1Count;
+        document.querySelector("button[aria-controls='navs-top-inprogress']>span").innerText = tab2Count;
+        document.querySelector("button[aria-controls='navs-top-refund']>span").innerText = tab3Count;
+        document.querySelector("button[aria-controls='navs-top-complete']>span").innerText = tab4Count;
+        document.querySelector("button[aria-controls='navs-top-cancel']>span").innerText = tab5Count;
+        document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
+            e.addEventListener("click", cancelSubOrder);
+        })
 
-                for (i = 2; i < element.length; i += 2) {
+    })
+};
+init();
 
-                    console.log(element[i + 1].productName)
-                    console.log(element)
-                    let orderStatus;
-                    switch (element[i - 2].subOrderStatus) {
+const search = function () {
+    //取出搜尋框內的文字
+    let searchcase1 = $(this).closest("div").find("#selectKey").val();
+    //將它塞入傳入參數
+    searchdata.searchcase = searchcase1;
 
-                        case '0':
-                            orderStatus = '待處理';
-                            break;
-                        case '1':
-                            orderStatus = '配送中';
-                            break;
-                        case '2':
-                            orderStatus = '已送達';
-                            break;
-                        case '3':
-                            orderStatus = '已完成';
-                            break;
-                        case '4':
-                            orderStatus = '已退貨/退款';
-                            break;
-                        case '5':
-                            orderStatus = '已取消';
-                            break;
-                    }
+    let searchwaycurrent = $(this).closest("div").find(".form-select").val();
+    searchdata.searchway = searchwaycurrent;
 
-                    html +=
-                        `<li class="order-item row">
-                            <div class="col-sm-2">
-                                <img src="../image/product.svg" alt="">
-                            </div>
-                            <div class=" col-sm-2">
-                                <p class="product-name">${element[i + 1].productName}</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>${element[i].productSpecId}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>1</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${element[i].productPrice}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>${orderStatus}</p>
-                            </div>
-                            <div class="col-sm-1">
-                                <p>宅配</p>
-                            </div>
-                            <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary btn-M"
-                                data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                                取消訂單
-                            </button>
-                            </div>
-                            <hr>
-                        </li>`;
+    fetch('http://localhost:8080/Niigi/SupplierGetSubOrderBySearch', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(searchdata)
+    }).then(r => r.json()).then(data => {
 
-                    // orderList.insertAdjacentHTML("beforeend", html);
-                };
-                orderList5.insertAdjacentHTML("beforeend", html + `</ul></li>`);
+        data.forEach(element => {
+            console.log(searchdata)
+            EIF = element;
+            //待處理分頁
+            if (element[0].subOrderStatus == 0) {
+                cleanBody(orderList);
+                SubOrderBody();
+                orderList.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+            }
+            //配送中分頁
+            if (element[0].subOrderStatus == 1 || element[0].subOrderStatus == 2) {
+                cleanBody(orderList2);
+                SubOrderBody();
+                orderList2.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+            }
+            //待退貨/款
+            if (element[0].subOrderStatus == 3) {
+                cleanBody(orderList3);
+                SubOrderBody();
+                orderList3.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+            }
+            //已完成分頁
+            if (element[0].subOrderStatus == 4) {
+                cleanBody(orderList4);
+                SubOrderBody();
+                orderList4.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+            }
+            //已取消分頁
+            if (element[0].subOrderStatus == 5) {
+                cleanBody(orderList5);
+                SubOrderBody();
+                orderList5.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
         });
 
 
     })
-};
-init();
+}
+
+document.querySelectorAll(".search").forEach(function (e) {
+    e.addEventListener("click", search);
+})
+
+document.querySelectorAll(".clearSearch").forEach(function (e) {
+    e.addEventListener("click", resetSearch);
+})
+
+
+
+const cancelSubOrder = function () {
+
+    const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
+    console.log(subOrderId)
+
+    // if (document.querySelector("button.confirmCancel")) {
+    //     fetch('http://localhost:8080/Niigi/SupplierSubOrder?subOrderId=' + subOrderId, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-type': 'application/json',
+    //         },
+    //         body: JSON.stringify(searchdata)
+    //     }).then(function () {
+    //         document.querySelector("button.confirmCancel").classList.remove("confirmCancel");
+    //     });
+    // }
+
+    async function updateSubOrder() {
+        if (document.querySelector("button.confirmCancel") !== null) {
+            await fetch('http://localhost:8080/Niigi/SupplierSubOrder?subOrderId=' + subOrderId, {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(searchdata)
+            });
+            document.querySelector("button.confirmCancel").classList.remove("confirmCancel");
+            document.querySelector("#cancelOrderModal button.btn-close").click();
+        }
+    }
+
+    document.querySelector("button.submitCancel").addEventListener("click", function () {
+        this.classList.add("confirmCancel");
+        updateSubOrder();
+    })
+
+}
+
+
+
+
+
+document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
+    e.addEventListener("click", cancelSubOrder);
+})
+

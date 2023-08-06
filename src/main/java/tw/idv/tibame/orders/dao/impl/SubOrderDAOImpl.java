@@ -21,10 +21,10 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 
 	@PersistenceContext
 	private Session session;
-	
+
 	@Autowired
 	private Gson gson;
-	
+
 	@Override
 	public Boolean insert(SubOrder entity) throws Exception {
 		session.persist(entity);
@@ -109,29 +109,121 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 
 	@Override
 	public String getSupplierSubOrderInit(String supplierId) {
-		
+		System.out.println(supplierId);
 		Query<?> query = session.createQuery("FROM SubOrder as So,Members As Mb ,SubOrderDetail AS sod, Product as pd "
-											+ "where supplierId = :supplierId AND So.memberId = Mb.memberId And So.subOrderId = sod.subOrderId And sod.productId = pd.productId");
-		
+				+ "where supplierId = :supplierId AND So.memberId = Mb.memberId And So.subOrderId = sod.subOrderId And sod.productId = pd.productId ");
+
 		query.setParameter("supplierId", supplierId);
-		
+
 		System.out.println(gson.toJson(query.getResultList()));
 		return gson.toJson(query.getResultList());
-		
+
 	}
 
 	@Override
-	public String getSupplierSubOrderSearch() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getSupplierSubOrderBySearch(String searchcase, String SearchSelect, Timestamp startDate,
+			Timestamp closeDate, String supplierId) {
+
+		String Table = "sod.";
+		if (SearchSelect.equals("memberAcct")) {
+			Table = "Mb.";
+		}
+
+		Query<?> query = session.createQuery("FROM SubOrder as So, Members As Mb ,SubOrderDetail AS sod, Product as pd "
+				+ "where So.supplierId = :supplierId AND So.memberId = Mb.memberId And So.subOrderId = sod.subOrderId And sod.productId = pd.productId"
+				+ " AND " + Table + SearchSelect + " LIKE '%" + searchcase + "%' AND orderCreateTime BETWEEN '"
+				+ startDate + "' AND '" + closeDate + "'");
+
+		query.setParameter("supplierId", supplierId);
+		return gson.toJson(query.getResultList());
 	}
 
 	@Override
-	public String supplierSubOrderFront() {
+	public String supplierSubOrderCancel(String subOrderId) {
+
+		Query query = session.createQuery("update SubOrder SET subOrderStatus = '5' where subOrderId = :subOrderId");
+		query.setParameter("subOrderId", subOrderId);
+		query.executeUpdate();
+		System.out.println(subOrderId);
+		return "取消訂單成功";
+	}
+
+	@Override
+	public String memberCheckOrder(String memberId) {
+		String hql = "select mo.orderStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
+				+ "so.subOrderId,so.subPaidAmount,sod.productSpecId,pd.productName,pd.productPrice,sod.eventPrice,"
+				+ "sod.itemCouponDiscount,so.recipient,so.deliveryAddress,so.phoneNum "
+				+ "from MainOrder as mo,SubOrder as so,SubOrderDetail as sod,Suppliers as sp,Product as pd "
+				+ "where mo.orderId = so.orderId and so.subOrderId = sod.subOrderId and so.supplierId = sp.supplierId and sod.productId = pd.productId "
+				+ "and mo.memberId = :memberId ";
+		Query<?> query = session.createQuery(hql);
+		query.setParameter("memberId", memberId);
+		return gson.toJson(query.getResultList());
+	}
+
+
+//	@Override
+//	public String memberCheckOrder(String memberId) {
+//		
+//		String hql = "select mo.orderStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
+//				+ "so.subOrderId,so.subPaidAmount,sod.productSpecId,pd.productName,pd.productPrice,sod.eventPrice,"
+//				+ "sod.itemCouponDiscount,so.recipient,so.deliveryAddress,so.phoneNum "
+//				+ "from MainOrder as mo,SubOrder as so,SubOrderDetail as sod,Suppliers as sp,Product as pd "
+//				+ "where mo.orderId = so.orderId and so.subOrderId = sod.subOrderId and so.supplierId = sp.supplierId and sod.productId = pd.productId "		
+//				+ "and mo.memberId = :memberId ";				
+//				Query <Object[]> query = session.createQuery(hql,Object[].class);
+//				query.setParameter("memberId", memberId);
+//			
+//		return gson.toJson(query.getResultList());
+//	}
+//	
+	public List<Object[]> memberCheckOrder2(String memberId) {
+		System.out.println(memberId);
+		String hql = "select mo.orderStatus,mo.paymentStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
+				+ "so.subOrderId,so.subPaidAmount,pd.picture1 "				
+				+ "from MainOrder as mo,SubOrder as so,SubOrderDetail as sod,Suppliers as sp,Product as pd "
+				+ "where mo.orderId = so.orderId and so.subOrderId = sod.subOrderId and so.supplierId = sp.supplierId and sod.productId = pd.productId "		
+				+ "and mo.memberId = :memberId ";				
+				Query <Object[]> query = session.createQuery(hql,Object[].class);
+				query.setParameter("memberId", memberId);
+			
+		return query.getResultList();
+	}
+
+	@Override
+	public String ConfirmReceipt(String subOrderId) {
 		
-        return gson.toJson((session.createQuery("FROM SubOrder so JOIN Members mb ON so.memberId = mb.memberId").getResultList()));
+		Query query = session.createQuery("update SubOrder SET subOrderStatus = '3' where subOrderId = :subOrderId");
+		query.setParameter("subOrderId", subOrderId);
+		query.executeUpdate();		
+		
+		return "確認收貨成功";
+	}
+
+	@Override
+	public String cancelSubOrder(String subOrderId) {
+		
+		Query query = session.createQuery("update SubOrder SET subOrderStatus = '5' where subOrderId = :subOrderId");
+		query.setParameter("subOrderId", subOrderId);
+		query.executeUpdate();
+		
+		return "取消訂單成功";
+	}
+
+	@Override
+	public String subOrderDetailcomment(String subOrderId) {
+		String hql = "SELECT so.subOrderId,sod.orderDetailId,pd.productName,pd.picture1 "
+				+ "FROM SubOrderDetail as sod,Product as pd,SubOrder as so "
+				+ "where so.subOrderId = sod.subOrderId and sod.productId = pd.productId and so.subOrderId = :subOrderId";
+		
+		Query<?> query = session.createQuery(hql);
+		query.setParameter("subOrderId", subOrderId);
+		
+		return gson.toJson(query.getResultList());
+		
+		
+		
+		
 	}
 	
-	
-
 }

@@ -11,19 +11,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Members implements java.io.Serializable{
+public class Members implements java.io.Serializable {
 
 	/**
 	 * 會員資料
 	 */
 	private static final long serialVersionUID = 2365248678814032865L;
-	
+
 	@Id
 	private String memberId;
 	private String memberAcct;
@@ -63,5 +64,19 @@ public class Members implements java.io.Serializable{
 	@Column(insertable = false)
 	private String regStatusOpen;
 	@Column(insertable = false)
-	private String backupStatusOpen;		
+	private String backupStatusOpen;
+
+	public Members(Integer memPointBalance, Date memPointMinExp, String name, String phone, String memberAddress,
+			String lastRecipient, String lastPhoneNum, String lastDeliveryAddress) {
+		super();
+		this.phone = phone;
+		this.name = name;
+		this.memPointBalance = memPointBalance;
+		this.memPointMinExp = memPointMinExp;
+		this.memberAddress = memberAddress;
+		this.lastRecipient = lastRecipient;
+		this.lastPhoneNum = lastPhoneNum;
+		this.lastDeliveryAddress = lastDeliveryAddress;
+	}
+
 }

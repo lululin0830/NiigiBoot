@@ -13,7 +13,6 @@ import tw.idv.tibame.products.dao.SortWeightDAO;
 import tw.idv.tibame.products.entity.SortWeight;
 
 @Repository
-@Transactional
 public class SortWeightDAOImpl implements SortWeightDAO {
 	
 	@PersistenceContext

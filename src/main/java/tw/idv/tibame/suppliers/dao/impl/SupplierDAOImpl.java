@@ -20,6 +20,7 @@ public class SupplierDAOImpl implements SupplierDAO {
 	private Session session;
 	@Autowired
 	private Gson gson;
+
 	@Override
 	public Boolean insert(Suppliers entity) throws Exception {
 		return null;
@@ -51,6 +52,15 @@ public class SupplierDAOImpl implements SupplierDAO {
 		String result = gson.toJson(session.createQuery("FROM Suppliers", Suppliers.class).getResultList());
 
 		return result;
+	}
+
+	@Override
+	public Suppliers getShopVacation(String supplierId) {
+
+		String hql = "SELECT new tw.idv.tibame.suppliers.entity.Suppliers(shopVacation,vacationEnd,pauseOrderAcceptance,pauseShipping) "
+				+ "FROM Suppliers WHERE supplierId = :supplierId";
+
+		return session.createQuery(hql, Suppliers.class).setParameter("supplierId", supplierId).uniqueResult();
 	}
 
 }
