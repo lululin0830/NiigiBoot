@@ -49,4 +49,10 @@ public class ShoppingCartController {
 		}
 	}
 	
+	@PutMapping("remove")
+	public ResponseEntity<String> removeFromCart (@RequestBody String data){
+		
+		
+		return service.removeFromCart(gson.fromJson(data, JsonObject.class) );
+	}
 }

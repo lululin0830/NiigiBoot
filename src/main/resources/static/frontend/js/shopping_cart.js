@@ -4,37 +4,37 @@ const checkoutBox = document.querySelector("div.checkout");
 
 // 取出Cookie中指定名稱的值
 function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+	const value = `; ${document.cookie}`;
+	const parts = value.split(`; ${name}=`);
+	if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-const htmlBody = function (element) {
+const htmlBody = function(element) {
 
-    let specStock;
-    let stockStatus;
-    let price;
+	let specStock;
+	let stockStatus;
+	let price;
 
-    if (element.specStock > 5) {
-        specStock = "庫存充足";
-        stockStatus = "instock";
-    } else {
-        specStock = "庫存緊張";
-        stockStatus = "soldout";
-    }
-    if (element.shopVacation == '1') {
-        specStock = "商家休假中";
-        stockStatus = "vacation";
-    }
-    if (element.eventPrice) {
-        price = element.eventPrice;
-    } else if (element.couponPrice) {
-        price = element.couponPrice;
-    } else {
-        price = element.productPrice;
-    }
+	if (element.specStock > 5) {
+		specStock = "庫存充足";
+		stockStatus = "instock";
+	} else {
+		specStock = "庫存緊張";
+		stockStatus = "soldout";
+	}
+	if (element.shopVacation == '1') {
+		specStock = "商家休假中";
+		stockStatus = "vacation";
+	}
+	if (element.eventPrice) {
+		price = element.eventPrice;
+	} else if (element.couponPrice) {
+		price = element.couponPrice;
+	} else {
+		price = element.productPrice;
+	}
 
-    let htmlBody = `
+	let htmlBody = `
          <div class="col-sm-1">
              <input type="checkbox" class="select-cart-item">
          </div>
@@ -57,110 +57,112 @@ const htmlBody = function (element) {
              </h4>
          </div>
          <div class="col-sm-1">
-             <button type="button" class="btn-close"></button>
+             <button type="button" class="btn-close" onclick="removeItem(this);"></button>
          </div>`;
 
-    return htmlBody;
+	return htmlBody;
 }
 
-const gotoCheckOut = function () {
+const gotoCheckOut = function() {
 
-    window.location.href = './checkout_page.html'
+	window.location.href = './checkout_page.html'
 }
 
-const init = function () {
+const init = function() {
 
-    const jwtToken = getCookie('jwt')
+	const jwtToken = getCookie('jwt')
 
-    // if (jwtToken) {
+	// if (jwtToken) {
 
-    fetch("http://localhost:8080/Niigi/shoppingCart", {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-            'Authorization': `Bearer ${jwtToken}`
-        },
-        body: memberId
+	fetch("http://localhost:8080/Niigi/shoppingCart", {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+			'Authorization': `Bearer ${jwtToken}`
+		},
+		body: memberId
 
-    }).then(resp => {
+	}).then(resp => {
 
-        if (!resp.ok) {
-            throw new Error("系統繁忙中...請稍後再試")
-        }
+		if (!resp.ok) {
+			throw new Error("系統繁忙中...請稍後再試")
+		}
 
-        return resp.json();
+		return resp.json();
 
-    }).then(data => {
+	}).then(data => {
 
-        console.log(data)
 
-        let totalAmount = 0; let totalDiscount = 0; let checkAmount = 0;
-        data.forEach(element => {
+		if (typeof data !== 'string') {
 
-            console.log("element", element);
+			shoppintList.innerHTML = '';
+			let totalAmount = 0; let totalDiscount = 0; let checkAmount = 0;
+			data.forEach(element => {
 
-            let html = ''; let price = 0;
+				console.log("element", element);
 
-            if (element.eventIds || element.couponCode) {
+				let html = ''; let price = 0;
 
-                html += `<li class="cart-item event row">`;
+				if (element.eventIds || element.couponCode) {
 
-                html += htmlBody(element);
+					html += `<li class="cart-item event row" data-id="${element.productSpecId}">`;
 
-                html +=
-                    `<ul class="event-list col-sm-11 row">
+					html += htmlBody(element);
+
+					html +=
+						`<ul class="event-list col-sm-11 row">
                 <hr>
                 <div class="col-sm-1">
                     <img src="./image/Line_in_alt.svg" alt="" class="arrow">
                 </div>
                 <div class="col-sm-11">`;
 
-                if (element.couponCode) {
-                    html +=
-                        `<li class="event-item row">
+					if (element.couponCode) {
+						html +=
+							`<li class="event-item row">
                            <p class="discount-name">${element.couponName + element.couponInfo}</p>
                          </li>`;
 
-                    price = element.couponPrice;
-                    totalDiscount += element.productPrice - element.couponPrice;
-                }
+						price = element.couponPrice;
+						totalDiscount += element.productPrice - element.couponPrice;
+					}
 
-                if (element.eventIds) {
-                    for (let i = 0; i < element.eventIds.length; i++) {
+					if (element.eventIds) {
+						for (let i = 0; i < element.eventIds.length; i++) {
 
-                        html +=
-                            `<li class="event-item row">
+							html +=
+								`<li class="event-item row">
                                   <p class="discount-name">${element.eventName[i] + element.eventInfo[i]}</p>
                             </li>`;
 
-                        totalDiscount += element.eventDiscounts[i];
-                    }
+							totalDiscount += element.eventDiscounts[i];
+						}
 
-                    price = element.eventPrice;
-                }
+						price = element.eventPrice;
+					}
 
-                html += `</div></ul></li>`;
-
-
-            } else {
-
-                html += `<li class="cart-item row">`;
-                html += htmlBody(element);
-                html += `</li>`;
-
-                price = element.productPrice;
-
-            }
-
-            totalAmount += element.productPrice;
-            checkAmount += price;
-            shoppintList.insertAdjacentHTML("beforeend", html);
+					html += `</div></ul></li>`;
 
 
+				} else {
 
-        });
+					html += `<li class="cart-item row" data-id="${element.productSpecId}">`;
+					html += htmlBody(element);
+					html += `</li>`;
 
-        checkoutBox.innerHTML = `
+					price = element.productPrice;
+
+				}
+
+				totalAmount += element.productPrice;
+				checkAmount += price;
+				shoppintList.insertAdjacentHTML("beforeend", html);
+
+
+
+			});
+
+			checkoutBox.innerHTML = `
         <div class="col-sm-5 p-5 row">
             <span class="col-sm-4">
                 <p>商品總金額</p>
@@ -181,17 +183,55 @@ const init = function () {
         </div>
         `;
 
+		} else {
+
+			shoppintList.innerHTML =  `
+			<div class="col-sm-12 d-flex justify-content-center">
+			<img src="./image/Empty_cart.svg" alt="" class="Empty_cart">
+			</div>
+			`;
+
+			checkoutBox.innerHTML = '';
+		}
 
 
-    }).catch(error => alert(error))
+
+	}).catch(error => alert(error))
 
 
-    // } else {
+	// } else {
 
 
 
-    // }
+	// }
 
+
+}
+
+const removeItem = function(element) {
+
+	const removedItem = element.closest("li.cart-item");
+	const productSpecId = removedItem.dataset.id;
+
+	const jwtToken = getCookie('jwt')
+
+	fetch('../shoppingCart/remove', {
+		method: "PUT",
+		headers: {
+			'Content-type': 'application/json',
+			'Authorization': `Bearer ${jwtToken}`
+		},
+		body: JSON.stringify({
+			'memberId': memberId,
+			'productSpecId': productSpecId
+		})
+	}).then(resp => {
+		if (!resp.ok) {
+			throw new Error("系統繁忙中...請稍後再試")
+		}
+
+		init();
+	}).catch(error => alert(error))
 
 }
 
