@@ -1,8 +1,12 @@
 package tw.idv.tibame.orders.service;
 
+import java.util.Map;
+
 import com.google.gson.JsonObject;
 
 public interface OrderService {
+	
+	String checkoutInit(String memberId);
 	
 	public boolean createOrder(JsonObject orderData) throws Exception;
 
@@ -48,4 +52,7 @@ public interface OrderService {
 	public String cancelSubOrder(String subOrderId);
 	
 	public String subOrderDetailcomment(String subOrderId);
+	
+	public String updateSubOrderDetailComment(String json);
+	
 }

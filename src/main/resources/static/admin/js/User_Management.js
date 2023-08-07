@@ -22,7 +22,6 @@ const search = function () {
                 <td>${data[i].userId}</td>
                 <td>${data[i].userName}</td>
                 <td>${data[i].userAcct}</td>
-                <td>${data[i].password}</td>
                 <td>${data[i].hrAuthority}</td>
                 <td>${data[i].financialAuthority}</td>
                 <td>${data[i].marketingAuthority}</td>
@@ -138,7 +137,6 @@ const init = function () {
                 <td>${data[i].userId}</td>
                 <td>${data[i].userName}</td>
                 <td>${data[i].userAcct}</td>
-                <td>${data[i].password}</td>
                 <td>${data[i].hrAuthority}</td>
                 <td>${data[i].financialAuthority}</td>
                 <td>${data[i].marketingAuthority}</td>

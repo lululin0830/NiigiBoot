@@ -14,9 +14,14 @@ public interface MemberService extends CoreService<JsonObject> {
 
 	// 登入
 	String logIn(Members member) throws Exception;
-	
+
 	public List<Members> getAll();
 
 	public String getBySearch(JsonObject searchCondition);
+
+	// 更改密碼
+	public boolean changePassword(String memberId, String oldPassword, String newPassword);
+	
+	public boolean updateMember(String memberId, String name, String phone, String backupEmail, byte[] memPhoto);
 
 }

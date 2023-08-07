@@ -43,4 +43,6 @@ public interface MemberDAO extends CoreDAO<Members, String>{
 		
 		//搜尋按鈕
 		public String getAllBySearch(String searchCase,String searchSelect,Timestamp startDate,Timestamp closeDate,String dateSelect);
+		
+		Members selectForCheckout(String memberId);
 }

@@ -31,7 +31,7 @@ public class AdminOrderList extends HttpServlet {
 	@Override	
 	public void init() throws ServletException {
 		orderService = CommonUtils.getBean(getServletContext(), OrderService.class);
-		gson = CommonUtils.getBean(getServletContext(), gson.getClass());
+		gson = CommonUtils.getBean(getServletContext(), Gson.class);
 	}
 
 	@Override

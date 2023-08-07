@@ -184,4 +184,88 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public boolean changePassword(String memberId, String oldPassword, String newPassword) {
+		Members members = memberDAO.selectOneByMemberId(memberId);
+
+		if (members == null) {
+			return false;
+		}
+		// 檢查輸入的舊密碼是否與資料庫中的密碼相符
+		String oldPasswordHash = null;
+		try {
+			oldPasswordHash = PasswordEncryptor.encrypt(oldPassword);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return false; // 處理加密錯誤
+		}
+
+		if (!members.getPassword().equals(oldPasswordHash)) {
+			return false; // 舊密碼不正確
+		}
+
+		// 將新密碼加密並更新到資料庫
+		String newPasswordHash = null;
+		try {
+			newPasswordHash = PasswordEncryptor.encrypt(newPassword);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return false; // 處理加密錯誤
+		}
+
+		members.setPassword(newPasswordHash);
+		memberDAO.update(members);
+		return true;
+	}
+
+	@Override
+	public boolean updateMember(String memberId, String name, String phone, String backupEmail, byte[] memPhoto) {
+		Members members = memberDAO.selectOneByMemberId(memberId);
+
+		if (members == null) {}else {
+			
+		
+			boolean updated = false;
+			if (name != null) {
+				members.setName(name);
+				updated = true;
+			}
+			if (phone != null && isValidPhoneNumber(phone)) {
+				members.setPhone(phone);
+				updated = true;
+			}
+			if (backupEmail != null && isValidEmail(backupEmail)) {
+				if (members.getBackupEmail() == null) {
+					members.setBackupEmail(backupEmail);
+				} else {
+					members.setBackupEmail(backupEmail);
+				}
+				updated = true;
+			}
+			if (memPhoto != null) {
+				if (members.getMemPhoto() == null) {
+					members.setMemPhoto(memPhoto);
+				} else {
+					members.setMemPhoto(memPhoto);
+				}
+				updated = true;
+			}
+			if (updated) {
+				memberDAO.update(members);
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean isValidPhoneNumber(String phoneNumber) {
+        // 手機號碼格式正則表達式
+        String regex = "09\\d{2}-\\d{3}-\\d{3}";
+        return phoneNumber.matches(regex);
+    }
+
+    private boolean isValidEmail(String email) {
+        // 信箱格式正則表達式
+        String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
+        return email.matches(regex);
+    }
 }

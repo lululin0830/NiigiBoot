@@ -15,29 +15,15 @@ const mainorder3 = document.querySelector("#navs-top-transport>ul.sub-order-list
 const mainorder4 = document.querySelector("#navs-top-complete>ul.sub-order-list");
 //已取消分頁
 const mainorder5 = document.querySelector("#navs-top-cancel>ul.sub-order-list");
-
-// //查看訂單明細-規格編號
-// let detailSpectId = null;
-// //查看訂單明細-產品名稱
-// let detailproductName = null;
-// //查看訂單明細-商品售價
-// let detailproductPrice = null;
-// //查看訂單明細-收件人
-// let detailrecipient = null;
-// //查看訂單明細-收件地址
-// let detailPhoneNumber = null;
-// //查看訂單明細-收件人電話
-// let detailDeliveryAddress = null;
-// //查看訂單明細-折價券
-// let detailevent = null;
-// //查看訂單明細-折價金額
-// let detaileventprice = null;
+//去評價彈窗
+const comment = document.querySelector('.commentbox');
 
 let EIF = null;
 let bodyHtml = null;
+let updateCommentlist = []
 const paymentPendingBody = function (arr) {
-	// console.log("我是arr")
-	// console.log(arr)
+
+	console.log("我是arr", arr)
 	arr.forEach(arr => {
 
 		let dateString = arr[0][3];
@@ -81,13 +67,14 @@ const paymentPendingBody = function (arr) {
 		//可能重複結構(多個子訂單)
 		for (i = 0; i < arr.length; i++) {
 
+			const imageElement = createImageURL(arr[i][9])
 			html +=
 				`< div class="navs-top-content" >
             <ul class="sub-order-list">
-                <li class="sub-order">
+                <li class="sub-order home">
                     <div class="col-sm-2">
                         <div class="order_item_priview">
-                            <img class="order_item_priview" src="./image/product.svg"
+                            <img class="order_item_priview" src="${imageElement}" 
                                 alt="">
                         </div>
                     </div>
@@ -151,13 +138,13 @@ const inprogressBody = function (element) {
 			orderStatus = '已取消';
 			break;
 	}
-
+	const imageElement = createImageURL(element[9])
 	let html =
-		`<li class="sub-order">
+		`<li class="sub-order inprogress">
         <div class="col-sm-2">
             <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
             <div class="order_item_priview">
-                <img class="order_item_priview" src="./image/product.svg" alt="">
+                <img class="order_item_priview" src="${imageElement}" alt="">
             </div>
         </div>
         <div class="col-sm-7 ps-3">
@@ -221,12 +208,15 @@ const transportBody = function (element) {
 			orderStatus = '已取消';
 			break;
 	}
+
+	const imageElement = createImageURL(element[9])
+
 	let html =
-		`<li class="sub-order">
+		`<li class="sub-order transport">
         <div class="col-sm-2">
             <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
             <div class="order_item_priview">
-                <img class="order_item_priview" src="./image/product.svg" alt="">
+                <img class="order_item_priview" src=${imageElement} alt="">
             </div>
         </div>
         <div class="col-sm-7 ps-3">
@@ -272,12 +262,14 @@ const completeBody = function (element) {
 	let year = date.getFullYear(); // 獲得年份
 	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
 	let day = date.getDate();
+
+	const imageElement = createImageURL(element[9])
 	let html =
-		`<li class="sub-order">
+		`<li class="sub-order complete">
         <div class="col-sm-2">
             <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
             <div class="order_item_priview">
-                <img class="order_item_priview" src="./image/product.svg" alt="">
+                <img class="order_item_priview" src=${imageElement} alt="">
             </div>
         </div>
         <div class="col-sm-7 ps-3">
@@ -296,7 +288,7 @@ const completeBody = function (element) {
                 </button>
             </div>
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
+                <button type="button" class="btn btn-primary btn-XL evaluate"
                     data-bs-toggle="modal" data-bs-target="#commentModal">
                     去評價
                 </button>
@@ -309,20 +301,23 @@ const completeBody = function (element) {
 }
 
 const cancelBody = function (arr) {
-	console.log("我是arr", arr)
+	console.log("已取消arr", arr)
 	arr.forEach(arr => {
 		let dateString = arr[3];
 		let date = new Date(dateString);
 		let year = date.getFullYear(); // 獲得年份
 		let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
 		let day = date.getDate();
+		console.log(arr[9])
+		const imageElement = createImageURL(arr[9])
+		console.log(imageElement)
 
 		let html =
-			`<li class="sub-order">
+			`<li class="sub-order cancel">
                 <div class="col-sm-2">
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
-                    <div class="order_item_priview">
-                        <img class="order_item_priview" src="./image/product.svg" alt="">
+                    <div class="order_item_priview">                        
+						<img class="order_item_priview" src="${imageElement}" alt="">
                     </div>
                 </div>
                 <div class="col-sm-7 ps-3">
@@ -361,13 +356,13 @@ const cancelPayOrder = function (element) {
 	let year = date.getFullYear(); // 獲得年份
 	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
 	let day = date.getDate();
-
+	const imageElement = createImageURL(element[9])
 	let html =
 		`<li class="sub-order">
                 <div class="col-sm-2">
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
                     <div class="order_item_priview">
-                        <img class="order_item_priview" src="./image/product.svg" alt="">
+                        <img class="order_item_priview" src="${imageElement}" alt="">
                     </div>
                 </div>
                 <div class="col-sm-7 ps-3">
@@ -397,7 +392,45 @@ const cancelPayOrder = function (element) {
             </li>`
 	bodyHtml += html;
 }
+const commentbox = function (arr) {
 
+	const imageElement = createImageURL(arr[3])
+
+	let html =
+		`<li class="comment-item row" data-id="${arr[1]}">
+			<div class="item-review col-sm-4">
+				<img src=${imageElement} alt="" id="imageElement">
+			</div>
+			<div class="col-sm-8">
+				<h4 class="product-name" id="comment-product-name">${arr[2]}</h4>
+
+				<div class="product-star col-sm-7">
+					<span class="star" data-star="1"><img
+					src="./image/Star-off.svg" alt=""></span>
+					<span class="star" data-star="2"><img
+						src="./image/Star-off.svg" alt=""></span>
+					<span class="star" data-star="3"><img
+						src="./image/Star-off.svg" alt=""></span>
+					<span class="star" data-star="4"><img
+						src="./image/Star-off.svg" alt=""></span>
+					<span class="star" data-star="5"><img
+						src="./image/Star-off.svg" alt=""></span>
+				</div>
+
+				<textarea class="comment form-control mt-3 commentArea" rows="2"
+					placeholder="請留下你的評論"></textarea>
+			</div>
+			<hr>
+		</li>`
+	bodyHtml = ""
+	bodyHtml += html
+
+}
+// 圖片轉換
+function createImageURL(byteArray) {
+	const blob = new Blob([new Uint8Array(byteArray)], { type: 'image/jpeg' });
+	return URL.createObjectURL(blob);
+}
 function groupByField(data, index) {
 	return data.reduce((result, item) => {
 		// 確保 array[index] 有效且為字串或數字型態
@@ -438,7 +471,7 @@ const init = function () {
 		//===================================尚未付款區===================================
 		let paymentPending = groupByField(data[0], 4)
 		// console.log("我是pay")s
-		console.log(paymentPending)
+		console.log("尚未付款", paymentPending)
 		paymentPendingBody(paymentPending)
 		mainorder1.insertAdjacentHTML("beforeend", bodyHtml);
 		bodyHtml = null;
@@ -497,6 +530,11 @@ const init = function () {
 		document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
 			e.addEventListener("click", cancelSubOrder);
 		})
+		//去評價按鈕
+		document.querySelectorAll("button.evaluate").forEach(function (e) {
+			e.addEventListener("click", subOrderDetailcomment);
+			console.log("綁定中")
+		})
 
 	})
 	bodyHtml = null;
@@ -536,8 +574,8 @@ const checkOrderDetail = function () {
 		let detailDeliveryAddress = document.getElementById('detailDeliveryAddress');
 		detailDeliveryAddress.innerHTML = data[0][5];
 
-		//        let detailevent = document.getElementById('detailevent');
-		//        detailevent.innerHTML = data[0][6] ? data[0][6] : '';
+		let detailpicture = document.getElementById('detailpicture');
+		detailpicture.src = createImageURL(data[0][6]);
 		//
 		//        let detaileventprice = document.getElementById('detaileventprice');
 		//        detaileventprice.innerHTML = data[0][7];
@@ -573,7 +611,7 @@ const confirmReceipt = function () {
 		updateReceipt();
 	})
 }
-
+//取消主訂單
 const cancelMainOrder = function () {
 	const OrderId = $(this).closest('li.order').find('span.order-id').text()
 
@@ -609,7 +647,7 @@ const cancelMainOrder = function () {
 
 
 }
-
+//取消子訂單
 const cancelSubOrder = function () {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	console.log("subOrderId", subOrderId)
@@ -642,5 +680,88 @@ const cancelSubOrder = function () {
 		updatesubOrderStatus();
 	})
 }
+//評價視窗資訊
+const subOrderDetailcomment = function () {
+	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
+	comment.innerHTML = ''
+	let starvalues = null
+	fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetailcomment', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+		},
+		body: subOrderId
+	}).then(r => r.json()).then(data => {
+		console.log(data[0])
+		for (i = 0; i < data.length; i++) {
+			commentbox(data[i])
+			comment.insertAdjacentHTML("beforeend", bodyHtml);
+			createImageURL(data[i][3])
+		}
+		//=============星星=============
+		const stars = document.querySelectorAll('.star')
 
-const subOrderDetailcomment
+		stars.forEach(star => {
+			star.addEventListener("click", function (e) {
+				var starValue = this.getAttribute("data-star");
+				starvalues = starValue
+				this.classList.add("-on");
+				const siblings = Array.from(this.parentNode.children).filter(sibling => sibling !== this);
+				siblings.forEach(sibling => {
+					if (sibling.getAttribute("data-star") <= starValue) {
+						sibling.classList.add("-on");
+					} else {
+						sibling.classList.remove("-on");
+					}
+				});
+			});
+		});
+		//=============星星=============
+
+	})
+
+	document.querySelector('.submitComment').onclick = () => {
+		const orderDetailIdList = document.querySelectorAll("#commentModal div.modal-body>ul>li")
+
+		orderDetailIdList.forEach(detail => {
+
+			const detailResult = {
+				orderDetailId: document.querySelector("#commentModal div.modal-body>ul>li").dataset.id,
+				ratingStar: document.querySelectorAll('.-on').length,
+				comment: document.querySelector('.commentArea').value
+			}
+			updateCommentlist.push(detailResult)
+		})
+		console.log(JSON.stringify(updateCommentlist));
+
+		submitComment();
+	}
+}
+
+
+//送出評價
+const submitComment = function () {
+	fetch('http://localhost:8080/Niigi/MemberCheckOrder/updateSubOrderDetailComment', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+		},
+		body: JSON.stringify(updateCommentlist)
+	}).then(function (resp) {
+
+		if (!resp.ok) {
+			throw new error("系統繁忙中...請稍後再試")
+		}
+
+		return resp.text();
+
+	}).then(function (data) {
+		console.log(data);
+
+		document.querySelector("div#commentModal button.btn-outline-secondary").click();
+
+		setTimeout(function () { alert(data); }, 800);
+
+
+	})
+}

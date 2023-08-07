@@ -972,7 +972,7 @@
                                             <ul id="orderDetailList" class="order-item-list">
                                                 <li class="order-item row">
                                                     <div class="col-sm-1">
-                                                        <img src="./image/product.svg" alt="">
+                                                        <img src="./image/product.svg" alt="" id="detailpicture">
                                                     </div>
                                                     <div class="col-sm-8">
                                                         <h5 class="product-id" id="detailSpectId">
@@ -1104,23 +1104,23 @@
                                 </div>
                             </div>
                             <!-- 評價 -->
-                            <div class="modal fade" id="commentModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal fade " id="commentModal" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <div class="modal-header">
+                                        <div class="modal-header ">
                                             <h4 class="modal-title col" id="checkoutModalLabel1">
                                                 評價商品</h4>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <ul class="comment-list">
-                                                <li class="comment-item row">
+                                            <ul class="comment-list commentbox">
+                                                <!-- <li class="comment-item row">
                                                     <div class="item-review col-sm-4">
                                                         <img src="./image/product.svg" alt="">
                                                     </div>
                                                     <div class="col-sm-8">
-                                                        <h4 class="product-name">
+                                                        <h4 class="product-name" id="comment-product-name">
                                                             品名XXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                                         </h4>
 
@@ -1156,19 +1156,19 @@
                                                                     alt=""></span>
                                                             <span class="star -halfon" data-star="2"><img
                                                                     src="./image/Star-off.svg" alt=""></span>
-                                                            <span class="star" data-star="3"><img src="./image/Star-off.svg"
-                                                                    alt=""></span>
-                                                            <span class="star" data-star="4"><img src="./image/Star-off.svg"
-                                                                    alt=""></span>
-                                                            <span class="star" data-star="5"><img src="./image/Star-off.svg"
-                                                                    alt=""></span>
+                                                            <span class="star" data-star="3"><img
+                                                                    src="./image/Star-off.svg" alt=""></span>
+                                                            <span class="star" data-star="4"><img
+                                                                    src="./image/Star-off.svg" alt=""></span>
+                                                            <span class="star" data-star="5"><img
+                                                                    src="./image/Star-off.svg" alt=""></span>
                                                         </div>
 
                                                         <textarea class="comment form-control mt-3" rows="2"
                                                             placeholder="請留下你的評論"></textarea>
                                                     </div>
                                                     <hr>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
 
@@ -1178,7 +1178,7 @@
                                                 data-bs-dismiss="modal">
                                                 取消
                                             </button>
-                                            <button type="submit" class="btn btn-primary btn-XL">送出
+                                            <button type="submit" class="btn btn-primary btn-XL submitComment">送出
                                             </button>
                                         </div>
                                     </div>

@@ -17,10 +17,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import tw.idv.tibame.events.dao.EventApplicableProductsDAOImpl;
+import tw.idv.tibame.members.dao.MemberDAO;
 import tw.idv.tibame.orders.dao.MainOrderDAO;
 import tw.idv.tibame.orders.dao.SubOrderDAO;
 import tw.idv.tibame.orders.dao.SubOrderDetailDAO;
@@ -60,6 +63,8 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	EventApplicableProductsDAOImpl eventDAO;
 	@Autowired
+	MemberDAO memberDAO;
+	@Autowired
 	Gson gson;
 
 	// 取得自動編號
@@ -91,6 +96,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public String checkoutInit(String memberId) {
+		
+		return gson.toJson(memberDAO.selectForCheckout(memberId));
+		
+	}
+	
+	@Override
 	public boolean createOrder(JsonObject orderData) throws Exception {
 
 		// 主訂單資料處理
@@ -106,7 +118,6 @@ public class OrderServiceImpl implements OrderService {
 
 		String productIds = "''";
 		StringBuilder stringBuilder = new StringBuilder();
-		List<String> eventIdList = new ArrayList<>();
 		List<SubOrderDetail> subOrderDetails = new ArrayList<SubOrderDetail>();
 
 		Type cartItemType = new TypeToken<List<CartItem>>(){}.getType();
@@ -119,7 +130,7 @@ public class OrderServiceImpl implements OrderService {
 
 			SubOrderDetail item = new SubOrderDetail();
 
-			Integer eventPrice = null;
+			Integer eventPrice = cartItem.getProductPrice();
 
 			if (cartItem.getEventPrice() != null) {
 
@@ -180,6 +191,7 @@ public class OrderServiceImpl implements OrderService {
 		double pDiscountRatio = pointsDiscount / totalAmount;
 		double cDiscountRatio = couponDiscount / totalAmount;
 
+		mainOrder.setTotalAmount(totalAmount);
 		mainOrder.setTotalGrossProfit(totalGrossProfit);
 		mainOrder.setPaidAmount(paidAmount);
 
@@ -396,27 +408,11 @@ public class OrderServiceImpl implements OrderService {
 		return (subOrderDAO.supplierSubOrderCancel(subOrderId));
 	}
 
-//	@Override
-//	public String memberCheckOrder(String memberId) {
-//		String json = subOrderDAO.memberCheckOrder(memberId); // 假設memberCheckOrder返回的是JSON字串
-//		Type type = new TypeToken<List<Object[]>>() {}.getType();
-//		List<Object[]> list = gson.fromJson(json, type);
-//
-//		Map<Object, List<Object[]>> result = list.stream()
-//				.collect(Collectors.groupingBy(li -> li[3], LinkedHashMap::new, Collectors.toList()));
-//
-//		return gson.toJson(result);
-//	}
-//
-//	
 	public String memberCheckOrder(String memberId) {
 		List<Object[]> list = subOrderDAO.memberCheckOrder2(memberId);
 
-//		Map<Object, Map<Object, >>> result = list.stream()
 		Map<Object, List<Object[]>> result = list.stream()
 				.collect(Collectors.groupingBy(li -> li[0], LinkedHashMap::new, Collectors.toList()));
-//			             Collectors.groupingBy(li -> li[1], LinkedHashMap::new, 
-//			                 Collectors.groupingBy(li -> li[2], LinkedHashMap::new, Collectors.toList()))));
 
 		return gson.toJson(result);
 	}
@@ -448,6 +444,34 @@ public class OrderServiceImpl implements OrderService {
 		
 		return subOrderDAO.subOrderDetailcomment(subOrderId);
 	}
+
+	@Override
+	public String updateSubOrderDetailComment(String json) {
+		
+//		Object[] jsonlist = gson.fromJson(json, Object[].class);
+		JsonArray jsonlist = gson.fromJson(json, JsonArray.class);
+		
+		
+		
+		
+//		System.out.println(jsonObject);
+		
+		for(int i=0;i<jsonlist.size();i++) {
+			
+			JsonElement temp = jsonlist.get(i);
+			;
+			
+			int ratingStar = temp.getAsJsonObject().get("ratingStar").getAsInt();
+			String comment = temp.getAsJsonObject().get("comment").getAsString();
+			String orderDetailId = temp.getAsJsonObject().get("orderDetailId").getAsString();
+			
+			subOrderDetailDAO.updateSubOrderDetailComment(ratingStar,comment,orderDetailId);
+		}
+		
+		return "評價成功";
+		
+	}
+	
 	
 	
 }

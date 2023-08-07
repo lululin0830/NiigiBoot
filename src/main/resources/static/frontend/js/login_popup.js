@@ -68,20 +68,6 @@ backToPreviousModalBtn4.addEventListener("click", function () {
     currentModalInstance.hide();
 });
 
-// 設定Cookie的函式
-function setCookie(name, value, days) {
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + days);
-    const cookieValue = encodeURIComponent(value) + (days ? `; expires=${expirationDate.toUTCString()}` : '');
-    document.cookie = `${name}=${cookieValue}; path=/`;
-}
-
-// 取出Cookie中指定名稱的值
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
 //登入
 (() => {
     const memberAcct = document.querySelector('#memberAcct');
@@ -97,28 +83,52 @@ function getCookie(name) {
             }),
             // body to text
         }).then(r => r.text())
-            .then((d) => {
-                // 將JWT寫入Cookie，這裡假設有效期為1小時
-                setCookie('jwt', d, 24); // 1/24代表1小時，若要設定其他時間，可以調整這個數值
+            .then((jwtToken) => {
+                // 解析 JWT 令牌
+                try {
+                    const decodedToken = parseJwt(jwtToken);
 
-                // 假設您的JWT存儲在名為"jwt"的Cookie中
-                const jwtToken = getCookie('jwt');
-                console.log(jwtToken);
+                    // 將JWT寫入Cookie，這裡假設有效期為1小時
+                    setCookie('jwt', jwtToken, 24); // 1/24代表1小時，若要設定其他時間，可以調整這個數值
 
-                window.location.href = 'customer_point_record.html';
+                    // 假設您的JWT存儲在名為"jwt"的Cookie中
+                    console.log(jwtToken);
+
+                    // 登錄成功，執行跳轉操作
+                    window.location.href = 'customer_Information.html';
+                } catch (error) {
+                    // JWT 解析失敗，顯示錯誤訊息
+                    errMsg.textContent = '登錄失敗，請檢查帳號和密碼。';
+                }
             })
+            .catch((error) => {
+                // 登錄失敗，顯示錯誤訊息
+                errMsg.textContent = '登錄失敗，請檢查帳號和密碼。';
+            });
     });
+
+    // 解析 JWT 令牌
+    function parseJwt(token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    }
+
+    // 設置 Cookie
+    function setCookie(name, value, hours) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + hours * 60 * 60 * 1000);
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
 })();
 
-// function togglePasswordVisibility(inputId) {
-//     const input = document.getElementById(inputId);
-//     if (input.type === "password") {
-//         input.type = "text";
-//     } else {
-//         input.type = "password";
-//     }
-// }
 
+
+
+//註冊
 const registerButton = document.getElementById('register');
 registerButton.addEventListener('click', async () => {
     const newMember = {

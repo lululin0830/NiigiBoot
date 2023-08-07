@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 
 import jakarta.persistence.PersistenceContext;
 import tw.idv.tibame.members.entity.Members;
-import tw.idv.tibame.suppliers.entity.Suppliers;
 
 @Repository
 public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO {
@@ -44,7 +43,10 @@ public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO {
 
 	@Override
 	public Members update(Members newMember) {
-		// TODO Auto-generated method stub
+		if(newMember!=null) {
+			newMember=session.merge(newMember);
+			return newMember;
+		}
 		return null;
 	}
 
@@ -57,8 +59,8 @@ public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO {
 
 	@Override
 	public Members selectOneByMemberId(String memberId) {
-		// TODO Auto-generated method stub
-		return null;
+		String hql = "FROM Members WHERE memberId = :memberId";
+		return session.createQuery(hql, Members.class).setParameter("memberId", memberId).uniqueResult();
 	}
 
 	@Override
@@ -123,6 +125,16 @@ public class MemberDAOImpl implements tw.idv.tibame.members.dao.MemberDAO {
 		String hql = "FROM Members WHERE " + searchSelect + " LIKE '%" + searchCase + "%' AND " + dateSelect
 				+ " BETWEEN '" + startDate + "' AND '" + closeDate + "'";
 		return gson.toJson(session.createQuery(hql, Members.class).getResultList());
+	}
+
+	@Override
+	public Members selectForCheckout(String memberId) {
+		
+		String hql = "SELECT new tw.idv.tibame.members.entity.Members(memPointBalance,memPointMinExp,name,phone,memberAddress,lastRecipient,lastPhoneNum,lastDeliveryAddress) "
+				+ "FROM Members WHERE memberId = :memberId";
+		
+		
+		return session.createQuery(hql, Members.class).setParameter("memberId", memberId).uniqueResult();
 	}
 
 }
