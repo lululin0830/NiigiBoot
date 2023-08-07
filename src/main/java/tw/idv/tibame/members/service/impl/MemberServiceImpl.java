@@ -4,13 +4,17 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import tw.idv.tibame.core.util.JwtUtil;
@@ -32,6 +36,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberDAOImpl memberDAOImpl;
+
+	@Autowired
+	Gson gson;
 
 	public String generateId() throws Exception {
 
@@ -123,8 +130,10 @@ public class MemberServiceImpl implements MemberService {
 		if (!encryptedPassword.equals(storedEncryptedPassword)) {
 			return "密碼錯誤";
 		}
+		
+		member = memberDAO.selectOneByMemberAcct(memberAcct);
 
-		return JwtUtil.generateJwtToken(memberAcct, member.getMemberId());
+		return JwtUtil.generateJwtToken(member.getMemberId(), memberAcct);
 	}
 
 	@Override
@@ -222,9 +231,9 @@ public class MemberServiceImpl implements MemberService {
 	public boolean updateMember(String memberId, String name, String phone, String backupEmail, byte[] memPhoto) {
 		Members members = memberDAO.selectOneByMemberId(memberId);
 
-		if (members == null) {}else {
-			
-		
+		if (members == null) {
+		} else {
+
 			boolean updated = false;
 			if (name != null) {
 				members.setName(name);
@@ -257,15 +266,35 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return false;
 	}
-	private boolean isValidPhoneNumber(String phoneNumber) {
-        // 手機號碼格式正則表達式
-        String regex = "09\\d{2}-\\d{3}-\\d{3}";
-        return phoneNumber.matches(regex);
-    }
 
-    private boolean isValidEmail(String email) {
-        // 信箱格式正則表達式
-        String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
-        return email.matches(regex);
-    }
+	private boolean isValidPhoneNumber(String phoneNumber) {
+		// 手機號碼格式正則表達式
+		String regex = "09\\d{2}-\\d{3}-\\d{3}";
+		return phoneNumber.matches(regex);
+	}
+
+	private boolean isValidEmail(String email) {
+		// 信箱格式正則表達式
+		String regex = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
+		return email.matches(regex);
+	}
+
+	@Override
+	public ResponseEntity<String> showAsideInfo(String jwtToken) {
+
+		if(jwtToken.isBlank()) {
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"User not logged in\"}");
+		}
+		
+		Map<String, String> result = JwtUtil.validateJwtTokenAndSendInfo(jwtToken);
+		
+		if(result.get("error")!= null) {
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.get("error"));
+		}
+		
+		
+		return ResponseEntity.ok(gson.toJson(result));
+	}
 }
