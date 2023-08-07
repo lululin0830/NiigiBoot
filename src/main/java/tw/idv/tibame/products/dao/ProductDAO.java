@@ -28,5 +28,8 @@ public interface ProductDAO extends CoreDAO<Product, Integer> {
 	public List<Product> findMostExpensiveProduct() throws Exception;
 
 	List<Object> selectSameShopProductByProductId(Integer productId);
-
+	
+	
+	//修改上下架狀態
+	public Boolean updateStatus(Integer productId, String productStatus)throws Exception;
 }
