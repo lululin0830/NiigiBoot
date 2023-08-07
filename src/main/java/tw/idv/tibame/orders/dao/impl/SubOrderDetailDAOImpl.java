@@ -99,7 +99,7 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 	public String checkOrderDetail(String subOrderId) {
 		
 		String hql = "SELECT sod.productSpecId,pd.productName,sod.productPrice,so.recipient,"
-				+ "so.phoneNum,so.deliveryAddress,so.deliveryAddress,so.deliveryAddress FROM "
+				+ "so.phoneNum,so.deliveryAddress,pd.picture1,so.deliveryAddress FROM "
 				+ "SubOrder as so,SubOrderDetail as sod,Product as pd where so.subOrderId = :subOrderId AND "
 				+ "so.subOrderId = sod.subOrderId and sod.productId = pd.productId ";
 		

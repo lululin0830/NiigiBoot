@@ -468,7 +468,7 @@ public class OrderServiceImpl implements OrderService {
 			subOrderDetailDAO.updateSubOrderDetailComment(ratingStar,comment,orderDetailId);
 		}
 		
-		return "HI";
+		return "評價成功";
 		
 	}
 	

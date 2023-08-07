@@ -21,7 +21,7 @@ const comment = document.querySelector('.commentbox');
 let EIF = null;
 let bodyHtml = null;
 let updateCommentlist = []
-const paymentPendingBody = function(arr) {
+const paymentPendingBody = function (arr) {
 
 	console.log("我是arr", arr)
 	arr.forEach(arr => {
@@ -108,7 +108,7 @@ const paymentPendingBody = function(arr) {
 }
 
 
-const inprogressBody = function(element) {
+const inprogressBody = function (element) {
 
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -178,7 +178,7 @@ const inprogressBody = function(element) {
 
 
 }
-const transportBody = function(element) {
+const transportBody = function (element) {
 
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -255,7 +255,7 @@ const transportBody = function(element) {
 	bodyHtml += html;
 }
 
-const completeBody = function(element) {
+const completeBody = function (element) {
 
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -300,7 +300,7 @@ const completeBody = function(element) {
 	bodyHtml += html;
 }
 
-const cancelBody = function(arr) {
+const cancelBody = function (arr) {
 	console.log("已取消arr", arr)
 	arr.forEach(arr => {
 		let dateString = arr[3];
@@ -349,7 +349,7 @@ const cancelBody = function(arr) {
 	})
 
 }
-const cancelPayOrder = function(element) {
+const cancelPayOrder = function (element) {
 	console.log("element", element)
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -392,7 +392,7 @@ const cancelPayOrder = function(element) {
             </li>`
 	bodyHtml += html;
 }
-const commentbox = function(arr) {
+const commentbox = function (arr) {
 
 	const imageElement = createImageURL(arr[3])
 
@@ -454,7 +454,7 @@ function groupByField(data, index) {
 }
 
 
-const init = function() {
+const init = function () {
 	console.log(mainorder1)
 	console.log("memberId", memberId)
 
@@ -515,23 +515,23 @@ const init = function() {
 		mainorder5.insertAdjacentHTML("beforeend", bodyHtml);
 		// =====================各分頁按鈕區=====================
 		//查看訂單綁定事件
-		document.querySelectorAll("button.checkDetail").forEach(function(e) {
+		document.querySelectorAll("button.checkDetail").forEach(function (e) {
 			e.addEventListener("click", checkOrderDetail);
 		})
 		//確認收貨綁定事件
-		document.querySelectorAll("button.submitReceipt").forEach(function(e) {
+		document.querySelectorAll("button.submitReceipt").forEach(function (e) {
 			e.addEventListener("click", confirmReceipt);
 		})
 		//取消主訂單按鈕
-		document.querySelectorAll("button.cancelMainOrder").forEach(function(e) {
+		document.querySelectorAll("button.cancelMainOrder").forEach(function (e) {
 			e.addEventListener("click", cancelMainOrder);
 		})
 		//取消子訂單按鈕
-		document.querySelectorAll("button.cancelSubOrder").forEach(function(e) {
+		document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
 			e.addEventListener("click", cancelSubOrder);
 		})
 		//去評價按鈕
-		document.querySelectorAll("button.evaluate").forEach(function(e) {
+		document.querySelectorAll("button.evaluate").forEach(function (e) {
 			e.addEventListener("click", subOrderDetailcomment);
 			console.log("綁定中")
 		})
@@ -542,7 +542,7 @@ const init = function() {
 init();
 
 //查看訂單方法
-const checkOrderDetail = function() {
+const checkOrderDetail = function () {
 
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	// console.log("subOrderId", subOrderId)
@@ -574,8 +574,8 @@ const checkOrderDetail = function() {
 		let detailDeliveryAddress = document.getElementById('detailDeliveryAddress');
 		detailDeliveryAddress.innerHTML = data[0][5];
 
-		//        let detailevent = document.getElementById('detailevent');
-		//        detailevent.innerHTML = data[0][6] ? data[0][6] : '';
+		let detailpicture = document.getElementById('detailpicture');
+		detailpicture.src = createImageURL(data[0][6]);
 		//
 		//        let detaileventprice = document.getElementById('detaileventprice');
 		//        detaileventprice.innerHTML = data[0][7];
@@ -583,7 +583,7 @@ const checkOrderDetail = function() {
 	})
 }
 //確認收貨方法
-const confirmReceipt = function() {
+const confirmReceipt = function () {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	// console.log(subOrderId)
 	// console.log(document.querySelector("button.confirmReceipt"))
@@ -607,12 +607,12 @@ const confirmReceipt = function() {
 		}
 	}
 
-	document.querySelector("button.confirmReceipt").addEventListener("click", function() {
+	document.querySelector("button.confirmReceipt").addEventListener("click", function () {
 		updateReceipt();
 	})
 }
 //取消主訂單
-const cancelMainOrder = function() {
+const cancelMainOrder = function () {
 	const OrderId = $(this).closest('li.order').find('span.order-id').text()
 
 	async function updateMainOrderStatus() {
@@ -641,14 +641,14 @@ const cancelMainOrder = function() {
 
 	}
 
-	document.querySelector("button.confirmCancelOrder").addEventListener("click", function() {
+	document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
 		updateMainOrderStatus();
 	})
 
 
 }
 //取消子訂單
-const cancelSubOrder = function() {
+const cancelSubOrder = function () {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	console.log("subOrderId", subOrderId)
 
@@ -676,12 +676,12 @@ const cancelSubOrder = function() {
 
 		}
 	}
-	document.querySelector("button.confirmCancelOrder").addEventListener("click", function() {
+	document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
 		updatesubOrderStatus();
 	})
 }
 //評價視窗資訊
-const subOrderDetailcomment = function() {
+const subOrderDetailcomment = function () {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	comment.innerHTML = ''
 	let starvalues = null
@@ -702,7 +702,7 @@ const subOrderDetailcomment = function() {
 		const stars = document.querySelectorAll('.star')
 
 		stars.forEach(star => {
-			star.addEventListener("click", function(e) {
+			star.addEventListener("click", function (e) {
 				var starValue = this.getAttribute("data-star");
 				starvalues = starValue
 				this.classList.add("-on");
@@ -740,14 +740,14 @@ const subOrderDetailcomment = function() {
 
 
 //送出評價
-const submitComment = function() {
+const submitComment = function () {
 	fetch('http://localhost:8080/Niigi/MemberCheckOrder/updateSubOrderDetailComment', {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
 		},
 		body: JSON.stringify(updateCommentlist)
-	}).then(function(resp) {
+	}).then(function (resp) {
 
 		if (!resp.ok) {
 			throw new error("系統繁忙中...請稍後再試")
@@ -755,13 +755,13 @@ const submitComment = function() {
 
 		return resp.text();
 
-	}).then(function(data) {
+	}).then(function (data) {
 		console.log(data);
 
 		document.querySelector("div#commentModal button.btn-outline-secondary").click();
 
-		setTimeout(function() {alert(data); } , 800);
-		
-		
+		setTimeout(function () { alert(data); }, 800);
+
+
 	})
 }
