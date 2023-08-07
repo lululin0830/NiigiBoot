@@ -155,5 +155,16 @@ public class ProductDAOImpl implements ProductDAO {
 		return session.createNativeQuery(sql, Object.class).setParameter("productId", productId)
 				.setFirstResult(0).setMaxResults(3).getResultList();
 	}
+	
+	//修改上下架狀態
+	@Override
+	public Boolean updateStatus(Integer productId, String productStatus)throws Exception  {
+	    String sql = "UPDATE Product SET productStatus = :productStatus WHERE productId = :productId";
+	    NativeQuery<Boolean> nativeQuery = session.createNativeQuery(sql,Boolean.class);
+	    nativeQuery.setParameter("productStatus", productStatus);
+	    nativeQuery.setParameter("productId", productId);
+	    int updatedCount = nativeQuery.executeUpdate();
+	    return updatedCount > 0;
+	}
 
 }

@@ -9,9 +9,7 @@ import org.hibernate.query.NativeQuery;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import tw.idv.tibame.products.dao.ProductSpecDAO;
-import tw.idv.tibame.products.entity.Product;
 import tw.idv.tibame.products.entity.ProductSpec;
 
 @Repository
@@ -98,6 +96,16 @@ public class ProductSpecDAOImpl implements ProductSpecDAO {
 		return updatedCount > 0;
 	}
 
+	// 列出全部規格，all+BY商家編號
+	@Override
+	public List<ProductSpec> findInactiveSpecificationsBySupplierId(String registerSupplier) {
+		String sql = "select ps.*, p.registerSupplier, p.productName, p.productPrice from ProductSpec ps inner join Product p on ps.productId = p.productId where shelvesStatus != '2' and registerSupplier = :registerSupplier";
+		NativeQuery<ProductSpec> nativeQuery = session.createNativeQuery(sql, ProductSpec.class);
+		nativeQuery.setParameter("registerSupplier", registerSupplier);
+		return nativeQuery.getResultList();
+
+	}
+
 	// 列出全部規格，已下架或上架中+BY商家編號
 	@Override
 	public List<ProductSpec> findActiveSpecificationsBySupplierId(String shelvesStatus, String registerSupplier) {
@@ -109,14 +117,22 @@ public class ProductSpecDAOImpl implements ProductSpecDAO {
 
 	}
 
-	// 列出全部規格，all+BY商家編號
+	// 列出全部規格，已售完(要去除強制下架)+BY商家編號
 	@Override
-	public List<ProductSpec> findInactiveSpecificationsBySupplierId(String registerSupplier) {
-		String sql = "select ps.*, p.registerSupplier, p.productName, p.productPrice from ProductSpec ps inner join Product p on ps.productId = p.productId where shelvesStatus != '2' and registerSupplier = :registerSupplier";
+	public List<ProductSpec> getAllSpecsForSoldOutProductsBySupplierId(String registerSupplier) {
+		String sql = "select ps.*, p.registerSupplier, p.productName, p.productPrice from ProductSpec ps inner join Product p on ps.productId = p.productId where specStock = 0 and shelvesStatus != '2' and registerSupplier = :registerSupplier";
 		NativeQuery<ProductSpec> nativeQuery = session.createNativeQuery(sql, ProductSpec.class);
 		nativeQuery.setParameter("registerSupplier", registerSupplier);
 		return nativeQuery.getResultList();
+	}
 
+	// 算出總數量，all+BY商家編號
+	@Override
+	public Integer getTotalCountOfActiveProductsBySupplierId(String registerSupplier) {
+		String sql = "select count(*) from ProductSpec ps inner join Product p on ps.productId = p.productId where shelvesStatus != '2' and registerSupplier = :registerSupplier";
+		NativeQuery<Integer> nativeQuery = session.createNativeQuery(sql, Integer.class);
+		nativeQuery.setParameter("registerSupplier", registerSupplier);
+		return nativeQuery.uniqueResult();
 	}
 
 	// 算出總數量，已下架或上架中+BY商家編號
@@ -130,13 +146,14 @@ public class ProductSpecDAOImpl implements ProductSpecDAO {
 
 	}
 
-	// 算出總數量，all+BY商家編號
+	// 算出總數量，已售完(要去除強制下架)+BY商家編號
 	@Override
-	public Integer getTotalCountOfActiveProductsBySupplierId(String registerSupplier) {
-		String sql = "select count(*) from ProductSpec ps inner join Product p on ps.productId = p.productId where shelvesStatus != '2' and registerSupplier = :registerSupplier";
+	public Integer getCountForSoldOutProductsBySupplierId(String registerSupplier) {
+		String sql = "select count(*) from ProductSpec ps inner join Product p on ps.productId = p.productId where specStock = 0 and shelvesStatus != '2' and registerSupplier = :registerSupplier";
 		NativeQuery<Integer> nativeQuery = session.createNativeQuery(sql, Integer.class);
 		nativeQuery.setParameter("registerSupplier", registerSupplier);
 		return nativeQuery.uniqueResult();
+
 	}
 
 	// 以規格編號算出已售出多少數量+BY商品狀態(需0)(這個是借放的，等等要移位)
@@ -148,19 +165,58 @@ public class ProductSpecDAOImpl implements ProductSpecDAO {
 		return nativeQuery.uniqueResult();
 	}
 
-	// 列出全部規格，已售完(要去除強制下架)+BY商家編號
+	// 搜尋規格編號/商品名稱，all+BY商家編號
 	@Override
-	public List<ProductSpec> getAllSpecsForSoldOutProductsBySupplierId(String registerSupplier) {
-		String sql = "select ps.*, p.registerSupplier, p.productName, p.productPrice from ProductSpec ps inner join Product p on ps.productId = p.productId where specStock = 0 and shelvesStatus != '2' and registerSupplier = :registerSupplier";
+	public List<ProductSpec> findInactiveSpecificationsBySupplierId(String optionName,String searchText,String registerSupplier) {
+		String sql = "select ps.*, p.registerSupplier, p.productName, p.productPrice from ProductSpec ps inner join Product p on ps.productId = p.productId where " + optionName + " LIKE '%" + searchText + "%' and shelvesStatus != '2' and registerSupplier = '" + registerSupplier + "';";
+		NativeQuery<ProductSpec> nativeQuery = session.createNativeQuery(sql, ProductSpec.class);
+		return nativeQuery.getResultList();
+	}
+
+	// 搜尋規格編號/商品名稱，已下架或上架中+BY商家編號
+	@Override
+	public List<ProductSpec> findActiveSpecificationsBySupplierId(String optionName,String searchText,String shelvesStatus, String registerSupplier) {
+		String sql = "select ps.*, p.registerSupplier, p.productName, p.productPrice from ProductSpec ps inner join Product p on ps.productId = p.productId where " + optionName + " LIKE '%" + searchText + "%' and shelvesStatus = :shelvesStatus and registerSupplier = :registerSupplier";
+		NativeQuery<ProductSpec> nativeQuery = session.createNativeQuery(sql, ProductSpec.class);
+		nativeQuery.setParameter("shelvesStatus", shelvesStatus);
+		nativeQuery.setParameter("registerSupplier", registerSupplier);
+		return nativeQuery.getResultList();
+
+	}
+
+	// 搜尋規格編號/商品名稱，已售完(要去除強制下架)+BY商家編號
+	@Override
+	public List<ProductSpec> getAllSpecsForSoldOutProductsBySupplierId(String optionName,String searchText,String registerSupplier) {
+		String sql = "select ps.*, p.registerSupplier, p.productName, p.productPrice from ProductSpec ps inner join Product p on ps.productId = p.productId where " + optionName + " LIKE '%" + searchText + "%' and specStock = 0 and shelvesStatus != '2' and registerSupplier = :registerSupplier";
 		NativeQuery<ProductSpec> nativeQuery = session.createNativeQuery(sql, ProductSpec.class);
 		nativeQuery.setParameter("registerSupplier", registerSupplier);
 		return nativeQuery.getResultList();
 	}
 
-	// 算出總數量，已售完(要去除強制下架)+BY商家編號
+	// 搜尋規格編號/商品名稱的總數量，all+BY商家編號
 	@Override
-	public Integer getCountForSoldOutProductsBySupplierId(String registerSupplier) {
-		String sql = "select count(*) from ProductSpec ps inner join Product p on ps.productId = p.productId where specStock = 0 and shelvesStatus != '2' and registerSupplier = :registerSupplier";
+	public Integer getTotalCountOfActiveProductsBySupplierId(String optionName,String searchText,String registerSupplier) {
+		String sql = "select count(*) from ProductSpec ps inner join Product p on ps.productId = p.productId where " + optionName + " LIKE '%" + searchText + "%' and shelvesStatus != '2' and registerSupplier = :registerSupplier";
+		NativeQuery<Integer> nativeQuery = session.createNativeQuery(sql, Integer.class);
+		nativeQuery.setParameter("registerSupplier", registerSupplier);
+		return nativeQuery.uniqueResult();
+	}
+
+	// 搜尋規格編號/商品名稱的總數量，已下架或上架中+BY商家編號
+	@Override
+	public Integer getTotalCountOfProductsByStatusAndSupplierId(String optionName,String searchText,String shelvesStatus, String registerSupplier) {
+		String sql = "select count(*) from ProductSpec ps inner join Product p on ps.productId = p.productId where " + optionName + " LIKE '%" + searchText + "%' and shelvesStatus = :shelvesStatus and registerSupplier = :registerSupplier";
+		NativeQuery<Integer> nativeQuery = session.createNativeQuery(sql, Integer.class);
+		nativeQuery.setParameter("shelvesStatus", shelvesStatus);
+		nativeQuery.setParameter("registerSupplier", registerSupplier);
+		return nativeQuery.uniqueResult();
+
+	}
+
+	// 搜尋規格編號/商品名稱的總數量，已售完(要去除強制下架)+BY商家編號
+	@Override
+	public Integer getCountForSoldOutProductsBySupplierId(String optionName,String searchText,String registerSupplier) {
+		String sql = "select count(*) from ProductSpec ps inner join Product p on ps.productId = p.productId where " + optionName + " LIKE '%" + searchText + "%' and specStock = 0 and shelvesStatus != '2' and registerSupplier = :registerSupplier";
 		NativeQuery<Integer> nativeQuery = session.createNativeQuery(sql, Integer.class);
 		nativeQuery.setParameter("registerSupplier", registerSupplier);
 		return nativeQuery.uniqueResult();
