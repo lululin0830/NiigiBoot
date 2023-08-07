@@ -216,7 +216,7 @@
 		}
 
 		.tableOne .productTotal {
-			width: 360px;
+			width: 440px;
 			padding: 0 10px;
 		}
 
@@ -261,17 +261,17 @@
 		}
 
 		.tableTwo thead th.productNameTh {
-			width: 200px;
+			width: 180px;
 		}
 
 		.tableTwo tbody td.productNameTd {
-			width: 200px;
+			width: 180px;
 			text-align: left;
 			padding: 0 30px;
 		}
 
 		.tableTwo tbody td p {
-			width: 200px;
+			width: 180px;
 			text-align: left;
 			margin: 0 0 0 0px
 		}
@@ -698,7 +698,6 @@
 									</button>
 								</li>
 							</ul>
-							<button class="stock_update btn btn-primary">庫存更新</button>
 						</div>
 
 						<div class="tab-content">
@@ -710,17 +709,11 @@
 										<tr>
 											<th class="productTotal">1,000商品</th>
 											<th>
-												<div class="dropdown">
-													<button class="dropdown-toggle" type="button"
-														id="dropdownMenuButton" data-bs-toggle="dropdown"
-														aria-expanded="false">
-														商品名稱
-													</button>
-													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-														<li><a class="dropdown-item" href="#">商品名稱</a></li>
-														<li><a class="dropdown-item" href="#">商品編號</a></li>
-													</ul>
-												</div>
+												<select id="collectionSelect" class="form-select"
+													aria-label="Default select example" style="width: 120px;">
+													<option value="1">商品名稱</option>
+													<option value="2">商品規格編號</option>
+												</select>
 											</th>
 											<th>
 												<div class="search-box">
@@ -729,7 +722,6 @@
 											</th>
 											<th><button class="Search_btn" type="submit">搜尋</button></th>
 											<th><button class="product_new" type="submit">新增商品</button></th>
-											<th><button class="status_btn" type="submit">上/下架</button></th>
 										</tr>
 									</thead>
 
@@ -752,7 +744,7 @@
 										</tr>
 									</thead>
 									<tbody id="AllProduct">
-										
+
 
 									</tbody>
 
@@ -763,19 +755,13 @@
 								<table class="tableOne">
 									<thead>
 										<tr>
-											<th class="productTotal">1,000商品</th>
+											<th class="productTotal" style="width: 400px;">1,000商品</th>
 											<th>
-												<div class="dropdown">
-													<button class="dropdown-toggle" type="button"
-														id="dropdownMenuButton" data-bs-toggle="dropdown"
-														aria-expanded="false">
-														商品名稱
-													</button>
-													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-														<li><a class="dropdown-item" href="#">商品名稱</a></li>
-														<li><a class="dropdown-item" href="#">商品編號</a></li>
-													</ul>
-												</div>
+												<select id="collectionSelect" class="form-select"
+													aria-label="Default select example" style="width: 120px;">
+													<option value="1">商品名稱</option>
+													<option value="2">商品規格編號</option>
+												</select>
 											</th>
 											<th>
 												<div class="search-box">
@@ -784,6 +770,7 @@
 											</th>
 											<th><button class="Search_btn" type="submit">搜尋</button></th>
 											<th><button class="status_btn" type="submit">下架</button></th>
+											<th><button class="stock_update_btn" type="submit">庫存異動</button></th>
 										</tr>
 									</thead>
 
@@ -806,7 +793,7 @@
 										</tr>
 									</thead>
 									<tbody id="UpProduct">
-										
+
 
 									</tbody>
 
@@ -819,17 +806,11 @@
 										<tr>
 											<th class="productTotal">1,000商品</th>
 											<th>
-												<div class="dropdown">
-													<button class="dropdown-toggle" type="button"
-														id="dropdownMenuButton" data-bs-toggle="dropdown"
-														aria-expanded="false">
-														商品名稱
-													</button>
-													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-														<li><a class="dropdown-item" href="#">商品名稱</a></li>
-														<li><a class="dropdown-item" href="#">商品編號</a></li>
-													</ul>
-												</div>
+												<select id="collectionSelect" class="form-select"
+													aria-label="Default select example" style="width: 120px;">
+													<option value="1">商品名稱</option>
+													<option value="2">商品規格編號</option>
+												</select>
 											</th>
 											<th>
 												<div class="search-box">
@@ -838,6 +819,7 @@
 											</th>
 											<th><button class="Search_btn" type="submit">搜尋</button></th>
 											<th><button class="status_btn" type="submit">上架</button></th>
+											<th><button class="delete_btn" type="submit">刪除</button></th>
 										</tr>
 									</thead>
 
@@ -860,7 +842,7 @@
 										</tr>
 									</thead>
 									<tbody id="DownProduct">
-										
+
 									</tbody>
 
 								</table>
@@ -870,19 +852,13 @@
 								<table class="tableOne">
 									<thead>
 										<tr>
-											<th class="productTotal">1,000商品</th>
+											<th class="productTotal" style="width: 460px;">1,000商品</th>
 											<th>
-												<div class="dropdown">
-													<button class="dropdown-toggle" type="button"
-														id="dropdownMenuButton" data-bs-toggle="dropdown"
-														aria-expanded="false">
-														商品名稱
-													</button>
-													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-														<li><a class="dropdown-item" href="#">商品名稱</a></li>
-														<li><a class="dropdown-item" href="#">商品編號</a></li>
-													</ul>
-												</div>
+												<select id="collectionSelect" class="form-select"
+													aria-label="Default select example" style="width: 120px;">
+													<option value="1">商品名稱</option>
+													<option value="2">商品規格編號</option>
+												</select>
 											</th>
 											<th>
 												<div class="search-box">
@@ -890,7 +866,7 @@
 												</div>
 											</th>
 											<th><button class="Search_btn" type="submit">搜尋</button></th>
-											<th><button class="status_btn" type="submit">上/下架</button></th>
+											<th><button class="stock_update_btn" type="submit">庫存異動</button></th>
 										</tr>
 									</thead>
 
@@ -913,7 +889,7 @@
 										</tr>
 									</thead>
 									<tbody id="SoldProduct">
-										
+
 									</tbody>
 
 								</table>
@@ -1030,7 +1006,7 @@
 			}
 		}
 
-		//針對分頁整理
+		//針對分頁整理(control)
 		function navsTopName(target) {
 			switch (target) {
 				case '#navs-top-home':
@@ -1043,6 +1019,50 @@
 					return 'SoldProductSpecManage';
 			}
 		}
+
+		//針對分頁的tatal整理(control)
+		function navsTopTotal(target) {
+			switch (target) {
+				case '#navs-top-home':
+					return 'AllProductSpecTotal';
+				case '#navs-top-inprogress':
+					return 'UpStatusProductSpecTotal';
+				case '#navs-top-transport':
+					return 'DownStatusProductSpecTotal';
+				case '#navs-top-complete':
+					return 'SoldProductSpecTotal';
+			}
+		}
+
+		//針對分頁搜尋整理(control)
+		function navsTopSearchName(target) {
+			switch (target) {
+				case '#navs-top-home':
+					return 'AllSearch';
+				case '#navs-top-inprogress':
+					return 'UpStatusSearch';
+				case '#navs-top-transport':
+					return 'DownStatusSearch';
+				case '#navs-top-complete':
+					return 'SoldSearch';
+			}
+		}
+
+		//針對分頁搜尋的tatal整理(control)
+		function navsTopSearchTotal(target) {
+			switch (target) {
+				case '#navs-top-home':
+					return 'AllSearchTotal';
+				case '#navs-top-inprogress':
+					return 'UpStatusSearchTotal';
+				case '#navs-top-transport':
+					return 'DownStatusSearchTotal';
+				case '#navs-top-complete':
+					return 'SoldSearchTotal';
+			}
+		}
+
+
 
 		//針對分頁內容的tbody定位
 		function productTbody(target) {
@@ -1057,6 +1077,8 @@
 					return '#SoldProduct';
 			}
 		}
+
+
 
 
 
@@ -1076,109 +1098,55 @@
 
 
 		//下拉式選單
-		document.querySelectorAll('.dropdown-item').forEach(function (item) {
-			item.addEventListener('click', function () {
-				var selectedText = this.textContent; // 取得選擇的項目文字
-				var dropdownToggle = this.closest('.dropdown').querySelector('.dropdown-toggle');
-				dropdownToggle.textContent = selectedText; // 將選擇的項目文字顯示在按鈕上
-			});
-		});
-		let activeTab_up = 0;
+		// document.querySelectorAll('.dropdown-item').forEach(function (item) {
+		// 	item.addEventListener('click', function () {
+		// 		var selectedText = this.textContent; // 取得選擇的項目文字
+		// 		var dropdownToggle = this.closest('.dropdown').querySelector('.dropdown-toggle');
+		// 		dropdownToggle.textContent = selectedText; // 將選擇的項目文字顯示在按鈕上
+		// 	});
+		// });
+		// let activeTab_up = 0;
 
 
 
 
 
 		$(document).ready(function () {
+			const registerSupplier = "S000000001";
 
-
-			// 獲取所有分頁按鈕
-			const tabButtons = document.querySelectorAll(".nav-link");
-
-			// 在每個按鈕上添加點擊事件監聽器
-			tabButtons.forEach(button => {
-				button.addEventListener("click", function () {
-					// 獲取分頁目標
-					const target = this.getAttribute("data-bs-target");
-
-					fetch(`http://localhost:8080/Niigi/${navsTopName(target)}`, {
-						method: 'GET'
-					})
-						.then((response) => {
-							// 檢查回應的狀態碼
-							if (!response.ok) {
-								throw new Error('Network response was not ok');
-							}
-							// 解析JSON格式的回應
-							return response.json();
-						})
-						.then((data) => {
-							let list_html = "";
-							console.log(data);
-							data.forEach(function (productSpec) {
-								// 在這裡對每個產品進行處理
-								// 取得產品圖片的 Base64 字串
-								const base64Image = displayImageFromBase64(productSpec.specPicture);
-								//取得產品規格id
-								const productSpecId = productSpec.productSpecId;
-								// 取得產品名稱
-								const productName = productSpec.productName;
-								//取得對規格1
-								const specType1 = specTypeName(productSpec.specType1) + "：" + productSpec.specInfo1;
-								//取得對規格2
-								const specType2 = specTypeName(productSpec.specType2) + "：" + productSpec.specInfo2;
-								// 取得產品價格
-								const productPrice = productSpec.productPrice;
-								//取得即時庫存
-								const specStock = productSpec.specStock;
-								//取得已售出
-								const soldStock = productSpec.soldStock;
-								//取得狀態
-								const shelvesStatus = shelvesStatusName(productSpec.shelvesStatus);
-
-
-								// 也可以將其他產品資料顯示在網頁上
-								list_html += `
-										<tr>
-											<td class="check">
-												<input type="checkbox" class="selectRow">
-											</td>
-											<td><img class="productImg" src="${base64Image}" alt=""></td>
-											<td class="productNameTd">
-												<p class="productName">${productName}</p>
-												<p class="productId">${productSpecId}</p>
-											</td>
-											<td class="spec1">${specType1}</td>
-											<td class="spec2">${specType2}</td>
-											<td class="price">NT$${productPrice}</td>
-											<td class="stock">${specStock}</td>
-											<td class="soldNum">${soldStock}</td>
-											<td class="status">${shelvesStatus}</td>
-											<td class="edit_delete_btn">
-												<button class="edit_btn btn btn-primary" type="button">輯編</button>
-												<button class="delete_btn btn btn-primary" type="button">刪除</button>
-											</td>
-										</tr>
-									`;
-							});
-							$(`${productTbody(target)}`).html(list_html);
-
-						})
-						.catch((error) => {
-							console.error('Fetch error:', error);
-						});
-
-
-				});
-			});
-
-
-
-			//////////////////////////////////////////////
-
+			//////////////////////////////////////////////////////////////////
 			//一開始進入頁面時，分頁第一個要顯示的資料
+			fetch('http://localhost:8080/Niigi/AllProductSpecTotal', {
+				method: 'POST',
+				body: JSON.stringify({registerSupplier: registerSupplier}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					$("#navs-top-home .productTotal").text(data.toLocaleString() + "件商品");
+
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+
+
+
 			fetch('http://localhost:8080/Niigi/AllProductSpecManage', {
-				method: 'GET'
+				method: 'POST',
+				body: JSON.stringify({registerSupplier: registerSupplier}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			})
 				.then((response) => {
 					// 檢查回應的狀態碼
@@ -1190,7 +1158,7 @@
 				})
 				.then((data) => {
 					let list_html = "";
-					console.log(data);
+					//console.log(data);
 					data.forEach(function (productSpec) {
 						// 在這裡對每個產品進行處理
 						// 取得產品圖片的 Base64 字串
@@ -1200,9 +1168,11 @@
 						// 取得產品名稱
 						const productName = productSpec.productName;
 						//取得對規格1
-						const specType1 = specTypeName(productSpec.specType1) + "：" + productSpec.specInfo1;
+						const specType1 = specTypeName(productSpec.specType1);
+						const specInfo1 = productSpec.specInfo1;
 						//取得對規格2
-						const specType2 = specTypeName(productSpec.specType2) + "：" + productSpec.specInfo2;
+						const specType2 = specTypeName(productSpec.specType2);
+						const specInfo2 = productSpec.specInfo2;
 						// 取得產品價格
 						const productPrice = productSpec.productPrice;
 						//取得即時庫存
@@ -1217,48 +1187,167 @@
 						list_html += `
 										<tr>
 											<td class="check">
-												<input type="checkbox" class="selectRow">
+												<input type="checkbox" class="selectRow" data-page="#navs-top-home" data-product-spec-id="${productSpecId}">
 											</td>
 											<td><img class="productImg" src="${base64Image}" alt=""></td>
 											<td class="productNameTd">
 												<p class="productName">${productName}</p>
 												<p class="productId">${productSpecId}</p>
 											</td>
-											<td class="spec1">${specType1}</td>
-											<td class="spec2">${specType2}</td>
+											<td class="spec1">${specType1}<br>${specInfo1}</td>
+											<td class="spec2">${specType2}<br>${specInfo2}</td>
 											<td class="price">NT$${productPrice}</td>
 											<td class="stock">${specStock}</td>
 											<td class="soldNum">${soldStock}</td>
 											<td class="status">${shelvesStatus}</td>
 											<td class="edit_delete_btn">
 												<button class="edit_btn btn btn-primary" type="button">輯編</button>
-												<button class="delete_btn btn btn-primary" type="button">刪除</button>
 											</td>
 										</tr>
 									`;
 					});
-					$('#AllProduct').html(list_html);
+					$('#navs-top-home #AllProduct').html(list_html);
 
 				})
 				.catch((error) => {
 					console.error('Fetch error:', error);
 				});
 
-			/////////////////////////////////////////////////////
+
+			$('#navs-top-home .Search_btn').off('click').on('click', function () {
+				// 獲取下拉式選單的值
+				const selectedOption = $('#navs-top-home #collectionSelect').val();
+				let optionName;
+				if (selectedOption == 1) {
+					optionName = "productName";
+				} else {
+					optionName = "productSpecId";
+				}
+
+				// 獲取搜尋框的值
+				const keyword = $('#navs-top-home .search-KeyWord').val().trim();
+
+				// 如果搜尋框為空，則不執行搜尋
+				if (keyword === '') {
+					return;
+				} else {
+					console.log(keyword);
+					console.log(optionName);
+				}
+
+				// 搜尋框有文字，可以進行搜尋
+				// 將 selectedOption 和 keyword 送往後端處理
+				//針對分頁搜尋tatal
+				fetch('http://localhost:8080/Niigi/AllSearchTotal', {
+					method: 'POST',
+					body: JSON.stringify({registerSupplier: registerSupplier, optionName: optionName, searchText: keyword}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						$('#navs-top-home .productTotal').text(data.toLocaleString() + "件商品");
+
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
+
+				//針對分頁搜尋內容
+				fetch('http://localhost:8080/Niigi/AllSearch', {
+					method: 'POST',
+					body: JSON.stringify({registerSupplier: registerSupplier, optionName: optionName, searchText: keyword}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						return response.json();
+					})
+					.then(data => {
+						let list_html = "";
+						//console.log(data);
+						data.forEach(function (productSpec) {
+							// 在這裡對每個產品進行處理
+							// 取得產品圖片的 Base64 字串
+							const base64Image = displayImageFromBase64(productSpec.specPicture);
+							//取得產品規格id
+							const productSpecId = productSpec.productSpecId;
+							// 取得產品名稱
+							const productName = productSpec.productName;
+							//取得對規格1
+							const specType1 = specTypeName(productSpec.specType1);
+							const specInfo1 = productSpec.specInfo1;
+							//取得對規格2
+							const specType2 = specTypeName(productSpec.specType2);
+							const specInfo2 = productSpec.specInfo2;
+							// 取得產品價格
+							const productPrice = productSpec.productPrice;
+							//取得即時庫存
+							const specStock = productSpec.specStock;
+							//取得已售出
+							const soldStock = productSpec.soldStock;
+							//取得狀態
+							const shelvesStatus = shelvesStatusName(productSpec.shelvesStatus);
+
+
+							// 也可以將其他產品資料顯示在網頁上
+							list_html += `
+										<tr>
+											<td class="check">
+												<input type="checkbox" class="selectRow" data-page="${targetId}" data-product-spec-id="${productSpecId}">
+											</td>
+											<td><img class="productImg" src="${base64Image}" alt=""></td>
+											<td class="productNameTd">
+												<p class="productName">${productName}</p>
+												<p class="productId">${productSpecId}</p>
+											</td>
+											<td class="spec1">${specType1}<br>${specInfo1}</td>
+											<td class="spec2">${specType2}<br>${specInfo2}</td>
+											<td class="price">NT$${productPrice.toLocaleString()}</td>
+											<td class="stock">${specStock.toLocaleString()}</td>
+											<td class="soldNum">${soldStock.toLocaleString()}</td>
+											<td class="status">${shelvesStatus}</td>
+											<td class="edit_delete_btn">
+												<button class="edit_btn btn btn-primary" type="button">輯編</button>
+											</td>
+										</tr>
+									`;
+						});
+						$('#AllProduct').html(list_html);
+					})
+					.catch(error => console.error('Error:', error));
+			});
+
+			//////////////////////////////////////////////////////////////////
 
 			$('#navs-top-home #selectAll').change(function () {
 				const isChecked = $(this).prop('checked');
 				$('#navs-top-home').find('.selectRow').prop('checked', isChecked);
 			});
 
-			// 監聽表頭複選框的變更事件
+
+
+			//////////////////////////////////////////////////////////////////
 			$('.nav-link').click(function () {
+
 				// 獲取目標元素的ID
 				const targetId = $(this).data('bs-target');
-
 				// 在控制台上輸出目標ID
 				console.log(targetId);
 
+				// 監聽表頭複選框的變更事件
 				$(targetId + ' #selectAll').change(function () {
 					const isChecked = $(this).prop('checked');
 
@@ -1266,32 +1355,423 @@
 					$(targetId).find('.selectRow').prop('checked', isChecked);
 				});
 
+
+				//針對分頁tatal/
+				fetch(`http://localhost:8080/Niigi/${navsTopTotal(targetId)}`, {
+					method: 'POST',
+					body: JSON.stringify({registerSupplier: registerSupplier}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						$(`${targetId} .productTotal`).text(data.toLocaleString() + "件商品");
+
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
+
+
+				//針對分頁內容
+				fetch(`http://localhost:8080/Niigi/${navsTopName(targetId)}`, {
+					method: 'POST',
+					body: JSON.stringify({registerSupplier: registerSupplier}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						let list_html = "";
+						//console.log(data);
+						data.forEach(function (productSpec) {
+							// 在這裡對每個產品進行處理
+							// 取得產品圖片的 Base64 字串
+							const base64Image = displayImageFromBase64(productSpec.specPicture);
+							//取得產品規格id
+							const productSpecId = productSpec.productSpecId;
+							// 取得產品名稱
+							const productName = productSpec.productName;
+							//取得對規格1
+							const specType1 = specTypeName(productSpec.specType1);
+							const specInfo1 = productSpec.specInfo1;
+							//取得對規格2
+							const specType2 = specTypeName(productSpec.specType2);
+							const specInfo2 = productSpec.specInfo2;
+							// 取得產品價格
+							const productPrice = productSpec.productPrice;
+							//取得即時庫存
+							const specStock = productSpec.specStock;
+							//取得已售出
+							const soldStock = productSpec.soldStock;
+							//取得狀態
+							const shelvesStatus = shelvesStatusName(productSpec.shelvesStatus);
+
+
+							// 也可以將其他產品資料顯示在網頁上
+							list_html += `
+										<tr>
+											<td class="check">
+												<input type="checkbox" class="selectRow" data-page="${targetId}" data-product-spec-id="${productSpecId}">
+											</td>
+											<td><img class="productImg" src="${base64Image}" alt=""></td>
+											<td class="productNameTd">
+												<p class="productName">${productName}</p>
+												<p class="productId">${productSpecId}</p>
+											</td>
+											<td class="spec1">${specType1}<br>${specInfo1}</td>
+											<td class="spec2">${specType2}<br>${specInfo2}</td>
+											<td class="price">NT$${productPrice.toLocaleString()}</td>
+											<td class="stock">${specStock.toLocaleString()}</td>
+											<td class="soldNum">${soldStock.toLocaleString()}</td>
+											<td class="status">${shelvesStatus}</td>
+											<td class="edit_delete_btn">
+												<button class="edit_btn btn btn-primary" type="button">輯編</button>
+											</td>
+										</tr>
+									`;
+						});
+						$(`${productTbody(targetId)}`).html(list_html);
+
+
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
+
+				///////////////////////////////////////////////
+				//針對搜尋框作業
+				$(`${targetId} .Search_btn`).off('click').on('click', function () {
+					// 獲取下拉式選單的值
+					const selectedOption = $(`${targetId} #collectionSelect`).val();
+					let optionName;
+					if (selectedOption == 1) {
+						optionName = "productName";
+					} else {
+						optionName = "productSpecId";
+					}
+
+					// 獲取搜尋框的值
+					const keyword = $(`${targetId} .search-KeyWord`).val().trim();
+
+					// 如果搜尋框為空，則不執行搜尋
+					if (keyword === '') {
+						return;
+					} else {
+						console.log(keyword);
+						console.log(optionName);
+					}
+
+					// 搜尋框有文字，可以進行搜尋
+					// 將 selectedOption 和 keyword 送往後端處理
+					//針對分頁搜尋tatal
+					fetch(`http://localhost:8080/Niigi/${navsTopSearchTotal(targetId)}`, {
+						method: 'POST',
+						body: JSON.stringify({registerSupplier: registerSupplier, optionName: optionName, searchText: keyword}),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+						.then((response) => {
+							// 檢查回應的狀態碼
+							if (!response.ok) {
+								throw new Error('Network response was not ok');
+							}
+							// 解析JSON格式的回應
+							return response.json();
+						})
+						.then((data) => {
+							$(`${targetId} .productTotal`).text(data.toLocaleString() + "件商品");
+
+						})
+						.catch((error) => {
+							console.error('Fetch error:', error);
+						});
+
+					//針對分頁搜尋內容
+					fetch(`http://localhost:8080/Niigi/${navsTopSearchName(targetId)}`, {
+						method: 'POST',
+						body: JSON.stringify({registerSupplier: registerSupplier, optionName: optionName, searchText: keyword}),
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+						.then(response => {
+							if (!response.ok) {
+								throw new Error('Network response was not ok');
+							}
+							return response.json();
+						})
+						.then(data => {
+							let list_html = "";
+							//console.log(data);
+							data.forEach(function (productSpec) {
+								// 在這裡對每個產品進行處理
+								// 取得產品圖片的 Base64 字串
+								const base64Image = displayImageFromBase64(productSpec.specPicture);
+								//取得產品規格id
+								const productSpecId = productSpec.productSpecId;
+								// 取得產品名稱
+								const productName = productSpec.productName;
+								//取得對規格1
+								const specType1 = specTypeName(productSpec.specType1);
+								const specInfo1 = productSpec.specInfo1;
+								//取得對規格2
+								const specType2 = specTypeName(productSpec.specType2);
+								const specInfo2 = productSpec.specInfo2;
+								// 取得產品價格
+								const productPrice = productSpec.productPrice;
+								//取得即時庫存
+								const specStock = productSpec.specStock;
+								//取得已售出
+								const soldStock = productSpec.soldStock;
+								//取得狀態
+								const shelvesStatus = shelvesStatusName(productSpec.shelvesStatus);
+
+
+								// 也可以將其他產品資料顯示在網頁上
+								list_html += `
+										<tr>
+											<td class="check">
+												<input type="checkbox" class="selectRow" data-page="${targetId}" data-product-spec-id="${productSpecId}">
+											</td>
+											<td><img class="productImg" src="${base64Image}" alt=""></td>
+											<td class="productNameTd">
+												<p class="productName">${productName}</p>
+												<p class="productId">${productSpecId}</p>
+											</td>
+											<td class="spec1">${specType1}<br>${specInfo1}</td>
+											<td class="spec2">${specType2}<br>${specInfo2}</td>
+											<td class="price">NT$${productPrice.toLocaleString()}</td>
+											<td class="stock">${specStock.toLocaleString()}</td>
+											<td class="soldNum">${soldStock.toLocaleString()}</td>
+											<td class="status">${shelvesStatus}</td>
+											<td class="edit_delete_btn">
+												<button class="edit_btn btn btn-primary" type="button">輯編</button>
+											</td>
+										</tr>
+									`;
+							});
+							$(`${productTbody(targetId)}`).html(list_html);
+						})
+						.catch(error => console.error('Error:', error));
+				});
+
 			});
 
-
-
-			$('.stock_update').click(function () {
-				// 按下库存更新按钮时的处理逻辑
-				// 根据当前活动分页执行相应的操作
-				const activeTab = $('.nav-link.active').attr('aria-controls');
-				if (!(activeTab_up == 0 || activeTab == activeTab_up)) {
-					$('.stock_update').removeClass('-on');
-					$('#' + activeTab_up).find('th.operate_txt').text('操作');
-					$('#' + activeTab_up).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button><button class="delete_btn btn btn-primary" type="button">删除</button>');
-				}
-				if ($('.stock_update').hasClass('-on')) {
-					$('.stock_update').removeClass('-on');
-					$('#' + activeTab).find('th.operate_txt').text('操作');
-					$('#' + activeTab).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button><button class="delete_btn btn btn-primary" type="button">删除</button>');
-				} else {
-					$('.stock_update').addClass('-on');
-					$('#' + activeTab).find('th.operate_txt').text('库存更新');
-					$('#' + activeTab).find('.edit_delete_btn').empty().append('<input class="stock_update_num" style="width:50px;text-align: center;" type="text">');
-				}
-				activeTab_up = activeTab;
-			});
 		});
 
+
+		//庫存更新鈕
+		let activeTab_up;
+		$('.stock_update_btn').click(function () {
+			// 按下库存更新按钮时的处理逻辑
+			// 根据当前活动分页执行相应的操作
+			const activeTab = $('.nav-link.active').attr('aria-controls');
+			if (!(activeTab_up == 0 || activeTab == activeTab_up)) {
+				$('.stock_update_btn').removeClass('-on');
+				$('.stock_update_btn').text("庫存異動");
+				$('#' + activeTab_up).find('th.operate_txt').text('操作');
+				$('#' + activeTab_up).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button>');
+			}
+			if ($('.stock_update_btn').hasClass('-on')) {
+				const restockMemberId = "M000000001";
+				// 修改選擇器，僅選擇目前處於 active 狀態的分頁內的複選框
+				var selectedCheckboxes = $(".selectRow:checked[data-page='#" + activeTab + "']");
+				// 取得目前所在分頁內的勾選的商品規格編號
+				var productSpecIds = [];
+				//取得目前所在分頁內的勾選的商品補充數量
+				var restockQuantitys = [];
+				var beforeRestockStocks = [];
+				var hasEmptyStockUpdate = false; // 設定一個變數來檢查是否有空白的補充庫存數量
+				selectedCheckboxes.each(function () {
+					console.log(this);
+					var productSpecId = $(this).data("product-spec-id");
+					var beforeRestockStock = $(this).closest("tr").find(".stock").text();
+					var restockQuantity = $(this).closest("tr").find(".stock_update_num").val();
+					if (restockQuantity.trim() === "" || parseFloat(restockQuantity) <= 0) {
+						alert("補充庫存數量不得為空白或小於等於0");
+						hasEmptyStockUpdate = true; // 將變數設為 true，表示有空白的補充庫存數量
+						return false; // 停止 each 迴圈的執行
+					}
+					productSpecIds.push(productSpecId);
+					beforeRestockStocks.push(beforeRestockStock);
+					restockQuantitys.push(restockQuantity);
+				});
+				if (hasEmptyStockUpdate) {
+					return; // 如果有空白的補充庫存數量，則停止後續的程式碼執行
+				}
+
+				// 將取得的商品規格編號轉換成 JSON 格式，以便送往後端
+				fetch('http://localhost:8080/Niigi/updateStock', {
+					method: 'POST', // 修改這裡為 'POST'
+					body: JSON.stringify({
+						productSpecIds: productSpecIds, restockMemberId: restockMemberId, beforeRestockStocks: beforeRestockStocks, restockQuantitys: restockQuantitys
+					}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						console.log(response);
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						data.forEach(function (productSpec) {
+							//取得產品規格id
+							const productSpecId = productSpec.productSpecId;
+							//取得即時庫存
+							const specStock = productSpec.specStock;
+							$(`#${activeTab} .selectRow[data-product-spec-id="${productSpecId}"]`).closest("tr").find(".stock").text(specStock.toLocaleString());
+						});
+						alert("庫存更新完成");
+
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
+
+				$('.stock_update_btn').removeClass('-on');
+				$('.stock_update_btn').text("庫存異動");
+				$('#' + activeTab).find('th.operate_txt').text('操作');
+				$('#' + activeTab).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button>');
+			} else {
+				$('.stock_update_btn').addClass('-on');
+				$('.stock_update_btn').text("更新庫存");
+				$('#' + activeTab).find('th.operate_txt').text('補充數量');
+				$('#' + activeTab).find('.edit_delete_btn').empty().append('<input class="stock_update_num" style="width:50px;text-align: center;" type="number" min="1">');
+			}
+			activeTab_up = activeTab;
+		});
+
+
+
+		// 綁定「上下架」按鈕的點擊事件
+		$(".status_btn").click(function () {
+			// 取得目前處於 active 狀態的分頁資料的 id
+			const activeTab = $('.nav-link.active').attr('aria-controls');
+			// 修改選擇器，僅選擇目前處於 active 狀態的分頁內的複選框
+			var selectedCheckboxes = $(".selectRow:checked[data-page='#" + activeTab + "']");
+			// 取得目前所在分頁內的勾選的商品規格編號
+			var productSpecIds = [];
+			selectedCheckboxes.each(function () {
+				var productSpecId = $(this).data("product-spec-id");
+				productSpecIds.push(productSpecId);
+			});
+
+			console.log(productSpecIds);
+			//取得會員編號
+			const shelvesMemberId = "M000000001";
+			//取得異動狀態
+			let shelvesStatus;
+			if (activeTab == "navs-top-inprogress") {
+				shelvesStatus = "1";
+			} else {
+				shelvesStatus = "0";
+			}
+
+			// 將取得的商品規格編號轉換成 JSON 格式，以便送往後端
+			fetch('http://localhost:8080/Niigi/StatusButton', {
+				method: 'POST', // 修改這裡為 'POST'
+				body: JSON.stringify({
+					productSpecIds: productSpecIds, shelvesMemberId: shelvesMemberId, shelvesStatus: shelvesStatus
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					console.log(response);
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					if (data == true) {
+						selectedCheckboxes.closest('tr').remove();
+						const remainingRows = $(`#${activeTab} tbody tr`).length;
+						$(`#${activeTab} .productTotal`).text(`${remainingRows}` + "件商品");
+					}
+
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+		});
+
+
+		// 綁定「刪除」按鈕的點擊事件
+		$(".delete_btn").click(function () {
+			// 取得目前處於 active 狀態的分頁資料的 id
+			const activeTab = $('.nav-link.active').attr('aria-controls');
+			// 修改選擇器，僅選擇目前處於 active 狀態的分頁內的複選框
+			var selectedCheckboxes = $(".selectRow:checked[data-page='#" + activeTab + "']");
+			// 取得目前所在分頁內的勾選的商品規格編號
+			var productSpecIds = [];
+			selectedCheckboxes.each(function () {
+				var productSpecId = $(this).data("product-spec-id");
+				productSpecIds.push(productSpecId);
+			});
+			//取得會員編號
+			const shelvesMemberId = "M000000001";
+			//取得異動狀態
+			let shelvesStatus = "2";
+
+			// 將取得的商品規格編號轉換成 JSON 格式，以便送往後端
+			fetch('http://localhost:8080/Niigi/StatusButton', {
+				method: 'POST', // 修改這裡為 'POST'
+				body: JSON.stringify({
+					productSpecIds: productSpecIds, shelvesMemberId: shelvesMemberId, shelvesStatus: shelvesStatus
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					console.log(response);
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					if (data == true) {
+						selectedCheckboxes.closest('tr').remove();
+						const remainingRows = $(`#${activeTab} tbody tr`).length;
+						$(`#${activeTab} .productTotal`).text(`${remainingRows}` + "件商品");
+					}
+
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+		});
 
 
 
