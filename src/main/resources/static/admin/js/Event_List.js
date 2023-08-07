@@ -10,7 +10,7 @@ const search = function () {
         EndDate: document.getElementById("EndDate").value,
     })
 
-    fetch('http://localhost:8080/Niigi/EventSingleThreshold', {
+    fetch('http://localhost:8080/Niigi/Event', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -22,17 +22,17 @@ const search = function () {
         data.forEach(element => {
 
             const row = `<tr>
-                <td> ${element.eventId}</td>
-                <td> ${element.eventRegisterSupplier}</td>
-                <td> ${element.eventName}</td>
-                <td> ${element.eventInfo}</td>
-                <td> ${element.eventStart}</td>
-                <td> ${element.eventEnd}</td>
-                <td> ${element.thresholdType}</td>
-                <td> ${element.minPurchaseQuantity}</td>
-                <td> ${element.minPurchaseAmount}</td>
-                <td> ${element.discountRate}</td>
-                <td> ${element.giftProductSpecId}</td>
+                <td> ${element.eventId || 'N/A'}</td>
+                <td> ${element.eventRegisterSupplier || 'N/A'}</td>
+                <td> ${element.eventName || 'N/A'}</td>
+                <td> ${element.eventInfo || 'N/A'}</td>
+                <td> ${element.eventStart || 'N/A'}</td>
+                <td> ${element.eventEnd || 'N/A'}</td>
+                <td> ${element.thresholdType || 'N/A'}</td>
+                <td> ${element.minPurchaseQuantity || 'N/A'}</td>
+                <td> ${element.minPurchaseAmount || 'N/A'}</td>
+                <td> ${element.discountRate || 'N/A'}</td>
+                <td> ${element.giftProductSpecId || 'N/A'}</td>
                     </tr>`;
             let rowData = "<tr>"
 
@@ -51,7 +51,7 @@ console.log("讀到了")
 document.getElementById("search").addEventListener("click", search);
 
 const init = function () {
-    fetch('http://localhost:8080/EventSingleThreshold', {
+    fetch('http://localhost:8080/Niigi/Event', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -65,17 +65,17 @@ const init = function () {
         data.forEach(element => {
 
             const row = `<tr>
-                <td> ${element.eventId}</td>
-                <td> ${element.eventRegisterSupplier}</td>
-                <td> ${element.eventName}</td>
-                <td> ${element.eventInfo}</td>
-                <td> ${element.eventStart}</td>
-                <td> ${element.eventEnd}</td>
-                <td> ${element.thresholdType}</td>
-                <td> ${element.minPurchaseQuantity}</td>
-                <td> ${element.minPurchaseAmount}</td>
-                <td> ${element.discountRate}</td>
-                <td> ${element.giftProductSpecId}</td>                
+                <td> ${element.eventId || 'N/A'}</td>
+                <td> ${element.eventRegisterSupplier || 'N/A'}</td>
+                <td> ${element.eventName || 'N/A'}</td>
+                <td> ${element.eventInfo || 'N/A'}</td>
+                <td> ${element.eventStart || 'N/A'}</td>
+                <td> ${element.eventEnd || 'N/A'}</td>
+                <td> ${element.thresholdType || 'N/A'}</td>
+                <td> ${element.minPurchaseQuantity || 'N/A'}</td>
+                <td> ${element.minPurchaseAmount || 'N/A'}</td>
+                <td> ${element.discountRate || 'N/A'}</td>
+                <td> ${element.giftProductSpecId || 'N/A'}</td>                
             </tr>`;
             let rowData = "<tr>"
 
@@ -88,3 +88,16 @@ const init = function () {
 }
 // window.addEventListener("load", init);
 init();
+
+const startDateInput = document.getElementById('StartDate');
+const endDateInput = document.getElementById('EndDate');
+const searchCaseInput = document.getElementById('Searchcase');
+const searchSelectInput = document.getElementById('SearchSelect');
+const clearSearchButton = document.getElementById('clearSearch');
+
+clearSearchButton.addEventListener('click', function() {
+  startDateInput.value = '';
+  endDateInput.value = '';
+  searchCaseInput.value = '';
+  searchSelectInput.selectedIndex = 0;
+});
