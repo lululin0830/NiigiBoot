@@ -554,7 +554,7 @@
 			if (textData == "新品上市") {
 				// 在這裡處理後續邏輯，例如將文字送往後端處理
 				// console.log("接收到的文字資料：" + textData);
-				fetch('http://localhost:8080/Niigi/products', {
+				fetch('http://localhost:8080/Niigi/product/products', {
 					method: 'GET'
 				})
 					.then((response) => {
@@ -605,7 +605,7 @@
 
 			} else if (textData == "推薦商品") {
 
-				fetch('http://localhost:8080/Niigi/exproducts', {
+				fetch('http://localhost:8080/Niigi/product/exproducts', {
 					method: 'GET',
 				})
 					.then((response) => {
@@ -657,7 +657,7 @@
 			} else {
 
 				// 使用fetch API向後端發送請求
-				fetch('http://localhost:8080/Niigi/searchCategorie?text=' + encodeURIComponent(textData), {
+				fetch('http://localhost:8080/Niigi/product/searchCategorie?text=' + encodeURIComponent(textData), {
 					method: 'GET'
 				})
 					.then((response) => {
