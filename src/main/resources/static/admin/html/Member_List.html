@@ -471,8 +471,8 @@
             <div class="search-container">
                 <input id="Searchcase" type="text" value="" placeholder="請輸入搜尋條件">
                 <select id="SearchSelect">
-                    <option value="memberId">會員編號</option>
                     <option value="memberAcct">會員帳號</option>
+                    <option value="memberId">會員編號</option>
                 </select>
             </div>
             <div style="height: 20px;"></div>
@@ -480,6 +480,9 @@
                 <input id="StartDate" type="date">
                 <span>~</span>
                 <input id="EndDate" type="date">
+                <select id="DateSelect">
+                    <option value="regTime">註冊時間</option>
+                </select>
                 <input type="button" id="search" value="搜尋">
             </div>
             <br>
@@ -577,9 +580,9 @@
                                     <input id="StartDate1" type="date">
                                     <span>~</span>
                                     <input id="EndDate1" type="date">
-                                    <select id="DateSelect">
-                                        <option value="Order_Create_Time">立單日期</option>
-                                        <option value="Order_Close_Time">結單日期</option>
+                                    <select id="DateSelect2">
+                                        <option value="OrderCreateTime">立單日期</option>
+                                        <option value="OrderCloseTime">結單日期</option>
                                     </select>
                                     <input type="button" id="search" value="搜尋">
                                 </div>
@@ -595,15 +598,6 @@
                                                 <th>金額</th>
                                                 <th>立單時間</th>
                                                 <th>結單時間</th>
-                                            </tr>
-                                            <tr>
-                                                <td>資料 1,1</td>
-                                                <td>資料 1,2</td>
-                                                <td>資料 1,3</td>
-                                                <td>資料 1,4</td>
-                                                <td>資料 1,5</td>
-                                                <td>資料 1,6</td>
-                                                <td>資料 1,7</td>
                                             </tr>
                                         </thead>
                                     </table>

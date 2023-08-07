@@ -21,5 +21,7 @@ public interface MemberService extends CoreService<JsonObject> {
 
 	// 更改密碼
 	public boolean changePassword(String memberId, String oldPassword, String newPassword);
+	
+	public boolean updateMember(String memberId, String name, String phone, String backupEmail, byte[] memPhoto);
 
 }

@@ -1,5 +1,7 @@
 package tw.idv.tibame.shoppingcart.service;
 
+import org.springframework.http.ResponseEntity;
+
 import com.google.gson.JsonObject;
 
 public interface ShoppingCartService {
@@ -19,7 +21,7 @@ public interface ShoppingCartService {
 	/**
 	 * 從購物車移除商品
 	 */
-	boolean removeFromCart(JsonObject data);
+	ResponseEntity<String> removeFromCart(JsonObject data);
 	
 	
 }

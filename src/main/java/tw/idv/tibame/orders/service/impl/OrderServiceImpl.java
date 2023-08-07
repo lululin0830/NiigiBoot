@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
@@ -189,6 +191,7 @@ public class OrderServiceImpl implements OrderService {
 		double pDiscountRatio = pointsDiscount / totalAmount;
 		double cDiscountRatio = couponDiscount / totalAmount;
 
+		mainOrder.setTotalAmount(totalAmount);
 		mainOrder.setTotalGrossProfit(totalGrossProfit);
 		mainOrder.setPaidAmount(paidAmount);
 
@@ -441,6 +444,34 @@ public class OrderServiceImpl implements OrderService {
 		
 		return subOrderDAO.subOrderDetailcomment(subOrderId);
 	}
+
+	@Override
+	public String updateSubOrderDetailComment(String json) {
+		
+//		Object[] jsonlist = gson.fromJson(json, Object[].class);
+		JsonArray jsonlist = gson.fromJson(json, JsonArray.class);
+		
+		
+		
+		
+//		System.out.println(jsonObject);
+		
+		for(int i=0;i<jsonlist.size();i++) {
+			
+			JsonElement temp = jsonlist.get(i);
+			;
+			
+			int ratingStar = temp.getAsJsonObject().get("ratingStar").getAsInt();
+			String comment = temp.getAsJsonObject().get("comment").getAsString();
+			String orderDetailId = temp.getAsJsonObject().get("orderDetailId").getAsString();
+			
+			subOrderDetailDAO.updateSubOrderDetailComment(ratingStar,comment,orderDetailId);
+		}
+		
+		return "評價成功";
+		
+	}
+	
 	
 	
 }

@@ -99,7 +99,7 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 	public String checkOrderDetail(String subOrderId) {
 		
 		String hql = "SELECT sod.productSpecId,pd.productName,sod.productPrice,so.recipient,"
-				+ "so.phoneNum,so.deliveryAddress,so.deliveryAddress,so.deliveryAddress FROM "
+				+ "so.phoneNum,so.deliveryAddress,pd.picture1,so.deliveryAddress FROM "
 				+ "SubOrder as so,SubOrderDetail as sod,Product as pd where so.subOrderId = :subOrderId AND "
 				+ "so.subOrderId = sod.subOrderId and sod.productId = pd.productId ";
 		
@@ -107,6 +107,17 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 		query.setParameter("subOrderId", subOrderId);
 		
 		return gson.toJson(query.getResultList());
+	}
+
+	@Override
+	public String updateSubOrderDetailComment(int ratingStar, String comment,String orderDetailId) {
+		String hql = "update SubOrderDetail SET ratingStar = :ratingStar,comment = :comment where orderDetailId = :orderDetailId ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ratingStar", ratingStar);
+		query.setParameter("comment", comment);
+		query.setParameter("orderDetailId", orderDetailId);
+		query.executeUpdate();
+		return "評價成功";
 	}
 	
 	
