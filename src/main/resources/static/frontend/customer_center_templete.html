@@ -361,8 +361,8 @@
                         <img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
                     </div>
                     <div class="member-info col-sm-8">
-                        <h4 class="memberAccount">jeffrey47</h4>
-                        <h6 class="memberId">M123456789</h6>
+                        <h4 class="memberAccount"></h4>
+                        <h6 class="memberId"></h6>
                     </div>
                 </div>
                 <ul class="nav1_list">
@@ -370,46 +370,46 @@
                         <h4>MENU</h4>
                     </li>
                     <li class="active">
-                        <a href="#">
+                        <a href="customer_personal_center.html">
                             <img src="./image/Chart.svg" alt="">
                             <img src="./image/Chart-a.svg" alt="">個人中心
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="collect_box.html">
                             <img src="./image/heart-s.svg" alt="">
                             <img src="./image/heart-s-a.svg" alt="">收藏夾</a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="shopping_cart.html">
                             <img src="./image/Buy1.svg" alt="">
                             <img src="./image/Buy1-a.svg" alt="">購物車</a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="check_order.html">
                             <img src="./image/DocumentAsh.svg" alt="">
                             <img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="customer_point_record.html">
                             <img src="./image/Discount.svg" alt="">
                             <img src="./image/Discount-a.svg" alt="">會員點數</a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="./image/Ticket Star.svg" alt="">
-                            <img src="./image/Ticket Star-a.svg" alt="">我的折價券</a>
+                        <a href="mycoupon.html">
+                            <img src="./image/Ticket_Star.svg" alt="">
+                            <img src="./image/Ticket_Star-a.svg" alt="">我的折價券</a>
                     </li>
                     <li>
                         <h4>OTHERS</h4>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="customer_Information.html">
                             <img src="./image/Profile1.svg" alt="">
                             <img src="./image/Profile1-a.svg" alt="">個人資訊</a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="customer_change_password.html">
                             <img src="./image/Setting.svg" alt="">
                             <img src="./image/Setting-a.svg" alt="">帳號管理</a>
                     </li>
@@ -478,37 +478,7 @@
     </footer>
 
     <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    <script>
-        // 獲取.member_account元素
-        var memberAccount = document.querySelector('.memberAccount');
-
-        // 獲取.member_account的文字內容
-        var textContent = memberAccount.textContent.trim();
-
-        // 計算文字內容的長度
-        var textLength = textContent.length;
-
-        // 設定字體大小變數
-        var fontSizeVar = '--font-size';
-
-        // 設定文字長度與字體大小的映射關係
-        var lengthToFontSize = {
-            5: '16px',
-            10: '14px',
-            15: '12px',
-            20: '10px',
-            25: '8px',
-            30: '6px',
-            35: '4px',
-            40: '2px'
-            // 根據需要添加更多的映射關係
-        };
-
-        // 檢查文字長度是否在映射表中，並設置對應的字體大小
-        if (lengthToFontSize.hasOwnProperty(textLength)) {
-            memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
-        } 
-    </script>
+    <script src="./js/core_customer.js"></script>
 </body>
 
 </html>
