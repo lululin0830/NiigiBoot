@@ -17,9 +17,15 @@ import tw.idv.tibame.events.service.EventSingleThresholdService;
 @WebServlet("/Event")
 public class Event extends HttpServlet{
 
-	private static final long serialVersionUID = 1L;
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3522980769751333209L;
+	
 	private EventSingleThresholdService eventSingleThresholdService;
+	
 	private Gson gson;
 	@Override
 	public void init() throws ServletException {
@@ -62,6 +68,7 @@ public class Event extends HttpServlet{
 		JsonElement req = gson.fromJson(request.getReader(), JsonElement.class);
 		JsonObject searchCondition = req.getAsJsonObject();
 		
-		
+		response.getWriter().print(eventSingleThresholdService.getBySearch(searchCondition));
+		System.out.println((eventSingleThresholdService.getBySearch(searchCondition)));
 	}
 }

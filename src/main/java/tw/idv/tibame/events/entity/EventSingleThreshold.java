@@ -1,5 +1,6 @@
 package tw.idv.tibame.events.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import jakarta.persistence.Column;
@@ -19,8 +20,14 @@ import tw.idv.tibame.events.entity.enumtype.ThresholdType;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventSingleThreshold {
+public class EventSingleThreshold implements Serializable{
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -570933023050711722L;
+	
 	@Id
 	private String eventId;
 	private String eventRegisterSupplier;
