@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.idv.tibame.core.util.JwtUtil;
 import tw.idv.tibame.members.entity.Members;
 import tw.idv.tibame.members.service.MemberService;
 
@@ -58,5 +60,13 @@ public class MemberController {
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(token);
 		}
+	}
+	
+	@PostMapping("/customerCenter")
+	public ResponseEntity<String> showAside (@RequestHeader("Authorization") String jwtToken){
+
+		System.out.println("jwtToken" + jwtToken);
+		
+		return service.showAsideInfo(jwtToken);
 	}
 }
