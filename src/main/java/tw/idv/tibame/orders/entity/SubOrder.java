@@ -47,5 +47,6 @@ public class SubOrder implements java.io.Serializable{
 	private String recipient;
 	private String phoneNum;
 	private String deliveryAddress;
+	private String commentStatus;
 
 }
