@@ -334,6 +334,12 @@
         div.product-star span.star.-halfon img {
             content: url("./image/Star-halfon.svg");
         }
+
+        button.btn.disable {
+            background-color: #D9D9D9;
+            color: black;
+
+        }
     </style>
 
 </head>
@@ -1033,8 +1039,8 @@
                                         </div>
 
                                         <div class="modal-body">
-                                            <ul id="orderDetailList" class="order-item-list">
-                                                <li class="order-item row">
+                                            <ul id="cancelProductBlock" class="order-item-list">
+                                                <!-- <li class="order-item row">
                                                     <div class="col">
                                                         <input type="checkbox" class="select-order-item">
                                                     </div>
@@ -1075,7 +1081,7 @@
                                                         </h4>
                                                     </div>
                                                     <hr>
-                                                </li>
+                                                </li> -->
 
                                             </ul>
                                             <hr>
@@ -1096,7 +1102,8 @@
                                                         placeholder="請輸入退貨原因"></textarea>
                                                 </div>
                                                 <div class="col-sm-12 row">
-                                                    <button type="submit" class="btn btn-primary btn-XL">我要退貨</button>
+                                                    <button type="submit" class="btn btn-primary btn-XL"
+                                                        id="submitCancelProduct">我要退貨</button>
                                                 </div>
                                             </div>
                                         </div>

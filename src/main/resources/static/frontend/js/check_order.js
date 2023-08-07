@@ -17,6 +17,8 @@ const mainorder4 = document.querySelector("#navs-top-complete>ul.sub-order-list"
 const mainorder5 = document.querySelector("#navs-top-cancel>ul.sub-order-list");
 //去評價彈窗
 const comment = document.querySelector('.commentbox');
+//退貨談窗
+const cancelProductBlock = document.getElementById('cancelProductBlock');
 
 let EIF = null;
 let bodyHtml = null;
@@ -231,7 +233,7 @@ const transportBody = function (element) {
 
             <!-- Button trigger modal -->
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL"
+                <button type="button" class="btn btn-primary btn-XL cancelProduct"
                     data-bs-toggle="modal" data-bs-target="#refundModal">
                     退貨
                 </button>
@@ -288,9 +290,9 @@ const completeBody = function (element) {
                 </button>
             </div>
             <div class="navs-top-btn">
-                <button type="button" class="btn btn-primary btn-XL evaluate"
-                    data-bs-toggle="modal" data-bs-target="#commentModal">
-                    去評價
+                <button type="button" class="btn btn-primary btn-XL evaluate ${element[10] == '1' ? 'disable' : ''}"
+                    data-bs-toggle="modal" data-bs-target="#commentModal" ${element[10] == '1' ? 'disabled ' : ''}>
+                    ${element[10] == '1' ? '已評價' : '去評價'}
                 </button>
             </div>
 
@@ -426,6 +428,32 @@ const commentbox = function (arr) {
 	bodyHtml += html
 
 }
+const cancelProductbody = function (arr) {
+	const imageElement = createImageURL(arr[6])
+	bodyHtml = null;
+	let html =
+		`<li class="order-item row" data-id="${arr[8]}">
+			<div class="col">
+				<input type="checkbox" class="select-order-item">
+			</div>
+			<div class="col-sm-1">
+				<img src=${imageElement} alt="">
+			</div>
+			<div class="col-sm-7">
+				<h5 class="product-id">
+					#<span>${arr[0]}</span></h5>
+				<h4 class="product-name">${arr[1]}</h4>
+			</div>
+			<div class="col-sm-3">
+				<h4 class="product-price">
+					NT$<span>${arr[2]}</span>
+				</h4>
+			</div>
+			<hr>
+		</li>`
+	bodyHtml += html
+}
+
 // 圖片轉換
 function createImageURL(byteArray) {
 	const blob = new Blob([new Uint8Array(byteArray)], { type: 'image/jpeg' });
@@ -533,7 +561,10 @@ const init = function () {
 		//去評價按鈕
 		document.querySelectorAll("button.evaluate").forEach(function (e) {
 			e.addEventListener("click", subOrderDetailcomment);
-			console.log("綁定中")
+		})
+		//退貨按鈕
+		document.querySelectorAll("button.cancelProduct").forEach(function (e) {
+			e.addEventListener("click", cancelProduct);
 		})
 
 	})
@@ -764,4 +795,42 @@ const submitComment = function () {
 
 
 	})
+}
+
+//退貨視窗
+const cancelProduct = function () {
+
+	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
+	console.log("subOrderId", subOrderId)
+
+	fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetail', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+		},
+		body: subOrderId
+	}).then(r => r.json()).then(data => {
+		console.log("查看退貨訂單", data)
+		data.forEach(function (element) {
+			console.log("查看退貨element", element)
+			cancelProductbody(element)
+			cancelProductBlock.insertAdjacentHTML("beforeend", bodyHtml);
+			document.getElementById('submitCancelProduct').addEventListener('click', function () {
+				submitCancelProduct();
+			})
+		})
+	})
+}
+
+const submitCancelProduct = function () {
+	const orderDetaillist = []
+	document.querySelectorAll('.select-order-item').forEach(function (e) {
+		if (e.checked) {
+			const orderDetailId = e.closest('li.order-item').dataset.id
+			orderDetaillist.push(orderDetailId)
+
+		}
+
+	})
+
 }
