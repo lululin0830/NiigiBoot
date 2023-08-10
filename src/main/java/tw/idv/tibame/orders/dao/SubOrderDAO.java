@@ -29,5 +29,6 @@ public interface SubOrderDAO extends CoreDAO<SubOrder, String>{
     public String cancelSubOrder(String subOrderId);
     //會員訂單中心 評價訂單明細
     public String subOrderDetailcomment(String subOrderId);
-    
+    //會員訂單中心 退貨
+    public String orderRefundUpdate(String refundSubOrderId,String refundReason,String refundMark);
 }

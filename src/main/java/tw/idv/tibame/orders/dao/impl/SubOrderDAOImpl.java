@@ -219,11 +219,19 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		Query<?> query = session.createQuery(hql);
 		query.setParameter("subOrderId", subOrderId);
 		
-		return gson.toJson(query.getResultList());
-		
-		
-		
-		
+		return gson.toJson(query.getResultList());	
 	}
+
+	@Override
+	public String orderRefundUpdate(String refundSubOrderId, String refundReason, String refundMark) {
+
+		String subHql = "UPDATE SubOrder SET subOrderStatus = '4' where subOrderId = :subOrderId";
+		Query<SubOrder>query = session.createQuery(subHql);
+		query.setParameter("subOrderId", refundSubOrderId);
+		query.executeUpdate();
+		return "子訂單更新狀態成功";
+	}
+	
+	
 	
 }
