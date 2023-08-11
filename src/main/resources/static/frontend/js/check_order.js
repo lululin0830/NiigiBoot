@@ -23,6 +23,7 @@ const cancelProductBlock = document.getElementById('cancelProductBlock');
 let EIF = null;
 let bodyHtml = null;
 let updateCommentlist = []
+let refundSubOrderId = null;
 const paymentPendingBody = function (arr) {
 
 	console.log("我是arr", arr)
@@ -432,9 +433,8 @@ const cancelProductbody = function (arr) {
 	const imageElement = createImageURL(arr[6])
 	bodyHtml = null;
 	let html =
-		`<li class="order-item row" data-id="${arr[8]}">
+		`<li class="order-item-detail row" data-id="${arr[8]}">
 			<div class="col">
-				<input type="checkbox" class="select-order-item">
 			</div>
 			<div class="col-sm-1">
 				<img src=${imageElement} alt="">
@@ -802,7 +802,8 @@ const cancelProduct = function () {
 
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	console.log("subOrderId", subOrderId)
-
+	cancelProductBlock.innerHTML = ""
+	refundSubOrderId = subOrderId
 	fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetail', {
 		method: 'POST',
 		headers: {
@@ -823,14 +824,20 @@ const cancelProduct = function () {
 }
 
 const submitCancelProduct = function () {
-	const orderDetaillist = []
-	document.querySelectorAll('.select-order-item').forEach(function (e) {
-		if (e.checked) {
-			const orderDetailId = e.closest('li.order-item').dataset.id
-			orderDetaillist.push(orderDetailId)
 
-		}
+	const refundData = {
+		refundSubOrderId: refundSubOrderId,
+		refundReason: document.getElementById("refundReason").value,
+		refundMark: document.getElementById("refundRemark").value
+	}
+	console.log(refundData)
 
+	fetch('http://localhost:8080/Niigi/MemberCheckOrder/updateRefund', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+		},
+		body: JSON.stringify(refundData)
 	})
-
+	document.getElementById("btnClose").click();
 }

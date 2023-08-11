@@ -471,6 +471,22 @@ public class OrderServiceImpl implements OrderService {
 		return "評價成功";
 		
 	}
+
+	@Override
+	public String orderRefundUpdate(String json) {
+		
+		JsonObject jsonlist = gson.fromJson(json, JsonObject.class);
+		
+		String refundSubOrderId = jsonlist.get("refundSubOrderId").getAsString();
+		String refundReason = jsonlist.get("refundReason").getAsString();
+		String refundMark = jsonlist.get("refundMark").getAsString();
+
+		
+		subOrderDAO.orderRefundUpdate(refundSubOrderId,refundReason,refundMark);
+		subOrderDetailDAO.refundMark(refundSubOrderId, refundReason, refundMark);
+		return "評價成功";
+	}
+	
 	
 	
 	

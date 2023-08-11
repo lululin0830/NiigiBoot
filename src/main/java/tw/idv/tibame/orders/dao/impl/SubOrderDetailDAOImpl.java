@@ -119,7 +119,19 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 		query.executeUpdate();
 		return "評價成功";
 	}
-	
-	
+
+	@Override
+	public String refundMark(String refundSubOrderId, String refundReason, String refundMark) {
+		String detailHql = "UPDATE SubOrderDetail " +
+				"SET refundReason = :refundReason, refundRemark = :refundMark " +
+				"WHERE subOrderId = :refundSubOrderId"; 
+		
+		Query<?> query = session.createQuery(detailHql);
+		query.setParameter("refundReason", refundReason);
+		query.setParameter("refundMark", refundMark);
+		query.setParameter("refundSubOrderId", refundSubOrderId);
+		query.executeUpdate();
+		return "評價更新成功";
+	}
 
 }
