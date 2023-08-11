@@ -2,6 +2,7 @@ package tw.idv.tibame.products.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -80,5 +82,19 @@ public class ProductController {
 					.body(String.format("error:%s , errMsg: %s", "系統繁忙中...請稍後再試", e.getMessage()));
 		}
     }
+	
+	@PostMapping("/insertProduct")
+	public Integer createProduct(@RequestBody Map<String, String> requestData) throws Exception {
+		String registerSupplier = requestData.get("registerSupplier");
+		String categorieId = requestData.get("categorieId");
+		String productName = requestData.get("productName");
+		String productPrice = requestData.get("productPrice");
+		String productInfo = requestData.get("productInfo");
+		String productStatus = requestData.get("productStatus");
+		return service.addProduct(registerSupplier,categorieId,productName,productPrice,productInfo,productStatus);
+	}
+	
+	
+	
 
 }
