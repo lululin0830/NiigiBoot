@@ -1,9 +1,11 @@
 package tw.idv.tibame.products.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import tw.idv.tibame.products.DTO.ProductSpecManageDTO;
-import tw.idv.tibame.products.entity.ProductSpec;
 
 
 
@@ -46,7 +48,13 @@ public interface ProductSpecService {
 	//針對上下架按鈕
 	public Boolean updateStatusButton(String[] productSpecIds, String shelvesMemberId, String shelvesStatus)throws Exception;
 	
+	// 以下是獲取pk號碼使用
+	public String concatPKID(String productId) throws Exception;
 	
+	//新增規格(不含圖片)
+	public String insertSpecProductText(String productId, String specType1, String specInfo1, String specType2,
+			String specInfo2, String initialStock) throws Exception;
 	
-	
+	//上傳規格圖片
+	public void saveSpecPicture(String productSpecId, MultipartFile image) throws IOException;
 }
