@@ -32,8 +32,8 @@ public class JwtUtil implements Serializable {
 	private static final long serialVersionUID = -7699280065575291990L;
 
 	private static final String SECRET_KEY = JwtConfig.getJwtSecretKey();
-	private static final long EXPIRATION_TIME = 3600000; // Token的生存時間(先設1hr)
-
+//	private static final long EXPIRATION_TIME = 3600000; // Token的生存時間(先設1hr)
+	private static final long EXPIRATION_TIME = 86400000; // Token的生存時間(先設1hr)
 	// 生成JWT Token
 	public static String generateJwtToken(String userId, String userName) {
 		
@@ -82,8 +82,11 @@ public class JwtUtil implements Serializable {
 		}
 	}
 
-	public static Map<String, String> validateJwtTokenAndSendInfo(String jwtToken) {
+	public static Map<String, String> validateJwtTokenAndSendInfo(String bearerToken) {
+		
+		final String jwtToken = bearerToken.replace("Bearer ", "");
 		Map<String, String> response = new HashMap<>();
+		
 		try {
 			// 使用SecretKeySpec來產生用於驗證JWT簽名的Key
 			Key key = new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
