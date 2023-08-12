@@ -544,17 +544,6 @@
                         <label for="password">預設密碼：</label>
                         <input type="text" id="password" name="password" value="">
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="username">權限設定：</label>
-                        <input type="radio" id="personnel" name="quantity" value="personnel">
-                        <label for="male">人事</label>
-                        <input type="radio" id="finance" name="quantity" value="finance">
-                        <label for="female">財務</label>
-                        <input type="radio" id="marketing" name="quantity" value="marketing">
-                        <label for="male">行銷</label>
-                        <input type="radio" id="customer_service" name="quantity" value="customer_service">
-                        <label for="female">客服</label>
-                    </div> -->
                     <div id="msg" class="error"></div>
                     <div class="form-group">
                         <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
@@ -575,33 +564,38 @@
                 <div class="modal-body d-flex flex-column justify-content-center align-items-center">
                     <h3>帳號設定</h3>
                     <div style="height: 20px;"></div>
-                    <div class="form-group-1">
-                        <label for="current-balance">使用者名稱：</label>
-                        <input type="text" id="username" name="username" readonly value="xxxx">
-                    </div>
-                    <div class="form-group-1">
-                        <label for="change-balance">使用者帳號：</label>
-                        <input type="text" id="useracct" name="useracct" readonly value="xxxxxx">
-                    </div>
-                    <div class="form-group-1">
-                        <label for="change-balance">設定新密碼：</label>
-                        <input type="text" id="change-balance" name="change-balance" value="">
-                    </div>
-                    <div class="form-group">
-                        <label for="username">權限設定：</label>
-                        <input type="radio" id="personnel" name="quantity" value="personnel">
-                        <label for="male">人事</label>
-                        <input type="radio" id="finance" name="quantity" value="finance">
-                        <label for="female">財務</label>
-                        <input type="radio" id="marketing" name="quantity" value="marketing">
-                        <label for="male">行銷</label>
-                        <input type="radio" id="customer_service" name="quantity" value="customer_service">
-                        <label for="female">客服</label>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
-                        <button type="button" class="btn-primary">儲存變更</button>
-                    </div>
+                    <form>
+                        <div class="form-group-1 d-flex justify-content-center">
+                            <label for="current-balance">使用者名稱：</label>
+                            <input type="text" id="username" name="username" readonly value="xxxx">
+                        </div>
+                        <div style="height: 20px;"></div>
+                        <div class="form-group-1 d-flex justify-content-center">
+                            <label for="change-balance">使用者帳號：</label>
+                            <input type="text" id="useracct" name="useracct" readonly value="xxxxxx">
+                        </div>
+                        <div style="height: 20px;"></div>
+                        <div class="form-group-1 d-flex justify-content-center">
+                            <label for="change-balance">設定新密碼：</label>
+                            <input type="text" id="changePassword" name="change-balance" value="">
+                        </div>
+                        <div style="height: 20px;"></div>
+                        <div class="form-group">
+                            <h5>權限設定：</h5>
+                            <input type="radio" id="hrAuthority" name="quantity" value="1">
+                            <label for="hrAuthority">人事</label>
+                            <input type="radio" id="financialAuthority" name="quantity" value="2">
+                            <label for="financialAuthority">財務</label>
+                            <input type="radio" id="marketingAuthority" name="quantity" value="3">
+                            <label for="marketingAuthority">行銷</label>
+                            <input type="radio" id="customerServiceAuthority" name="quantity" value="4">
+                            <label for="customerServiceAuthority">客服</label>
+                        </div>
+                        <div class="form-group d-flex justify-content-center">
+                            <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
+                            <button type="button" class="btn-primary" id="savebutton">儲存變更</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -623,7 +617,7 @@
                     </div>
                     <div class="form-group">
                         <button type="button" class="btn-primary" data-bs-dismiss="modal">取消</button>
-                        <button type="button" class="btn-primary" id="remove" >刪除</button>
+                        <button type="button" class="btn-primary" id="remove">刪除</button>
                     </div>
                 </div>
             </div>
