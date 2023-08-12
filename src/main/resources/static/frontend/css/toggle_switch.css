@@ -1,0 +1,44 @@
+.toggle__input{
+    visibility: hidden;
+    pointer-events: none;
+  }
+  
+  .toggle__label{
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    border: 2px solid lightgrey;
+    border-radius: 30px;
+    background: #ffe4e4;
+    cursor: pointer;
+    
+    position: relative;
+  }
+  .toggle__label::before{
+    content:'off';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: #af4154;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 30px;
+    text-align: center;
+    font-size: 15px;
+      position: absolute;
+    left: 0;
+    top: 0;
+    transform: rotate(0);
+    
+    transition: 1s;
+  }
+  .toggle__input:checked + .toggle__label{
+    background: #bedce3;
+  }
+  
+  .toggle__input:checked + .toggle__label::before{
+    content:'on';
+    background: #0b7fab;
+    left: 30px;
+    transform: rotate(360deg);
+  }

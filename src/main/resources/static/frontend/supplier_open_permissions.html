@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shop Open Permissions</title>
-    <link rel="stylesheet" href="../vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/carousel.css">
-    <link rel="stylesheet" href="../css/core.css">
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/button.css">
+    <link rel="stylesheet" href="../frontend/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../frontend/css/carousel.css">
+    <link rel="stylesheet" href="../frontend/css/core.css">
+    <link rel="stylesheet" href="../frontend/css/font.css">
+    <link rel="stylesheet" href="../frontend/css/button.css">
         
     <style>
         main.main_content {
@@ -16,15 +16,12 @@
             background-color: #ffffff;
         }
 
-        div.main_content {
-            font-size: 0;
-        }
-
+        
         /* main content */
         main.content {
             display: inline-block;
             vertical-align: top;
-            padding-left: 25px;
+            
         }
 
         div.main-content-icon {
@@ -61,9 +58,9 @@
         .modal-content {
             background-color: #fefefe;
             margin: 15% auto;
-            padding: 20px;
+            padding: 10px;
             border: 1px solid #888;
-            width: 400px;
+            width: 490px;
         }
 
         .close {
@@ -79,6 +76,14 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* 地址選取器 */
+        div.twzipcode {
+            font-size: 1.6rem;
+            padding: 0 0.8rem;
+            justify-content: space-between;
+            gap: 2rem;
+        }
     </style>
 </head>
 <body>
@@ -91,19 +96,32 @@
             </div>
             <br>
             <form>
-                <label for="companyNumber" style="width: 80px; display: inline-block; vertical-align: top;">企業統一編號:</label>
+                <label for="companyNumber">企業統一編號:</label>
                 <input type="text" id="companyNumber" name="companyNumber">
-                
-                <label for="idNumber" style="width: 80px; display: inline-block; vertical-align: top;">負責人身份證字號:</label>
-                <input type="text" id="idNumber" name="idNumber">
-            
-                <label for="address" style="width: 80px; display: inline-block; vertical-align: top;">負責人戶籍地址:</label>
-                <select id="city6" placeholder="請選擇縣市"></select>
-                <select id="dist6" placeholder="請選擇鄉鎮區"></select>
-                <input style="width: 80px; margin-left: 85px;" data-selected-city="請選擇縣市" class="js-demeter-tw-zipcode-selector" data-city="#city6" data-dist="#dist6" placeholder="郵遞區號"/>
-                <input style="width: 80px; display: inline-block; vertical-align: top;" type="text" id="address" name="address">
                 <br>
-                <label for="companyNumber" style="width: 80px; display: inline-block; vertical-align: top;">企業銀行帳號:</label>
+                <br>
+                <label for="idNumber">負責人身份證字號:</label>
+                <input type="text" id="idNumber" name="idNumber">
+                <br>
+                <br>
+                
+                <div class="row">
+                    <div class="col-sm-8">
+                        <label for="address">負責人戶籍地址:</label>
+                        <div class="twzipcode row" id="memberAddress">
+                            <select data-role="county" name="buyerInfo" class="form-select col"
+                                required></select>
+                            <select data-role="district" name="buyerInfo" class="form-select col"
+                                required></select>
+                            <input data-role="zipcode" name="buyerInfo" class="form-control col" required />
+                        </div>
+                        <input type="text" name="buyerInfo" class="form-control mt-3" id="addressShort"
+                            placeholder="請輸入地址" required>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <label for="companyNumber">企業銀行帳號:</label>
                 <select style="width: 50px;"> 
                     <option value="004">004 - 臺灣銀行</option> 
                     <option value="005">005 - 土地銀行</option> 
@@ -208,7 +226,7 @@
                     <option value="954">954 - 中南部地區農漁會</option>
                     </select>
                 <input type="text" id="companyacctNumber" name="companyacctNumber">
-                
+                <br>
                 <br>
                 <div style="display: flex; justify-content: center;">
                     <button type="button" class="btn btn-primary">申請開通</button>
@@ -249,9 +267,9 @@
             }
         }
     </script>
-    <script src="../vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../vendors/jquery/jquery-3.7.0.min.js"></script>
-    <script src="../js/tw_zipcode.js"></script>
+    <script src="../frontend/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../frontend/vendors/jquery/jquery-3.7.0.min.js"></script>
+    <script src="../frontend/vendors/twzipcode/twzipcode.min.js"></script>
     
     <script>
         // 獲取.member_account元素
@@ -284,5 +302,6 @@
             memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
         } 
     </script>
+    <script src="./js/checkout_page.js"></script>
 </body>
 </html>
