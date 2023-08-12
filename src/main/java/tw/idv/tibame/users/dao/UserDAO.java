@@ -8,10 +8,12 @@ import tw.idv.tibame.users.entity.Users;
 
 public interface UserDAO extends CoreDAO<Users, String>{
 	// 萬用更新
-		public int update(Users newUser);
+		public Users update(Users newUser);
 
 		// 刪除
 		public int deleteByUserId(Integer userId);
+		
+		public Users selectBuUserId(String userId);
 
 		// 找名稱
 		public Users selectByUserName(String userName);
@@ -25,4 +27,6 @@ public interface UserDAO extends CoreDAO<Users, String>{
 		public String getAllInit();
 		
 		public String getAllBySearch(String searchCase,String searchSelect);
+		
+		public String selectPasswordByUserAcct(String userAcct);
 }
