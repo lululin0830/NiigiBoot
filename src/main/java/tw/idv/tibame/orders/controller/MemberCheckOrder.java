@@ -65,4 +65,11 @@ public class MemberCheckOrder{
 		System.out.println("Json"+json);
 		return orderService.updateSubOrderDetailComment(json);
 	}
+	
+	@PostMapping("/updateRefund")
+	public String orderRefundUpdate(@RequestBody String json) {
+		System.out.println(json);
+		orderService.orderRefundUpdate(json);
+		return null;
+	}
 }

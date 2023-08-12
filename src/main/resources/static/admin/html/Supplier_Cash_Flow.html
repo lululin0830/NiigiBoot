@@ -15,9 +15,89 @@
     <link rel="stylesheet" href="../vendors/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../css/adminlte.min.css">
+    <link rel="stylesheet" href="../../front/css/button.css">
+    <link rel="stylesheet" href="../../front/vendors/bootstrap/bootstrap.min.css">
     <style>
         th {
             border: solid 3px white;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        td {
+            border: solid 3px white;
+            text-align: center;
+        }
+
+        .main_list {
+            padding: 0 0 0 14px;
+        }
+
+        .page-icon {
+            margin: 20px 0 0 0;
+            /*設置距離頂部20像素*/
+            font-size: 0;
+            /*修復行內元素之間空隙間隔*/
+            text-align: center;
+            /*設置內容居中顯示*/
+        }
+
+        /*設置共有的的樣式佈局，主要是進行代碼優化，提高運行效率*/
+        .page-icon a,
+        .page-disabled,
+        .page-next {
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 4px 10px 5px;
+            font-size: 14PX;
+            /*修復行內元素之間空隙間隔*/
+            margin-right: 10px;
+        }
+
+        /*對 a 標籤進行樣式佈局 */
+        .page-icon a {
+            text-decoration: none;
+            /*取消鏈接的下劃線*/
+            color: gray;
+        }
+
+        .page-current {
+            color: white;
+            padding: 4px 10px 5px;
+            font-size: 14PX;
+            /*修復行內元素之間空隙間隔*/
+        }
+
+        .page-disabled {
+            color: #ccc;
+        }
+
+        .page-next i,
+        .page-disabled i {
+            cursor: pointer;
+            /*設置鼠標經過時的顯示狀態，這裏設置的是顯示狀態爲小手狀態*/
+            display: inline-block;
+            /*設置顯示的方式爲行內塊元素*/
+            width: 5px;
+            height: 9px;
+            background-image: url(http://img.mukewang.com/547fdbc60001bab900880700.gif);
+            /*獲取圖標的背景鏈接*/
+        }
+
+        .page-disabled i {
+            background-position: -80px -608px;
+            margin-right: 3px;
+        }
+
+        .page-next i {
+            background-position: -62px -608px;
+            margin-left: 3px;
         }
     </style>
 </head>
@@ -389,13 +469,154 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">頁面標題寫在這邊</h1>
+                            <h1 class="m-0">商家金流</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
 
             <!-- =================================內容寫在這邊================================= -->
+            <div class="main_list">
+                <div>
+                    <input id="StartDate" type="date">
+                    <!-- <span style="font-size: 50px; vertical-align: middle; position: relative; top: 0px;">~</span> -->
+                    <span style="font-size: 50px; vertical-align: middle; position: relative; top: 0px;">~</span>
+                    <input id="EndDate" type="date">
+
+                    <input class="search_input" type="text" placeholder="請輸入訂單編號" value="">
+
+                    <select id="collectionSelect">
+                        <option value="order_id">訂單編號</option>
+                        <option value="member_id">會員帳號</option>
+                        <option value="supplier_id">商家帳號</option>
+                        <option value="order_create_time">訂單成立日期</option>
+                        <option value="order_close_time">訂單結案日期</option>
+                    </select>
+                    <input type="button" id="search" value="搜尋">
+                    <input type="button" id="exportCSV" value="匯出CSV">
+
+                </div>
+                <div>
+                    <table>
+                        <thead>
+                            <th>商家帳號</th>
+                            <th>商家編號</th>
+                            <th>商家總進帳</th>
+                            <th>商家總扣款</th>
+                            <th>總毛利</th>
+                            <th>待撥餘額</th>
+                            <th>代扣餘額</th>
+                            <th>查詢扣款</th>
+                            <th>操作</th>
+                        </thead>
+                        <tbody id="searchResult">
+                            <td>xxxxx</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><input type="button" id="debitRecord" value="扣款紀錄"></td>
+                            <td><button type="button" class="btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#Modal-1">
+                                    待撥/扣金額編輯
+                                </button>
+                                <input type="button" id="addDebit" value="新增扣款">
+                            </td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 待撥/扣金額編輯 -->
+            <div class="modal fade" id="Modal-1" tabindex="-1" aria-labelledby="debitEdit" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+                            <h3>待撥/扣金額編輯</h3>
+                            <div style="height: 20px;"></div>
+                            <div class="form-group">
+                                <label for="current-balance">待撥款項：</label>
+                                <input type="text" id="current-balance" name="current-balance" readonly value="100000">
+                                <button type="button" class="btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#Modal-a1">
+                                    編輯
+                                </button>
+                            </div>
+                            
+
+                            <div class="form-group">
+                                <label for="change-balance">待扣款項：</label>
+                                <input type="text" id="change-balance" name="change-balance" readonly value="100000">
+                                <button type="button" class="btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#Modal-a2">
+                                    編輯
+                                </button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="button" class="btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#myModal-3">完成編輯</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 待撥金額編輯 -->
+            <div class="modal fade" id="Modal-a1" tabindex="-1" aria-labelledby="debitEdit1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex flex-column justify-content-center align-items-center">
+                            <h3>待撥金額編輯</h3>
+                            <div style="height: 20px;"></div>
+                            <div class="form-group">
+                                <label for="current-balance">待撥款項：</label>
+                                <input type="text" id="current-balance" name="current-balance" readonly value="100000">
+                                <button type="button" class="btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#Modal-a1">
+                                    編輯
+                                </button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="change-balance">待扣款項：</label>
+                                <input type="text" id="change-balance" name="change-balance" readonly value="100000">
+                                <button type="button" class="btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#Modal-a2">
+                                    編輯
+                                </button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="button" class="btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#myModal-3">完成編輯</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-icon">
+                <span class="page-disabled"><i></i>上一頁</span>
+                <span class="page-current">1</span>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a>
+                <a href="#">7</a>
+                <a class="page-next" href="#">下一頁<i></i></a>
+            </div>
 
         </div>
         <!-- ./wrapper -->
@@ -404,7 +625,7 @@
         <!-- jQuery -->
         <script src="../js/jquery.min.js"></script>
         <!-- Bootstrap -->
-        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script src="../../front/vendors/bootstrap/bootstrap.bundle.min.js"></script>
         <!-- overlayScrollbars -->
         <script src="../js/jquery.overlayScrollbars.min.js"></script>
         <!-- AdminLTE App -->

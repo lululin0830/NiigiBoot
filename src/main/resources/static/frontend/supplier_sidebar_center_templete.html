@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shop center</title>
+
+    <link rel="stylesheet" href="../frontend/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../frontend/css/carousel.css">
+    <link rel="stylesheet" href="../frontend/css/core.css">
+    <link rel="stylesheet" href="../frontend/css/font.css">
+    <link rel="stylesheet" href="../frontend/css/button.css">
+    <link rel="stylesheet" href="../frontend/css/index.header.css"> <!-- header的CSS 勿刪-->
+    <link rel="stylesheet" href="../frontend/css/customer.aside.css"><!-- 側邊欄的CSS 勿刪-->
+    <link rel="stylesheet" href="../frontend/css/index.footer.css"> <!-- footer的CSS 勿刪-->
+
+
+    <style>
+        main.main_content {
+            min-height: calc(100vh - 324px);
+            background-color: #ffffff;
+        }
+
+        div.main_content {
+            font-size: 0;
+        }
+
+        /* main content */
+        main.content {
+            display: inline-block;
+            vertical-align: top;
+            padding-left: 25px;
+        }
+
+        div.main-content-icon {
+            width: 6rem;
+        }
+
+        div.main-content-header img,
+        div.main-content-header>h1 {
+            display: inline-block;
+            vertical-align: bottom;
+            margin: 4.5rem 0 0 0;
+        }
+
+        hr.main-content-divider {
+            width: 100%;
+            border: 1px solid #EEEEEE;
+            margin: 18px 0 28px 0;
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
+    <header id="main-header" class="header">
+
+        <div class="container-sm">
+
+            <div class="header-top row">
+
+                <div class="col-sm-2">
+                    <a class="header-logo" href="/"><img class="logo" src="../frontend/image/logo.svg" alt=""></a>
+                </div>
+
+                <div class="col-sm-6">
+                    <form action="" method="get" class="header-search row">
+                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
+                            maxlength="50" value="">
+
+                        <button type="submit" class="header-search-submit col-sm-1"><img
+                                src="../frontend/image/search.svg"></button>
+                    </form>
+
+                    <div class="Search-hot " style="display: none;">
+                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
+                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
+                    </div>
+
+                </div>
+
+                <nav class="fixed-nav col-sm-4">
+
+                    <div class="fixed-nav-list login row">
+                        <a href="" class="SCM-Center col" style="display: none;">
+                            <div class="SCM_icon">
+                                <button class="btn_SCM-Center">商家中心</button>
+                            </div>
+                        </a>
+
+                        <a href="" class="User-Center col" style="display: none;">
+                            <div class="User_icon">
+                                <img src="../frontend/image/Profile.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Favorite col" style="display: none;">
+                            <div class="header_icon">
+                                <img src="../frontend/image/heart.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Shopping-Cart col" style="display: none;">
+                            <div class="header_icon">
+                                <img src="../frontend/image/Buy.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Notification col">
+                            <div class="header_icon">
+                                <img src="../frontend/image/Notification.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </nav>
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- -------------------------------- 以下是商品分類導覽列 勿動！！ -------------------------------- -->
+    <nav id="main-navigation" class="main-navigation" style="display: none;">
+        <ul class="main-nav"> <!--主選單-->
+            <li
+                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+                <div class="navigation_title navigation_title--bold navigation_title--salmon">
+                    <span class="navigation_title-inner">主題活動</span>
+                </div>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">3C周邊</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">家用電器</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">美妝個清</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">流行服飾</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">鞋包配飾</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">母嬰用品</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">日用生活</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">圖書文具</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+                <a class="navigation_title navigation_title--link" href="">
+                    <span class="navigation_title-inner">旅遊戶外</span>
+                </a>
+
+                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+                    <a class="" href="" title="">
+                        <span class="link-text">AAA</span> <!--中分類-->
+                    </a>
+
+                    <ul> <!--小分類-->
+                        <li>
+                            <a class="" href="" title="">
+                                <span class="link-text">aaa</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+
+    <main class="main_content">
+
+        <div class="main_content container-sm">
+
+            <!-- -------------------------以下是側邊欄 只可以變動li的"active"class的位置 其他勿動！！！--------------- -->
+            <aside class="member-aside col-sm-2">
+
+                <div class="member-profile row ">
+                    <div class="memberPhoto col-sm-4">
+                        <img class="memberPhoto" src="../frontend/image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
+                    </div>
+                    <div class="member-info col-sm-8">
+                        <h4 class="memberAccount">jeffrey47</h4>
+                        <h6 class="memberId">M123456789</h6>
+                    </div>
+                </div>
+                <ul class="nav1_list">
+                    <li>
+                        <h4>MENU</h4>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            <img src="../frontend/image/Chart.svg" alt="">
+                            <img src="../frontend/image/Chart-a.svg" alt="">商家中心
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/DocumentAsh.svg" alt="">
+                            <img src="../frontend/image/DocumentAsh-a.svg" alt="">訂單狀態</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Edit.svg" alt="">
+                            <img src="../frontend/image/Edit.svg" alt="">商品管理</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Discount.svg" alt="">
+                            <img src="../frontend/image/Discount-a.svg" alt="">行銷活動</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Shield Done.svg" alt="">
+                            <img src="../frontend/image/Shield Done.svg" alt="">廣告管理</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Wallet.svg" alt="">
+                            <img src="../frontend/image/Wallet.svg" alt="">財務管理</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Activity.svg" alt="">
+                            <img src="../frontend/image/Activity.svg" alt="">數據中心</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Game.svg" alt="">
+                            <img src="../frontend/image/Game.svg" alt="">假期模式</a>
+                    </li>
+                    <li>
+                        <h4>OTHERS</h4>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Profile1.svg" alt="">
+                            <img src="../frontend/image/Profile1-a.svg" alt="">商家資訊</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/2 User.svg" alt="">
+                            <img src="../frontend/image/2 User.svg" alt="">使用者管理</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Setting.svg" alt="">
+                            <img src="../frontend/image/Setting-a.svg" alt="">帳號管理</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Info Square.svg" alt="">
+                            <img src="../frontend/image/Info Square-a.svg" alt="">取得協助</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Logout.svg" alt="">
+                            <img src="../frontend/image/Logout-a.svg" alt="">登出</a>
+                    </li>
+                </ul>
+            </aside>
+            <main class="content col-sm-10">
+
+                <div class="main-content-header row">
+
+                    <div class="main-content-icon col-sm-1">
+                        <img calss="main-content-icon" src="../frontend/image/Chart-L.svg">
+                    </div>
+
+                    <h1 class="main-content-title col-sm-10">商家資訊</h1>
+                    <hr class="main-content-divider">
+                </div>
+                <!-- -------------------------------- 頁面的內容請從這裡往下寫 -------------------------------- -->
+                <!-- <div style="text-align: right;">
+                    <button class="btn btn-S btn-primary" style="margin: 5px; margin-bottom: 16px;">編輯</button>
+                </div> -->
+                
+ <div style="text-align: right;">               <!-- Button trigger modal -->
+<button type="button" class="btn btn-S btn-primary"  style="margin: 5px; margin-bottom: 16px;"data-bs-toggle="modal" data-bs-target="#exampleModal">
+    編輯
+  </button>
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="edit-info" id="edit-info">編輯商家資訊</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h2 class="store-info"> 商店名稱:
+               <input type="text" class="form-control" id="editInput" placeholder="請輸入商店名稱" >          
+                        
+            </h2>
+
+            <h2 class="store-LOGO">
+                商店Logo:
+    <input type="file" id="logoInput" accept="image/*" onchange="previewLogo(event)" required>
+    <img id="logoPreview" src="../frontend/image/shop_logo_gray.svg" alt="">
+    <span style="font-size: 12px;">(圖片尺寸: 320px × 320px，1MB以下)</span>
+</h2>
+
+<script>
+    function previewLogo(event) {
+        var logoInput = event.target;
+        var logoPreview = document.getElementById('logoPreview');
+
+        //獲取選擇文件
+        var file = logoInput.files[0];
+        
+        // 驗證圖片大小尺寸
+        var maxSize = 1024 * 1024; // 1MB
+        var maxWidth = 320;
+        var maxHeight = 320;
+
+        if (file && file.type.startsWith('image/')) {
+            var image = new Image();
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                image.onload = function() {
+                    // 驗證圖片尺寸尺寸
+                    if (image.width > maxWidth || image.height > maxHeight) {
+                        alert('請上傳不超過320px × 320px的圖片！');
+                        logoInput.value = ''; // 清空文件選擇
+                        logoPreview.src = '../frontend/image/shop_logo_gray.svg'; 
+                        return;
+                    }
+                    
+                    // 驗證圖片大小
+                    if (file.size > maxSize) {
+                        alert('請上傳小於1MB的圖片！');
+                        logoInput.value = ''; // 清空文件選擇
+                        logoPreview.src = '../frontend/image/shop_logo_gray.svg'; 
+                        return;
+                    }
+                    
+                    // 預覽
+                    logoPreview.src = e.target.result;
+                };
+                image.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // 非圖片或未選擇文件
+            logoPreview.src = '../frontend/image/shop_logo_gray.svg'; 
+        }
+    }
+</script>
+
+<h2 class="store-background">
+    商店背景:
+    <input type="file" id="backgroundInput" accept="image/*" onchange="previewBackground(event)" required>
+    <img id="backgroundPreview" src="../frontend/image/grayblock.svg" alt="">
+    <span style="font-size: 12px;">(圖片尺寸: 1000px × 300px，1MB以下)</span>
+</h2>
+<script>
+    function previewBackground(event) {
+        var backgroundInput = event.target;
+        var backgroundPreview = document.getElementById('backgroundPreview');
+
+        // 獲取選擇文件
+        var file = backgroundInput.files[0];
+        
+        // 驗證圖片大小尺寸
+        var maxSize = 1024 * 1024; // 1MB
+        var maxWidth = 1000;
+        var maxHeight = 300;
+
+        if (file && file.type.startsWith('image/')) {
+            var image = new Image();
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                image.onload = function() {
+                    // 驗證圖片尺寸
+                    if (image.width !== maxWidth || image.height !== maxHeight) {
+                        alert('請上傳尺寸為1000px × 300px的圖片！');
+                        backgroundInput.value = ''; // 清空文件選擇
+                        backgroundPreview.src = '../frontend/image/grayblock.svg'; 
+                        return;
+                    }
+                    
+                    // 驗證圖片大小
+                    if (file.size > maxSize) {
+                        alert('請上傳小於1MB的圖片！');
+                        backgroundInput.value = ''; // 清空文件選擇
+                        backgroundPreview.src = '../frontend/image/grayblock.svg'; 
+                        return;
+                    }
+                    
+                    // 預覽
+                    backgroundPreview.src = e.target.result;
+                };
+                image.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // 非圖片或未選擇文件
+            backgroundPreview.src = '../frontend/image/grayblock.svg'; 
+        }
+    }
+</script>
+
+            <h2 class="store-description">
+                商店說明:
+    <textarea class="form-control" id="descriptionInput" rows="3" placeholder="請輸入商店說明"></textarea>
+                
+            </h2>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">儲存變更</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+                <h2 class="store-info">
+                    商店名稱:
+                    <span>XXXXXXXX</span>
+                </h2>
+
+                <h2 class="store-LOGO">
+                    商店Logo:
+                    <img src="../frontend/image/shop_logo_gray.svg" class="order_item_priview" alt="">
+                </h2>
+
+                <h2 class="store-background">
+                    商店背景:
+                    <img src="../frontend/image/grayblock.svg" class="order_item_priview" alt="">
+                </h2>
+
+                <h2 class="store-description">
+                    商店說明:
+                    <span style="font-size: 18px;">我是商店說明......</span>
+                </h2>
+        </div>
+        </div>
+    </main>
+
+    </div>
+    </main>
+
+    <!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
+    <footer id="main-footer" class="footer">
+
+        <div class="container-sm">
+
+            <div class="footer-top row">
+                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="../frontend/image/logo.svg" alt=""></a>
+            </div>
+
+            <hr class="footer_divider">
+
+            <div class="footer-bottom row justify-content-end">
+
+                <nav class="SNS-nav-list ">
+
+                    <a href="" class="Instagram col">
+                        <div class="Instagram_icon">
+                            <img src="../frontend/image/ant-design_instagram-filled.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Facebook col">
+                        <div class="Facebook_icon">
+                            <img src="../frontend/image/mdi_facebook.svg" alt="">
+                        </div>
+                    </a>
+
+                    <a href="" class="Twitter col ">
+                        <div class="Twitter_icon">
+                            <img src="../frontend/image/ant-design_twitter-circle-filled.svg" alt="">
+                        </div>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../frontend/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+    <script>
+        // 獲取.member_account元素
+        var memberAccount = document.querySelector('.memberAccount');
+
+        // 獲取.member_account的文字內容
+        var textContent = memberAccount.textContent.trim();
+
+        // 計算文字內容的長度
+        var textLength = textContent.length;
+
+        // 設定字體大小變數
+        var fontSizeVar = '--font-size';
+
+        // 設定文字長度與字體大小的映射關係
+        var lengthToFontSize = {
+            5: '16px',
+            10: '14px',
+            15: '12px',
+            20: '10px',
+            25: '8px',
+            30: '6px',
+            35: '4px',
+            40: '2px'
+            // 根據需要添加更多的映射關係
+        };
+
+        // 檢查文字長度是否在映射表中，並設置對應的字體大小
+        if (lengthToFontSize.hasOwnProperty(textLength)) {
+            memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
+        } 
+    </script>
+</body>
+
+</html>

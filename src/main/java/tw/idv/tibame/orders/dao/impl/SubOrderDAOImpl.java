@@ -180,7 +180,7 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 	public List<Object[]> memberCheckOrder2(String memberId) {
 		System.out.println(memberId);
 		String hql = "select mo.orderStatus,mo.paymentStatus,so.subOrderStatus,mo.orderCreateTime,mo.orderId,mo.totalAmount,sp.shopName,"
-				+ "so.subOrderId,so.subPaidAmount,pd.picture1 "				
+				+ "so.subOrderId,so.subPaidAmount,pd.picture1,so.commentStatus "				
 				+ "from MainOrder as mo,SubOrder as so,SubOrderDetail as sod,Suppliers as sp,Product as pd "
 				+ "where mo.orderId = so.orderId and so.subOrderId = sod.subOrderId and so.supplierId = sp.supplierId and sod.productId = pd.productId "		
 				+ "and mo.memberId = :memberId ";				
@@ -219,11 +219,19 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		Query<?> query = session.createQuery(hql);
 		query.setParameter("subOrderId", subOrderId);
 		
-		return gson.toJson(query.getResultList());
-		
-		
-		
-		
+		return gson.toJson(query.getResultList());	
 	}
+
+	@Override
+	public String orderRefundUpdate(String refundSubOrderId, String refundReason, String refundMark) {
+
+		String subHql = "UPDATE SubOrder SET subOrderStatus = '4' where subOrderId = :subOrderId";
+		Query<SubOrder>query = session.createQuery(subHql);
+		query.setParameter("subOrderId", refundSubOrderId);
+		query.executeUpdate();
+		return "子訂單更新狀態成功";
+	}
+	
+	
 	
 }

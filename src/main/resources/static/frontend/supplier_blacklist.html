@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Customer center</title>
 
-    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/carousel.css">
-    <link rel="stylesheet" href="./css/core.css">
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/button.css">
-    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/customer.aside.css"><!-- 側邊欄的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+    <link rel="stylesheet" href="../frontend/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../frontend/css/carousel.css">
+    <link rel="stylesheet" href="../frontend/css/core.css">
+    <link rel="stylesheet" href="../frontend/css/font.css">
+    <link rel="stylesheet" href="../frontend/css/button.css">
+    <link rel="stylesheet" href="../frontend/css/index.header.css"> <!-- header的CSS 勿刪-->
+    <link rel="stylesheet" href="../frontend/css/customer.aside.css"><!-- 側邊欄的CSS 勿刪-->
+    <link rel="stylesheet" href="../frontend/css/index.footer.css"> <!-- footer的CSS 勿刪-->
 
 
     <style>
@@ -55,108 +55,81 @@
 </head>
 
 <body>
-	<script src="./js/core_customer.js"></script>
+
     <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
-<!--    <header id="main-header" class="header">-->
+    <header id="main-header" class="header">
 
-<!--        <div class="container-sm">-->
+        <div class="container-sm">
 
-<!--            <div class="header-top row">-->
+            <div class="header-top row">
 
-<!--                <div class="col-sm-2">-->
-<!--                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>-->
-<!--                </div>-->
-
-<!--                <div class="col-sm-6">-->
-<!--                    <form action="" method="get" class="header-search row">-->
-<!--                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"-->
-<!--                            maxlength="50" value="">-->
-
-<!--                        <button type="submit" class="header-search-submit col-sm-1"><img-->
-<!--                                src="./image/search.svg"></button>-->
-<!--                    </form>-->
-
-<!--                    <div class="Search-hot ">-->
-<!--                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>-->
-<!--                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-
-<!--                <nav class="fixed-nav col-sm-4">-->
-
-<!--                    <div class="fixed-nav-list login row">-->
-<!--                        <a href="" class="SCM-Center col">-->
-<!--                            <div class="SCM_icon">-->
-<!--                                <button class="btn_SCM-Center">商家中心</button>-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                        <a href="" class="User-Center col">-->
-<!--                            <div class="User_icon">-->
-<!--                                <img src="./image/Profile.svg" alt="">-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                        <a href="" class="Favorite col">-->
-<!--                            <div class="header_icon">-->
-<!--                                <img src="./image/heart.svg" alt="">-->
-<!--                                <span class="count -active">0</span>-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                        <a href="" class="Shopping-Cart col">-->
-<!--                            <div class="header_icon">-->
-<!--                                <img src="./image/Buy.svg" alt="">-->
-<!--                                <span class="count -active">0</span>-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                        <a href="" class="Notification col">-->
-<!--                            <div class="header_icon">-->
-<!--                                <img src="./image/Notification.svg" alt="">-->
-<!--                                <span class="count -active">0</span>-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                    </div>-->
-
-<!--                </nav>-->
-<!--            </div>-->
-
-<!--        </div>-->
-
-<!--    </header> -->
-
-    <!-- ----------------------以下是登入彈窗內容------------------------- -->
-    <div class="modal" id="login_popup">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center align-items-center">
-                    <img src="./image/logo.svg" alt="">
-                </div>
-                <img src="./image/4F267CF7-0F7A-4CE7-913D-3D03F1CF697E 1.svg" alt="">
-                <div class="modal-body">
-                    <button type="button" class="modal-button">使用Line繼續</button>
-                    <div style="height: 20px;"></div>
-                    <button type="button" class="modal-button">使用Google繼續</button>
-                    <div style="height: 20px;"></div>
-                    <h5>------------------使用Niigi帳號------------------</h5>
-                    <div style="height: 20px;"></div>
-                    <button type="button" class="modal-button" data-bs-toggle="modal"
-                        data-bs-target="#login_Niigi">使用Niigi帳號繼續</button>
-                    <div style="height: 50px;"></div>
+                <div class="col-sm-2">
+                    <a class="header-logo" href="/"><img class="logo" src="../frontend/image/logo.svg" alt=""></a>
                 </div>
 
+                <div class="col-sm-6">
+                    <form action="" method="get" class="header-search row">
+                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
+                            maxlength="50" value="">
+
+                        <button type="submit" class="header-search-submit col-sm-1"><img
+                                src="../frontend/image/search.svg"></button>
+                    </form>
+
+                    <div class="Search-hot " style="display: none;">
+                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
+                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
+                    </div>
+
+                </div>
+
+                <nav class="fixed-nav col-sm-4">
+
+                    <div class="fixed-nav-list login row">
+                        <a href="" class="SCM-Center col" style="display: none;">
+                            <div class="SCM_icon">
+                                <button class="btn_SCM-Center">商家中心</button>
+                            </div>
+                        </a>
+
+                        <a href="" class="User-Center col" style="display: none;">
+                            <div class="User_icon">
+                                <img src="../frontend/image/Profile.svg" alt="">
+                            </div>
+                        </a>
+
+                        <a href="" class="Favorite col" style="display: none;">
+                            <div class="header_icon">
+                                <img src="../frontend/image/heart.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Shopping-Cart col" style="display: none;">
+                            <div class="header_icon">
+                                <img src="../frontend/image/Buy.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                        <a href="" class="Notification col">
+                            <div class="header_icon">
+                                <img src="../frontend/image/Notification.svg" alt="">
+                                <span class="count -active">0</span>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </nav>
             </div>
+
         </div>
-    </div>
+
+    </header>
 
     <!-- -------------------------------- 以下是商品分類導覽列 勿動！！ -------------------------------- -->
-    <nav id="main-navigation" class="main-navigation">
+    <nav id="main-navigation" class="main-navigation" style="display: none;">
         <ul class="main-nav"> <!--主選單-->
             <li
                 class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
@@ -385,11 +358,11 @@
 
                 <div class="member-profile row ">
                     <div class="memberPhoto col-sm-4">
-                        <img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
+                        <img class="memberPhoto" src="../frontend/image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
                     </div>
                     <div class="member-info col-sm-8">
-                        <h4 class="memberAccount"></h4>
-                        <h6 class="memberId"></h6>
+                        <h4 class="memberAccount">jeffrey47</h4>
+                        <h6 class="memberId">M123456789</h6>
                     </div>
                 </div>
                 <ul class="nav1_list">
@@ -397,74 +370,141 @@
                         <h4>MENU</h4>
                     </li>
                     <li class="active">
-                        <a href="customer_personal_center.html">
-                            <img src="./image/Chart.svg" alt="">
-                            <img src="./image/Chart-a.svg" alt="">個人中心
+                        <a href="#">
+                            <img src="../frontend/image/Chart.svg" alt="">
+                            <img src="../frontend/image/Chart-a.svg" alt="">商家中心
                         </a>
                     </li>
                     <li>
-                        <a href="collect_box.html">
-                            <img src="./image/heart-s.svg" alt="">
-                            <img src="./image/heart-s-a.svg" alt="">收藏夾</a>
+                        <a href="#">
+                            <img src="../frontend/image/DocumentAsh.svg" alt="">
+                            <img src="../frontend/image/DocumentAsh-a.svg" alt="">訂單狀態</a>
                     </li>
                     <li>
-                        <a href="shopping_cart.html">
-                            <img src="./image/Buy1.svg" alt="">
-                            <img src="./image/Buy1-a.svg" alt="">購物車</a>
+                        <a href="#">
+                            <img src="../frontend/image/Edit.svg" alt="">
+                            <img src="../frontend/image/Edit.svg" alt="">商品管理</a>
                     </li>
                     <li>
-                        <a href="check_order.html">
-                            <img src="./image/DocumentAsh.svg" alt="">
-                            <img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
+                        <a href="#">
+                            <img src="../frontend/image/Discount.svg" alt="">
+                            <img src="../frontend/image/Discount-a.svg" alt="">行銷活動</a>
                     </li>
                     <li>
-                        <a href="customer_point_record.html">
-                            <img src="./image/Discount.svg" alt="">
-                            <img src="./image/Discount-a.svg" alt="">會員點數</a>
+                        <a href="#">
+                            <img src="../frontend/image/Shield Done.svg" alt="">
+                            <img src="../frontend/image/Shield Done.svg" alt="">廣告管理</a>
                     </li>
                     <li>
-                        <a href="mycoupon.html">
-                            <img src="./image/Ticket_Star.svg" alt="">
-                            <img src="./image/Ticket_Star-a.svg" alt="">我的折價券</a>
+                        <a href="#">
+                            <img src="../frontend/image/Wallet.svg" alt="">
+                            <img src="../frontend/image/Wallet.svg" alt="">財務管理</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Activity.svg" alt="">
+                            <img src="../frontend/image/Activity.svg" alt="">數據中心</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Game.svg" alt="">
+                            <img src="../frontend/image/Game.svg" alt="">假期模式</a>
                     </li>
                     <li>
                         <h4>OTHERS</h4>
                     </li>
                     <li>
-                        <a href="customer_Information.html">
-                            <img src="./image/Profile1.svg" alt="">
-                            <img src="./image/Profile1-a.svg" alt="">個人資訊</a>
-                    </li>
-                    <li>
-                        <a href="customer_change_password.html">
-                            <img src="./image/Setting.svg" alt="">
-                            <img src="./image/Setting-a.svg" alt="">帳號管理</a>
+                        <a href="#">
+                            <img src="../frontend/image/Profile1.svg" alt="">
+                            <img src="../frontend/image/Profile1-a.svg" alt="">商家資訊</a>
                     </li>
                     <li>
                         <a href="#">
-                            <img src="./image/Info Square.svg" alt="">
-                            <img src="./image/Info Square-a.svg" alt="">取得協助</a>
+                            <img src="../frontend/image/2 User.svg" alt="">
+                            <img src="../frontend/image/2 User.svg" alt="">使用者管理</a>
                     </li>
                     <li>
                         <a href="#">
-                            <img src="./image/Logout.svg" alt="">
-                            <img src="./image/Logout-a.svg" alt="">登出</a>
+                            <img src="../frontend/image/Setting.svg" alt="">
+                            <img src="../frontend/image/Setting-a.svg" alt="">帳號管理</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Info Square.svg" alt="">
+                            <img src="../frontend/image/Info Square-a.svg" alt="">取得協助</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../frontend/image/Logout.svg" alt="">
+                            <img src="../frontend/image/Logout-a.svg" alt="">登出</a>
                     </li>
                 </ul>
             </aside>
             <main class="content col-sm-10">
 
                 <div class="main-content-header row">
+
                     <div class="main-content-icon col-sm-1">
-                        <img calss="main-content-icon" src="./image/Chart-L.svg">
+                        <img calss="main-content-icon" src="../frontend/image/Chart-L.svg">
                     </div>
-                    <h1 class="main-content-title col-sm-10">個人中心</h1>
+
+                    <h1 class="main-content-title col-sm-10">黑名單</h1>
                     <hr class="main-content-divider">
                 </div>
                 <!-- -------------------------------- 頁面的內容請從這裡往下寫 -------------------------------- -->
-
-            </main>
+                
+                <input id="buyer-acct" type="text" placeholder="買家帳號" size="22" />
+                <button type="button" class="btn btn-S btn-primary" style="margin: 5px; margin-bottom: 16px;"data-bs-toggle="modal">搜尋</button>
+                <button type="button" class="btn btn-S btn-primary" style="margin: 5px; margin-bottom: 16px;margin-left: 500px;">移除</button>
+       
+       
+                <div style="font-size: 16px; padding: 20px 0;">
+                    <style>
+                      .image-zoom {
+                        transition: transform 0.3s;
+                      }
+                  
+                      .image-zoom:hover {
+                        transform: scale(2);
+                      }
+                    </style>
+                    <table style="width: 100%; border-collapse: collapse;">
+                      <thead>
+                        <tr style="background-color: #f2f2f2;">
+                          <th style="border: 1px solid black; text-align: center;"><input type="checkbox"></th>
+                          <th style="border: 1px solid black; text-align: center;">照片</th>
+                          <th style="border: 1px solid black; text-align: center;">買家帳號</th>
+                          <th style="border: 1px solid black; text-align: center;">買家編號</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td style="border: 1px solid black; text-align: center;"><input type="checkbox"></td>
+                          <td style="border: 1px solid black; text-align: center;">
+                            <img src="../frontend/image/shop_logo_gray_30_30.svg" alt="" class="image-zoom" width="30" height="30">
+                          </td>
+                          <td style="border: 1px solid black; text-align: center;">買家帳號1</td>
+                          <td style="border: 1px solid black; text-align: center;">買家編號1</td>
+                        </tr>
+                        <tr>
+                          <td style="border: 1px solid black; text-align: center;"><input type="checkbox"></td>
+                          <td style="border: 1px solid black; text-align: center;">
+                            <img src="../frontend/image/shop_logo_gray_30_30.svg" alt="" class="image-zoom" width="30" height="30">
+                          </td>
+                          <td style="border: 1px solid black; text-align: center;">買家帳號2</td>
+                          <td style="border: 1px solid black; text-align: center;">買家編號2</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                  
+                  
+            </div>
         </div>
+    </main>
+
+    </div>
     </main>
 
     <!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
@@ -473,7 +513,7 @@
         <div class="container-sm">
 
             <div class="footer-top row">
-                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="../frontend/image/logo.svg" alt=""></a>
             </div>
 
             <hr class="footer_divider">
@@ -484,19 +524,19 @@
 
                     <a href="" class="Instagram col">
                         <div class="Instagram_icon">
-                            <img src="./image/ant-design_instagram-filled.svg" alt="">
+                            <img src="../frontend/image/ant-design_instagram-filled.svg" alt="">
                         </div>
                     </a>
 
                     <a href="" class="Facebook col">
                         <div class="Facebook_icon">
-                            <img src="./image/mdi_facebook.svg" alt="">
+                            <img src="../frontend/image/mdi_facebook.svg" alt="">
                         </div>
                     </a>
 
                     <a href="" class="Twitter col ">
                         <div class="Twitter_icon">
-                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+                            <img src="../frontend/image/ant-design_twitter-circle-filled.svg" alt="">
                         </div>
                     </a>
                 </nav>
@@ -504,9 +544,38 @@
         </div>
     </footer>
 
-    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    
-    <script src="./js/login_popup.js"></script>
+    <script src="../frontend/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+    <script>
+        // 獲取.member_account元素
+        var memberAccount = document.querySelector('.memberAccount');
+
+        // 獲取.member_account的文字內容
+        var textContent = memberAccount.textContent.trim();
+
+        // 計算文字內容的長度
+        var textLength = textContent.length;
+
+        // 設定字體大小變數
+        var fontSizeVar = '--font-size';
+
+        // 設定文字長度與字體大小的映射關係
+        var lengthToFontSize = {
+            5: '16px',
+            10: '14px',
+            15: '12px',
+            20: '10px',
+            25: '8px',
+            30: '6px',
+            35: '4px',
+            40: '2px'
+            // 根據需要添加更多的映射關係
+        };
+
+        // 檢查文字長度是否在映射表中，並設置對應的字體大小
+        if (lengthToFontSize.hasOwnProperty(textLength)) {
+            memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
+        } 
+    </script>
 </body>
 
 </html>
