@@ -123,7 +123,7 @@ const init = function () {
             infoBody +=
                 `
                     <span id="avgRating">${product.avgRating}</span>
-                    <span class="star_totoal">(${data[2].length})</span>
+                    <span class="star_totoal">(${data[2] !== "noComment" ? data[2].length : 15})</span>
                 </div>
 
                 <p class="price">

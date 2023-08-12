@@ -513,10 +513,11 @@
 		}
 
 		document.addEventListener("DOMContentLoaded", function () {
-			fetch('http://localhost:8080/Niigi/products', {
+			fetch('http://localhost:8080/Niigi/product/products', {
 				method: 'GET',
 			})
 				.then((response) => {
+					console.log(response);
 					// 檢查回應的狀態碼
 					if (!response.ok) {
 						throw new Error('Network response was not ok');
@@ -565,7 +566,7 @@
 				});
 
 
-			fetch('http://localhost:8080/Niigi/exproducts', {
+			fetch('http://localhost:8080/Niigi/product/exproducts', {
 				method: 'GET',
 			})
 				.then((response) => {

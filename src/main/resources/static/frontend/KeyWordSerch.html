@@ -551,7 +551,7 @@
 			const urlParams = new URLSearchParams(window.location.search);
 			const keyword = urlParams.get('search');
 			// 使用fetch API向後端發送請求
-			fetch('http://localhost:8080/Niigi/search?search=' + encodeURIComponent(keyword), {
+			fetch('http://localhost:8080/Niigi/product/search?search=' + encodeURIComponent(keyword), {
 				method: 'GET'
 			})
 				.then((response) => {

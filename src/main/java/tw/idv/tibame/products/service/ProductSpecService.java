@@ -11,12 +11,42 @@ public interface ProductSpecService {
 	
 	//insert判斷
 	
-	//以selectByProductId商品編號查全部規格(不包含強制下架)再算出上架中的規格，然後加工成xxx:xxx xxx:xxx
-	
+
+	//以下是分頁用
 	public List<ProductSpecManageDTO> getAllProductManage(String registerSupplier)throws Exception;
+	
+	public Integer getAllProductTotal(String registerSupplier)throws Exception;
 
 	public List<ProductSpecManageDTO> getSoldProductManage(String registerSupplier)throws Exception;
 	
+	public Integer getSoldProductTotal(String registerSupplier)throws Exception;
+	
 	public List<ProductSpecManageDTO> getStatusProductManage(String shelvesStatus,String registerSupplier)throws Exception;
+	
+	public Integer getStatusProductTotal(String shelvesStatus,String registerSupplier)throws Exception;
 
+	//以下是分頁搜尋用
+	public List<ProductSpecManageDTO> getAllProductManage(String optionName,String searchText,String registerSupplier)throws Exception;
+	
+	public Integer getAllProductTotal(String optionName,String searchText,String registerSupplier)throws Exception;
+	
+	public List<ProductSpecManageDTO> getSoldProductManage(String optionName,String searchText,String registerSupplier)throws Exception;
+	
+	public Integer getSoldProductTotal(String optionName,String searchText,String registerSupplier)throws Exception;
+	
+	public List<ProductSpecManageDTO> getStatusProductManage(String optionName,String searchText,String shelvesStatus,String registerSupplier)throws Exception;
+	
+	public Integer getStatusProductTotal(String optionName,String searchText,String shelvesStatus,String registerSupplier)throws Exception;
+	
+	
+	//確認目前商品規格內有多少上架商品
+	public Integer getUpStatusCount(Integer productId) throws Exception;
+	
+	
+	//針對上下架按鈕
+	public Boolean updateStatusButton(String[] productSpecIds, String shelvesMemberId, String shelvesStatus)throws Exception;
+	
+	
+	
+	
 }

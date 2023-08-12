@@ -99,7 +99,7 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 	public String checkOrderDetail(String subOrderId) {
 		
 		String hql = "SELECT sod.productSpecId,pd.productName,sod.productPrice,so.recipient,"
-				+ "so.phoneNum,so.deliveryAddress,pd.picture1,so.deliveryAddress FROM "
+				+ "so.phoneNum,so.deliveryAddress,pd.picture1,so.deliveryAddress,sod.orderDetailId FROM "
 				+ "SubOrder as so,SubOrderDetail as sod,Product as pd where so.subOrderId = :subOrderId AND "
 				+ "so.subOrderId = sod.subOrderId and sod.productId = pd.productId ";
 		
@@ -119,7 +119,19 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 		query.executeUpdate();
 		return "評價成功";
 	}
-	
-	
+
+	@Override
+	public String refundMark(String refundSubOrderId, String refundReason, String refundMark) {
+		String detailHql = "UPDATE SubOrderDetail " +
+				"SET refundReason = :refundReason, refundRemark = :refundMark " +
+				"WHERE subOrderId = :refundSubOrderId"; 
+		
+		Query<?> query = session.createQuery(detailHql);
+		query.setParameter("refundReason", refundReason);
+		query.setParameter("refundMark", refundMark);
+		query.setParameter("refundSubOrderId", refundSubOrderId);
+		query.executeUpdate();
+		return "評價更新成功";
+	}
 
 }

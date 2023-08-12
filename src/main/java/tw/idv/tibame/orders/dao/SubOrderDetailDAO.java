@@ -32,4 +32,7 @@ public interface SubOrderDetailDAO extends CoreDAO<SubOrderDetail, String>{
 	
 	//
 	public String updateSubOrderDetailComment(int ratingStar,String comment,String orderDetailId);
+	
+	//
+	public String refundMark (String refundSubOrderId,String refundReason,String refundMark);
 }
