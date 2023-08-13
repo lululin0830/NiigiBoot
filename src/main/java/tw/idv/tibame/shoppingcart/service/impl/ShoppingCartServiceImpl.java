@@ -71,11 +71,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 		final String memberId = data.get("memberId").getAsString();
 		final String productSpecId = data.get("productSpecId").getAsString();
-		
-		if(cartDAO.delete(memberId, productSpecId)) {
+
+		if (cartDAO.delete(memberId, productSpecId)) {
 			return ResponseEntity.status(HttpStatus.OK).body("移除成功");
 		}
-		
+
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("系統繁忙中...請稍後再試");
 	}
 
@@ -90,20 +90,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 			/* ===取出商品資料，檢查上架狀態、折價券，裝進CartItem方便後續輸出=== */
 			List<CartItem> list = new ArrayList<CartItem>();
-			Integer[] productIds = new Integer[cartList.size()];
-			int i = 0; // productIds index 計數
+			List<Integer> productIds = new ArrayList<>();
 			Map<String, List<Integer>> couponMap = new HashMap<String, List<Integer>>();
 
 			for (String temp : cartList) {
 
 				ProductSpec ps = specDAO.selectById(temp); // 從資料庫取資料
+				Suppliers supplier = supplierDAO.getShopVacation(ps.getProduct().getRegisterSupplier());
 
-				if (ps.getShelvesStatus().equals("0") && ps.getSpecStock() > 0) { // 上架中&有庫存才往下走
+				if (ps.getShelvesStatus().equals("0") && ps.getSpecStock() > 0
+						&& !supplier.getPauseOrderAcceptance().equals("1")) { // 上架中&有庫存&商家沒有暫停接單才往下走
 
 					Integer productId = ps.getProductId(), price = ps != null ? ps.getProduct().getProductPrice() : 0;
 					CartItem ci = new CartItem();
 
-					productIds[i] = productId;
+					productIds.add(productId);
 
 					ci.setProductId(productId);
 					ci.setProductSpecId(ps.getProductSpecId());
@@ -115,17 +116,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 					ci.setSpecStock(ps.getSpecStock());
 
 					/* ===確認商家休假狀態，並加入資料中=== */
-					Suppliers supplier = supplierDAO.getShopVacation(ci.getRegisterSupplier());
+
 					String vacation = supplier.getShopVacation();
 
 					if (vacation != null && !vacation.isBlank()) {
 
 						ci.setShopVacation(vacation);
-						ci.setPauseOrderAcceptance(supplier.getPauseOrderAcceptance());
 						ci.setPauseShipping(supplier.getPauseShipping());
 						ci.setVacationEnd(supplier.getVacationEnd());
+
 					}
-					i++;
 					list.add(ci);
 				} else {
 					cartDAO.delete(memberId, ps.getProductSpecId());

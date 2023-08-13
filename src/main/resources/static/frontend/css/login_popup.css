@@ -1,0 +1,21 @@
+.modal-button {
+	background-color: transparent;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	width: 100%;
+	padding: 0.8rem 1.6rem;
+	text-align: center;
+}
+
+.vertical-line {
+	border-left: 1px solid #000;
+	height: 3rem;
+	margin: 0 1rem;
+}
+
+.error {
+	color: red;
+	font-size: 1.2rem;
+	display: inline-block;
+	margin-left: 0.5rem;
+}

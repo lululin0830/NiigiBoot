@@ -2,511 +2,617 @@
 <html lang="zh-tw">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Member Check Order</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Member Check Order</title>
 
-    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/core.css">
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/button.css">
-    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/customer.aside.css">
+	<link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/core.css">
+	<link rel="stylesheet" href="./css/font.css">
+	<link rel="stylesheet" href="./css/button.css">
+	<link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/customer.aside.css">
 
 
-    <style>
-        main.main_content {
-            height: 100;
-            background-color: #ffffff;
-        }
+	<style>
+		main.main_content {
+			height: 100;
+			background-color: #ffffff;
+		}
 
-        div.main_content {
-            font-size: 0;
-        }
+		div.main_content {
+			font-size: 0;
+		}
 
-        /* main content */
-        main.member-check-order {
-            display: inline-block;
-            vertical-align: top;
-            padding-left: 25px;
-        }
+		/* main content */
+		main.member-check-order {
+			display: inline-block;
+			vertical-align: top;
+			padding-left: 25px;
+		}
 
-        div.main-content-icon {
-            width: 6rem;
-        }
+		div.main-content-icon {
+			width: 6rem;
+		}
 
-        div.main-content-header img,
-        div.main-content-header>h1 {
-            display: inline-block;
-            vertical-align: bottom;
-            margin: 4.5rem 0 0 0;
-        }
+		div.main-content-header img,
+		div.main-content-header>h1 {
+			display: inline-block;
+			vertical-align: bottom;
+			margin: 4.5rem 0 0 0;
+		}
 
-        hr.main-content-divider {
-            width: 100%;
-            border: 1px solid #EEEEEE;
-            margin: 18px 0 28px 0;
-            opacity: 1;
-        }
+		hr.main-content-divider {
+			width: 100%;
+			border: 1px solid #EEEEEE;
+			margin: 18px 0 28px 0;
+			opacity: 1;
+		}
 
-        /* Tab */
-        .nav-tabs {
-            --bs-nav-tabs-border-color: #f7f7f7;
-            --bs-nav-tabs-border-width: 2px;
-            --bs-nav-tabs-border-radius: 0.5rem
-        }
+		/* Tab */
+		.nav-tabs {
+			--bs-nav-tabs-border-color: #f7f7f7;
+			--bs-nav-tabs-border-width: 2px;
+			--bs-nav-tabs-border-radius: 0.5rem
+		}
 
-        .nav-tabs .nav-link {
-            margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
-            border: var(--bs-nav-tabs-border-width);
-            border-top-left-radius: var(--bs-nav-tabs-border-radius);
-            border-top-right-radius: var(--bs-nav-tabs-border-radius);
-            width: 12rem;
-            height: 5rem;
-            text-align: center;
-            vertical-align: middle;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 2.4rem;
-            color: #4C4C4C;
-            background-color: #f7f7f7;
-            margin-right: 1.5px;
-        }
+		.nav-tabs .nav-link {
+			margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
+			border: var(--bs-nav-tabs-border-width);
+			border-top-left-radius: var(--bs-nav-tabs-border-radius);
+			border-top-right-radius: var(--bs-nav-tabs-border-radius);
+			width: 12rem;
+			height: 5rem;
+			text-align: center;
+			vertical-align: middle;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 2.4rem;
+			color: #4C4C4C;
+			background-color: #f7f7f7;
+			margin-right: 1.5px;
+		}
 
-        .nav-tabs .nav-item.show .nav-link,
-        .nav-tabs .nav-link.active {
-            color: #4C4C4C;
-            background-color: rgba(183, 221, 229, 0.60);
-        }
+		.nav-tabs .nav-item.show .nav-link,
+		.nav-tabs .nav-link.active {
+			color: #4C4C4C;
+			background-color: rgba(183, 221, 229, 0.60);
+		}
 
-        main.member-check-order {
-            display: inline-block;
-            vertical-align: top;
-            padding-left: 25px;
-        }
+		main.member-check-order {
+			display: inline-block;
+			vertical-align: top;
+			padding-left: 25px;
+		}
 
-        /* ---- */
-        .product_content {
-            height: 1200px;
-            margin-top: 30px;
-            margin-left: 50px;
-        }
+		/* ---- */
+		.product_content {
+			height: 1200px;
+			margin-top: 30px;
+			margin-left: 50px;
+		}
 
-        .product_content p {
-            margin-bottom: 40px;
-        }
+		.product_content p {
+			margin-bottom: 40px;
+		}
 
-        .product_content>p>span:first-child {
-            /* 在這裡設置位移屬性 */
-            margin-right: 30px;
-        }
+		.product_content>p>span:first-child {
+			/* 在這裡設置位移屬性 */
+			margin-right: 30px;
+		}
 
-        .product_content>p:last-of-type>span:first-child {
-            /* 在這裡設置位移屬性 */
-            margin-right: 15px;
-        }
+		.product_content>p:last-of-type>span:first-child {
+			/* 在這裡設置位移屬性 */
+			margin-right: 15px;
+		}
 
-        .product_img {
-            width: 100px;
-            height: 100px;
-        }
+		.product_img {
+			background-color: white;
+			width: 100px;
+			height: 100px;
+			border: 1px solid darkgrey;
+		}
 
-        .annotation {
-            font-size: 12px;
-            margin-left: 100px;
-        }
+		.annotation {
+			font-size: 12px;
+			margin-left: 100px;
+		}
 
-        .productName {
-            width: 530px;
-        }
+		.productName {
+			width: 530px;
+		}
 
-        .product_illustrate {
-            width: 530px;
-            height: 200px;
-            word-break: break-all;
-            /* 達到邊界時自動換行 */
+		.product_illustrate {
+			width: 530px;
+			height: 200px;
+			word-break: break-all;
+			/* 達到邊界時自動換行 */
 
-            resize: none;
+			resize: none;
 
-        }
+		}
 
-        .category_select {
-            width: 190px;
-        }
+		.category_select {
+			width: 190px;
+		}
 
-    </style>
+		/* ------------------5張圖地方----------------------- */
+		.img_file {
+			display: none;
+		}
+
+		.img_file+label {
+			display: inline-block;
+			background-color: lightgrey;
+			color: black;
+			padding: 6px 12px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 10px;
+			/* 調整文字大小 */
+			border: 1px solid black;
+			/* 添加邊框 */
+			margin-top: 5px;
+			margin-right: 22px;
+		}
+
+		.img_file+label::before {
+			content: '選擇檔案';
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 5px;
+			/* 調整圖示和文字之間的間距 */
+			font-size: 12px;
+			/* 調整圖示大小 */
+		}
+
+		/* ------------------新申請彈窗----------------------- */
+		/*選擇圖片的按鈕*/
+		.img_spc_file {
+			display: none;
+		}
+
+		.img_spc_file+label {
+			display: inline-block;
+			background-color: lightgrey;
+			color: black;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 5px;
+			/* 調整文字大小 */
+			border: 1px solid black;
+			/* 添加邊框 */
+			margin-top: 5px;
+		}
+
+		.img_spc_file+label::before {
+			content: '選擇檔案';
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 5px;
+			/* 調整圖示和文字之間的間距 */
+			font-size: 10px;
+			/* 調整圖示大小 */
+		}
+
+		/*表格的地方*/
+
+		.spec_table_new {
+			border-bottom: 1px solid #EEEEEE;
+		}
+
+		.spec_table_new th {
+			background-color: #EEEEEE;
+			width: 100px;
+			height: 50px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.spec_table_new tr {
+			border-bottom: 1px solid darkgrey;
+			;
+		}
+
+		.spec_table_new td {
+			height: 100px;
+			width: 100px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.product_spec_img {
+			width: 60px;
+			height: 60px;
+			border: 1px solid darkgrey;
+		}
+
+		.specType1,
+		.specType2 {
+			width: 60px;
+		}
+
+		.specInfo1,
+		.specInfo2 {
+			width: 180px;
+		}
+
+		.initialStock {
+			width: 70px;
+		}
+	</style>
 
 </head>
 
 <body>
-    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
-    <header id="main-header" class="header">
-
-        <div class="container-sm">
-
-            <div class="header-top row">
-
-                <div class="col-sm-2">
-                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-                </div>
-
-                <div class="col-sm-6">
-                    <form action="" method="get" class="header-search row">
-                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
-                            maxlength="50" value="">
-
-                        <button type="submit" class="header-search-submit col-sm-1"><img
-                                src="./image/search.svg"></button>
-                    </form>
-
-                    <div class="Search-hot ">
-                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
-                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
-                    </div>
-
-                </div>
-
-                <nav class="fixed-nav col-sm-4">
-
-                    <div class="fixed-nav-list login row">
-                        <a href="" class="SCM-Center col">
-                            <div class="SCM_icon">
-                                <button class="btn_SCM-Center">商家中心</button>
-                            </div>
-                        </a>
-
-                        <a href="" class="User-Center col">
-                            <div class="User_icon">
-                                <img src="./image/Profile.svg" alt="">
-                            </div>
-                        </a>
-
-                        <a href="" class="Favorite col">
-                            <div class="header_icon">
-                                <img src="./image/heart.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                        <a href="" class="Shopping-Cart col">
-                            <div class="header_icon">
-                                <img src="./image/Buy.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                        <a href="" class="Notification col">
-                            <div class="header_icon">
-                                <img src="./image/Notification.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                    </div>
-
-                </nav>
-            </div>
-
-        </div>
-
-    </header>
-
-    <!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
-    <nav id="main-navigation" class="main-navigation">
-        <ul class="main-nav"> <!--主選單-->
-            <li
-                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
-                <div class="navigation_title navigation_title--bold navigation_title--salmon">
-                    <span class="navigation_title-inner">主題活動</span>
-                </div>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">3C周邊</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">家用電器</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">美妝個清</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">流行服飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">鞋包配飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">母嬰用品</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">日用生活</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">圖書文具</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">旅遊戶外</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-        </ul>
-
-    </nav>
-
-    <main class="main_content">
-
-        <div class="main_content container-sm">
-
-            <aside class="member-aside col-sm-2">
-
-                <div class="member-profile row ">
-                    <div class="memberPhoto col-sm-4">
-                        <img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
-                    </div>
-                    <div class="member-info col-sm-8">
-                        <h4 class="memberAccount">jeffrey47</h4>
-                        <h6 class="memberId">M123456789</h6>
-                    </div>
-                </div>
-                <ul class="nav1_list">
-                    <li>
-                        <h4>MENU</h4>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Chart.svg" alt="">
-                            <img src="./image/Chart-a.svg" alt="">個人中心
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/heart-s.svg" alt="">
-                            <img src="./image/heart-s-a.svg" alt="">收藏夾</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Buy1.svg" alt="">
-                            <img src="./image/Buy1-a.svg" alt="">購物車</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            <img src="./image/DocumentAsh.svg" alt="">
-                            <img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Discount.svg" alt="">
-                            <img src="./image/Discount-a.svg" alt="">會員點數</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Ticket Star.svg" alt="">
-                            <img src="./image/Ticket Star-a.svg" alt="">我的折價券</a>
-                    </li>
-                    <li>
-                        <h4>OTHERS</h4>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Profile1.svg" alt="">
-                            <img src="./image/Profile1-a.svg" alt="">個人資訊</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Setting.svg" alt="">
-                            <img src="./image/Setting-a.svg" alt="">帳號管理</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Info Square.svg" alt="">
-                            <img src="./image/Info Square-a.svg" alt="">取得協助</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Logout.svg" alt="">
-                            <img src="./image/Logout-a.svg" alt="">登出</a>
-                    </li>
-                </ul>
-
-                <!-- <nav class="nav1">
+	<!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
+	<header id="main-header" class="header">
+
+		<div class="container-sm">
+
+			<div class="header-top row">
+
+				<div class="col-sm-2">
+					<a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+				</div>
+
+				<div class="col-sm-6">
+					<form action="" method="get" class="header-search row">
+						<input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
+							maxlength="50" value="">
+
+						<button type="submit" class="header-search-submit col-sm-1"><img
+								src="./image/search.svg"></button>
+					</form>
+
+					<div class="Search-hot ">
+						<a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
+						<a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
+					</div>
+
+				</div>
+
+				<nav class="fixed-nav col-sm-4">
+
+					<div class="fixed-nav-list login row">
+						<a href="" class="SCM-Center col">
+							<div class="SCM_icon">
+								<button class="btn_SCM-Center">商家中心</button>
+							</div>
+						</a>
+
+						<a href="" class="User-Center col">
+							<div class="User_icon">
+								<img src="./image/Profile.svg" alt="">
+							</div>
+						</a>
+
+						<a href="" class="Favorite col">
+							<div class="header_icon">
+								<img src="./image/heart.svg" alt="">
+								<span class="count -active">0</span>
+							</div>
+						</a>
+
+						<a href="" class="Shopping-Cart col">
+							<div class="header_icon">
+								<img src="./image/Buy.svg" alt="">
+								<span class="count -active">0</span>
+							</div>
+						</a>
+
+						<a href="" class="Notification col">
+							<div class="header_icon">
+								<img src="./image/Notification.svg" alt="">
+								<span class="count -active">0</span>
+							</div>
+						</a>
+
+					</div>
+
+				</nav>
+			</div>
+
+		</div>
+
+	</header>
+
+	<!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
+	<nav id="main-navigation" class="main-navigation">
+		<ul class="main-nav"> <!--主選單-->
+			<li
+				class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+				<div class="navigation_title navigation_title--bold navigation_title--salmon">
+					<span class="navigation_title-inner">主題活動</span>
+				</div>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">3C周邊</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">家用電器</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">美妝個清</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">流行服飾</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">鞋包配飾</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">母嬰用品</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">日用生活</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">圖書文具</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="">
+					<span class="navigation_title-inner">旅遊戶外</span>
+				</a>
+
+				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
+					<a class="" href="" title="">
+						<span class="link-text">AAA</span> <!--中分類-->
+					</a>
+
+					<ul> <!--小分類-->
+						<li>
+							<a class="" href="" title="">
+								<span class="link-text">aaa</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</li>
+
+		</ul>
+
+	</nav>
+
+	<main class="main_content">
+
+		<div class="main_content container-sm">
+
+			<aside class="member-aside col-sm-2">
+
+				<div class="member-profile row ">
+					<div class="memberPhoto col-sm-4">
+						<img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
+					</div>
+					<div class="member-info col-sm-8">
+						<h4 class="memberAccount">jeffrey47</h4>
+						<h6 class="memberId">M123456789</h6>
+					</div>
+				</div>
+				<ul class="nav1_list">
+					<li>
+						<h4>MENU</h4>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Chart.svg" alt="">
+							<img src="./image/Chart-a.svg" alt="">個人中心
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/heart-s.svg" alt="">
+							<img src="./image/heart-s-a.svg" alt="">收藏夾</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Buy1.svg" alt="">
+							<img src="./image/Buy1-a.svg" alt="">購物車</a>
+					</li>
+					<li class="active">
+						<a href="#">
+							<img src="./image/DocumentAsh.svg" alt="">
+							<img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Discount.svg" alt="">
+							<img src="./image/Discount-a.svg" alt="">會員點數</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Ticket Star.svg" alt="">
+							<img src="./image/Ticket Star-a.svg" alt="">我的折價券</a>
+					</li>
+					<li>
+						<h4>OTHERS</h4>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Profile1.svg" alt="">
+							<img src="./image/Profile1-a.svg" alt="">個人資訊</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Setting.svg" alt="">
+							<img src="./image/Setting-a.svg" alt="">帳號管理</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Info Square.svg" alt="">
+							<img src="./image/Info Square-a.svg" alt="">取得協助</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Logout.svg" alt="">
+							<img src="./image/Logout-a.svg" alt="">登出</a>
+					</li>
+				</ul>
+
+				<!-- <nav class="nav1">
                     <ul class="nav1_list">
                         <div class="member_abc">
                             <div class="member_pictrue">
@@ -531,152 +637,709 @@
                         <li><a href="#"><img src="./image/Logout.svg" alt="">登出</a></li>
                     </ul>
                 </nav> -->
-            </aside>
-            <main class="member-check-order col-sm-10">
-                <div class="main-content-header row">
-                    <div class="main-content-icon col-sm-1">
-                        <img calss="main-content-icon" src="./image/Document.svg">
-                    </div>
-                    <h1 class="main-content-title col-sm-10">商品管理</h1>
-                    <hr class="main-content-divider">
-                </div>
-                <main class="member-check-order col-sm-10">
-                    <h2>商品詳情</h2>
-                    <div class="product_content">
-                        <p>
-                            <span>商品編號</span>
-                            <span>xxxxxxxx</span>
-                        </p>
-                        <p>
-                            <span>商品圖片</span>
-                            <span>
-                                <img class="product_img" src="./image/square.svg" alt="">
-                                <img class="product_img" src="./image/square.svg" alt="">
-                                <img class="product_img" src="./image/square.svg" alt="">
-                                <img class="product_img" src="./image/square.svg" alt="">
-                                <img class="product_img" src="./image/square.svg" alt="">
-                                <br>
-                                <span class="annotation">*最多可上傳5張商品圖片，尺寸：1000 x 1000 px；類型：.jpg、.jpeg；大小：1MB以下</span>
-                            </span>
-                        </p>
-                        <p>
-                            <span>商品名稱</span>
-                            <span><input class="productName" type="text" placeholder="最多30字" value=""></span>
-                        </p>
-                        <p>
-                            <span style="vertical-align: top;">商品說明</span>
-                            <span><textarea class="product_illustrate" placeholder="最多200字"></textarea></span>
-                        </p>
-                        <p>
-                            <span>商品分類</span>
-                            <span>
-                                <select class="category_select">
-                                    <option value="" selected disabled>請選擇商品分類</option>
-                                    <option value="option1">選項 1</option>
-                                    <option value="option2">選項 2</option>
-                                    <option value="option3">選項 3</option>
-                                </select>
-                            </span>
-                        </p>
-                        <p>
-                            <span>商品規格</span>
-                            <span><button style="background-color: white;">查看規格</button></span>
-                            <span><button style="background-color: white;">＋新增規格</button></span>
-                        </p>
-                        <p>
-                            <span>商品售價</span>
-                            <span><input type="text" placeholder="NT$" value=""></span>
-                        </p>
-                        <p>
-                            <span>首次備貨量</span>
-                            <span>1,000</span>
-                        </p>
-                        <div class="button-container" style=" text-align: center;">
-                            <button class="btn btn-L btn-primary">送出</button>
-                        </div>
-                    </div>
-                </main>
+			</aside>
+			<main class="member-check-order col-sm-10">
+				<div class="main-content-header row">
+					<div class="main-content-icon col-sm-1">
+						<img calss="main-content-icon" src="./image/Document.svg">
+					</div>
+					<h1 class="main-content-title col-sm-10">商品管理</h1>
+					<hr class="main-content-divider">
+				</div>
+				<main class="member-check-order col-sm-10">
+					<h2>商品詳情</h2>
+					<div class="product_content">
+						<p>
+							<span>商品編號</span>
+							<span class="productId" style="font-size: 10px;color: red;">*由系統自動產生</span>
+						</p>
+						<p style="margin-bottom: 10px">
+							<span>商品圖片</span>
+							<span>
+								<img class="product_img" id="image1" src="./image/square.svg" alt="">
+								<img class="product_img" id="image2" src="./image/square.svg" alt="">
+								<img class="product_img" id="image3" src="./image/square.svg" alt="">
+								<img class="product_img" id="image4" src="./image/square.svg" alt="">
+								<img class="product_img" id="image5" src="./image/square.svg" alt="">
+							</span>
+						</p>
+						<P style="margin-left: 115px;margin-bottom: 10px;">
+							<input type="file" class="img_file" id="fileInput1" data-target="#image1" />
+							<label for="fileInput1"></label>
+							<input type="file" class="img_file" id="fileInput2" data-target="#image2" />
+							<label for="fileInput2"></label>
+							<input type="file" class="img_file" id="fileInput3" data-target="#image3" />
+							<label for="fileInput3"></label>
+							<input type="file" class="img_file" id="fileInput4" data-target="#image4" />
+							<label for="fileInput4"></label>
+							<input type="file" class="img_file" id="fileInput5" data-target="#image5" />
+							<label for="fileInput5"></label>
+						</P>
+						<p class="annotation">*最多可上傳5張商品圖片，尺寸：1000 x 1000 px；類型：.jpg、.jpeg；大小：1MB以下</p>
+						<p>
+							<span>商品名稱</span>
+							<span><input class="productName" type="text" placeholder="最多30字" maxlength="30"
+									value=""></span>
+						</p>
+						<p>
+							<span style="vertical-align: top;">商品說明</span>
+							<span><textarea class="product_illustrate" placeholder="最多200字"
+									maxlength="200"></textarea></span>
+						</p>
+						<p>
+							<span>商品分類</span>
+							<span>
+								<select class="category_select">
+									<option value="" selected disabled>請選擇商品分類</option>
+									<optgroup label="3C周邊">
+										<option value="C000000001">3C周邊</option>
+										<option value="C000000002">手機</option>
+										<option value="C000000003">電腦</option>
+										<option value="C000000004">攝影器材</option>
+										<option value="C000000005">耳機</option>
+										<option value="C000000006">智慧家居</option>
+										<option value="C000000007">電子配件</option>
+										<option value="C000000008">遊戲周邊</option>
+										<option value="C000000009">行動電源</option>
+										<option value="C000000010">影音娛樂</option>
+									</optgroup>
+									<optgroup label="家用電器">
+										<option value="C000000011">家用電器</option>
+										<option value="C000000012">冰箱</option>
+										<option value="C000000013">洗衣機</option>
+										<option value="C000000014">電視</option>
+										<option value="C000000015">冷氣</option>
+										<option value="C000000016">烤箱</option>
+										<option value="C000000017">吸塵器</option>
+										<option value="C000000018">咖啡機</option>
+										<option value="C000000019">電飯煲</option>
+										<option value="C000000020">電熱水壺</option>
+									</optgroup>
+									<optgroup label="美妝個清">
+										<option value="C000000021">美妝個清</option>
+										<option value="C000000022">護膚品</option>
+										<option value="C000000023">彩妝</option>
+										<option value="C000000024">保養工具</option>
+										<option value="C000000025">香水</option>
+										<option value="C000000026">美髮工具</option>
+										<option value="C000000027">身體保養</option>
+										<option value="C000000028">美甲工具</option>
+										<option value="C000000029">沐浴用品</option>
+										<option value="C000000030">臉部清潔</option>
+									</optgroup>
+									<optgroup label="流行服飾">
+										<option value="C000000031">流行服飾</option>
+										<option value="C000000032">男士上衣</option>
+										<option value="C000000033">女士上衣</option>
+										<option value="C000000034">男士下著</option>
+										<option value="C000000035">女士下著</option>
+										<option value="C000000036">男士外套</option>
+										<option value="C000000037">女士外套</option>
+										<option value="C000000038">男士睡衣</option>
+										<option value="C000000039">女士睡衣</option>
+										<option value="C000000040">襪子</option>
+									</optgroup>
+									<optgroup label="鞋包配飾">
+										<option value="C000000041">鞋包配飾</option>
+										<option value="C000000042">女士包包</option>
+										<option value="C000000043">男士包包</option>
+										<option value="C000000044">女鞋</option>
+										<option value="C000000045">男鞋</option>
+										<option value="C000000046">飾品</option>
+										<option value="C000000047">皮帶</option>
+										<option value="C000000048">手錶</option>
+										<option value="C000000049">帽子</option>
+										<option value="C000000050">太陽眼鏡</option>
+									</optgroup>
+									<optgroup label="母嬰用品">
+										<option value="C000000051">母嬰用品</option>
+										<option value="C000000052">嬰兒尿布</option>
+										<option value="C000000053">嬰兒奶瓶</option>
+										<option value="C000000054">嬰兒車</option>
+										<option value="C000000055">嬰兒床</option>
+										<option value="C000000056">嬰兒衣服</option>
+										<option value="C000000057">嬰兒餐椅</option>
+										<option value="C000000058">孕婦用品</option>
+										<option value="C000000059">嬰兒玩具</option>
+										<option value="C000000060">嬰兒益智</option>
+									</optgroup>
+									<optgroup label="日用生活">
+										<option value="C000000061">日用生活</option>
+										<option value="C000000062">廚房用具</option>
+										<option value="C000000063">衛生用品</option>
+										<option value="C000000064">家庭清潔</option>
+										<option value="C000000065">居家裝飾</option>
+										<option value="C000000066">浴室用品</option>
+										<option value="C000000067">寢具用品</option>
+										<option value="C000000068">收納整理</option>
+										<option value="C000000069">文具用品</option>
+										<option value="C000000070">寵物用品</option>
+									</optgroup>
+									<optgroup label="圖書文具">
+										<option value="C000000071">圖書文具</option>
+										<option value="C000000072">書籍</option>
+										<option value="C000000073">紙製品</option>
+										<option value="C000000074">書寫用具</option>
+										<option value="C000000075">檔案收納</option>
+										<option value="C000000076">事務用品</option>
+										<option value="C000000077">美術用具</option>
+										<option value="C000000078">手作用品</option>
+										<option value="C000000079">兒童文具</option>
+										<option value="C000000080">教育玩具</option>
+									</optgroup>
+									<optgroup label="旅遊戶外">
+										<option value="C000000081">旅遊戶外</option>
+										<option value="C000000082">行李箱</option>
+										<option value="C000000083">背包</option>
+										<option value="C000000084">帳篷</option>
+										<option value="C000000085">睡袋</option>
+										<option value="C000000086">登山用具</option>
+										<option value="C000000087">釣魚用具</option>
+										<option value="C000000088">燒烤用具</option>
+										<option value="C000000089">戶外裝備</option>
+										<option value="C000000090">健身器材</option>
+									</optgroup>
+								</select>
+							</span>
+						</p>
+						<p>
+							<span>商品規格</span>
+							<span><button type="button" class="product_edit_button" style="background-color: white;"
+									data-bs-toggle="modal" data-bs-target="#product_edit_button">編輯規格</button></span>
+							<span><button type="button" class="product_create_button" style="background-color: white;"
+									data-bs-toggle="modal" data-bs-target="#product_create_button">新增規格</button></span>
 
-            </main>
+						</p>
+						<p>
+							<span>商品售價</span>
+							<span><input class="product_price" type="text" placeholder="NT$" value=""></span>
+						</p>
+						<p>
+							<span>首次備貨量</span>
+							<span class="initialStock_totoal">0</span>
+						</p>
+						<div class="button-container" style=" text-align: center;">
+							<button onclick="uploadInsert(event)" class="btn btn-L btn-primary">送出</button>
+						</div>
+					</div>
+				</main>
 
-        </div>
+			</main>
+
+		</div>
+
+	</main>
+	<!-- -------------------以下是新申請規格彈窗內容------------------- -->
+	<div class="modal fade" id="product_create_button" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h1 class="modal-title" style="text-align: center;">商品規格</h1>
+					<p style="font-size: 6px;">*商品規格編號待系統自動產生</p>
+					<div class="container" style="text-align: right;margin-bottom: 10px;">
+						<button class="create_btn btn btn-primary" type="button">+新增規格</button>
+					</div>
+					<div>
+						<table class="spec_table_new">
+							<thead>
+								<tr>
+									<th>規格圖</th>
+									<th>規格類型一</th>
+									<th>規格一詳細</th>
+									<th>規格類型二</th>
+									<th>規格二詳細</th>
+									<th>首次備貨量</th>
+									<th>刪除規格</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<img class="product_spec_img" id="specPicture1" src="./image/square.svg" alt="">
+										<input type="file" class="img_spc_file" id="file_Spec_Input1"
+											data-target="#specPicture1" />
+										<label for="file_Spec_Input1"></label>
+									</td>
+									<td>
+										<select class="specType1">
+											<option value="1">尺寸</option>
+											<option value="2">顏色</option>
+											<option value="3">容量</option>
+											<option value="4">材質</option>
+										</select>
+
+									</td>
+									<td>
+										<input class="specInfo1" type="text" value="" placeholder="最多10字"
+											maxlength="10">
+									</td>
+									<td>
+										<select class="specType2">
+											<option value="1">尺寸</option>
+											<option value="2">顏色</option>
+											<option value="3">容量</option>
+											<option value="4">材質</option>
+										</select>
+									</td>
+									<td>
+										<input class="specInfo2" type="text" value="" placeholder="最多10字"
+											maxlength="10">
+									</td>
+									<td>
+										<input class="initialStock" type="text" value="">
+									</td>
+									<td>
+										<button class="delete_btn btn btn-primary" type="button" disabled>刪除</button>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<img class="product_spec_img" id="specPicture2" src="./image/square.svg" alt="">
+										<input type="file" class="img_spc_file" id="file_Spec_Input2"
+											data-target="#specPicture2" />
+										<label for="file_Spec_Input2"></label>
+									</td>
+									<td>
+										<select class="specType1">
+											<option value="1">尺寸</option>
+											<option value="2">顏色</option>
+											<option value="3">容量</option>
+											<option value="4">材質</option>
+										</select>
+
+									</td>
+									<td><input class="specInfo1" type="text" value="" placeholder="最多10字"
+											maxlength="10">
+									</td>
+									<td>
+										<select class="specType2">
+											<option value="1">尺寸</option>
+											<option value="2">顏色</option>
+											<option value="3">容量</option>
+											<option value="4">材質</option>
+										</select>
+									</td>
+									<td>
+										<input class="specInfo2" type="text" value="" placeholder="最多10字"
+											maxlength="10">
+									</td>
+									<td>
+										<input class="initialStock" type="text" value="">
+									</td>
+									<td>
+										<button class="delete_btn btn btn-primary" type="button">刪除</button>
+									</td>
+								</tr>
+
+							</tbody>
+
+						</table>
+						<div class="container" style="text-align: center;margin-top: 10px;">
+							<button class="Save_new_btn btn btn-primary" type="button">儲存規格</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
-    </main>
+	<!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
+	<footer id="main-footer" class="footer">
+
+		<div class="container-sm">
+
+			<div class="footer-top row">
+				<a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+			</div>
+
+			<hr class="footer_divider">
+
+			<div class="footer-bottom row justify-content-end">
+
+				<nav class="SNS-nav-list ">
+
+					<a href="" class="Instagram col">
+						<div class="Instagram_icon">
+							<img src="./image/ant-design_instagram-filled.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Facebook col">
+						<div class="Facebook_icon">
+							<img src="./image/mdi_facebook.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Twitter col ">
+						<div class="Twitter_icon">
+							<img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+						</div>
+					</a>
+				</nav>
+			</div>
+		</div>
+	</footer>
+
+	<script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="./vendors/jquery/jquery-3.7.0.min.js"></script>
+	<script>
+		// 獲取.member_account元素
+		var memberAccount = document.querySelector('.memberAccount');
+
+		// 獲取.member_account的文字內容
+		var textContent = memberAccount.textContent.trim();
+
+		// 計算文字內容的長度
+		var textLength = textContent.length;
+
+		// 設定字體大小變數
+		var fontSizeVar = '--font-size';
+
+		// 設定文字長度與字體大小的映射關係
+		var lengthToFontSize = {
+			5: '16px',
+			10: '14px',
+			15: '12px',
+			20: '10px',
+			25: '8px',
+			30: '6px',
+			35: '4px',
+			40: '2px'
+			// 根據需要添加更多的映射關係
+		};
+
+		// 檢查文字長度是否在映射表中，並設置對應的字體大小
+		if (lengthToFontSize.hasOwnProperty(textLength)) {
+			memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
+		}
+
+		//當新增商品時，將編輯規格按鈕停止作用
+		if ($('.productId').text().trim() === '*由系統自動產生') {
+			// 找到對應的按鈕元素，設置 disabled 屬性
+			$('.product_edit_button').attr('disabled', 'disabled');
+		}
+
+		//***上傳5張圖片後，圖片會預覽***
+		// 對於動態生成的 <input type="file"> 元素的 change 事件使用事件代理
+		$(document).on("change", "input[type='file']", function () {
+			const targetImg = $(this).data("target");
+			const fileInput = this;
+			if (fileInput.files && fileInput.files[0]) {
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					$(targetImg).attr("src", e.target.result);
+				};
+				reader.readAsDataURL(fileInput.files[0]);
+			}
+		});
+
+		//***上傳圖片功能1***
+		let productId;
+		const imageFiles = []; // 存儲圖片檔案
+
+		function uploadImages() {
+			// 定義上傳圖片的函式
+			function uploadImage(fileInput) {
+				const file = fileInput.files[0];
+				if (!file) return;
+
+				imageFiles.push(file);
+			}
+
+			// 依次呼叫上傳圖片函式
+			uploadImage(document.getElementById('fileInput1'));
+			uploadImage(document.getElementById('fileInput2'));
+			uploadImage(document.getElementById('fileInput3'));
+			uploadImage(document.getElementById('fileInput4'));
+			uploadImage(document.getElementById('fileInput5'));
+
+			// 使用fetch API將所有圖片檔案一次性傳送至後端
+			uploadToBackend(productId, imageFiles);
+		}
+
+		//***上傳圖片功能2***	
+		function uploadToBackend(productId, files) {
+			const formData = new FormData();
+			formData.append('productId', productId);
+
+			files.forEach((file, index) => {
+				formData.append('images', file);
+			});
+
+			// 使用fetch API傳送FormData格式的圖片資料至後端
+			fetch('http://localhost:8080/Niigi/product/upload', {
+				method: 'POST',
+				body: formData
+			})
+				.then(response => {
+					if (response.ok) {
+						console.log('All images uploaded successfully!');
+					} else {
+						console.error('Image upload failed!');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		}
+
+		//-----------------------新申請規格彈窗作業的地方-------------------------------------//
+		// 監聽「+新增規格」按鈕點擊事件
+
+		$('.create_btn').on('click', function () {
+			let rowNum = $('.spec_table_new tbody tr').length + 1; //算目前有幾行
+			const newRow = `
+                    <tr>
+                        <td>
+                            <img class="product_spec_img" id="specPicture${rowNum}" src="./image/square.svg" alt="">
+                            <input type="file" class="img_spc_file" id="file_Spec_Input${rowNum}"
+                                data-target="#specPicture${rowNum}" />
+                            <label for="file_Spec_Input${rowNum}"></label>
+                        </td>
+                        <td>
+                            <select class="specType1">
+                                <option value="1">尺寸</option>
+                                <option value="2">顏色</option>
+                                <option value="3">容量</option>
+                                <option value="4">材質</option>
+                            </select>
+                        </td>
+                        <td><input class="specInfo1" type="text" value="" placeholder="最多10字" maxlength="10"></td>
+                        <td>
+                            <select class="specType2">
+                                <option value="1">尺寸</option>
+                                <option value="2">顏色</option>
+                                <option value="3">容量</option>
+                                <option value="4">材質</option>
+                            </select>
+                        </td>
+                        <td><input class="specInfo2" type="text" value="" placeholder="最多10字" maxlength="10"></td>
+                        <td><input class="initialStock" type="text" value=""></td>
+                        <td><button class="delete_btn btn btn-primary" type="button">刪除</button></td>
+                    </tr>
+                `;
+
+			$('.spec_table_new tbody').append(newRow);
+			rowNum++;
+		});
 
 
+		// 對於刪除按鈕的點擊事件使用事件代理
+		$(document).on("click", ".delete_btn", function () {
+			$(this).closest("tr").remove(); // 刪除所屬的 <tr> 元素
+		});
+
+		// 收集儲存規格資料
+		let dataToSend = [];
+		let formDataSpecImg = new FormData();
+		// 監聽儲存按鈕點擊事件
+		$(".Save_new_btn").click(function () {
+			dataToSend = [];
+			formDataSpecImg = new FormData();
+			// 檢查每一個資料列是否有空值
+			var hasEmptyValue = false;
+			$(".spec_table_new tbody tr").each(function () {
+				var imgInput = $(this).find(".img_spc_file");
+				if (!imgInput[0].files || imgInput[0].files.length === 0) {
+					hasEmptyImage = true;
+					return false; // 跳出 each 迴圈
+				}
+			});
+			$(".spec_table_new tbody tr").each(function () {
+				var specType1 = $(this).find(".specType1").val();
+				var specInfo1 = $(this).find(".specInfo1").val().trim();
+				var specType2 = $(this).find(".specType2").val();
+				var specInfo2 = $(this).find(".specInfo2").val().trim();
+				var initialStock = $(this).find(".initialStock").val().trim();
+
+				if (specType1 === "" || specInfo1 === "" ||
+					specType2 === "" || specInfo2 === "" || initialStock === "") {
+					hasEmptyValue = true;
+					return false; // 跳出 each 迴圈
+				}
+
+				const productPriceValue = parseFloat(initialStock);
+				if (isNaN(productPriceValue) || productPriceValue <= 0) {
+					hasEmptyValue = true;
+					return false; // 跳出 each 迴圈
+				}
+			});
+
+			// 如果有空值，阻止送出資料
+			if (hasEmptyValue) {
+				alert("請填寫完整資料");
+				return false; // 阻止表單送出
+			}
 
 
-    <!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
-    <footer id="main-footer" class="footer">
+			let imageFiles = [];
+			let initialStock_totoal = 0; 
+			// 收集資料
+			$(".spec_table_new tbody tr").each(function () {
+				let rowData = {};
+				rowData["specType1"] = $(this).find(".specType1").val();
+				rowData["specInfo1"] = $(this).find(".specInfo1").val().trim();
+				rowData["specType2"] = $(this).find(".specType2").val();
+				rowData["specInfo2"] = $(this).find(".specInfo2").val().trim();
+				rowData["initialStock"] = $(this).find(".initialStock").val().trim();
+				dataToSend.push(rowData);
+				const imageFile = $(this).find(".img_spc_file")[0].files[0];
+				//console.log(imageFile);
+				imageFiles.push(imageFile);
+				initialStock_totoal = initialStock_totoal + parseFloat($(this).find(".initialStock").val().trim());
+			});
+			$('.initialStock_totoal').text(initialStock_totoal.toLocaleString());
+			
+			//console.log(imageFiles);
+			imageFiles.forEach((imageFile, index) => {
+				formDataSpecImg.append('images', imageFile);
+			});
 
-        <div class="container-sm">
+			// 關閉彈窗
+			$("#product_create_button").modal("hide");
 
-            <div class="footer-top row">
-                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-            </div>
+		});
 
-            <hr class="footer_divider">
+		//上傳新申請規格(text)
+		function insertSpecProduct(dataToSend) {
+			fetch('http://localhost:8080/Niigi/insertSpecProduct', {
+				method: 'POST',
+				body: JSON.stringify(dataToSend),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+						console.log(response);
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					//console.log(data);
 
-            <div class="footer-bottom row justify-content-end">
+					data.forEach(id => {
+						formDataSpecImg.append('productSpecIds', id);
+					});
+					insertSpecImg(formDataSpecImg);
 
-                <nav class="SNS-nav-list ">
 
-                    <a href="" class="Instagram col">
-                        <div class="Instagram_icon">
-                            <img src="./image/ant-design_instagram-filled.svg" alt="">
-                        </div>
-                    </a>
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+		}
 
-                    <a href="" class="Facebook col">
-                        <div class="Facebook_icon">
-                            <img src="./image/mdi_facebook.svg" alt="">
-                        </div>
-                    </a>
 
-                    <a href="" class="Twitter col ">
-                        <div class="Twitter_icon">
-                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
-                        </div>
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </footer>
+		//上傳新申請規格(圖)
+		function insertSpecImg(formDataSpecImg) {
+			fetch('http://localhost:8080/Niigi/uploadSpecPicture', {
+				method: 'POST',
+				body: formDataSpecImg
+			})
+				.then(response => {
+					if (response.ok) {
+						console.log('All images uploaded successfully!');
+					} else {
+						console.error('Image upload failed!');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		}
 
-    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    <script>
-        // 獲取.member_account元素
-        var memberAccount = document.querySelector('.memberAccount');
 
-        // 獲取.member_account的文字內容
-        var textContent = memberAccount.textContent.trim();
+		//--------------------------------------------------------------------//
 
-        // 計算文字內容的長度
-        var textLength = textContent.length;
+		//上傳新商品
+		function uploadInsert(event) {
+			const registerSupplier = "S000000001"
+			const productStatus = "0"
+			for (let i = 1; i < 6; i++) {
+				if ($(`#image${i}`).attr('src') === './image/square.svg') {
+					alert('請選擇圖片');
+					event.preventDefault(); // 阻止表單提交
+					return; // 終止函數執行
+				}
+			}
+			if ($('.productName').val().trim() === '') {
+				alert('請輸入商品名稱');
+				return; // 阻止表單提交
+			}
+			const productName = $('.productName').val().trim();
 
-        // 設定字體大小變數
-        var fontSizeVar = '--font-size';
+			if ($('.product_illustrate').val().trim() === '') {
+				alert('請輸入商品說明');
+				return; // 阻止表單提交
+			}
+			const productInfo = $('.product_illustrate').val().trim();
 
-        // 設定文字長度與字體大小的映射關係
-        var lengthToFontSize = {
-            5: '16px',
-            10: '14px',
-            15: '12px',
-            20: '10px',
-            25: '8px',
-            30: '6px',
-            35: '4px',
-            40: '2px'
-            // 根據需要添加更多的映射關係
-        };
+			if ($('.category_select').val() === null || $('.category_select').val() === '') {
+				alert('請選擇商品分類');
+				return; // 阻止表單提交
+			}
+			const categorieId = $('.category_select').val();
 
-        // 檢查文字長度是否在映射表中，並設置對應的字體大小
-        if (lengthToFontSize.hasOwnProperty(textLength)) {
-            memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
-        } 
-    </script>
+			const productPriceValue = parseFloat($('.product_price').val().trim());
+			if ($('.product_price').val().trim() === '') {
+				alert('請輸入商品售價');
+				return; // 阻止表單提交
+			} else if (isNaN(productPriceValue) || productPriceValue <= 0) {
+				alert('商品售價不可小於等於0，請重新輸入數字');
+				return; // 阻止表單提交
+			}
+			const productPrice = $('.product_price').val().trim();
+
+			if (dataToSend == "") {
+				alert('商品規格至少需一種');
+				return; // 阻止表單提交
+			}
+
+			fetch('http://localhost:8080/Niigi/product/insertProduct', {
+				method: 'POST',
+				body: JSON.stringify({registerSupplier: registerSupplier, categorieId: categorieId, productName: productName, productPrice: productPrice, productInfo: productInfo, productStatus: productStatus}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+						console.log(response);
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					productId = data;
+					uploadImages();
+					dataToSend.forEach(function (row) {
+						row["productId"] = `${data}`;
+					});
+					insertSpecProduct(dataToSend);
+					alert(`新增商品成功，商品編號：${data}`);
+					//location.reload(); // 重新載入整個頁面
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+
+		}
+
+
+	</script>
 </body>
 
 </html>

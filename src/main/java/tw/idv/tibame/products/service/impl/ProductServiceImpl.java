@@ -167,22 +167,40 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.save(product);
 	}
 
+	@Override
 	public List<Product> getAllFindLatestProducts() throws Exception {
 		return productDAO.findLatestProducts();
 
 	}
 
+	@Override
 	public List<Product> getAllExpensiveProducts() throws Exception {
 		return productDAO.findMostExpensiveProduct();
 	}
 
+	@Override
 	public List<Product> getKeywordProducts(String keyword) throws Exception {
 		String[] keywords = keyword.split("\\s+");
 		return productDAO.selectByKeywords(keywords);
 	}
 
+	@Override
 	public List<Product> getCategorieProducts(String categorie) throws Exception {
 		return productDAO.selectByCategorie(categorie);
+	}
+
+	@Override
+	public Integer addProduct(String registerSupplier, String categorieId, String productName, String productPrice,
+			String productInfo, String productStatus) throws Exception {
+		Product products = new Product();
+		products.setRegisterSupplier(registerSupplier);
+		products.setCategorieId(categorieId);
+		products.setProductName(productName);
+		products.setProductPrice(Integer.parseInt(productPrice));
+		products.setProductInfo(productInfo);
+		products.setProductStatus(productStatus);
+		productDAO.insert(products);
+		return products.getProductId();
 	}
 
 }

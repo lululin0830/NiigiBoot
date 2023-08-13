@@ -2,14 +2,17 @@ package tw.idv.tibame.products.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import tw.idv.tibame.products.DTO.ProductSpecManageDTO;
 import tw.idv.tibame.products.dao.ProductDAO;
 import tw.idv.tibame.products.dao.ProductSpecDAO;
+import tw.idv.tibame.products.dao.ProductSpecRepository;
 import tw.idv.tibame.products.entity.ProductSpec;
 import tw.idv.tibame.products.service.ProductSpecService;
 import tw.idv.tibame.products.service.ShelvesStatusRecordService;
@@ -20,12 +23,19 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 
 	@Autowired
 	private ProductSpecDAO productSpecDAO;
-	
+
 	@Autowired
 	private ProductDAO productDAO;
 
 	@Autowired
 	private ShelvesStatusRecordService shelvesStatusRecordService;
+	
+    private final ProductSpecRepository productSpecRepository;
+
+    @Autowired
+    public ProductSpecServiceImpl(ProductSpecRepository productSpecRepository) {
+        this.productSpecRepository = productSpecRepository;
+    }
 
 	//////// 以下是分頁用
 	@Override
@@ -231,27 +241,26 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 				registerSupplier);
 	}
 
-	//確認目前商品規格內有多少上架商品
+	// 確認目前商品規格內有多少上架商品
 	@Override
 	public Integer getUpStatusCount(Integer productId) throws Exception {
 		List<ProductSpec> productSpec = productSpecDAO.selectByProductId(productId);
 		int c = 0;
 		for (ProductSpec p : productSpec) {
-			if (p.getShelvesStatus() == "0") c++;
+			if (p.getShelvesStatus() == "0")
+				c++;
 		}
 		return c;
 	}
 
-	
-	//針對上下架按鈕
+	// 針對上下架按鈕
 	@Override
 	public Boolean updateStatusButton(String[] productSpecIds, String shelvesMemberId, String shelvesStatus)
 			throws Exception {
 		Boolean b = productSpecDAO.updateStatus(productSpecIds, shelvesStatus);
 		Boolean c;
 		if (b) {
-			c = shelvesStatusRecordService.insertShelvesStatusRecord(productSpecIds, shelvesMemberId,
-					shelvesStatus);
+			c = shelvesStatusRecordService.insertShelvesStatusRecord(productSpecIds, shelvesMemberId, shelvesStatus);
 		} else {
 			return c = false;
 		}
@@ -260,13 +269,58 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 				Integer productId = Integer.parseInt(productSpecIds[i].substring(0, 8));
 				int a = getUpStatusCount(productId);
 				if (shelvesStatus == "0") {
-					if(a == 1) productDAO.updateStatus(productId,shelvesStatus);
-				}else {
-					if(a == 0) productDAO.updateStatus(productId,"1");
+					if (a == 1)
+						productDAO.updateStatus(productId, shelvesStatus);
+				} else {
+					if (a == 0)
+						productDAO.updateStatus(productId, "1");
 				}
 			}
 		}
 		return true;
 	}
+
+	// 以下是獲取pk號碼使用
+	@Override
+	public String concatPKID(String productId) throws Exception {
+		Integer a = Integer.parseInt(productId);
+		Integer b = productSpecDAO.selectByProductSpecId(a);
+		String formattedText = String.format("%03d", b + 1);
+		String poductSpecId = a + formattedText;
+		return poductSpecId;
+	}
+
+	// 新增規格(不含圖片)
+	@Override
+	public String insertSpecProductText(String productId, String specType1, String specInfo1, String specType2,
+			String specInfo2, String initialStock) throws Exception {
+		ProductSpec productSpec = new ProductSpec();
+		productSpec.setProductSpecId(concatPKID(productId));
+		productSpec.setProductId(Integer.parseInt(productId));
+		productSpec.setSpecType1(specType1);
+		productSpec.setSpecInfo1(specInfo1);
+		productSpec.setSpecType2(specType2);
+		productSpec.setSpecInfo2(specInfo2);
+		productSpec.setShelvesStatus("0");
+		productSpec.setInitialStock(Integer.parseInt(initialStock));
+		productSpec.setSpecStock(Integer.parseInt(initialStock));
+		productSpecDAO.insert(productSpec);
+		return productSpec.getProductSpecId();
+	}
+	
+	
+	//上傳規格圖片
+	@Override
+	public void saveSpecPicture(String productSpecId, MultipartFile image) throws IOException {
+        ProductSpec productSpec = productSpecRepository.findById(productSpecId).orElse(null);
+        if (productSpec == null) {
+            throw new IllegalArgumentException("ProductSpec with ID " + productSpecId + " not found.");
+        }
+
+        byte[] imageData = image.getBytes();
+        productSpec.setSpecPicture(imageData);
+
+        productSpecRepository.save(productSpec);
+    }
 
 }
