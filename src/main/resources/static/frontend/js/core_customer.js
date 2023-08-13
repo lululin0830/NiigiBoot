@@ -33,7 +33,29 @@ function stopDefaultAction(selector) {
 
 }
 
+/* 驗證必填欄位是否都有填 */
+function validateForm(document) {
 
+	document.querySelectorAll('input[required]').forEach(function(e) {
+
+		if (e.value.trim() == '') {
+			return false;
+		}
+		return true;
+	})
+
+}
+
+/* 將文字傳遞給下一頁 */
+function passTextToNextPage(text) {
+	localStorage.setItem('textData', text);
+}
+
+/* 登出並回到首頁 */
+function logout(){
+	clearCookie('jwt');
+	window.location.href = '../index.html'
+}
 
 /* ------------------------------ 共用方法區結束 ------------------------------------ */
 
@@ -52,6 +74,7 @@ let memberId; let memberAcct;
 
 let isLoggedIn = false;
 
+/* 頁面初始化 */
 function init() {
 
 	fetch('../member/customerCenter', {
@@ -74,22 +97,25 @@ function init() {
 		return resp.json();
 
 	}).then(function(data) {
-
-		console.log(data);
-
 		memberId = data.userId;
 		memberAcct = data.username;
-		// 渲染Header
+
 		showHeader();
 		showUserInfo();
 
 	}).catch(function(error) {
+
 		console.log(error);
 		clearCookie('jwt');
+
+		if (loginRequired) {
+			sessionStorage.setItem("loginRequired", "true");
+			alert("登入已過期，請重新登入")
+			history.back();
+		}
+		showHeader();
 	})
 }
-
-
 
 /* Header渲染 */
 function showHeader() {
@@ -106,9 +132,9 @@ function showHeader() {
                 </div>
 
                 <div class="col-sm-6">
-                    <form action="" method="get" class="header-search row">
+                    <form action="KeyWordSerch.html" method="get" class="header-search row" onsubmit="return validateForm(this)" >
                         <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
-                            maxlength="50" value="">
+                            maxlength="50" value="" required>
 
                         <button type="submit" class="header-search-submit col-sm-1"><img
                                 src="./image/search.svg"></button>
@@ -127,18 +153,18 @@ function showHeader() {
                             </div>
                         </a>
 
-                        <a href="" class="User-Center col">
+                        <a href="check_order.html" class="User-Center col">
                             <div class="User_icon">
                                 <img src="./image/Profile.svg" alt="">
                             </div>
                         </a>
-                         <a href="" class="Favorite col">
+                         <a href="collect_box.html" class="Favorite col">
                             <div class="header_icon">
                                 <img src="./image/heart.svg" alt="">
                             </div>
                         </a>
 
-                        <a href="#" class="Shopping-Cart col">
+                        <a href="shopping_cart.html" class="Shopping-Cart col">
                             <div class="header_icon">
                                 <img src="./image/Buy.svg" alt="">
                             </div>
@@ -156,11 +182,11 @@ function showHeader() {
          <div class="fixed-nav-list notLogin row">
 			<a href="#" class="SCM-Center col">
                 <div class="login_icon col">
-                    <button class="btn-login"  data-bs-toggle="modal"
+                    <button class="btn-login" data-bs-toggle="modal"
                                 data-bs-target="#login_popup">登入/註冊</button>
                 </div>
             </a>
-            <a href="#" class="Shopping-Cart col">
+            <a href="shopping_cart.html" class="Shopping-Cart col">
                 <div class="header_icon">
                     <img src="./image/Buy.svg" alt="">
                 </div>
@@ -226,6 +252,15 @@ if (jwtToken) {
 } else {
 	showHeader();
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+
+	if (sessionStorage.getItem("loginRequired")) {
+		document.querySelector("button.btn-login").click();
+		sessionStorage.removeItem("loginRequired");
+	}
+});
+
 
 stopDefaultAction("a[href='#']");
 

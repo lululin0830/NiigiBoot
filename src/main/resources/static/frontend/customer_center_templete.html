@@ -2,511 +2,479 @@
 <html lang="zh-tw">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Customer center</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Customer center</title>
 
-    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/carousel.css">
-    <link rel="stylesheet" href="./css/core.css">
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/button.css">
-    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/customer.aside.css"><!-- 側邊欄的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+	<link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/carousel.css">
+	<link rel="stylesheet" href="./css/core.css">
+	<link rel="stylesheet" href="./css/font.css">
+	<link rel="stylesheet" href="./css/button.css">
+	<link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/customer.aside.css"><!-- 側邊欄的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+	<style>
+		main.main_content {
+			min-height: calc(100vh - 324px);
+			background-color: #ffffff;
+		}
 
+		div.main_content {
+			font-size: 0;
+		}
 
-    <style>
-        main.main_content {
-            min-height: calc(100vh - 324px);
-            background-color: #ffffff;
-        }
+		/* main content */
+		main.content {
+			display: inline-block;
+			vertical-align: top;
+			padding-left: 25px;
+		}
 
-        div.main_content {
-            font-size: 0;
-        }
+		div.main-content-icon {
+			width: 6rem;
+		}
 
-        /* main content */
-        main.content {
-            display: inline-block;
-            vertical-align: top;
-            padding-left: 25px;
-        }
+		div.main-content-header img,
+		div.main-content-header>h1 {
+			display: inline-block;
+			vertical-align: bottom;
+			margin: 4.5rem 0 0 0;
+		}
 
-        div.main-content-icon {
-            width: 6rem;
-        }
+		hr.main-content-divider {
+			width: 100%;
+			border: 1px solid #EEEEEE;
+			margin: 18px 0 28px 0;
+			opacity: 1;
+		}
+	</style>
 
-        div.main-content-header img,
-        div.main-content-header>h1 {
-            display: inline-block;
-            vertical-align: bottom;
-            margin: 4.5rem 0 0 0;
-        }
-
-        hr.main-content-divider {
-            width: 100%;
-            border: 1px solid #EEEEEE;
-            margin: 18px 0 28px 0;
-            opacity: 1;
-        }
-    </style>
-
+	<script>const loginRequired = false </script>
 </head>
 
 <body>
+
 	<script src="./js/core_customer.js"></script>
-    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
-<!--    <header id="main-header" class="header">-->
-
-<!--        <div class="container-sm">-->
-
-<!--            <div class="header-top row">-->
-
-<!--                <div class="col-sm-2">-->
-<!--                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>-->
-<!--                </div>-->
-
-<!--                <div class="col-sm-6">-->
-<!--                    <form action="" method="get" class="header-search row">-->
-<!--                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"-->
-<!--                            maxlength="50" value="">-->
-
-<!--                        <button type="submit" class="header-search-submit col-sm-1"><img-->
-<!--                                src="./image/search.svg"></button>-->
-<!--                    </form>-->
-
-<!--                    <div class="Search-hot ">-->
-<!--                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>-->
-<!--                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-
-<!--                <nav class="fixed-nav col-sm-4">-->
-
-<!--                    <div class="fixed-nav-list login row">-->
-<!--                        <a href="" class="SCM-Center col">-->
-<!--                            <div class="SCM_icon">-->
-<!--                                <button class="btn_SCM-Center">商家中心</button>-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                        <a href="" class="User-Center col">-->
-<!--                            <div class="User_icon">-->
-<!--                                <img src="./image/Profile.svg" alt="">-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                        <a href="" class="Favorite col">-->
-<!--                            <div class="header_icon">-->
-<!--                                <img src="./image/heart.svg" alt="">-->
-<!--                                <span class="count -active">0</span>-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                        <a href="" class="Shopping-Cart col">-->
-<!--                            <div class="header_icon">-->
-<!--                                <img src="./image/Buy.svg" alt="">-->
-<!--                                <span class="count -active">0</span>-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                        <a href="" class="Notification col">-->
-<!--                            <div class="header_icon">-->
-<!--                                <img src="./image/Notification.svg" alt="">-->
-<!--                                <span class="count -active">0</span>-->
-<!--                            </div>-->
-<!--                        </a>-->
-
-<!--                    </div>-->
-
-<!--                </nav>-->
-<!--            </div>-->
-
-<!--        </div>-->
-
-<!--    </header> -->
-
-    <!-- ----------------------以下是登入彈窗內容------------------------- -->
-    <div class="modal" id="login_popup">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center align-items-center">
-                    <img src="./image/logo.svg" alt="">
-                </div>
-                <img src="./image/4F267CF7-0F7A-4CE7-913D-3D03F1CF697E 1.svg" alt="">
-                <div class="modal-body">
-                    <button type="button" class="modal-button">使用Line繼續</button>
-                    <div style="height: 20px;"></div>
-                    <button type="button" class="modal-button">使用Google繼續</button>
-                    <div style="height: 20px;"></div>
-                    <h5>------------------使用Niigi帳號------------------</h5>
-                    <div style="height: 20px;"></div>
-                    <button type="button" class="modal-button" data-bs-toggle="modal"
-                        data-bs-target="#login_Niigi">使用Niigi帳號繼續</button>
-                    <div style="height: 50px;"></div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- -------------------------------- 以下是商品分類導覽列 勿動！！ -------------------------------- -->
-    <nav id="main-navigation" class="main-navigation">
-        <ul class="main-nav"> <!--主選單-->
-            <li
-                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
-                <div class="navigation_title navigation_title--bold navigation_title--salmon">
-                    <span class="navigation_title-inner">主題活動</span>
-                </div>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">3C周邊</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">家用電器</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">美妝個清</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">流行服飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">鞋包配飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">母嬰用品</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">日用生活</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">圖書文具</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">旅遊戶外</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-        </ul>
-
-    </nav>
-
-
-
-    <main class="main_content">
-
-        <div class="main_content container-sm">
-
-            <!-- -------------------------以下是側邊欄 只可以變動li的"active"class的位置 其他勿動！！！--------------- -->
-            <aside class="member-aside col-sm-2">
-
-                <div class="member-profile row ">
-                    <div class="memberPhoto col-sm-4">
-                        <img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
-                    </div>
-                    <div class="member-info col-sm-8">
-                        <h4 class="memberAccount"></h4>
-                        <h6 class="memberId"></h6>
-                    </div>
-                </div>
-                <ul class="nav1_list">
-                    <li>
-                        <h4>MENU</h4>
-                    </li>
-                    <li class="active">
-                        <a href="customer_personal_center.html">
-                            <img src="./image/Chart.svg" alt="">
-                            <img src="./image/Chart-a.svg" alt="">個人中心
-                        </a>
-                    </li>
-                    <li>
-                        <a href="collect_box.html">
-                            <img src="./image/heart-s.svg" alt="">
-                            <img src="./image/heart-s-a.svg" alt="">收藏夾</a>
-                    </li>
-                    <li>
-                        <a href="shopping_cart.html">
-                            <img src="./image/Buy1.svg" alt="">
-                            <img src="./image/Buy1-a.svg" alt="">購物車</a>
-                    </li>
-                    <li>
-                        <a href="check_order.html">
-                            <img src="./image/DocumentAsh.svg" alt="">
-                            <img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
-                    </li>
-                    <li>
-                        <a href="customer_point_record.html">
-                            <img src="./image/Discount.svg" alt="">
-                            <img src="./image/Discount-a.svg" alt="">會員點數</a>
-                    </li>
-                    <li>
-                        <a href="mycoupon.html">
-                            <img src="./image/Ticket_Star.svg" alt="">
-                            <img src="./image/Ticket_Star-a.svg" alt="">我的折價券</a>
-                    </li>
-                    <li>
-                        <h4>OTHERS</h4>
-                    </li>
-                    <li>
-                        <a href="customer_Information.html">
-                            <img src="./image/Profile1.svg" alt="">
-                            <img src="./image/Profile1-a.svg" alt="">個人資訊</a>
-                    </li>
-                    <li>
-                        <a href="customer_change_password.html">
-                            <img src="./image/Setting.svg" alt="">
-                            <img src="./image/Setting-a.svg" alt="">帳號管理</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Info Square.svg" alt="">
-                            <img src="./image/Info Square-a.svg" alt="">取得協助</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Logout.svg" alt="">
-                            <img src="./image/Logout-a.svg" alt="">登出</a>
-                    </li>
-                </ul>
-            </aside>
-            <main class="content col-sm-10">
-
-                <div class="main-content-header row">
-                    <div class="main-content-icon col-sm-1">
-                        <img calss="main-content-icon" src="./image/Chart-L.svg">
-                    </div>
-                    <h1 class="main-content-title col-sm-10">個人中心</h1>
-                    <hr class="main-content-divider">
-                </div>
-                <!-- -------------------------------- 頁面的內容請從這裡往下寫 -------------------------------- -->
-
-            </main>
-        </div>
-    </main>
-
-    <!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
-    <footer id="main-footer" class="footer">
-
-        <div class="container-sm">
-
-            <div class="footer-top row">
-                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-            </div>
-
-            <hr class="footer_divider">
-
-            <div class="footer-bottom row justify-content-end">
-
-                <nav class="SNS-nav-list ">
-
-                    <a href="" class="Instagram col">
-                        <div class="Instagram_icon">
-                            <img src="./image/ant-design_instagram-filled.svg" alt="">
-                        </div>
-                    </a>
-
-                    <a href="" class="Facebook col">
-                        <div class="Facebook_icon">
-                            <img src="./image/mdi_facebook.svg" alt="">
-                        </div>
-                    </a>
-
-                    <a href="" class="Twitter col ">
-                        <div class="Twitter_icon">
-                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
-                        </div>
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </footer>
-
-    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    
-    <script src="./js/login_popup.js"></script>
+
+	<!-- ----------------------以下是登入彈窗內容------------------------- -->
+	<div class="modal" id="login_popup">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center mb-5">
+					<img src="./image/logo.svg" alt="">
+				</div>
+				<div class="modal-body mb-5">
+					<button type="button" class="modal-button">使用Line繼續</button>
+					<button type="button" class="modal-button my-4">使用Google繼續</button>
+					<p class="text-center">--------------------使用Niigi帳號--------------------</p>
+					<button type="button" class="modal-button" data-bs-toggle="modal"
+						data-bs-target="#login_Niigi">使用Niigi帳號繼續</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- -------------------以下是選擇niigi登入彈窗內容 --------------------->
+	<div class="modal fade" id="login_Niigi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center">
+					<img src="./image/logo.svg" alt="">
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h4>使用Niigi帳號登入</h4>
+					<div style="height: 20px;"></div>
+					<div class="text-left">
+						<input type="email" id="memberAcct" name="" required placeholder="xxx帳號">
+						<div style="height: 20px;"></div>
+						<form id="changePasswordForm"
+							class="d-flex flex-column justify-content-center align-items-center">
+							<div class="form-group">
+								<input type="password" id="currentPassword" name="currentPassword" required
+									placeholder="密碼">
+								<span class="show-password-btn"
+									onclick="togglePasswordVisibility('currentPassword')">&#128065;</span>
+							</div>
+						</form>
+					</div>
+					<div style="height: 20px;"></div>
+					<button type="button" id="login" class="btn-primary">登入</button>
+					<div id="errMsg" class="error"></div>
+					<div style="height: 20px;"></div>
+					<div class="modal-footer d-flex justify-content-between align-items-center">
+						<button type="button" class="btn btn-link " data-bs-toggle="modal"
+							data-bs-target="#forget_password">忘記密碼</button>
+						<hr class="vertical-line">
+						<button type="button" class="btn btn-link" data-bs-toggle="modal"
+							data-bs-target="#resend_letter">重寄認證信</button>
+					</div>
+					<p>還不是會員嗎?</p>
+					<button type="button" class="btn btn-link" data-bs-toggle="modal"
+						data-bs-target="#register_account">立即註冊帳號</button>
+				</div>
+
+				<div class="modal-footer d-flex justify-content-center align-items-center">
+					<button id="backToPreviousModal" type="button" class="btn btn-link">回上一頁</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -------------------以下是忘記密碼彈窗內容 --------------------->
+	<div class="modal fade" id="forget_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center">
+					<img src="./image/logo.svg" alt="">
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h4>重設密碼</h4>
+					<div style="height: 20px;"></div>
+					<p>請輸入您註冊時的E-mail</p>
+					<p>我們會發送一封信件</p>
+					<p>點擊信件中的連結以重設密碼</p>
+					<div style="height: 20px;"></div>
+					<input type="email" id="" name="" required placeholder="請輸入E-mail">
+					<div style="height: 20px;"></div>
+					<button type="button" class="btn-primary" data-bs-dismiss="modal">送出</button>
+				</div>
+				<div class="modal-footer d-flex justify-content-center align-items-center">
+					<button id="backToPreviousModal-2" type="button" class="btn btn-link">回上一頁</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -------------------以下是重寄認證信彈窗內容 --------------------->
+	<div class="modal fade" id="resend_letter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center">
+					<img src="./image/logo.svg" alt="">
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h4>重新寄送認證信</h4>
+					<div style="height: 20px;"></div>
+					<p>請輸入您註冊時的E-mail</p>
+					<p>我們會發送一封認證信</p>
+					<p>點擊信件中的連結以開通</p>
+					<div style="height: 20px;"></div>
+					<input type="email" id="" name="" required placeholder="請輸入E-mail">
+					<div style="height: 20px;"></div>
+					<button type="button" class="btn-primary" data-bs-dismiss="modal">送出</button>
+				</div>
+				<div class="modal-footer d-flex justify-content-center align-items-center">
+					<button id="backToPreviousModal-3" type="button" class="btn btn-link">回上一頁</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -------------------以下是註冊新帳號彈窗內容 --------------------->
+	<div class="modal fade" id="register_account" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center">
+					<img src="./image/logo.svg" alt="">
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h4>註冊帳號</h4>
+					<div style="height: 20px;"></div>
+					<div class="d-flex justify-content-center align-items-center">
+						<form id="changePasswordForm" class="d-flex flex-column">
+							<div id="msg" class="error"></div>
+							<div class="form-group">
+								<label for="account-number">帳號：</label>
+								<input type="email" id="newmemberAcct" name="newmemberAcct" required
+									placeholder="請輸入信箱">
+								<div class="error" id="acctError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="newPassword1">密碼：</label>
+								<input type="password" id="newPassword" name="newPassword" required
+									placeholder="8-16位英文字母，數字和符號混合">
+								<style>
+									#newPassword::placeholder {
+										font-size: 12px;
+									}
+								</style>
+								<span class="show-password-btn"
+									onclick="togglePasswordVisibility('newPassword')">&#128065;</span>
+								<div class="error" id="passwordError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="confirmPassword-3">確認密碼：</label>
+								<input type="password" id="confirmPassword" name="confirmPassword" required
+									placeholder="再次確認密碼">
+								<span class="show-password-btn"
+									onclick="togglePasswordVisibility('confirmPassword')">&#128065;</span>
+								<div class="error" id="confirmPasswordError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="fullname">姓名：</label>
+								<input type="text" id="fullname" name="fullname" value="">
+								<div class="error" id="fullnameError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="phone">手機：</label>
+								<input type="tel" id="phone" name="phone" value="">
+								<div class="error" id="phoneError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="gender">性別：</label>
+								<input type="radio" id="male" name="quantity" value="male">
+								<label for="male">男性</label>
+								<input type="radio" id="female" name="quantity" value="female">
+								<label for="female">女性</label>
+								<div class="error" id="genderError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="birthday">生日：</label>
+								<input type="date" id="birthday" name="birthday">
+								<div class="error" id="birthdayError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<button type="button" class="btn-primary" id="register">註冊</button>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-center align-items-center">
+					<button id="backToPreviousModal-4" type="button" class="btn btn-link">回上一頁</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- -------------------------------- 以下是商品分類導覽列 勿動！！ -------------------------------- -->
+	<nav id="main-navigation" class="main-navigation">
+		<ul class="main-nav"> <!--主選單-->
+			<li
+				class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+				<div class="navigation_title navigation_title--bold navigation_title--salmon">
+					<span class="navigation_title-inner">主題活動</span>
+				</div>
+			</li>
+
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('3C周邊')">
+					<span class="navigation_title-inner">3C周邊</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('家用電器')">
+					<span class="navigation_title-inner">家用電器</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('美妝個清')">
+					<span class="navigation_title-inner">美妝個清</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('流行服飾')">
+					<span class="navigation_title-inner">流行服飾</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('鞋包配飾')">
+					<span class="navigation_title-inner">鞋包配飾</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('母嬰用品')">
+					<span class="navigation_title-inner">母嬰用品</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('日用生活')">
+					<span class="navigation_title-inner">日用生活</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('圖書文具')">
+					<span class="navigation_title-inner">圖書文具</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('旅遊戶外')">
+					<span class="navigation_title-inner">旅遊戶外</span>
+				</a>
+			</li>
+
+		</ul>
+
+	</nav>
+
+	<main class="main_content">
+
+		<div class="main_content container-sm">
+
+			<!-- -------------------------以下是側邊欄 只可以變動li的"active"class的位置 其他勿動！！！--------------- -->
+			<aside class="member-aside col-sm-2">
+
+				<div class="member-profile row ">
+					<div class="memberPhoto col-sm-4">
+						<img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
+					</div>
+					<div class="member-info col-sm-8">
+						<h4 class="memberAccount"></h4>
+						<h6 class="memberId"></h6>
+					</div>
+				</div>
+				<ul class="nav1_list">
+					<li>
+						<h4>MENU</h4>
+					</li>
+					<li class="active">
+						<a href="customer_personal_center.html">
+							<img src="./image/Chart.svg" alt="">
+							<img src="./image/Chart-a.svg" alt="">個人中心
+						</a>
+					</li>
+					<li>
+						<a href="collect_box.html">
+							<img src="./image/heart-s.svg" alt="">
+							<img src="./image/heart-s-a.svg" alt="">收藏夾</a>
+					</li>
+					<li>
+						<a href="shopping_cart.html">
+							<img src="./image/Buy1.svg" alt="">
+							<img src="./image/Buy1-a.svg" alt="">購物車</a>
+					</li>
+					<li>
+						<a href="check_order.html">
+							<img src="./image/DocumentAsh.svg" alt="">
+							<img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
+					</li>
+					<li>
+						<a href="customer_point_record.html">
+							<img src="./image/Discount.svg" alt="">
+							<img src="./image/Discount-a.svg" alt="">會員點數</a>
+					</li>
+					<li>
+						<a href="mycoupon.html">
+							<img src="./image/Ticket_Star.svg" alt="">
+							<img src="./image/Ticket_Star-a.svg" alt="">我的折價券</a>
+					</li>
+					<li>
+						<h4>OTHERS</h4>
+					</li>
+					<li>
+						<a href="customer_Information.html">
+							<img src="./image/Profile1.svg" alt="">
+							<img src="./image/Profile1-a.svg" alt="">個人資訊</a>
+					</li>
+					<li>
+						<a href="customer_change_password.html">
+							<img src="./image/Setting.svg" alt="">
+							<img src="./image/Setting-a.svg" alt="">帳號管理</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Info Square.svg" alt="">
+							<img src="./image/Info Square-a.svg" alt="">取得協助</a>
+					</li>
+					<li>
+						<a href="#" onclick="logout();">
+							<img src="./image/Logout.svg" alt="">
+							<img src="./image/Logout-a.svg" alt="">登出</a>
+					</li>
+				</ul>
+			</aside>
+
+
+
+			<main class="content col-sm-10">
+
+				<div class="main-content-header row">
+					<div class="main-content-icon col-sm-1">
+						<img calss="main-content-icon" src="./image/Chart-L.svg">
+					</div>
+					<h1 class="main-content-title col-sm-10">個人中心</h1>
+					<hr class="main-content-divider">
+				</div>
+				<!-- -------------------------------- 頁面的內容請從這裡往下寫 -------------------------------- -->
+
+			</main>
+		</div>
+	</main>
+
+	<!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
+	<footer id="main-footer" class="footer">
+
+		<div class="container-sm">
+
+			<div class="footer-top row">
+				<a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+			</div>
+
+			<hr class="footer_divider">
+
+			<div class="footer-bottom row justify-content-end">
+
+				<nav class="SNS-nav-list ">
+
+					<a href="" class="Instagram col">
+						<div class="Instagram_icon">
+							<img src="./image/ant-design_instagram-filled.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Facebook col">
+						<div class="Facebook_icon">
+							<img src="./image/mdi_facebook.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Twitter col ">
+						<div class="Twitter_icon">
+							<img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+						</div>
+					</a>
+				</nav>
+			</div>
+		</div>
+	</footer>
+
+	<script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="./js/login_popup.js"></script>
 </body>
 
 </html>
