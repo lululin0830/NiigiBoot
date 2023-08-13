@@ -27,7 +27,7 @@ function clearCookie(name) {
 
 /* 停止點擊時的預設行為 */
 function stopDefaultAction(selector) {
-	document.querySelectorAll(`'${selector}'`).forEach(function(a) {
+	document.querySelectorAll(`${selector}`).forEach(function(a) {
 		a.onclick = function(e) { e.preventDefault(); }
 	})
 
@@ -46,8 +46,8 @@ function stopDefaultAction(selector) {
 const jwtToken = getCookie('jwt')
 
 // 取得側邊欄的使用者資訊區塊
-const memberAccountBlock = document.querySelector('div.member-info>h4.memberAccount');
-const memberIdBlock = document.querySelector('div.member-info>h6.memberId');
+
+
 let memberId; let memberAcct;
 
 let isLoggedIn = false;
@@ -78,18 +78,10 @@ function init() {
 		console.log(data);
 
 		memberId = data.userId;
-
+		memberAcct = data.username;
 		// 渲染Header
 		showHeader();
-		// 側邊欄加上使用者資訊
-		if (memberAccountBlock) {
-
-			memberAccountBlock.innerText = data.username.split("@")[0];
-			memberIdBlock.innerText = data.userId;
-			fontSizeAdjust(memberAccountBlock);
-
-		}
-
+		showUserInfo();
 
 	}).catch(function(error) {
 		console.log(error);
@@ -181,6 +173,21 @@ function showHeader() {
 
 }
 
+/* 渲染側邊欄 */
+function showUserInfo() {
+
+	const memberAccountBlock = document.querySelector('h4.memberAccount');
+	const memberIdBlock = document.querySelector('h6.memberId');
+
+	if (memberAccountBlock) {
+		memberAccountBlock.innerText = memberAcct.split("@")[0];
+		memberIdBlock.innerText = memberId;
+		fontSizeAdjust(memberAccountBlock);
+	}
+
+}
+
+
 /* 側邊欄會員資訊文字大小設定 */
 function fontSizeAdjust(element) {
 	// 取得文字长度
@@ -212,6 +219,10 @@ function fontSizeAdjust(element) {
 /* ------------------------- 方法呼叫區 ------------------------- */
 if (jwtToken) {
 	init();
+} else if (loginRequired) {
+	sessionStorage.setItem("loginRequired", "true");
+	alert("請先登入")
+	history.back();
 } else {
 	showHeader();
 }
