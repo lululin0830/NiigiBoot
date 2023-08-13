@@ -19,6 +19,9 @@ public interface ProductService {
 	
 	public void saveProductImages(Integer productId, MultipartFile[] images) throws IOException;
 	
+	public Integer addProduct(String registerSupplier, String categorieId, String productName, String productPrice,
+			String productInfo, String productStatus) throws Exception;
+	
 	// 新增商品(欄位不得為空值)
 
 	// 修改商品(欄位不得為空值)
