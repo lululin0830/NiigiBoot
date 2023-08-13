@@ -59,7 +59,7 @@ public class EventApplicableProductsDAOImpl {
 
 	}
 
-	public List<EventApplicableProducts> selectDiscountRateByCartList(Integer[] productId) {
+	public List<EventApplicableProducts> selectDiscountRateByCartList(List<Integer> productId) {
 
 		StringBuilder temp = new StringBuilder();
 		for (Integer id : productId) {
@@ -75,13 +75,14 @@ public class EventApplicableProductsDAOImpl {
 
 	}
 
-	public List<EventApplicableProducts> selectDiscountAmountByCartList(Integer[] productId) {
+	public List<EventApplicableProducts> selectDiscountAmountByCartList(List<Integer> productId) {
 
 		StringBuilder temp = new StringBuilder();
 		for (Integer id : productId) {
 			temp.append( id + ",");
 		}
 		String queryString = temp.deleteCharAt(temp.length() - 1).toString();
+	
 		
 		String hql = "FROM EventApplicableProducts WHERE productId IN ("+queryString+") "
 				+ "AND eventId IN ( SELECT eventId FROM EventSingleThreshold WHERE eventEnd >= CURDATE() "
@@ -91,7 +92,7 @@ public class EventApplicableProductsDAOImpl {
 
 	}
 
-	public List<EventApplicableProducts> selectGiftByCartList(Integer[] productId) {
+	public List<EventApplicableProducts> selectGiftByCartList(List<Integer> productId) {
 
 		StringBuilder temp = new StringBuilder();
 		for (Integer id : productId) {
