@@ -70,19 +70,19 @@ public class ProductController {
 	}
 
 	@PostMapping("/upload")
-    public ResponseEntity<String> uploadImages(@RequestParam Integer productId, @RequestParam MultipartFile[] images) {
+	public ResponseEntity<String> uploadImages(@RequestParam Integer productId, @RequestParam MultipartFile[] images) {
 		try {
 			service.saveProductImages(productId, images);
-			
+
 			return ResponseEntity.status(HttpStatus.OK).body("上傳成功");
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(String.format("error:%s , errMsg: %s", "系統繁忙中...請稍後再試", e.getMessage()));
 		}
-    }
-	
+	}
+
 	@PostMapping("/insertProduct")
 	public Integer createProduct(@RequestBody Map<String, String> requestData) throws Exception {
 		String registerSupplier = requestData.get("registerSupplier");
@@ -91,10 +91,14 @@ public class ProductController {
 		String productPrice = requestData.get("productPrice");
 		String productInfo = requestData.get("productInfo");
 		String productStatus = requestData.get("productStatus");
-		return service.addProduct(registerSupplier,categorieId,productName,productPrice,productInfo,productStatus);
+		return service.addProduct(registerSupplier, categorieId, productName, productPrice, productInfo, productStatus);
 	}
-	
-	
-	
+
+	@PostMapping("/product-details")
+	public Integer getProductDetails(@RequestBody Map<String, String> requestData) throws Exception {
+		Integer productId = Integer.parseInt(requestData.get("productId"));
+		String registerSupplier = requestData.get("registerSupplier");
+		return service.getProductById(productId, registerSupplier);
+	}
 
 }
