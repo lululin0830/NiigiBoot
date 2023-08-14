@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import tw.idv.tibame.core.LoginRequired;
 import tw.idv.tibame.shoppingcart.service.ShoppingCartService;
 
 @RestController
@@ -28,7 +30,6 @@ public class ShoppingCartController {
 	@PutMapping("add")
 	public ResponseEntity<String> addToCart (@RequestBody String data){
 		
-
 		if(service.addToCart(gson.fromJson(data, JsonObject.class) )) {
 			return ResponseEntity.status(HttpStatus.OK).body("已加入購物車");
 		}
@@ -49,8 +50,9 @@ public class ShoppingCartController {
 		}
 	}
 	
+	@LoginRequired
 	@PutMapping("remove")
-	public ResponseEntity<String> removeFromCart (@RequestBody String data){
+	public ResponseEntity<String> removeFromCart (@RequestBody String data, @RequestHeader("Authorization") String jwtToken){
 		
 		
 		return service.removeFromCart(gson.fromJson(data, JsonObject.class) );
