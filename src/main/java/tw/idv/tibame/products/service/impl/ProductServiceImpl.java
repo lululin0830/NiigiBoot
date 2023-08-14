@@ -203,4 +203,9 @@ public class ProductServiceImpl implements ProductService {
 		return products.getProductId();
 	}
 
+	@Override
+	public Integer getProductById(Integer productId, String registerSupplier) throws Exception {
+		return productDAO.selectByProductId(productId, registerSupplier);
+	}
+
 }
