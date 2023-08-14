@@ -35,9 +35,37 @@ public class ProductSpecDAOImpl implements ProductSpecDAO {
 	}
 
 	@Override
-	public ProductSpec update(ProductSpec newProductSpec) {
-		return null;
-	}
+	public Boolean update(ProductSpec newProductSpec) {
+		ProductSpec productSpec = null;
+		
+				try {
+					productSpec = session.get(ProductSpec.class, newProductSpec.getProductSpecId());
+		
+					final String specType1 = newProductSpec.getSpecType1();
+					final String specInfo1 = newProductSpec.getSpecInfo1();
+					final String specType2 = newProductSpec.getSpecType2();
+					final String specInfo2 = newProductSpec.getSpecInfo2();
+		
+					if (specType1 != null && !specType1.isBlank()) {
+						productSpec.setSpecType1(specType1);
+					}
+					if (specInfo1 != null && !specInfo1.isBlank()) {
+						productSpec.setSpecInfo1(specInfo1);
+					}
+					if (specType2 != null && !specType2.isBlank()) {
+						productSpec.setSpecType2(specType2);
+					}
+					if (specInfo2 != null && !specInfo2.isBlank()) {
+						productSpec.setSpecInfo2(specInfo2);
+					}
+					return true;
+		
+				} catch (Exception e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+	
 
 	// 修改規格的上下架狀態
 	@Override

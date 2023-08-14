@@ -57,4 +57,8 @@ public interface ProductSpecService {
 	
 	//上傳規格圖片
 	public void saveSpecPicture(String productSpecId, MultipartFile image) throws IOException;
+	
+	// 修改規格資料(不含圖)
+	public Boolean updateProductSpec(String productSpecId, String specType1, String specInfo1, String specType2,
+				String specInfo2) throws Exception;
 }
