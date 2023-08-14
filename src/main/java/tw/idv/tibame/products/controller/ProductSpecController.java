@@ -180,13 +180,24 @@ public class ProductSpecController {
 		for (int i = 0; i < images.length; i++) {
 			MultipartFile image = images[i];
 			String productSpecId = productSpecIds[i];
-			//System.out.println(productSpecIds[i]);
-			//System.out.println(image);
-          productSpecService.saveSpecPicture(productSpecId, image);
+			// System.out.println(productSpecIds[i]);
+			// System.out.println(image);
+			productSpecService.saveSpecPicture(productSpecId, image);
 		}
 
 		return ResponseEntity.ok("Uploaded successfully");
 
+	}
+	
+	// 修改規格資料(不含圖)
+	@PostMapping("/updateSpecText")
+	public Boolean updateProductSpecText(@RequestBody Map<String, String> requestData) throws Exception {
+		String productSpecId = requestData.get("productSpecId");
+		String specType1 = requestData.get("specType1");
+		String specInfo1 = requestData.get("specInfo1");
+		String specType2 = requestData.get("specType2");
+		String specInfo2 = requestData.get("specInfo2");
+		return productSpecService.updateProductSpec(productSpecId, specType1, specInfo1, specType2, specInfo2);
 	}
 
 }
