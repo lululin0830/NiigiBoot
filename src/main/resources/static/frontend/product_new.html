@@ -1179,7 +1179,7 @@
 			}
 
 
-			let imageFiles = [];
+			let imageSpecFiles = [];
 			let initialStock_totoal = 0; 
 			// 收集資料
 			$(".spec_table_new tbody tr").each(function () {
@@ -1192,13 +1192,13 @@
 				dataToSend.push(rowData);
 				const imageFile = $(this).find(".img_spc_file")[0].files[0];
 				//console.log(imageFile);
-				imageFiles.push(imageFile);
+				imageSpecFiles.push(imageFile);
 				initialStock_totoal = initialStock_totoal + parseFloat($(this).find(".initialStock").val().trim());
 			});
 			$('.initialStock_totoal').text(initialStock_totoal.toLocaleString());
 			
 			//console.log(imageFiles);
-			imageFiles.forEach((imageFile, index) => {
+			imageSpecFiles.forEach((imageFile, index) => {
 				formDataSpecImg.append('images', imageFile);
 			});
 
@@ -1330,7 +1330,7 @@
 					});
 					insertSpecProduct(dataToSend);
 					alert(`新增商品成功，商品編號：${data}`);
-					//location.reload(); // 重新載入整個頁面
+					location.reload(); // 重新載入整個頁面
 				})
 				.catch((error) => {
 					console.error('Fetch error:', error);
