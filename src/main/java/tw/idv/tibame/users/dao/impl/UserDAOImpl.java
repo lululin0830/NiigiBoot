@@ -38,39 +38,22 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<Users> getAll() throws Exception {
 		final String hql = "FROM Users ORDER BY id";
-		return session
-				.createQuery(hql, Users.class)
-				.getResultList();
+		return session.createQuery(hql, Users.class).getResultList();
 	}
 
 	@Override
-	public int update(Users newUser) {
-		final StringBuilder hql = new StringBuilder()
-				.append("UPDATE Users SET ");
-		final String password = newUser.getPassword();
-		if(password != null && !password.isEmpty()) {
-			hql.append("password = :password,");
+	public Users update(Users newUser) {
+		if (newUser != null) {
+			newUser = session.merge(newUser);
+			return newUser;
 		}
-		hql.append("financialAuthority = :financialAuthority,")
-			.append("customerServiceAuthority = :customerServiceAuthority,")
-			.append("marketingAuthority = :marketingAuthority,")
-			.append("hrAuthority = :hrAuthority")
-			.append("WHERE userId = :userId");
-		Query query =session.createQuery(hql.toString());
-		if(password != null && !password.isEmpty()) {
-			query.setParameter("password", newUser.getPassword());
-		}
-		return query.setParameter("financialAuthority", newUser.getFinancialAuthority())
-				.setParameter("customerServiceAuthority", newUser.getCustomerServiceAuthority())
-				.setParameter("marketingAuthority", newUser.getMarketingAuthority())
-				.setParameter("hrAuthority", newUser.getHrAuthority())
-				.executeUpdate();
+		return null;
 	}
 
 	@Override
 	public int deleteByUserId(Integer userId) {
 		Users users = session.load(Users.class, userId);
-		session.remove(users);		
+		session.remove(users);
 		return 1;
 	}
 
@@ -85,20 +68,15 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public Users selectByUserAcct(String userAcct) {
-		CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-		CriteriaQuery<Users> criteriaQuery = criteriaBuilder.createQuery(Users.class);
-		Root<Users> root = criteriaQuery.from(Users.class);
-		criteriaQuery.where(criteriaBuilder.equal(root.get("userAcct"), userAcct));
-		return session.createQuery(criteriaQuery).uniqueResult();
+		String hql = "FROM Users WHERE userAcct = :userAcct";
+		return session.createQuery(hql, Users.class).setParameter("userAcct", userAcct).uniqueResult();
 	}
 
 	@Override
 	public Users selectForLogin(String userAcct, String password) {
 		final String sql = "select * from USERS " + "where USERACCT = :userAcct and PASSWORD = :password";
-		return session.createNativeQuery(sql, Users.class)
-				.setParameter("userAcct", userAcct)
-				.setParameter("password", password)
-				.uniqueResult();
+		return session.createNativeQuery(sql, Users.class).setParameter("userAcct", userAcct)
+				.setParameter("password", password).uniqueResult();
 	}
 
 	@Override
@@ -109,10 +87,21 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public String getAllBySearch(String searchCase, String searchSelect) {
-	    String hql = "FROM Users WHERE " + searchSelect + " LIKE :searchCase";
-	    return gson.toJson(session.createQuery(hql, Users.class)
-	            .setParameter("searchCase", "%" + searchCase + "%")
-	            .getResultList());
+		String hql = "FROM Users WHERE " + searchSelect + " LIKE :searchCase";
+		return gson.toJson(session.createQuery(hql, Users.class).setParameter("searchCase", "%" + searchCase + "%")
+				.getResultList());
+	}
+
+	@Override
+	public String selectPasswordByUserAcct(String userAcct) {
+		String sql = "SELECT `password` FROM Users WHERE userAcct ='" + userAcct + "'";
+		return session.createNativeQuery(sql, String.class).uniqueResult();
+	}
+
+	@Override
+	public Users selectBuUserId(String userId) {
+		String hql = "FROM Users WHERE userId = :userId ";
+		return session.createQuery(hql, Users.class).setParameter("userId", userId).uniqueResult();
 	}
 
 }

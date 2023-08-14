@@ -33,10 +33,11 @@ public class JwtUtil implements Serializable {
 
 	private static final String SECRET_KEY = JwtConfig.getJwtSecretKey();
 //	private static final long EXPIRATION_TIME = 3600000; // Token的生存時間(先設1hr)
-	private static final long EXPIRATION_TIME = 86400000; // Token的生存時間(先設1hr)
+	private static final long EXPIRATION_TIME = 86400000; // Token的生存時間(先設24hr)
 	// 生成JWT Token
+
 	public static String generateJwtToken(String userId, String userName) {
-		
+
 		// 計算JWT的過期時間，現在時間+EXPIRATION_TIME後的時間
 		Date expirationDate = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
 
@@ -57,7 +58,10 @@ public class JwtUtil implements Serializable {
 
 	}
 
-	public static boolean validateJwtToken(String jwtToken) {
+	public static boolean validateJwtToken(String bearerToken) {
+		
+		final String jwtToken = bearerToken.replace("Bearer ", "");
+		
 		try {
 			// 使用SecretKeySpec來產生用於驗證JWT簽名的Key
 			Key key = new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
@@ -83,10 +87,10 @@ public class JwtUtil implements Serializable {
 	}
 
 	public static Map<String, String> validateJwtTokenAndSendInfo(String bearerToken) {
-		
+
 		final String jwtToken = bearerToken.replace("Bearer ", "");
 		Map<String, String> response = new HashMap<>();
-		
+
 		try {
 			// 使用SecretKeySpec來產生用於驗證JWT簽名的Key
 			Key key = new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
@@ -104,27 +108,26 @@ public class JwtUtil implements Serializable {
 			}
 
 			// 解析JWT Token中的使用者資訊
-			
+
 			String subject = claimsJws.getBody().getSubject();
-			Map<String, String> subjectMap = gson.fromJson(subject, new TypeToken<Map<String, String>>() {}.getType());
+			Map<String, String> subjectMap = gson.fromJson(subject, new TypeToken<Map<String, String>>() {
+			}.getType());
 			String userId = subjectMap.get("userId");
 			String username = subjectMap.get("userName");
 
 			response.put("userId", userId);
 			response.put("username", username);
 
-			return response;
-			
 		} catch (ExpiredJwtException e) {
 			e.printStackTrace();
 			response.put("error", "Token expired");
-			return response;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.put("error", "Invalid token");
-			return response;
 		}
+
+		return response;
 	}
 
 }

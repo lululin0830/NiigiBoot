@@ -65,8 +65,6 @@ public class MemberController {
 	@PostMapping("/customerCenter")
 	public ResponseEntity<String> showAside (@RequestHeader("Authorization") String jwtToken){
 
-		System.out.println("jwtToken" + jwtToken);
-		
 		return service.showAsideInfo(jwtToken);
 	}
 }

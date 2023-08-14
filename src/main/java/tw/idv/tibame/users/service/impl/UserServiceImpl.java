@@ -1,5 +1,6 @@
 package tw.idv.tibame.users.service.impl;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.JsonObject;
 
+import tw.idv.tibame.core.util.JwtUtil;
+import tw.idv.tibame.core.util.PasswordEncryptor;
 import tw.idv.tibame.users.dao.UserDAO;
 import tw.idv.tibame.users.entity.Users;
 import tw.idv.tibame.users.service.UserService;
@@ -42,55 +45,44 @@ public class UserServiceImpl implements UserService {
 			user.setSuccessful(false);
 			return user;
 		}
-		
+
+		String encrypted = PasswordEncryptor.encrypt(user.getPassword());
+		user.setPassword(encrypted);
 		userDAO.insert(user);
-		
+
 		user.setMessage("新增成功");
 		user.setSuccessful(true);
 		return user;
 	}
 
 	@Override
-	public Users login(Users user) {
+	public String login(Users user) throws NoSuchAlgorithmException {
 		final String userAcct = user.getUserAcct();
 		final String password = user.getPassword();
 
 		if (userAcct == null || userAcct.isBlank()) {
-			user.setMessage("帳號未輸入");
-			user.setSuccessful(false);
-			return user;
+
+			return "帳號未輸入";
 		}
 		if (password == null || password.isBlank()) {
-			user.setMessage("密碼未輸入");
-			user.setSuccessful(false);
-			return user;
-		}
 
-		user = userDAO.selectForLogin(userAcct, password);
-		if (user == null) {
-			user = new Users();
-			user.setMessage("使用者名稱或密碼錯誤");
-			user.setSuccessful(false);
-			return user;
+			return "密碼未輸入";
 		}
-		user.setMessage("新增成功");
-		user.setSuccessful(true);
-		return user;
-	}
+		if (userDAO.selectByUserAcct(user.getUserAcct()) == null) {
+			return "尚未成為使用者";
+		}
+		String encryptedPassword = PasswordEncryptor.encrypt(password);
 
-	@Transactional
-	@Override
-	public Users edit(Users user) {
-		final Users oUsers = userDAO.selectByUserAcct(user.getUserAcct());
-		user.setPassword(oUsers.getPassword());
-		user.setFinancialAuthority(oUsers.getFinancialAuthority());
-		user.setCustomerServiceAuthority(oUsers.getCustomerServiceAuthority());
-		user.setHrAuthority(oUsers.getHrAuthority());
-		user.setMarketingAuthority(oUsers.getMarketingAuthority());
-		final int resultCount = userDAO.update(user);
-		user.setSuccessful(resultCount > 0);
-		user.setMessage(resultCount > 0 ? "修改成功" : "修改失敗");
-		return user;
+		String storedEncryptedPassword = userDAO.selectPasswordByUserAcct(userAcct);
+
+		if (!encryptedPassword.equals(storedEncryptedPassword)) {
+			return "密碼錯誤";
+		}
+		user = userDAO.selectByUserAcct(userAcct);
+
+		String userIdString = String.valueOf(user.getUserId());
+
+		return JwtUtil.generateJwtToken(userIdString, userAcct);
 	}
 
 	@Override
@@ -102,12 +94,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean remove(Integer userId) {
 		return userDAO.deleteByUserId(userId) > 0;
-	}
-
-	@Transactional
-	@Override
-	public boolean save(Users user) {
-		return userDAO.update(user) > 0;
 	}
 
 	@Override
@@ -125,13 +111,59 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String getBySearch(JsonObject searchCondition) {
-		
+
 		String searchcase = searchCondition.get("searchcase").getAsString();
 		String SearchSelect = searchCondition.get("searchway").getAsString();
-		String result ;
-		
-		result = userDAO.getAllBySearch(searchcase ,SearchSelect);
+		String result;
+
+		result = userDAO.getAllBySearch(searchcase, SearchSelect);
 		return result;
+	}
+
+	@Transactional
+	@Override
+	public boolean updateUser(String userId, String changePassword, String financialAuthority,
+			String customerServiceAuthorit, String marketingAuthority, String hrAuthority) {
+		Users users = userDAO.selectBuUserId(userId);
+
+		if (users == null) {
+			return false;
+		} else {
+			boolean updated = false;
+			if (changePassword != null) {
+				String changePasswordHash = "";
+				try {
+					changePasswordHash = PasswordEncryptor.encrypt(changePassword);
+				} catch (NoSuchAlgorithmException e) {
+					e.printStackTrace();
+					return false;
+				}
+				users.setPassword(changePasswordHash);
+				userDAO.update(users);
+				updated = true;
+			}
+			if (financialAuthority != null) {
+				users.setFinancialAuthority(financialAuthority);
+				updated = true;
+			}
+			if (customerServiceAuthorit != null) {
+				users.setCustomerServiceAuthority(customerServiceAuthorit);
+				updated = true;
+			}
+			if (marketingAuthority != null) {
+				users.setMarketingAuthority(marketingAuthority);
+				updated = true;
+			}
+			if (hrAuthority != null) {
+				users.setHrAuthority(hrAuthority);
+				updated = true;
+			}
+			if (updated) {
+				userDAO.update(users);
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

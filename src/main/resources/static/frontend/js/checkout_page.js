@@ -276,3 +276,14 @@ function changeRecipient() {
 
 }
 
+
+function showRequired(){
+	
+	document.querySelectorAll("[required]").forEach(field => {
+		
+		if(field.value.trim() == ''){
+			field.classList.add("required-field");
+		}
+	})
+	
+}
