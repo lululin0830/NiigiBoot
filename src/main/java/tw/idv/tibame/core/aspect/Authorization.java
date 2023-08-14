@@ -1,27 +1,49 @@
 package tw.idv.tibame.core.aspect;
 
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.google.gson.Gson;
+import tw.idv.tibame.core.LoginRequired;
+import tw.idv.tibame.core.util.JwtUtil;
 
 @Aspect
 @Component
 public class Authorization {
 	
-	@Autowired
-	private Gson gson;
 	
 	@Around("@annotation(tw.idv.tibame.core.LoginRequired)")
-	public ResponseEntity<String> beforeAdvice() {
-		System.out.println("before");
+	public Object isLoggedIn(ProceedingJoinPoint joinPoint) {
 		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-				.body(String.format("error:%s , errMsg: %s", "some_error_code","使用者尚未登入"));
+		System.out.println("HI");
+		
+		Object[] args = joinPoint.getArgs();
+        String jwtToken = null;
+
+        for (Object arg : args) {
+            if (arg instanceof String && ((String) arg).startsWith("Bearer ")) {
+                jwtToken = (String) arg;
+                break;
+            }
+        }
+        
+        if (jwtToken == null || !JwtUtil.validateJwtToken(jwtToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body("Unauthorized: 使用者尚未登入");
+        }
+
+		try {
+			
+			 return joinPoint.proceed();
+			 
+		} catch (Throwable e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(String.format("error:%s , errMsg: %s", "some_error_code","系統繁忙中...請稍後再試"));
+		}
 	}
 		
 		
