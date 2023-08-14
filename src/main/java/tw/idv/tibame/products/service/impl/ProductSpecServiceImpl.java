@@ -29,13 +29,13 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 
 	@Autowired
 	private ShelvesStatusRecordService shelvesStatusRecordService;
-	
-    private final ProductSpecRepository productSpecRepository;
 
-    @Autowired
-    public ProductSpecServiceImpl(ProductSpecRepository productSpecRepository) {
-        this.productSpecRepository = productSpecRepository;
-    }
+	private final ProductSpecRepository productSpecRepository;
+
+	@Autowired
+	public ProductSpecServiceImpl(ProductSpecRepository productSpecRepository) {
+		this.productSpecRepository = productSpecRepository;
+	}
 
 	//////// 以下是分頁用
 	@Override
@@ -307,20 +307,32 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 		productSpecDAO.insert(productSpec);
 		return productSpec.getProductSpecId();
 	}
-	
-	
-	//上傳規格圖片
+
+	// 上傳規格圖片
 	@Override
 	public void saveSpecPicture(String productSpecId, MultipartFile image) throws IOException {
-        ProductSpec productSpec = productSpecRepository.findById(productSpecId).orElse(null);
-        if (productSpec == null) {
-            throw new IllegalArgumentException("ProductSpec with ID " + productSpecId + " not found.");
-        }
+		ProductSpec productSpec = productSpecRepository.findById(productSpecId).orElse(null);
+		if (productSpec == null) {
+			throw new IllegalArgumentException("ProductSpec with ID " + productSpecId + " not found.");
+		}
 
-        byte[] imageData = image.getBytes();
-        productSpec.setSpecPicture(imageData);
+		byte[] imageData = image.getBytes();
+		productSpec.setSpecPicture(imageData);
 
-        productSpecRepository.save(productSpec);
-    }
+		productSpecRepository.save(productSpec);
+	}
+
+	// 修改規格資料(不含圖)
+	@Override
+	public Boolean updateProductSpec(String productSpecId, String specType1, String specInfo1, String specType2,
+			String specInfo2) throws Exception {
+		ProductSpec productSpec = new ProductSpec();
+		productSpec.setProductSpecId(productSpecId);
+		productSpec.setSpecType1(specType1);
+		productSpec.setSpecInfo1(specInfo1);
+		productSpec.setSpecType2(specType2);
+		productSpec.setSpecInfo2(specInfo2);
+		return productSpecDAO.update(productSpec);
+	}
 
 }
