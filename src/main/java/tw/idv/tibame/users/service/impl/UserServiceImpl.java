@@ -122,48 +122,48 @@ public class UserServiceImpl implements UserService {
 
 	@Transactional
 	@Override
-	public boolean updateUser(String userId, String changePassword, String financialAuthority,
-			String customerServiceAuthorit, String marketingAuthority, String hrAuthority) {
-		Users users = userDAO.selectBuUserId(userId);
+	public boolean updateUser(String userId, String password, String financialAuthority,
+	        String customerServiceAuthorit, String marketingAuthority, String hrAuthority) {
+	    Users users = userDAO.selectByUserId(userId);
 
-		if (users == null) {
-			return false;
-		} else {
-			boolean updated = false;
-			if (changePassword != null) {
-				String changePasswordHash = "";
-				try {
-					changePasswordHash = PasswordEncryptor.encrypt(changePassword);
-				} catch (NoSuchAlgorithmException e) {
-					e.printStackTrace();
-					return false;
-				}
-				users.setPassword(changePasswordHash);
-				userDAO.update(users);
-				updated = true;
-			}
-			if (financialAuthority != null) {
-				users.setFinancialAuthority(financialAuthority);
-				updated = true;
-			}
-			if (customerServiceAuthorit != null) {
-				users.setCustomerServiceAuthority(customerServiceAuthorit);
-				updated = true;
-			}
-			if (marketingAuthority != null) {
-				users.setMarketingAuthority(marketingAuthority);
-				updated = true;
-			}
-			if (hrAuthority != null) {
-				users.setHrAuthority(hrAuthority);
-				updated = true;
-			}
-			if (updated) {
-				userDAO.update(users);
-				return true;
-			}
-		}
-		return false;
+	    if (users == null) {
+	        return false;
+	    } else {
+	        boolean updated = false;
+	        if (password != null) {
+	            String changePasswordHash = "";
+	            try {
+	                changePasswordHash = PasswordEncryptor.encrypt(password);
+	            } catch (NoSuchAlgorithmException e) {
+	                e.printStackTrace();
+	                return false;
+	            }
+	            users.setPassword(changePasswordHash);
+	            updated = true;
+	        }
+	        if (financialAuthority != null) {
+	            users.setFinancialAuthority(financialAuthority);
+	            updated = true;
+	        }
+	        if (customerServiceAuthorit != null) {
+	            users.setCustomerServiceAuthority(customerServiceAuthorit);
+	            updated = true;
+	        }
+	        if (marketingAuthority != null) {
+	            users.setMarketingAuthority(marketingAuthority);
+	            updated = true;
+	        }
+	        if (hrAuthority != null) {
+	            users.setHrAuthority(hrAuthority);
+	            updated = true;
+	        }
+	        if (updated) {
+	            userDAO.update(users); // 只呼叫一次
+	            return true;
+	        }
+	    }
+	    return false;
 	}
+
 
 }
