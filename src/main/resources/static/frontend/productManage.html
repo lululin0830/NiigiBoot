@@ -283,6 +283,77 @@
 		.tableTwo tbody td button.edit_btn {
 			margin-bottom: 10px;
 		}
+
+		/* ------------------新申請彈窗----------------------- */
+		/*選擇圖片的按鈕*/
+		.img_spc_file {
+			display: none;
+		}
+
+		.img_spc_file+label {
+			display: inline-block;
+			background-color: lightgrey;
+			color: black;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 5px;
+			/* 調整文字大小 */
+			border: 1px solid black;
+			/* 添加邊框 */
+			margin-top: 5px;
+		}
+
+		.img_spc_file+label::before {
+			content: '選擇檔案';
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 5px;
+			/* 調整圖示和文字之間的間距 */
+			font-size: 10px;
+			/* 調整圖示大小 */
+		}
+
+		/*表格的地方*/
+
+		.spec_table_edit {
+			border-bottom: 1px solid #EEEEEE;
+		}
+
+		.spec_table_edit th {
+			background-color: #EEEEEE;
+			width: 100px;
+			height: 50px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.spec_table_edit tr {
+			border-bottom: 1px solid darkgrey;
+			;
+		}
+
+		.spec_table_edit td {
+			height: 100px;
+			width: 100px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.product_spec_img {
+			width: 60px;
+			height: 60px;
+			border: 1px solid darkgrey;
+		}
+
+		.specType1,
+		.specType2 {
+			width: 60px;
+		}
+
+		.specInfo1,
+		.specInfo2 {
+			width: 180px;
+		}
 	</style>
 
 </head>
@@ -707,7 +778,7 @@
 								<table class="tableOne">
 									<thead>
 										<tr>
-											<th class="productTotal">1,000商品</th>
+											<th class="productTotal" style="width: 380px;">1,000商品</th>
 											<th>
 												<select id="collectionSelect" class="form-select"
 													aria-label="Default select example" style="width: 120px;">
@@ -721,7 +792,7 @@
 												</div>
 											</th>
 											<th><button class="Search_btn" type="submit">搜尋</button></th>
-
+											<th><button class="product_edit_btn" type="submit">輯編商品</button></th>
 											<th>
 												<a href="product_new.html"><button class="product_new"
 														type="submit">新增商品</button></a>
@@ -739,10 +810,10 @@
 											</th>
 											<th></th>
 											<th class="productNameTh">商品名稱</th>
-											<th>商品規格</th>
-											<th>商品規格</th>
+											<th>規格一</th>
+											<th>規格二</th>
 											<th>售價</th>
-											<th>即時庫存</th>
+											<th>即時<br>庫存</th>
 											<th>已售出</th>
 											<th>狀態</th>
 											<th class="operate_txt">操作</th>
@@ -788,10 +859,10 @@
 											</th>
 											<th></th>
 											<th class="productNameTh">商品名稱</th>
-											<th>商品規格</th>
-											<th>商品規格</th>
+											<th>規格一</th>
+											<th>規格二</th>
 											<th>售價</th>
-											<th>即時庫存</th>
+											<th>即時<br>庫存</th>
 											<th>已售出</th>
 											<th>狀態</th>
 											<th class="operate_txt">操作</th>
@@ -837,10 +908,10 @@
 											</th>
 											<th></th>
 											<th class="productNameTh">商品名稱</th>
-											<th>商品規格</th>
-											<th>商品規格</th>
+											<th>規格一</th>
+											<th>規格二</th>
 											<th>售價</th>
-											<th>即時庫存</th>
+											<th>即時<br>庫存</th>
 											<th>已售出</th>
 											<th>狀態</th>
 											<th class="operate_txt">操作</th>
@@ -884,10 +955,10 @@
 											</th>
 											<th></th>
 											<th class="productNameTh">商品名稱</th>
-											<th>商品規格</th>
-											<th>商品規格</th>
+											<th>規格一</th>
+											<th>規格二</th>
 											<th>售價</th>
-											<th>即時庫存</th>
+											<th>即時<br>庫存</th>
 											<th>已售出</th>
 											<th>狀態</th>
 											<th class="operate_txt">操作</th>
@@ -912,9 +983,97 @@
 
 	</main>
 
+	<!-- -------------------以下是編輯規格彈窗內容------------------- -->
+	<div class="modal fade" id="productSpec_edit_button" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h1 class="modal-title" style="text-align: center;">輯編規格</h1>
+					<p class="productSpecId" style="font-size: 12px;">*商品規格編號待系統自動產生</p>
+					<div>
+						<table class="spec_table_edit">
+							<thead>
+								<tr>
+									<th>規格圖</th>
+									<th>規格類型一</th>
+									<th>規格一詳細</th>
+									<th>規格類型二</th>
+									<th>規格二詳細</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<img class="product_spec_img" id="specPicture1" src="./image/square.svg" alt="">
+										<input type="file" class="img_spc_file" id="file_Spec_Input1"
+											data-target="#specPicture1" />
+										<label for="file_Spec_Input1"></label>
+									</td>
+									<td>
+										<select class="specType1">
+											<option value="1">尺寸</option>
+											<option value="2">顏色</option>
+											<option value="3">容量</option>
+											<option value="4">材質</option>
+										</select>
 
+									</td>
+									<td>
+										<input class="specInfo1" type="text" value="" placeholder="最多10字"
+											maxlength="10">
+									</td>
+									<td>
+										<select class="specType2">
+											<option value="1">尺寸</option>
+											<option value="2">顏色</option>
+											<option value="3">容量</option>
+											<option value="4">材質</option>
+										</select>
+									</td>
+									<td>
+										<input class="specInfo2" type="text" value="" placeholder="最多10字"
+											maxlength="10">
+									</td>
+								</tr>
+							</tbody>
 
+						</table>
+						<div class="container" style="text-align: center;margin-top: 10px;">
+							<button class="Save_edit_btn btn btn-primary" type="button">變更儲存</button>
+						</div>
 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -------------------以下是編輯商品彈窗內容------------------- -->
+	<div class="modal fade" id="product_edit_button" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h3 class="modal-title" style="text-align: center;">輸入商品編號</h3>
+					<p class="error_message" style="font-size: 12px;color: red;display: none;">查無資料，請重新輸入</p>
+					<div>
+						<input class="inquire" type="text" value="" placeholder="請輸入8碼" maxlength="8"
+							style="text-align: center;">
+						<div class="container" style="text-align: center;margin-top: 10px;">
+							<button class="btn-redirect btn btn-primary" type="button">送出</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
 	<footer id="main-footer" class="footer">
 
@@ -1084,9 +1243,6 @@
 		}
 
 
-
-
-
 		//針對圖片整理
 		function displayImageFromBase64(base64ImageData) {
 			const imageBinaryStr = atob(base64ImageData);
@@ -1100,6 +1256,110 @@
 			// document.querySelector('#avatar').src = blobUrl; // 設定圖片的 src 屬性
 			return blobUrl; // 返回 Blob URL
 		}
+
+		//***上傳圖片後，圖片會預覽***
+		// 對於動態生成的 <input type="file"> 元素的 change 事件使用事件代理
+		$(document).on("change", "input[type='file']", function () {
+			const targetImg = $(this).data("target");
+			const fileInput = this;
+			if (fileInput.files && fileInput.files[0]) {
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					$(targetImg).attr("src", e.target.result);
+				};
+				reader.readAsDataURL(fileInput.files[0]);
+			}
+		});
+
+
+		//上傳輯編規格(圖)
+		function insertSpecImg(formDataSpecImg) {
+			fetch('http://localhost:8080/Niigi/uploadSpecPicture', {
+				method: 'POST',
+				body: formDataSpecImg
+			})
+				.then(response => {
+					if (response.ok) {
+						console.log('All images uploaded successfully!');
+					} else {
+						console.error('Image upload failed!');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+		}
+
+
+		//上傳編輯規格(text)
+		function updateSpecProduct(dataToSend) {
+			fetch('http://localhost:8080/Niigi/updateSpecText', {
+				method: 'POST',
+				body: JSON.stringify(dataToSend),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+						console.log(response);
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					if (data) {
+						console.log("修改成功");
+					}
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+		}
+
+
+		//針對編輯商品查詢
+		function retrieveProduct(dataToSend) {
+			fetch('http://localhost:8080/Niigi/product/product-details', {
+				method: 'POST',
+				body: JSON.stringify(dataToSend),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+						console.log(response);
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					if (data == 0) {
+						$("#product_edit_button .error_message").text("查無編號");
+						$("#product_edit_button .error_message").css("display", "block");
+					} else {
+						//console.log(data);
+						//console.log("可以進下一頁了");
+						//console.log(dataToSend.productId);
+
+						// 導航至下一頁並傳遞數據
+						const nextPageUrl = "http://localhost:8080/Niigi/frontend/product_new.html"; // 請將URL替換為實際的下一頁URL
+						const queryParams = `productId=${encodeURIComponent(dataToSend.productId)}`;
+						const finalUrl = `${nextPageUrl}?${queryParams}`;
+						window.location.href = finalUrl;
+					}
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+		}
+
+
 
 
 		//下拉式選單
@@ -1173,10 +1433,10 @@
 						// 取得產品名稱
 						const productName = productSpec.productName;
 						//取得對規格1
-						const specType1 = specTypeName(productSpec.specType1);
+						const specType1 = productSpec.specType1;
 						const specInfo1 = productSpec.specInfo1;
 						//取得對規格2
-						const specType2 = specTypeName(productSpec.specType2);
+						const specType2 = productSpec.specType2;
 						const specInfo2 = productSpec.specInfo2;
 						// 取得產品價格
 						const productPrice = productSpec.productPrice;
@@ -1199,8 +1459,10 @@
 												<p class="productName">${productName}</p>
 												<p class="productId">${productSpecId}</p>
 											</td>
-											<td class="spec1">${specType1}<br>${specInfo1}</td>
-											<td class="spec2">${specType2}<br>${specInfo2}</td>
+											<td class="spec1">${specInfo1}</td>
+											<td class="type1" style="display: none;">${specType1}</td>
+											<td class="spec2">${specInfo2}</td>
+											<td class="type2" style="display: none;">${specType2}</td>
 											<td class="price">NT$${productPrice}</td>
 											<td class="stock">${specStock}</td>
 											<td class="soldNum">${soldStock}</td>
@@ -1292,10 +1554,10 @@
 							// 取得產品名稱
 							const productName = productSpec.productName;
 							//取得對規格1
-							const specType1 = specTypeName(productSpec.specType1);
+							const specType1 = productSpec.specType1;
 							const specInfo1 = productSpec.specInfo1;
 							//取得對規格2
-							const specType2 = specTypeName(productSpec.specType2);
+							const specType2 = productSpec.specType2;
 							const specInfo2 = productSpec.specInfo2;
 							// 取得產品價格
 							const productPrice = productSpec.productPrice;
@@ -1318,8 +1580,10 @@
 												<p class="productName">${productName}</p>
 												<p class="productId">${productSpecId}</p>
 											</td>
-											<td class="spec1">${specType1}<br>${specInfo1}</td>
-											<td class="spec2">${specType2}<br>${specInfo2}</td>
+											<td class="spec1">${specInfo1}</td>
+											<td class="type1" style="display: none;">${specType1}</td>
+											<td class="spec2">${specInfo2}</td>
+											<td class="type2" style="display: none;">${specType2}</td>
 											<td class="price">NT$${productPrice.toLocaleString()}</td>
 											<td class="stock">${specStock.toLocaleString()}</td>
 											<td class="soldNum">${soldStock.toLocaleString()}</td>
@@ -1346,6 +1610,13 @@
 
 			//////////////////////////////////////////////////////////////////
 			$('.nav-link').click(function () {
+				const activeTab = $('.nav-link.active').attr('aria-controls');
+				//console.log(activeTab);
+				if ($('.stock_update_btn').hasClass('-on')) {
+					$('.stock_update_btn').removeClass('-on');
+					$('.stock_update_btn').text("庫存異動");
+					$('#' + activeTab_up).find('th.operate_txt').text('操作');
+				}
 
 				// 獲取目標元素的ID
 				const targetId = $(this).data('bs-target');
@@ -1414,10 +1685,10 @@
 							// 取得產品名稱
 							const productName = productSpec.productName;
 							//取得對規格1
-							const specType1 = specTypeName(productSpec.specType1);
+							const specType1 = productSpec.specType1;
 							const specInfo1 = productSpec.specInfo1;
 							//取得對規格2
-							const specType2 = specTypeName(productSpec.specType2);
+							const specType2 = productSpec.specType2;
 							const specInfo2 = productSpec.specInfo2;
 							// 取得產品價格
 							const productPrice = productSpec.productPrice;
@@ -1440,8 +1711,10 @@
 												<p class="productName">${productName}</p>
 												<p class="productId">${productSpecId}</p>
 											</td>
-											<td class="spec1">${specType1}<br>${specInfo1}</td>
-											<td class="spec2">${specType2}<br>${specInfo2}</td>
+											<td class="spec1">${specInfo1}</td>
+											<td class="type1" style="display: none;">${specType1}</td>
+											<td class="spec2">${specInfo2}</td>
+											<td class="type2" style="display: none;">${specType2}</td>
 											<td class="price">NT$${productPrice.toLocaleString()}</td>
 											<td class="stock">${specStock.toLocaleString()}</td>
 											<td class="soldNum">${soldStock.toLocaleString()}</td>
@@ -1535,10 +1808,10 @@
 								// 取得產品名稱
 								const productName = productSpec.productName;
 								//取得對規格1
-								const specType1 = specTypeName(productSpec.specType1);
+								const specType1 = productSpec.specType1;
 								const specInfo1 = productSpec.specInfo1;
 								//取得對規格2
-								const specType2 = specTypeName(productSpec.specType2);
+								const specType2 = productSpec.specType2;
 								const specInfo2 = productSpec.specInfo2;
 								// 取得產品價格
 								const productPrice = productSpec.productPrice;
@@ -1561,8 +1834,10 @@
 												<p class="productName">${productName}</p>
 												<p class="productId">${productSpecId}</p>
 											</td>
-											<td class="spec1">${specType1}<br>${specInfo1}</td>
-											<td class="spec2">${specType2}<br>${specInfo2}</td>
+											<td class="spec1">${specInfo1}</td>
+											<td class="type1" style="display: none;">${specType1}</td>
+											<td class="spec2">${specInfo2}</td>
+											<td class="type2" style="display: none;">${specType2}</td>
 											<td class="price">NT$${productPrice.toLocaleString()}</td>
 											<td class="stock">${specStock.toLocaleString()}</td>
 											<td class="soldNum">${soldStock.toLocaleString()}</td>
@@ -1589,12 +1864,7 @@
 			// 按下库存更新按钮时的处理逻辑
 			// 根据当前活动分页执行相应的操作
 			const activeTab = $('.nav-link.active').attr('aria-controls');
-			if (!(activeTab_up == 0 || activeTab == activeTab_up)) {
-				$('.stock_update_btn').removeClass('-on');
-				$('.stock_update_btn').text("庫存異動");
-				$('#' + activeTab_up).find('th.operate_txt').text('操作');
-				$('#' + activeTab_up).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button>');
-			}
+			//console.log(activeTab);
 			if ($('.stock_update_btn').hasClass('-on')) {
 				const restockMemberId = "M000000001";
 				// 修改選擇器，僅選擇目前處於 active 狀態的分頁內的複選框
@@ -1605,8 +1875,12 @@
 				var restockQuantitys = [];
 				var beforeRestockStocks = [];
 				var hasEmptyStockUpdate = false; // 設定一個變數來檢查是否有空白的補充庫存數量
+				if (selectedCheckboxes.length === 0) {
+					alert("需勾選要更新的商品規格");
+					return;
+				}
 				selectedCheckboxes.each(function () {
-					console.log(this);
+					//console.log(this);
 					var productSpecId = $(this).data("product-spec-id");
 					var beforeRestockStock = $(this).closest("tr").find(".stock").text();
 					var restockQuantity = $(this).closest("tr").find(".stock_update_num").val();
@@ -1776,6 +2050,93 @@
 				.catch((error) => {
 					console.error('Fetch error:', error);
 				});
+		});
+
+		//輯編鈕
+		$(document).on('click', '.edit_btn', function (event) {
+
+			const productSpecId = $(event.target).closest("tr").find(".productId").text();
+			const productImg = $(event.target).closest("tr").find(".productImg");
+			const spec1 = $(event.target).closest("tr").find(".spec1");
+			const type1 = $(event.target).closest("tr").find(".type1");
+			const spec2 = $(event.target).closest("tr").find(".spec2");
+			const type2 = $(event.target).closest("tr").find(".type2");
+
+			$("#productSpec_edit_button .productSpecId").text("編號 " + productSpecId);
+			$("#productSpec_edit_button .product_spec_img").attr('src', productImg.attr('src'));
+			$("#productSpec_edit_button .specType1").val(type1.text());
+			$("#productSpec_edit_button .specInfo1").val(spec1.text());
+			$("#productSpec_edit_button .specType2").val(type2.text());
+			$("#productSpec_edit_button .specInfo2").val(spec2.text());
+			$("#productSpec_edit_button").modal('show');
+
+			$(".Save_edit_btn").click(function () {
+
+				//處理規格圖
+				const imageFile = $(".img_spc_file")[0].files[0];
+				const updateImg = $(".modal .product_spec_img").attr('src');
+				if (productImg.attr('src') != updateImg) {
+					let formDataSpecImg = new FormData();
+					formDataSpecImg.append('images', imageFile);
+					formDataSpecImg.append('productSpecIds', productSpecId);
+					insertSpecImg(formDataSpecImg);
+					productImg.attr('src', updateImg);
+				}
+
+				//處理文字
+				const modalSpecType1 = $("#productSpec_edit .specType1").val();
+				const modalSpecInfo1 = $("#productSpec_edit .specInfo1").val().trim();
+				const modalSpecType2 = $("#productSpec_edit .specType2").val();
+				const modalSpecInfo2 = $("#productSpec_edit .specInfo2").val().trim();
+
+				if (modalSpecInfo1 === "" || modalSpecInfo2 === "") {
+					alert("請填寫完整資料");;
+					return; // 跳出 each 迴圈
+				}
+
+				if (!(modalSpecType1 == type1.text() && modalSpecInfo1 == spec1.text() && modalSpecType2 == type2.text() && modalSpecInfo2 == spec2.text())) {
+					let dataToSend = {};
+					dataToSend = {productSpecId: productSpecId, specType1: modalSpecType1, specInfo1: modalSpecInfo1, specType2: modalSpecType2, specInfo2: modalSpecInfo2};
+					updateSpecProduct(dataToSend);
+					spec1.text(modalSpecInfo1);
+					type1.text(modalSpecType1);
+					spec2.text(modalSpecInfo2);
+					type2.text(modalSpecType2);
+				}
+
+				// 關閉彈窗
+				$("#productSpec_edit_button").modal("hide");
+
+
+			});
+		});
+
+		$(".product_edit_btn").click(function () {
+			$("#product_edit_button").modal('show');
+
+			$(".btn-redirect").click(function () {
+				//取得會員編號
+				const registerSupplier = "S000000001";
+				const inquire_SpecId = $(".inquire").val().trim();
+				//parseFloat(
+				if (isNaN(parseFloat(inquire_SpecId)) || parseFloat(inquire_SpecId) <= 0) {
+					$("#product_edit_button .error_message").text("請填寫正確編號");
+					$("#product_edit_button .error_message").css("display", "block");
+					return;
+				}
+				if (inquire_SpecId.length != 8) {
+					$("#product_edit_button .error_message").text("需填8碼");
+					$("#product_edit_button .error_message").css("display", "block");
+					return;
+				}
+				let dataToSend = {};
+				dataToSend = {productId: inquire_SpecId, registerSupplier: registerSupplier};
+				retrieveProduct(dataToSend);
+
+
+
+			});
+
 		});
 
 
