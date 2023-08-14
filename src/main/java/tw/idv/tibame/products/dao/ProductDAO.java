@@ -32,4 +32,8 @@ public interface ProductDAO extends CoreDAO<Product, Integer> {
 	
 	//修改上下架狀態
 	public Boolean updateStatus(Integer productId, String productStatus)throws Exception;
+	
+	
+	// 以商品編號查詢輸入者是否正確(編輯商品用)
+	public Integer selectByProductId(Integer productId, String registerSupplier);
 }
