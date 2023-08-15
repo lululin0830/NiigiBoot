@@ -15,4 +15,8 @@ public interface MainOrderDAO extends CoreDAO<MainOrder, String> {
 	
 	//會員訂單中心 取消主訂單
 	public String cancelMainOrder(String mainOrderId);
+	//會員訂單中心 付款時取得所有主訂單下商品名稱
+	public List<String> paymentItemList(String orderId);
+	//會員訂單中心 付款時取得主訂單金額
+	public int patmentAmount(String orderId);
 }
