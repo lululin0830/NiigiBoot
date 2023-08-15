@@ -8,7 +8,7 @@ import tw.idv.tibame.products.entity.ProductSpec;
 public interface ProductSpecDAO extends CoreDAO<ProductSpec, String> {
 
 	// 萬用更新
-	public ProductSpec update(ProductSpec newProductSpec);
+	public Boolean update(ProductSpec newProductSpec);
 
 	// 以商品編號查全部規格
 	public List<ProductSpec> selectByProductId(Integer productIds);

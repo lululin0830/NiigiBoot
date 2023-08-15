@@ -58,7 +58,10 @@ public class JwtUtil implements Serializable {
 
 	}
 
-	public static boolean validateJwtToken(String jwtToken) {
+	public static boolean validateJwtToken(String bearerToken) {
+		
+		final String jwtToken = bearerToken.replace("Bearer ", "");
+		
 		try {
 			// 使用SecretKeySpec來產生用於驗證JWT簽名的Key
 			Key key = new SecretKeySpec(SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());

@@ -99,9 +99,17 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public Users selectBuUserId(String userId) {
-		String hql = "FROM Users WHERE userId = :userId ";
-		return session.createQuery(hql, Users.class).setParameter("userId", userId).uniqueResult();
+	public Users selectByUserId(String userId) {
+	    try {
+	        Integer userIdInt = Integer.parseInt(userId);
+	        String hql = "FROM Users WHERE userId = :userId";
+	        return session.createQuery(hql, Users.class).setParameter("userId", userIdInt).uniqueResult();
+	    } catch (NumberFormatException e) {
+	        // 處理字串轉換為整數的異常情況
+	        // 這裡可以返回 null 或者其他您認為合適的處理方式
+	        return null;
+	    }
 	}
+
 
 }

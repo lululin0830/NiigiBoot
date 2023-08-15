@@ -13,7 +13,7 @@ public interface UserDAO extends CoreDAO<Users, String>{
 		// 刪除
 		public int deleteByUserId(Integer userId);
 		
-		public Users selectBuUserId(String userId);
+		public Users selectByUserId(String userId);
 
 		// 找名稱
 		public Users selectByUserName(String userName);
@@ -29,4 +29,5 @@ public interface UserDAO extends CoreDAO<Users, String>{
 		public String getAllBySearch(String searchCase,String searchSelect);
 		
 		public String selectPasswordByUserAcct(String userAcct);
+
 }

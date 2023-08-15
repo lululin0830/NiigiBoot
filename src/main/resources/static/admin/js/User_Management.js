@@ -118,51 +118,60 @@ function removeUser(element) {
         });
 };
 
-function updateUser(element){
-    // 取得按鈕元素
+// 声明一个变量来存储当前用户的 userId
+let currentUserUserId = '';
+
+// 帳號設定按鈕的點擊事件處理程序
+function updateUser(element) {
     console.log("Hi")
-    
-    const userId = element.dataset.userId;
-    console.log(userId)
-    
+
+    currentUserUserId = element.dataset.userId; // 获取当前用户的 userId
+    console.log(currentUserUserId);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
     const saveButton = document.getElementById('saveButton');
-    
+
     saveButton.addEventListener('click', () => {
         const hrAuthority = document.getElementById('hrAuthority');
         const financialAuthority = document.getElementById('financialAuthority');
         const marketingAuthority = document.getElementById('marketingAuthority');
         const customerServiceAuthority = document.getElementById('customerServiceAuthority');
-        const changePassword = document.getElementById('changePassword'); // 新的設定新密碼的輸入框
-        
+        const changePassword = document.getElementById('changePassword');
+
         const data = {
+            userId: currentUserUserId,
             hrAuthority: hrAuthority.checked ? '1' : '0',
             financialAuthority: financialAuthority.checked ? '1' : '0',
             marketingAuthority: marketingAuthority.checked ? '1' : '0',
             customerServiceAuthority: customerServiceAuthority.checked ? '1' : '0',
-            changePassword: changePassword.value, // 取得新密碼輸入框的值
+            password: changePassword.value,
         };
-        
-        fetch('http://localhost:8080/Niigi/User/Update', {
+
+        console.log('Current userId:', currentUserUserId);
+        // console.log('Data to be sent:', data);
+        return fetch('http://localhost:8080/Niigi/user/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         })
-        .then(response => response.json())
-        .then(result => {
-            // 根據後端返回的結果進行處理
-            if (result.successful) {
-                alert('權限及密碼更新成功');
-            } else {
-                alert('權限及密碼更新失敗');
-            }
-        })
-        .catch(error => {
-            console.error('Error updating permissions and password:', error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    alert("儲存成功");
+                    location.reload(); // 重新載入頁面
+                } else {
+                }
+            })
+            .catch(error => {
+                console.error('Error updating permissions and password:', error);
+            });
     });
-}
+});
+
+
+
 
 
 // 顯示畫面

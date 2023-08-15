@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.springframework.stereotype.Repository;
 
-
 import jakarta.persistence.PersistenceContext;
 import tw.idv.tibame.products.dao.ProductDAO;
 import tw.idv.tibame.products.entity.Product;
@@ -83,8 +82,7 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Product> selectByKeywords(String[] keywords) {
 		StringBuilder sql = new StringBuilder().append("SELECT * ").append("FROM Product ")
 //				.append("LEFT JOIN Suppliers s ON p.registerSupplier = s.supplierId ")
-				.append("WHERE 1=1 ")
-				.append("AND productStatus = '0' ").append("AND ("); // 新增商品狀態條件
+				.append("WHERE 1=1 ").append("AND productStatus = '0' ").append("AND ("); // 新增商品狀態條件
 
 		Map<String, Object> parameters = new HashMap<>();
 
@@ -152,19 +150,29 @@ public class ProductDAOImpl implements ProductDAO {
 		String sql = "SELECT productId,productName,productPrice,picture1 FROM Product "
 				+ "WHERE registerSupplier = ( SELECT registerSupplier FROM Product WHERE productId = :productId ) "
 				+ "AND productStatus = '0' AND productId != :productId ORDER BY firstOnShelvesDate DESC ";
-		return session.createNativeQuery(sql, Object.class).setParameter("productId", productId)
-				.setFirstResult(0).setMaxResults(3).getResultList();
+		return session.createNativeQuery(sql, Object.class).setParameter("productId", productId).setFirstResult(0)
+				.setMaxResults(3).getResultList();
 	}
-	
-	//修改上下架狀態
+
+	// 修改上下架狀態
 	@Override
-	public Boolean updateStatus(Integer productId, String productStatus)throws Exception  {
-	    String sql = "UPDATE Product SET productStatus = :productStatus WHERE productId = :productId";
-	    NativeQuery<Boolean> nativeQuery = session.createNativeQuery(sql,Boolean.class);
-	    nativeQuery.setParameter("productStatus", productStatus);
-	    nativeQuery.setParameter("productId", productId);
-	    int updatedCount = nativeQuery.executeUpdate();
-	    return updatedCount > 0;
+	public Boolean updateStatus(Integer productId, String productStatus) throws Exception {
+		String sql = "UPDATE Product SET productStatus = :productStatus WHERE productId = :productId";
+		NativeQuery<Boolean> nativeQuery = session.createNativeQuery(sql, Boolean.class);
+		nativeQuery.setParameter("productStatus", productStatus);
+		nativeQuery.setParameter("productId", productId);
+		int updatedCount = nativeQuery.executeUpdate();
+		return updatedCount > 0;
+	}
+
+	// 以商品編號查詢輸入者是否正確(編輯商品用)
+	@Override
+	public Integer selectByProductId(Integer productId, String registerSupplier) {
+		String sql = "select count(*) from Product where productId = :productId and registerSupplier = :registerSupplier";
+		NativeQuery<Integer> nativeQuery = session.createNativeQuery(sql, Integer.class);
+		nativeQuery.setParameter("productId", productId);
+		nativeQuery.setParameter("registerSupplier", registerSupplier);
+		return nativeQuery.uniqueResult();
 	}
 
 }

@@ -22,6 +22,8 @@ public interface ProductService {
 	public Integer addProduct(String registerSupplier, String categorieId, String productName, String productPrice,
 			String productInfo, String productStatus) throws Exception;
 	
+	public Integer getProductById(Integer productId, String registerSupplier) throws Exception;
+	
 	// 新增商品(欄位不得為空值)
 
 	// 修改商品(欄位不得為空值)
