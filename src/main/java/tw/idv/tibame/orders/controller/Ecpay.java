@@ -24,37 +24,32 @@ public class Ecpay {
 		String ecpCheck = ecpayService.ecpayform(orderId);
 		return ecpCheck;
 	}
+	
+	@PostMapping(path ="/paymentRuturn" , consumes = "application/x-www-form-urlencoded")
+	public int paymentReturn(
+            @RequestParam(name = "CustomField1", required = false) String customField1,
+            @RequestParam(name = "CustomField2", required = false) String customField2,
+            @RequestParam(name = "CustomField3", required = false) String customField3,
+            @RequestParam(name = "CustomField4", required = false) String customField4,
+            @RequestParam(name = "MerchantID") String merchantID,
+            @RequestParam(name = "MerchantTradeNo") String merchantTradeNo,
+            @RequestParam(name = "PaymentDate") String paymentDate,
+            @RequestParam(name = "PaymentType") String paymentType,
+            @RequestParam(name = "PaymentTypeChargeFee") String paymentTypeChargeFee,
+            @RequestParam(name = "RtnCode") String rtnCode,
+            @RequestParam(name = "RtnMsg") String rtnMsg,
+            @RequestParam(name = "SimulatePaid") String simulatePaid,
+            @RequestParam(name = "StoreID", required = false) String storeID,
+            @RequestParam(name = "TradeAmt") String tradeAmt,
+            @RequestParam(name = "TradeDate") String tradeDate,
+            @RequestParam(name = "TradeNo") String tradeNo,
+            @RequestParam(name = "CheckMacValue") String checkMacValue) {
 
-//	@PostMapping(path = "/paymentRuturn", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//	public void paymentReturn(Foo foo) {
-//		System.out.println(foo);
-//	}
-//}
-//
-//class Foo {
-//	private Integer MerchantID;
-//	private String RtnMsg;
-//
-//	public Integer getMerchantID() {
-//		return MerchantID;
-//	}
-//
-//	public void setMerchantID(Integer merchantID) {
-//		MerchantID = merchantID;
-//	}
-//
-//	public String getRtnMsg() {
-//		return RtnMsg;
-//	}
-//
-//	public void setRtnMsg(String rtnMsg) {
-//		RtnMsg = rtnMsg;
-//	}
-	
-	
-	@PostMapping("/paymentRuturn")
-	public int paymentReturn(@RequestParam(name = "RtnCode")  String rtnCode) {
-		System.out.println("HI");
+		if(rtnCode.equals("1")) {
+			
+			String ordreId = merchantTradeNo.replace("NGI", "");
+			ecpayService.ecpayform(ordreId);
+		}
 		
 		return 1;
 		

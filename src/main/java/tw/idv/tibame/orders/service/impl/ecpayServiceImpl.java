@@ -39,16 +39,16 @@ public class ecpayServiceImpl implements EcpayService {
 			});
 		String itemName = reduce.get();
 		
-		String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
+//		String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
 		
 		AioCheckOutALL obj = new AioCheckOutALL();
-		obj.setMerchantTradeNo(uuId);
+		obj.setMerchantTradeNo("NGI"+orderId);
 		obj.setMerchantTradeDate(ecpayTime);
 		obj.setTotalAmount(totalAmount);
 		obj.setTradeDesc("test Description");
 		obj.setItemName(itemName);
 		// 交易結果回傳網址，只接受 https 開頭的網站，可以使用 ngrok
-		obj.setReturnURL("http://localhost:8080/Niigi/OrderPay/paymentRuturn");
+		obj.setReturnURL("http://niigi.shop/Niigi/OrderPay/paymentRuturn");
 		obj.setNeedExtraPaidInfo("Y");
 		// 商店轉跳網址 (Optional)
 		obj.setClientBackURL("http://localhost:8080/Niigi/frontend/check_order.html");

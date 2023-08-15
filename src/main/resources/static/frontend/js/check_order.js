@@ -485,7 +485,7 @@ const init = function () {
 	console.log(mainorder1)
 	console.log("memberId", memberId)
 
-	fetch('http://localhost:8080/Niigi/MemberCheckOrder/orderAll', {
+	fetch('../MemberCheckOrder/orderAll', {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
@@ -581,7 +581,7 @@ const checkOrderDetail = function () {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	// console.log("subOrderId", subOrderId)
 
-	fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetail', {
+	fetch('../MemberCheckOrder/subOrderDetail', {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
@@ -624,7 +624,7 @@ const confirmReceipt = function () {
 
 	async function updateReceipt() {
 		if (document.querySelector("button.confirmReceipt") !== null) {
-			await fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderConfirmReceipt', {
+			await fetch('../MemberCheckOrder/subOrderConfirmReceipt', {
 				method: 'PATCH',
 				headers: {
 					'Content-type': 'application/json',
@@ -653,7 +653,7 @@ const cancelMainOrder = function () {
 
 		if (document.querySelector("button.confirmCancelOrder")) {
 
-			await fetch('http://localhost:8080/Niigi/MemberCheckOrder/cancelMainOrder', {
+			await fetch('../MemberCheckOrder/cancelMainOrder', {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/json',
@@ -690,7 +690,7 @@ const cancelSubOrder = function () {
 
 		if (document.querySelector("button.confirmCancelOrder")) {
 
-			await fetch('http://localhost:8080/Niigi/MemberCheckOrder/cancelSubOrder', {
+			await fetch('../MemberCheckOrder/cancelSubOrder', {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/json',
@@ -719,7 +719,7 @@ const subOrderDetailcomment = function () {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	comment.innerHTML = ''
 	let starvalues = null
-	fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetailcomment', {
+	fetch('../MemberCheckOrder/subOrderDetailcomment', {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
@@ -775,7 +775,7 @@ const subOrderDetailcomment = function () {
 
 //送出評價
 const submitComment = function () {
-	fetch('http://localhost:8080/Niigi/MemberCheckOrder/updateSubOrderDetailComment', {
+	fetch('../MemberCheckOrder/updateSubOrderDetailComment', {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
@@ -807,7 +807,7 @@ const cancelProduct = function () {
 	console.log("subOrderId", subOrderId)
 	cancelProductBlock.innerHTML = ""
 	refundSubOrderId = subOrderId
-	fetch('http://localhost:8080/Niigi/MemberCheckOrder/subOrderDetail', {
+	fetch('../MemberCheckOrder/subOrderDetail', {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
@@ -835,7 +835,7 @@ const submitCancelProduct = function () {
 	}
 	console.log(refundData)
 
-	fetch('http://localhost:8080/Niigi/MemberCheckOrder/updateRefund', {
+	fetch('../MemberCheckOrder/updateRefund', {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
@@ -850,7 +850,7 @@ const goEcpay = function () {
 	const orderId = $(this).closest('li.order').find('span.order-id').text()
 
 
-	fetch('http://localhost:8080/Niigi/OrderPay', {
+	fetch('../OrderPay', {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
