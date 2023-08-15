@@ -496,7 +496,7 @@ const init = function () {
 		console.log("我是data", data)
 
 		//===================================尚未付款區===================================
-		let paymentPending = groupByField(data[0], 4)
+		let paymentPending = groupByField(data[1], 4)
 		// console.log("我是pay")s
 		console.log("尚未付款", paymentPending)
 		paymentPendingBody(paymentPending)

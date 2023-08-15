@@ -51,7 +51,7 @@ public class ecpayServiceImpl implements EcpayService {
 		obj.setReturnURL("http://niigi.shop/Niigi/OrderPay/paymentRuturn");
 		obj.setNeedExtraPaidInfo("Y");
 		// 商店轉跳網址 (Optional)
-		obj.setClientBackURL("http://localhost:8080/Niigi/frontend/check_order.html");
+		obj.setClientBackURL("http://niigi.shop/Niigi/frontend/check_order.html");
 		String form = all.aioCheckOut(obj, null);
 
 		return form;
