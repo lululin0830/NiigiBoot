@@ -26,8 +26,8 @@ const search = function () {
                 <td>${data[i].financialAuthority}</td>
                 <td>${data[i].marketingAuthority}</td>
                 <td>${data[i].customerServiceAuthority}</td>
-                <td><button type="button" id="accountSettings" class="btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#account_settings" >帳號設定</button></td>
+                <td><button type="button" id="accountSettings${i}" class="btn-primary" data-bs-toggle="modal"
+                data-bs-target="#account_settings" data-user-id='${data[i].userId}' onclick="updateUser(this)">帳號設定</button></td>
                 <td><button type="button" id="deleteUser${i}" class="btn-primary" data-bs-toggle="modal"
                         data-bs-target="#delete_user" data-user-id='${data[i].userId}' onclick="removeUser(this)">刪除成員</button></td>
             </tr>`;
@@ -170,10 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
-
-
-
 // 顯示畫面
 const init = function () {
     fetch('http://localhost:8080/Niigi/UserController', {
@@ -210,4 +206,34 @@ const init = function () {
 }
 // window.addEventListener("load", init);
 init();
+
+function getCookie(name) {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : '';
+}
+
+function parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const decoded = JSON.parse(atob(base64));
+
+    // 解析 sub 字段中的 JSON 字符串
+    decoded.sub = JSON.parse(decoded.sub);
+
+    return decoded;
+}
+
+const jwtToken = getCookie('jwt');
+
+if (!jwtToken) {
+    // 如果 JWT 不存在，導向登入頁面或其他處理方式
+    window.location.href = 'Login_Page.html'; 
+}
+
+const decodedToken = parseJwt(jwtToken);
+
+const userName = decodedToken.sub.userName; // 使用 sub.userName
+
+const userNameLink = document.getElementById('userNameLink');
+userNameLink.textContent = `${userName}`;
 
