@@ -27,3 +27,16 @@ const userName = decodedToken.sub.userName; // 使用 sub.userName
 
 const userNameLink = document.getElementById('userNameLink');
 userNameLink.textContent = `${userName}`;
+
+/* 清掉cookie */
+function clearCookie(name) {
+	const expires = new Date();
+	expires.setTime(expires.getTime() - 1);
+	document.cookie = `${name}= ;expires=${expires.toUTCString()};path=/`;
+}
+
+/* 登出並回到首頁 */
+function logout(){
+	clearCookie('jwt');
+	window.location.href = './Login_Page.html'
+}

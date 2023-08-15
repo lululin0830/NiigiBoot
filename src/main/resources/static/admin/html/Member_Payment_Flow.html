@@ -253,7 +253,7 @@
                         <img src="../image/userheadshot.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">我是用戶名稱</a>
+                        <a href="#" class="d-block" id="userNameLink">我是用戶名稱</a>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->
@@ -450,6 +450,11 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+							<a href="#" class="nav-link" onclick="logout();">
+								<img src="../../frontend/image/Logout-a.svg" alt="">登出
+							</a>
+						</li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -689,7 +694,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="../js/dashboard2.js"></script>
 
-
+    <script src="../js/token.js"></script>
 </body>
 
 </html>
