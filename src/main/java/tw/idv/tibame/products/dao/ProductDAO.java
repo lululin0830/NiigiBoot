@@ -8,7 +8,7 @@ import tw.idv.tibame.products.entity.Product;
 public interface ProductDAO extends CoreDAO<Product, Integer> {
 
 	// 萬用更新
-	public Product update(Product newProduct) throws Exception;
+	public Boolean update(Product newProduct) throws Exception;
 
 	// 商家查詢商品(全部)
 	public List<Product> selectBySupplier(String supplierId);
