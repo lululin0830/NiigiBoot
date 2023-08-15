@@ -50,8 +50,7 @@ const paymentPendingBody = function (arr) {
                 <div class="col-sm-3">
                     <div class="navs-top-btn">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-XL"
-                            data-bs-toggle="modal" data-bs-target="#checkoutModal">
+                        <button type="button" class="btn btn-primary btn-XL payOrder">
                             去付款
                         </button>
                     </div>
@@ -566,6 +565,10 @@ const init = function () {
 		document.querySelectorAll("button.cancelProduct").forEach(function (e) {
 			e.addEventListener("click", cancelProduct);
 		})
+		//去付款按鈕
+		document.querySelectorAll("button.payOrder").forEach(function (e) {
+			e.addEventListener("click", goEcpay)
+		})
 
 	})
 	bodyHtml = null;
@@ -822,7 +825,7 @@ const cancelProduct = function () {
 		})
 	})
 }
-
+//確認退貨
 const submitCancelProduct = function () {
 
 	const refundData = {
@@ -840,4 +843,22 @@ const submitCancelProduct = function () {
 		body: JSON.stringify(refundData)
 	})
 	document.getElementById("btnClose").click();
+}
+//跳至付款頁面
+const goEcpay = function () {
+
+	const orderId = $(this).closest('li.order').find('span.order-id').text()
+
+
+	fetch('http://localhost:8080/Niigi/OrderPay', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+		},
+		body: orderId
+	}).then(response => response.text()).then(text => {
+		console.log("有點到")
+		$("#forwardPay").html(text);
+		return
+	})
 }

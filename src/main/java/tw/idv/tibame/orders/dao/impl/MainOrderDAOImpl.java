@@ -147,6 +147,26 @@ public class MainOrderDAOImpl implements MainOrderDAO {
 		return "取消訂單成功";
 		
 	}
+
+	@Override
+	public List<String> paymentItemList(String orderId) {
+		String sql = " select pd.productName "
+				+ " from MainOrder mo, SubOrder so,SubOrderDetail sod,Product pd "
+				+ " where mo.orderId = so.orderId and so.subOrderId = sod.subOrderId and sod.productId = pd.productId "
+				+ " and mo.orderId = :orderId ";
+		Query<String>query = session.createQuery(sql,String.class);
+		query.setParameter("orderId", orderId);
+		return query.getResultList();
+	}
+
+	@Override
+	public int patmentAmount(String orderId) {
+		String hql ="select totalAmount from MainOrder where orderId = :orderId ";
+		Query<Integer> query = session.createQuery(hql);
+		query.setParameter("orderId", orderId);
+		
+		return query.getSingleResult();
+	}
 	
 	
 }
