@@ -25,10 +25,11 @@ profilePictureInput.addEventListener('change', function (event) {
     }
 });
 
-(() => {
-    const memberIdElement = document.querySelector('.memberId').textContent;
+function init() {
+    const memberIdElement = document.querySelector('.memberId').innerText;
+    console.log(memberIdElement)
 
-    fetch(`http://localhost:8080/Niigi/member/selectId?memberId=${encodeURIComponent(memberIdElement)}`, {
+    fetch('http://localhost:8080/Niigi/member/selectId?memberId=' + `${memberId}` , {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -70,7 +71,7 @@ profilePictureInput.addEventListener('change', function (event) {
         .catch(error => {
             console.error('Error fetching data:', error);
         });
-})();
+};
 
 (() => {
 
@@ -131,3 +132,4 @@ profilePictureInput.addEventListener('change', function (event) {
 
 
 
+window.addEventListener("load",init)
