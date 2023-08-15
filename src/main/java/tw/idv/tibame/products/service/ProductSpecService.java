@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import tw.idv.tibame.products.DTO.ProductSpecManageDTO;
+import tw.idv.tibame.products.entity.ProductSpec;
 
 
 
@@ -61,4 +62,9 @@ public interface ProductSpecService {
 	// 修改規格資料(不含圖)
 	public Boolean updateProductSpec(String productSpecId, String specType1, String specInfo1, String specType2,
 				String specInfo2) throws Exception;
+	
+	
+	//以productid查看所有規格
+	public List<ProductSpec> selectByProductId(Integer productId) throws Exception; 
+	
 }
