@@ -5,21 +5,21 @@ import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import tw.idv.tibame.events.entity.enumtype.EventType;
-import tw.idv.tibame.events.entity.enumtype.ThresholdType;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class EventSingleThreshold implements Serializable{
 
 	
@@ -30,6 +30,7 @@ public class EventSingleThreshold implements Serializable{
 	
 	@Id
 	private String eventId;
+	
 	private String eventRegisterSupplier;
 	private String eventType;
 	private String eventName;

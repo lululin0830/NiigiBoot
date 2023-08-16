@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +25,17 @@ public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold
 
 	@Override
 	public Boolean insert(EventSingleThreshold entity) throws Exception {
-		return null;
+		session.persist(entity);
+		return true;
+	}
+	
+	public String selectLastOrder() {
+		String sql = "SELECT eventId FROM EventSingleThreshold ORDER BY eventId DESC";
+
+		NativeQuery<String> nativeQuery = session.createNativeQuery(sql, String.class).setFirstResult(0)
+				.setMaxResults(1);
+
+		return nativeQuery.uniqueResult();
 	}
 
 	@Override
