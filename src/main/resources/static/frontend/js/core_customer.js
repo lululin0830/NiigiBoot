@@ -147,7 +147,7 @@ function showHeader() {
 		html += `
 	 			<nav class="fixed-nav col-sm-4">
                     <div class="fixed-nav-list login row">
-                    	<a href="" class="SCM-Center col">
+                    	<a href="supplier_center.html" class="SCM-Center col">
                             <div class="SCM_icon">
                                 <button class="btn_SCM-Center">商家中心</button>
                             </div>
