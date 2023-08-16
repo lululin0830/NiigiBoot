@@ -1573,7 +1573,7 @@
 							list_html += `
 										<tr>
 											<td class="check">
-												<input type="checkbox" class="selectRow" data-page="${targetId}" data-product-spec-id="${productSpecId}">
+												<input type="checkbox" class="selectRow" data-page="#navs-top-home" data-product-spec-id="${productSpecId}">
 											</td>
 											<td><img class="productImg" src="${base64Image}" alt=""></td>
 											<td class="productNameTd">
@@ -2052,64 +2052,69 @@
 				});
 		});
 
+		let productSpecId_edit;
+		let productImg_edit;
+		let spec1_edit;
+		let type1_edit;
+		let spec2_edit;
+		let type2_edit;
 		//輯編鈕
 		$(document).on('click', '.edit_btn', function (event) {
-
-			const productSpecId = $(event.target).closest("tr").find(".productId").text();
-			const productImg = $(event.target).closest("tr").find(".productImg");
-			const spec1 = $(event.target).closest("tr").find(".spec1");
-			const type1 = $(event.target).closest("tr").find(".type1");
-			const spec2 = $(event.target).closest("tr").find(".spec2");
-			const type2 = $(event.target).closest("tr").find(".type2");
-
-			$("#productSpec_edit_button .productSpecId").text("編號 " + productSpecId);
-			$("#productSpec_edit_button .product_spec_img").attr('src', productImg.attr('src'));
-			$("#productSpec_edit_button .specType1").val(type1.text());
-			$("#productSpec_edit_button .specInfo1").val(spec1.text());
-			$("#productSpec_edit_button .specType2").val(type2.text());
-			$("#productSpec_edit_button .specInfo2").val(spec2.text());
+			productSpecId_edit = $(event.target).closest("tr").find(".productId").text();
+			productImg_edit = $(event.target).closest("tr").find(".productImg");
+			spec1_edit = $(event.target).closest("tr").find(".spec1");
+			type1_edit = $(event.target).closest("tr").find(".type1");
+			spec2_edit = $(event.target).closest("tr").find(".spec2");
+			type2_edit = $(event.target).closest("tr").find(".type2");
+			console.log(productSpecId_edit);
+			$("#productSpec_edit_button .productSpecId").text("編號 " + productSpecId_edit);
+			$("#productSpec_edit_button .product_spec_img").attr('src', productImg_edit.attr('src'));
+			$("#productSpec_edit_button .specType1").val(type1_edit.text());
+			$("#productSpec_edit_button .specInfo1").val(spec1_edit.text());
+			$("#productSpec_edit_button .specType2").val(type2_edit.text());
+			$("#productSpec_edit_button .specInfo2").val(spec2_edit.text());
 			$("#productSpec_edit_button").modal('show');
-
-			$(".Save_edit_btn").click(function () {
-
-				//處理規格圖
-				const imageFile = $(".img_spc_file")[0].files[0];
-				const updateImg = $(".modal .product_spec_img").attr('src');
-				if (productImg.attr('src') != updateImg) {
-					let formDataSpecImg = new FormData();
-					formDataSpecImg.append('images', imageFile);
-					formDataSpecImg.append('productSpecIds', productSpecId);
-					insertSpecImg(formDataSpecImg);
-					productImg.attr('src', updateImg);
-				}
-
-				//處理文字
-				const modalSpecType1 = $("#productSpec_edit .specType1").val();
-				const modalSpecInfo1 = $("#productSpec_edit .specInfo1").val().trim();
-				const modalSpecType2 = $("#productSpec_edit .specType2").val();
-				const modalSpecInfo2 = $("#productSpec_edit .specInfo2").val().trim();
-
-				if (modalSpecInfo1 === "" || modalSpecInfo2 === "") {
-					alert("請填寫完整資料");;
-					return; // 跳出 each 迴圈
-				}
-
-				if (!(modalSpecType1 == type1.text() && modalSpecInfo1 == spec1.text() && modalSpecType2 == type2.text() && modalSpecInfo2 == spec2.text())) {
-					let dataToSend = {};
-					dataToSend = {productSpecId: productSpecId, specType1: modalSpecType1, specInfo1: modalSpecInfo1, specType2: modalSpecType2, specInfo2: modalSpecInfo2};
-					updateSpecProduct(dataToSend);
-					spec1.text(modalSpecInfo1);
-					type1.text(modalSpecType1);
-					spec2.text(modalSpecInfo2);
-					type2.text(modalSpecType2);
-				}
-
-				// 關閉彈窗
-				$("#productSpec_edit_button").modal("hide");
-
-
-			});
 		});
+
+		$(document).on('click', '.Save_edit_btn', function (event) {
+			//處理規格圖
+			const imageFile = $(".img_spc_file")[0].files[0];
+			const updateImg = $("#productSpec_edit_button .product_spec_img").attr('src');
+			if (productImg_edit.attr('src') != updateImg) {
+				let formDataSpecImg = new FormData();
+				formDataSpecImg.append('images', imageFile);
+				formDataSpecImg.append('productSpecIds', productSpecId_edit);
+				insertSpecImg(formDataSpecImg);
+				productImg_edit.attr('src', updateImg);
+			}
+
+			//處理文字
+			const modalSpecType1 = $("#productSpec_edit_button .specType1").val();
+			const modalSpecInfo1 = $("#productSpec_edit_button .specInfo1").val().trim();
+			const modalSpecType2 = $("#productSpec_edit_button .specType2").val();
+			const modalSpecInfo2 = $("#productSpec_edit_button .specInfo2").val().trim();
+
+			if (modalSpecInfo1 === "" || modalSpecInfo2 === "") {
+				alert("請填寫完整資料");;
+				return; // 跳出 each 迴圈
+			}
+
+			if (!(modalSpecType1 == type1_edit.text() && modalSpecInfo1 == spec1_edit.text() && modalSpecType2 == type2_edit.text() && modalSpecInfo2 == spec2_edit.text())) {
+				let dataToSend = {};
+				dataToSend = {productSpecId: productSpecId_edit, specType1: modalSpecType1, specInfo1: modalSpecInfo1, specType2: modalSpecType2, specInfo2: modalSpecInfo2};
+				updateSpecProduct(dataToSend);
+				spec1_edit.text(modalSpecInfo1);
+				type1_edit.text(modalSpecType1);
+				spec2_edit.text(modalSpecInfo2);
+				type2_edit.text(modalSpecType2);
+			}
+
+			// 關閉彈窗
+			$("#productSpec_edit_button").modal("hide");
+
+
+		});
+
 
 		$(".product_edit_btn").click(function () {
 			$("#product_edit_button").modal('show');
