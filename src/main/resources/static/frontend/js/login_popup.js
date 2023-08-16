@@ -126,89 +126,148 @@ backToPreviousModalBtn4.addEventListener("click", function () {
     }
 })();
 
-
-
-
-//註冊
+const memberCaptchaImg = document.getElementById('company-yzm_img');
+const captchaInput = document.getElementById('company-captchaInput');
+const errMsg = document.getElementById('errMsg');
 const registerButton = document.getElementById('register');
+
+function initializeCaptchaImage() {
+    changeYZM(memberCaptchaImg);
+}
+
+document.getElementById('company-yzm_img').addEventListener('click', function(){
+    changeYZM(this);
+});
+
+function changeYZM(img) {
+    fetch("http://localhost:8080/Niigi/generate-captcha")
+        .then(response => response.blob())
+        .then(blob => {
+            const imgUrl = URL.createObjectURL(blob);
+            img.src = imgUrl;
+        })
+        .catch(error => console.error("Error fetching captcha:", error));
+}
+
+initializeCaptchaImage();
+
+function checkCaptchaAndNull(inputValue, errorMsgId) {
+    const valistrMsg = document.getElementById(errorMsgId);
+    if (inputValue === "") {
+        valistrMsg.textContent = "驗證碼不能為空！";
+        valistrMsg.style.color = "red";
+        return false;
+    } else {
+        valistrMsg.textContent = "";
+        return true;
+    }
+}
+
+function fetchCaptchaValidation() {
+    return fetch("http://localhost:8080/Niigi/check-captcha", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            userInput: captchaInput.value,
+        }),
+    })
+    .then(response => response.json())
+    .catch(error => {
+        console.error("Error checking captcha:", error);
+    });
+}
+
 registerButton.addEventListener('click', async () => {
-    const newMember = {
-        memberAcct: document.getElementById('newmemberAcct').value,
-        password: document.getElementById('newPassword').value,
-        name: document.getElementById('fullname').value,
-        phone: document.getElementById('phone').value,
-        gender: document.querySelector('input[name="quantity"]:checked')?.value === 'male' ? '0' : '1',
-        birthday: document.getElementById('birthday').value,
-    };
+    const isCaptchaValid = checkCaptchaAndNull(captchaInput.value, 'company-valistr_msg');
 
-    const newPassword = document.getElementById('newPassword').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
-    // 清空之前的錯誤訊息
-    const errorElements = document.querySelectorAll('.error');
-    errorElements.forEach(error => error.textContent = '');
-
-    document.getElementById('passwordError').textContent = '';
-    document.getElementById('confirmPasswordError').textContent = '';
-
-    
-
-    // 進行表單驗證
-    let isValid = true;
-
-    if (!newMember.memberAcct) {
-        document.getElementById('acctError').textContent = '請輸入帳號';
-        isValid = false;
-    }
-
-    if (!newMember.password) {
-        document.getElementById('passwordError').textContent = '請輸入密碼';
-        isValid = false;
-    }
-
-    if (!newMember.name) {
-        document.getElementById('fullnameError').textContent = '請輸入姓名';
-        isValid = false;
-    }
-
-    if (!newMember.phone) {
-        document.getElementById('phoneError').textContent = '請輸入電話';
-        isValid = false;
-    }
-
-    if (!newMember.gender) {
-        document.getElementById('genderError').textContent = '請選擇性別';
-        isValid = false;
-    }
-
-    if (!newMember.birthday) {
-        document.getElementById('birthdayError').textContent = '請輸入生日';
-        isValid = false;
-    }
-
-    if (!isValid) {
+    if (!isCaptchaValid) {
         return;
     }
 
-    if (newPassword !== confirmPassword) {
-        document.getElementById('passwordError').textContent = '兩次輸入的密碼不相同。';
-        document.getElementById('confirmPasswordError').textContent = '兩次輸入的密碼不相同。';
-        return; // 如果密碼不相同，停止註冊
-      }
+    const captchaValidationResult = await fetchCaptchaValidation();
 
-    const response = await fetch('http://localhost:8080/Niigi/member/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newMember),
-    });
+    if (captchaValidationResult.valid) {
+        const newMember = {
+            memberAcct: document.getElementById('newmemberAcct').value,
+            password: document.getElementById('newPassword').value,
+            name: document.getElementById('fullname').value,
+            phone: document.getElementById('phone').value,
+            gender: document.querySelector('input[name="quantity"]:checked')?.value === 'male' ? '0' : '1',
+            birthday: document.getElementById('birthday').value,
+        };
 
-    const data = await response.text();
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
 
-    if (response.ok) {
-        alert(data); // 註冊成功
-        window.location.replace('home_pop_ups.html'); // 導向到home_pop_ups.html
+        const errorElements = document.querySelectorAll('.error');
+        errorElements.forEach(error => error.textContent = '');
+
+        document.getElementById('passwordError').textContent = '';
+        document.getElementById('confirmPasswordError').textContent = '';
+
+        let isValid = true;
+
+        if (!newMember.memberAcct) {
+            document.getElementById('acctError').textContent = '請輸入帳號';
+            isValid = false;
+        }
+
+        if (!newMember.password) {
+            document.getElementById('passwordError').textContent = '請輸入密碼';
+            isValid = false;
+        }
+
+        if (!newMember.name) {
+            document.getElementById('fullnameError').textContent = '請輸入姓名';
+            isValid = false;
+        }
+    
+        if (!newMember.phone) {
+            document.getElementById('phoneError').textContent = '請輸入電話';
+            isValid = false;
+        }
+    
+        if (!newMember.gender) {
+            document.getElementById('genderError').textContent = '請選擇性別';
+            isValid = false;
+        }
+    
+        if (!newMember.birthday) {
+            document.getElementById('birthdayError').textContent = '請輸入生日';
+            isValid = false;
+        }
+    
+
+        if (!isValid) {
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            document.getElementById('passwordError').textContent = '兩次輸入的密碼不相同。';
+            document.getElementById('confirmPasswordError').textContent = '兩次輸入的密碼不相同。';
+            return;
+        }
+
+        const response = await fetch('http://localhost:8080/Niigi/member/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newMember),
+        });
+
+        const data = await response.text();
+
+        if (response.ok) {
+            alert(data); // 註冊成功
+            window.location.replace('home_pop_ups.html'); // 導向到home_pop_ups.html
+        } else {
+            alert(data); // 註冊失敗，顯示錯誤訊息
+        }
     } else {
-        alert(data); // 註冊失敗，顯示錯誤訊息
+        document.getElementById('company-valistr_msg').textContent = "驗證碼不正確！";
+        document.getElementById('company-valistr_msg').style.color = "red";
     }
 });
