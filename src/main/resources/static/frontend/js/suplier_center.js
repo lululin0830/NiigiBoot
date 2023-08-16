@@ -1,12 +1,14 @@
 document.write(`<script src="./vendors/jquery/jquery-3.7.0.min.js"></script>`)
 
-let searchdata = {
-    supplierId: document.getElementById("supplierId").innerText,
-    searchcase: '',
-    searchway: document.getElementById("selectCriteria-home").value,
-    StartDate: document.getElementById("startDate").value,
-    EndDate: document.getElementById("EndDate").value
-}
+let searchdata = null;
+
+// {
+//     supplierId: supplierId,
+//     searchcase: '',
+//     searchway: document.getElementById("selectCriteria-home").value,
+//     StartDate: document.getElementById("startDate").value,
+//     EndDate: document.getElementById("EndDate").value
+// }
 
 //待處理分頁
 const orderList = document.querySelector("#navs-top-home>ul.order-list");
@@ -133,15 +135,24 @@ let tab4Count = 0;
 let tab5Count = 0;
 
 
-const init = function () {
+function init() {
+    searchdata = {
+        supplierId: supplierId,
+        searchcase: '',
+        searchway: document.getElementById("selectCriteria-home").value,
+        StartDate: document.getElementById("startDate").value,
+        EndDate: document.getElementById("EndDate").value
+    }
 
     const jsonData = JSON.stringify(searchdata);
 
-    console.log(searchdata)
+
+    console.log("searchdata", searchdata)
     fetch('../SupplierSubOrder/init', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
         },
         body: JSON.stringify(searchdata)
     }).then(r => r.json()).then(data => {
@@ -193,7 +204,10 @@ const init = function () {
 
     })
 };
-init();
+
+// window.addEventListener("DOMContentLoaded", init);
+
+
 
 const search = function () {
     //取出搜尋框內的文字
@@ -207,7 +221,8 @@ const search = function () {
     fetch('../SupplierGetSubOrderBySearch', {
         method: 'POST',
         headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
         },
         body: JSON.stringify(searchdata)
     }).then(r => r.json()).then(data => {
@@ -264,7 +279,7 @@ document.querySelectorAll(".clearSearch").forEach(function (e) {
 const cancelSubOrder = function () {
 
     const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
-    console.log("subOrderId",subOrderId)
+    console.log("subOrderId", subOrderId)
 
     async function updateSubOrder() {
         if (document.querySelector("button.confirmCancel") !== null) {
@@ -272,6 +287,7 @@ const cancelSubOrder = function () {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken}`
                 },
                 body: subOrderId
             });
@@ -281,12 +297,12 @@ const cancelSubOrder = function () {
             orderList2.innerHTML = ""
             orderList3.innerHTML = ""
             orderList4.innerHTML = ""
-            orderList5.innerHTML = ""    
+            orderList5.innerHTML = ""
             tab1Count = 0
-			tab2Count = 0
-			tab3Count = 0
-			tab4Count = 0
-			tab5Count = 0      
+            tab2Count = 0
+            tab3Count = 0
+            tab4Count = 0
+            tab5Count = 0
             BodyHtml = null;
             init();
         }
@@ -306,4 +322,20 @@ const cancelSubOrder = function () {
 document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
     e.addEventListener("click", cancelSubOrder);
 })
+
+
+async function wakeup() {
+	
+	console.log("叫")
+    if (document.getElementById("supplierId").innerHTML !== "") {
+        await fetch('../supplier/wakeup', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: searchdata
+        });
+        init();
+    }
+}
 
