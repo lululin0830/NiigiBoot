@@ -66,7 +66,7 @@ document.getElementById('login').addEventListener('click', () => {
             .then((jwtToken) => {
                 try {
                     const decodedToken = parseJwt(jwtToken);
-                    setCookie('jwt', jwtToken, 1 / 24);
+                    setCookie('jwt', jwtToken, 24);
                     console.log(jwtToken);
                     window.location.href = 'User_Management.html';
                 } catch (error) {
