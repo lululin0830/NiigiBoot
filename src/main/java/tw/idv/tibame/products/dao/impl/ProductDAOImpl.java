@@ -137,12 +137,12 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public List<Product> findLatestProducts() throws Exception {
-		return session.createQuery("FROM Product ORDER BY firstOnShelvesDate", Product.class).getResultList();
+		return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY firstOnShelvesDate", Product.class).getResultList();
 	}
 
 	@Override
 	public List<Product> findMostExpensiveProduct() throws Exception {
-		return session.createQuery("FROM Product ORDER BY productPrice DESC", Product.class).getResultList();
+		return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY productPrice DESC", Product.class).getResultList();
 	}
 
 	@Override
