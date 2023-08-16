@@ -13,7 +13,7 @@ document.getElementById('company-yzm_img').addEventListener('click', function(){
 });
 
 function changeYZM(img) {
-    fetch("http://localhost:8080/Niigi/generate-captcha")
+    fetch("/generate-captcha")
         .then(response => response.blob())
         .then(blob => {
             const imgUrl = URL.createObjectURL(blob);
@@ -42,7 +42,7 @@ document.getElementById('login').addEventListener('click', () => {
         return;
     }
 
-    fetch("http://localhost:8080/Niigi/check-captcha", {
+    fetch("/check-captcha", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -54,7 +54,7 @@ document.getElementById('login').addEventListener('click', () => {
     .then((response) => response.json())
     .then((data) => {
         if (data.valid) {
-            fetch('http://localhost:8080/Niigi/users/Login', {
+            fetch("/users/Login", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

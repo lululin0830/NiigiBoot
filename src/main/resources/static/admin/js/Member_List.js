@@ -8,7 +8,7 @@ const search = function () {
         DateSelect: document.getElementById("DateSelect").value
     })
 
-    fetch('http://localhost:8080/Niigi/MemberSelect', {
+    fetch('/MemberSelect', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ document.getElementById("search").addEventListener("click", search);
 
 // 顯示畫面
 const init = function () {
-    fetch('http://localhost:8080/Niigi/MemberSelect', {
+    fetch('/MemberSelect', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
