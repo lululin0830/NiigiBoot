@@ -445,4 +445,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		}
 	}
 
+	
+	/**
+	 * 取得購物車商品數
+	 * @param memberId
+	 */
+	@Override
+	public Long getCount(String memberId){
+		return cartDAO.hasExistsCart(memberId) ?  cartDAO.getCount(memberId) : 0;
+	}
+
 }
