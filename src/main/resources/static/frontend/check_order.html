@@ -2,803 +2,591 @@
 <html lang="zh-tw">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Member Check Order</title>
-
-    <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/core.css">
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/button.css">
-    <link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
-    <link rel="stylesheet" href="./css/customer.aside.css">
-
-
-    <style>
-        main.main_content {
-            height: 100;
-            background-color: #ffffff;
-        }
-
-        div.main_content {
-            font-size: 0;
-        }
-
-        /* main content */
-        main.member-check-order {
-            display: inline-block;
-            vertical-align: top;
-            padding-left: 25px;
-        }
-
-        div.main-content-icon {
-            width: 6rem;
-        }
-
-        div.main-content-header img,
-        div.main-content-header>h1 {
-            display: inline-block;
-            vertical-align: bottom;
-            margin: 4.5rem 0 0 0;
-        }
-
-        hr.main-content-divider {
-            width: 100%;
-            border: 1px solid #EEEEEE;
-            margin: 18px 0 28px 0;
-            opacity: 1;
-        }
-
-        /* Tab */
-        .nav-tabs {
-            --bs-nav-tabs-border-color: #f7f7f7;
-            --bs-nav-tabs-border-width: 2px;
-            --bs-nav-tabs-border-radius: 0.5rem
-        }
-
-        .nav-tabs .nav-link {
-            margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
-            border: var(--bs-nav-tabs-border-width);
-            border-top-left-radius: var(--bs-nav-tabs-border-radius);
-            border-top-right-radius: var(--bs-nav-tabs-border-radius);
-            width: 12rem;
-            height: 5rem;
-            text-align: center;
-            vertical-align: middle;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 2.4rem;
-            color: #4C4C4C;
-            background-color: #f7f7f7;
-            margin-right: 1.5px;
-        }
-
-        .nav-tabs .nav-item.show .nav-link,
-        .nav-tabs .nav-link.active {
-            color: #4C4C4C;
-            background-color: rgba(183, 221, 229, 0.60);
-        }
-
-        /* Tab content */
-        div.tab-content {
-            color-scheme: light;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            font-size: 0;
-            padding: 1.5rem;
-            flex-shrink: 1;
-            background: #fff;
-            z-index: 1;
-            box-shadow: 0px 6px 7px -1px rgba(67, 89, 113, 0.12);
-            border-radius: 0 0 0.375rem 0.375rem;
-            border-top-right-radius: 0.375rem;
-        }
-
-        .navs-top>div {
-            display: inline-block;
-            vertical-align: baseline;
-        }
-
-        div.navs-top-btn {
-            width: fit-content;
-            margin: 15px auto auto auto;
-        }
-
-        div.navs-top-btn:first-child {
-            width: fit-content;
-            margin: 0 auto auto auto;
-        }
-
-        .navs-top>.col-sm-2 {
-            vertical-align: text-bottom;
-            margin-bottom: 2.2rem;
-        }
-
-        div.navs-top>hr {
-            border: 1px solid #EEEEEE;
-            margin: 2.8rem 0 1.8rem 0;
-            opacity: 1;
-        }
-
-        div.divider {
-            text-align: center;
-            vertical-align: bottom;
-            padding: 0;
-            width: fit-content;
-        }
-
-        tbody,
-        td,
-        tfoot,
-        th,
-        thead,
-        tr {
-            border-color: inherit;
-            border-style: solid;
-            border-width: 0;
-            font-size: initial;
-        }
-
-        /* 訂單列表 */
-
-        ul.order-list {
-            list-style: none;
-            padding: 0.5rem;
-        }
-
-        ul.order-list li.order>hr {
-            border: 2px solid #EEEEEE;
-            margin: 1.8rem 0;
-            opacity: 1;
-        }
-
-        ul.sub-order-list {
-            list-style: none;
-            padding: 0 1.5rem;
-        }
-
-        ul.sub-order-list li.sub-order hr {
-            border: 1px solid #EEEEEE;
-            margin: 1.8rem 0;
-            opacity: 1;
-        }
-
-        ul.sub-order-list li.sub-order:last-child hr {
-            display: none;
-        }
-
-        .sub-order>div {
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        div.order_item_priview {
-            width: 12rem;
-            height: 12rem;
-            overflow: hidden;
-        }
-
-        img.order_item_priview {
-            height: 100%;
-        }
-
-        div.navs-top-content {
-            background-color: white;
-        }
-
-        div.navs-top-content-btn {
-            width: fit-content;
-            margin: auto 0 auto 15%;
-        }
-
-        div.navs-top-content hr {
-            border: 1px solid #EEEEEE;
-            margin: 1.8rem 0;
-            opacity: 1;
-        }
-
-        ul.sub-order-list h4 {
-            margin-bottom: 1rem;
-        }
-
-        h4.order-date {
-            padding-left: 2rem;
-        }
-
-        h4.product-name {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        /* 彈窗 */
-
-        div.modal-footer {
-            align-items: center;
-            justify-content: center;
-        }
-
-        h4.modal-title {
-            text-align: center;
-            transform: translateX(+10px);
-        }
-
-        div#cancelOrderModal div.modal-header,
-        div#closeOrderModal div.modal-header {
-            border-bottom: 0px;
-        }
-
-        div#cancelOrderModal div.modal-footer,
-        div#closeOrderModal div.modal-footer {
-            border-top: 0px;
-        }
-
-        /* 付款彈窗 */
-        div.saveCredit {
-            vertical-align: baseline;
-        }
-
-        input#saveCredit,
-        input#saveCredit~label {
-            margin-right: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #A0A0A0;
-        }
-
-        /* 查看訂單明細彈窗 */
-
-        ul.order-item-list,
-        ul.discount-list {
-            margin: 1rem;
-            padding: 0;
-        }
-
-        ul.order-item-list li.order-item,
-        ul.discount-list li.discount-item {
-            margin: 1rem;
-            align-items: center;
-        }
-
-        ul.order-item-list li.order-item hr {
-            margin-top: 1rem;
-        }
-
-        ul.order-item-list li.order-item:last-child hr {
-            display: none;
-        }
-
-        div.delivery-info {
-            margin: 0 auto;
-        }
-
-        /* 退貨彈窗 */
-        input.select-order-item {
-            margin-left: 50%;
-        }
-
-        div.refund-info {
-            margin: 0 auto;
-        }
-
-        div.refund-info button.btn {
-            margin: 2rem auto 2rem auto;
-            align-self: center;
-        }
-
-        label.form-label {
-            font-size: 1.8rem;
-            margin-top: 0.5rem;
-            margin-bottom: 0;
-        }
-
-        select.form-select {
-            display: inline-block;
-            font-size: 1.6rem;
-        }
-
-        /* 評價彈窗 */
-
-        ul.comment-list {
-            margin: 1rem;
-            padding: 0;
-        }
-
-        ul.comment-list li.comment-item {
-            margin: 1rem;
-            align-items: center;
-        }
-
-        ul.comment-list li.comment-item hr {
-            margin-top: 1rem;
-        }
-
-        ul.comment-list li.comment-item:last-child hr {
-            display: none;
-        }
-
-        div.product-star {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        div.product-star span.star {
-            cursor: pointer;
-        }
-
-        div.product-star span.star.-on img {
-            content: url("./image/Star-on.svg");
-        }
-
-        div.product-star span.star.-halfon img {
-            content: url("./image/Star-halfon.svg");
-        }
-
-        button.btn.disable {
-            background-color: #D9D9D9;
-            color: black;
-
-        }
-
-        /* iframe#allPayAPIBox {
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Member Check Order</title>
+
+	<link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/core.css">
+	<link rel="stylesheet" href="./css/font.css">
+	<link rel="stylesheet" href="./css/button.css">
+	<link rel="stylesheet" href="./css/index.header.css"> <!-- header的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/index.footer.css"> <!-- footer的CSS 勿刪-->
+	<link rel="stylesheet" href="./css/customer.aside.css">
+	<link rel="stylesheet" href="./css/login_popup.css">
+
+
+	<style>
+		main.main_content {
+			height: 100;
+			background-color: #ffffff;
+		}
+
+		div.main_content {
+			font-size: 0;
+		}
+
+		/* main content */
+		main.member-check-order {
+			display: inline-block;
+			vertical-align: top;
+			padding-left: 25px;
+		}
+
+		div.main-content-icon {
+			width: 6rem;
+		}
+
+		div.main-content-header img,
+		div.main-content-header>h1 {
+			display: inline-block;
+			vertical-align: bottom;
+			margin: 4.5rem 0 0 0;
+		}
+
+		hr.main-content-divider {
+			width: 100%;
+			border: 1px solid #EEEEEE;
+			margin: 18px 0 28px 0;
+			opacity: 1;
+		}
+
+		/* Tab */
+		.nav-tabs {
+			--bs-nav-tabs-border-color: #f7f7f7;
+			--bs-nav-tabs-border-width: 2px;
+			--bs-nav-tabs-border-radius: 0.5rem
+		}
+
+		.nav-tabs .nav-link {
+			margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
+			border: var(--bs-nav-tabs-border-width);
+			border-top-left-radius: var(--bs-nav-tabs-border-radius);
+			border-top-right-radius: var(--bs-nav-tabs-border-radius);
+			width: 12rem;
+			height: 5rem;
+			text-align: center;
+			vertical-align: middle;
+			font-style: normal;
+			font-weight: 600;
+			font-size: 2.4rem;
+			color: #4C4C4C;
+			background-color: #f7f7f7;
+			margin-right: 1.5px;
+		}
+
+		.nav-tabs .nav-item.show .nav-link,
+		.nav-tabs .nav-link.active {
+			color: #4C4C4C;
+			background-color: rgba(183, 221, 229, 0.60);
+		}
+
+		/* Tab content */
+		div.tab-content {
+			color-scheme: light;
+			text-rendering: optimizeLegibility;
+			-webkit-font-smoothing: antialiased;
+			font-size: 0;
+			padding: 1.5rem;
+			flex-shrink: 1;
+			background: #fff;
+			z-index: 1;
+			box-shadow: 0px 6px 7px -1px rgba(67, 89, 113, 0.12);
+			border-radius: 0 0 0.375rem 0.375rem;
+			border-top-right-radius: 0.375rem;
+		}
+
+		.navs-top>div {
+			display: inline-block;
+			vertical-align: baseline;
+		}
+
+		div.navs-top-btn {
+			width: fit-content;
+			margin: 15px auto auto auto;
+		}
+
+		div.navs-top-btn:first-child {
+			width: fit-content;
+			margin: 0 auto auto auto;
+		}
+
+		.navs-top>.col-sm-2 {
+			vertical-align: text-bottom;
+			margin-bottom: 2.2rem;
+		}
+
+		div.navs-top>hr {
+			border: 1px solid #EEEEEE;
+			margin: 2.8rem 0 1.8rem 0;
+			opacity: 1;
+		}
+
+		div.divider {
+			text-align: center;
+			vertical-align: bottom;
+			padding: 0;
+			width: fit-content;
+		}
+
+		tbody,
+		td,
+		tfoot,
+		th,
+		thead,
+		tr {
+			border-color: inherit;
+			border-style: solid;
+			border-width: 0;
+			font-size: initial;
+		}
+
+		/* 訂單列表 */
+
+		ul.order-list {
+			list-style: none;
+			padding: 0.5rem;
+		}
+
+		ul.order-list li.order>hr {
+			border: 2px solid #EEEEEE;
+			margin: 1.8rem 0;
+			opacity: 1;
+		}
+
+		ul.sub-order-list {
+			list-style: none;
+			padding: 0 1.5rem;
+		}
+
+		ul.sub-order-list li.sub-order hr {
+			border: 1px solid #EEEEEE;
+			margin: 1.8rem 0;
+			opacity: 1;
+		}
+
+		ul.sub-order-list li.sub-order:last-child hr {
+			display: none;
+		}
+
+		.sub-order>div {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		div.order_item_priview {
+			width: 12rem;
+			height: 12rem;
+			overflow: hidden;
+		}
+
+		img.order_item_priview {
+			height: 100%;
+		}
+
+		div.navs-top-content {
+			background-color: white;
+		}
+
+		div.navs-top-content-btn {
+			width: fit-content;
+			margin: auto 0 auto 15%;
+		}
+
+		div.navs-top-content hr {
+			border: 1px solid #EEEEEE;
+			margin: 1.8rem 0;
+			opacity: 1;
+		}
+
+		ul.sub-order-list h4 {
+			margin-bottom: 1rem;
+		}
+
+		h4.order-date {
+			padding-left: 2rem;
+		}
+
+		h4.product-name {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		/* 彈窗 */
+
+		div.modal-footer {
+			align-items: center;
+			justify-content: center;
+		}
+
+		h4.modal-title {
+			text-align: center;
+			transform: translateX(+10px);
+		}
+
+		div#cancelOrderModal div.modal-header,
+		div#closeOrderModal div.modal-header {
+			border-bottom: 0px;
+		}
+
+		div#cancelOrderModal div.modal-footer,
+		div#closeOrderModal div.modal-footer {
+			border-top: 0px;
+		}
+
+		/* 付款彈窗 */
+		div.saveCredit {
+			vertical-align: baseline;
+		}
+
+		input#saveCredit,
+		input#saveCredit~label {
+			margin-right: 10px;
+			font-size: 14px;
+			font-weight: 500;
+			color: #A0A0A0;
+		}
+
+		/* 查看訂單明細彈窗 */
+
+		ul.order-item-list,
+		ul.discount-list {
+			margin: 1rem;
+			padding: 0;
+		}
+
+		ul.order-item-list li.order-item,
+		ul.discount-list li.discount-item {
+			margin: 1rem;
+			align-items: center;
+		}
+
+		ul.order-item-list li.order-item hr {
+			margin-top: 1rem;
+		}
+
+		ul.order-item-list li.order-item:last-child hr {
+			display: none;
+		}
+
+		div.delivery-info {
+			margin: 0 auto;
+		}
+
+		/* 退貨彈窗 */
+		input.select-order-item {
+			margin-left: 50%;
+		}
+
+		div.refund-info {
+			margin: 0 auto;
+		}
+
+		div.refund-info button.btn {
+			margin: 2rem auto 2rem auto;
+			align-self: center;
+		}
+
+		label.form-label {
+			font-size: 1.8rem;
+			margin-top: 0.5rem;
+			margin-bottom: 0;
+		}
+
+		select.form-select {
+			display: inline-block;
+			font-size: 1.6rem;
+		}
+
+		/* 評價彈窗 */
+
+		ul.comment-list {
+			margin: 1rem;
+			padding: 0;
+		}
+
+		ul.comment-list li.comment-item {
+			margin: 1rem;
+			align-items: center;
+		}
+
+		ul.comment-list li.comment-item hr {
+			margin-top: 1rem;
+		}
+
+		ul.comment-list li.comment-item:last-child hr {
+			display: none;
+		}
+
+		div.product-star {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		div.product-star span.star {
+			cursor: pointer;
+		}
+
+		div.product-star span.star.-on img {
+			content: url("./image/Star-on.svg");
+		}
+
+		div.product-star span.star.-halfon img {
+			content: url("./image/Star-halfon.svg");
+		}
+
+		button.btn.disable {
+			background-color: #D9D9D9;
+			color: black;
+
+		}
+
+		/* iframe#allPayAPIBox {
             height: 100vh;
         } */
-    </style>
+	</style>
 
+
+	<script>const loginRequired = true </script>
 </head>
 
 <body>
-    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
-    <header id="main-header" class="header">
-
-        <div class="container-sm">
-
-            <div class="header-top row">
-
-                <div class="col-sm-2">
-                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-                </div>
-
-                <div class="col-sm-6">
-                    <form action="" method="get" class="header-search row">
-                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
-                            maxlength="50" value="">
-
-                        <button type="submit" class="header-search-submit col-sm-1"><img
-                                src="./image/search.svg"></button>
-                    </form>
-
-                    <div class="Search-hot ">
-                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
-                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
-                    </div>
-
-                </div>
-
-                <nav class="fixed-nav col-sm-4">
-
-                    <div class="fixed-nav-list login row">
-                        <a href="" class="SCM-Center col">
-                            <div class="SCM_icon">
-                                <button class="btn_SCM-Center">商家中心</button>
-                            </div>
-                        </a>
-
-                        <a href="" class="User-Center col">
-                            <div class="User_icon">
-                                <img src="./image/Profile.svg" alt="">
-                            </div>
-                        </a>
-
-                        <a href="" class="Favorite col">
-                            <div class="header_icon">
-                                <img src="./image/heart.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                        <a href="" class="Shopping-Cart col">
-                            <div class="header_icon">
-                                <img src="./image/Buy.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                        <a href="" class="Notification col">
-                            <div class="header_icon">
-                                <img src="./image/Notification.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                    </div>
-
-                </nav>
-            </div>
-
-        </div>
-
-    </header>
-
-    <!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
-    <nav id="main-navigation" class="main-navigation">
-        <ul class="main-nav"> <!--主選單-->
-            <li
-                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
-                <div class="navigation_title navigation_title--bold navigation_title--salmon">
-                    <span class="navigation_title-inner">主題活動</span>
-                </div>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">3C周邊</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">家用電器</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">美妝個清</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">流行服飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">鞋包配飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">母嬰用品</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">日用生活</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">圖書文具</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">旅遊戶外</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-        </ul>
-
-    </nav>
-
-    <main class="main_content">
-
-        <div class="main_content container-sm">
-
-            <!-- 以下是側邊欄  -->
-            <aside class="member-aside col-sm-2">
-
-                <div class="member-profile row ">
-                    <div class="memberPhoto col-sm-4">
-                        <img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
-                    </div>
-                    <div class="member-info col-sm-8">
-                        <h4 class="memberAccount">jeffrey47</h4>
-                        <h6 class="memberId">M000000001</h6>
-                    </div>
-                </div>
-                <ul class="nav1_list">
-                    <li>
-                        <h4>MENU</h4>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Chart.svg" alt="">
-                            <img src="./image/Chart-a.svg" alt="">個人中心
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/heart-s.svg" alt="">
-                            <img src="./image/heart-s-a.svg" alt="">收藏夾</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Buy1.svg" alt="">
-                            <img src="./image/Buy1-a.svg" alt="">購物車</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            <img src="./image/DocumentAsh.svg" alt="">
-                            <img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Discount.svg" alt="">
-                            <img src="./image/Discount-a.svg" alt="">會員點數</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Ticket_Star.svg" alt="">
-                            <img src="./image/Ticket_Star-a.svg" alt="">我的折價券</a>
-                    </li>
-                    <li>
-                        <h4>OTHERS</h4>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Profile1.svg" alt="">
-                            <img src="./image/Profile1-a.svg" alt="">個人資訊</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Setting.svg" alt="">
-                            <img src="./image/Setting-a.svg" alt="">帳號管理</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Info Square.svg" alt="">
-                            <img src="./image/Info Square-a.svg" alt="">取得協助</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="./image/Logout.svg" alt="">
-                            <img src="./image/Logout-a.svg" alt="">登出</a>
-                    </li>
-                </ul>
-            </aside>
-            <!-- 以下是頁面主要內容 -->
-            <main class="member-check-order col-sm-10">
-                <div class="main-content-header row">
-                    <div class="main-content-icon col-sm-1">
-                        <img calss="main-content-icon" src="./image/Document.svg">
-                    </div>
-                    <h1 class="main-content-title col-sm-10">我的訂單</h1>
-                    <hr class="main-content-divider">
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="nav-align-top mb-4">
-                            <ul class="nav nav-tabs" role="tablist"> <!-- 分頁清單 -->
-                                <li class="nav-item">
-                                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-home" aria-controls="navs-top-home"
-                                        aria-selected="true">
-                                        尚未付款<!-- 分頁名稱寫這 -->
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-inprogress" aria-controls="navs-top-inprogress"
-                                        aria-selected="false">
-                                        處理中<!-- 分頁名稱寫這 -->
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-transport" aria-controls="navs-top-transport"
-                                        aria-selected="false">
-                                        待收貨<!-- 分頁名稱寫這 -->
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-complete" aria-controls="navs-top-complete"
-                                        aria-selected="false">
-                                        已完成<!-- 分頁名稱寫這 -->
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-top-cancel" aria-controls="navs-top-cancel"
-                                        aria-selected="false">
-                                        已取消<!-- 分頁名稱寫這 -->
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="tab-content">
-                            <!-- Tab1 尚未付款 -->
-                            <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-                                <!-- 分頁內容寫這 -->
-                                <ul id="orderListPay" class="order-list">
-                                    <section id="forwardPay"></section>
-                                    //分頁產生內容區塊
-                                </ul>
-                            </div>
-                            <!-- Tab2 處理中 -->
-                            <div class="tab-pane fade" id="navs-top-inprogress" role="tabpanel">
-                                <ul id="orderListInprogress" class="sub-order-list">
-
-                                </ul>
-                            </div>
-                            <!-- Tab3 待收貨 -->
-                            <div class="tab-pane fade" id="navs-top-transport" role="tabpanel">
-                                <ul id="orderListTransport" class="sub-order-list">
-
-                                </ul>
-                            </div>
-                            <!-- Tab4 已完成 -->
-                            <div class="tab-pane fade" id="navs-top-complete" role="tabpanel">
-                                <ul id="orderListComplete" class="sub-order-list">
-
-                                </ul>
-                            </div>
-                            <!-- Tab5 已取消 -->
-                            <div class="tab-pane fade" id="navs-top-cancel" role="tabpanel">
-                                <ul id="orderListCancel" class="sub-order-list">
-                                    <!-- <li class="sub-order">
+	<script src="./js/core_customer.js"></script>
+
+	<!-- -------------------------------- 以下是商品分類導覽列 勿動！！ -------------------------------- -->
+	<nav id="main-navigation" class="main-navigation">
+		<ul class="main-nav"> <!--主選單-->
+			<li
+				class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+				<div class="navigation_title navigation_title--bold navigation_title--salmon">
+					<span class="navigation_title-inner">主題活動</span>
+				</div>
+			</li>
+
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('3C周邊')">
+					<span class="navigation_title-inner">3C周邊</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('家用電器')">
+					<span class="navigation_title-inner">家用電器</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('美妝個清')">
+					<span class="navigation_title-inner">美妝個清</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('流行服飾')">
+					<span class="navigation_title-inner">流行服飾</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('鞋包配飾')">
+					<span class="navigation_title-inner">鞋包配飾</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('母嬰用品')">
+					<span class="navigation_title-inner">母嬰用品</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('日用生活')">
+					<span class="navigation_title-inner">日用生活</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('圖書文具')">
+					<span class="navigation_title-inner">圖書文具</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('旅遊戶外')">
+					<span class="navigation_title-inner">旅遊戶外</span>
+				</a>
+			</li>
+
+		</ul>
+
+	</nav>
+	
+	<main class="main_content">
+
+		<div class="main_content container-sm">
+
+			<!-- 以下是側邊欄  -->
+			<aside class="member-aside col-sm-2">
+
+				<div class="member-profile row ">
+					<div class="memberPhoto col-sm-4">
+						<img class="memberPhoto" src="./image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
+					</div>
+					<div class="member-info col-sm-8">
+						<h4 class="memberAccount">jeffrey47</h4>
+						<h6 class="memberId">M000000001</h6>
+					</div>
+				</div>
+				<ul class="nav1_list">
+					<li>
+						<h4>MENU</h4>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Chart.svg" alt="">
+							<img src="./image/Chart-a.svg" alt="">個人中心
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/heart-s.svg" alt="">
+							<img src="./image/heart-s-a.svg" alt="">收藏夾</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Buy1.svg" alt="">
+							<img src="./image/Buy1-a.svg" alt="">購物車</a>
+					</li>
+					<li class="active">
+						<a href="#">
+							<img src="./image/DocumentAsh.svg" alt="">
+							<img src="./image/DocumentAsh-a.svg" alt="">我的訂單</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Discount.svg" alt="">
+							<img src="./image/Discount-a.svg" alt="">會員點數</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Ticket_Star.svg" alt="">
+							<img src="./image/Ticket_Star-a.svg" alt="">我的折價券</a>
+					</li>
+					<li>
+						<h4>OTHERS</h4>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Profile1.svg" alt="">
+							<img src="./image/Profile1-a.svg" alt="">個人資訊</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Setting.svg" alt="">
+							<img src="./image/Setting-a.svg" alt="">帳號管理</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Info Square.svg" alt="">
+							<img src="./image/Info Square-a.svg" alt="">取得協助</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="./image/Logout.svg" alt="">
+							<img src="./image/Logout-a.svg" alt="">登出</a>
+					</li>
+				</ul>
+			</aside>
+			<!-- 以下是頁面主要內容 -->
+			<main class="member-check-order col-sm-10">
+				<div class="main-content-header row">
+					<div class="main-content-icon col-sm-1">
+						<img calss="main-content-icon" src="./image/Document.svg">
+					</div>
+					<h1 class="main-content-title col-sm-10">我的訂單</h1>
+					<hr class="main-content-divider">
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="nav-align-top mb-4">
+							<ul class="nav nav-tabs" role="tablist"> <!-- 分頁清單 -->
+								<li class="nav-item">
+									<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+										data-bs-target="#navs-top-home" aria-controls="navs-top-home"
+										aria-selected="true">
+										尚未付款<!-- 分頁名稱寫這 -->
+									</button>
+								</li>
+								<li class="nav-item">
+									<button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+										data-bs-target="#navs-top-inprogress" aria-controls="navs-top-inprogress"
+										aria-selected="false">
+										處理中<!-- 分頁名稱寫這 -->
+									</button>
+								</li>
+								<li class="nav-item">
+									<button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+										data-bs-target="#navs-top-transport" aria-controls="navs-top-transport"
+										aria-selected="false">
+										待收貨<!-- 分頁名稱寫這 -->
+									</button>
+								</li>
+								<li class="nav-item">
+									<button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+										data-bs-target="#navs-top-complete" aria-controls="navs-top-complete"
+										aria-selected="false">
+										已完成<!-- 分頁名稱寫這 -->
+									</button>
+								</li>
+								<li class="nav-item">
+									<button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+										data-bs-target="#navs-top-cancel" aria-controls="navs-top-cancel"
+										aria-selected="false">
+										已取消<!-- 分頁名稱寫這 -->
+									</button>
+								</li>
+							</ul>
+						</div>
+
+						<div class="tab-content">
+							<!-- Tab1 尚未付款 -->
+							<div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
+								<!-- 分頁內容寫這 -->
+								<ul id="orderListPay" class="order-list">
+									<section id="forwardPay"></section>
+									//分頁產生內容區塊
+								</ul>
+							</div>
+							<!-- Tab2 處理中 -->
+							<div class="tab-pane fade" id="navs-top-inprogress" role="tabpanel">
+								<ul id="orderListInprogress" class="sub-order-list">
+
+								</ul>
+							</div>
+							<!-- Tab3 待收貨 -->
+							<div class="tab-pane fade" id="navs-top-transport" role="tabpanel">
+								<ul id="orderListTransport" class="sub-order-list">
+
+								</ul>
+							</div>
+							<!-- Tab4 已完成 -->
+							<div class="tab-pane fade" id="navs-top-complete" role="tabpanel">
+								<ul id="orderListComplete" class="sub-order-list">
+
+								</ul>
+							</div>
+							<!-- Tab5 已取消 -->
+							<div class="tab-pane fade" id="navs-top-cancel" role="tabpanel">
+								<ul id="orderListCancel" class="sub-order-list">
+									<!-- <li class="sub-order">
                                         <div class="col-sm-2">
                                             <h4 class="order-date">2023-06-30</h4>
                                             <div class="order_item_priview">
@@ -813,8 +601,8 @@
                                         </div>
                                         <div class="col-sm-3 position-relative "> -->
 
-                                    <!-- Button trigger modal -->
-                                    <!-- <div class="navs-top-btn">
+									<!-- Button trigger modal -->
+									<!-- <div class="navs-top-btn">
                                                 <button type="button" class="btn btn-primary btn-XL"
                                                     data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
                                                     再買一次
@@ -830,16 +618,16 @@
                                         </div>
                                         <hr>
                                     </li> -->
-                                </ul>
-                            </div>
+								</ul>
+							</div>
 
-                            <!-- 以下是彈窗們 -->
+							<!-- 以下是彈窗們 -->
 
-                            <!-- 去付款 -->
-                            <!-- <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+							<!-- 去付款 -->
+							<!-- <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-sm" role="document">
                                     <div class="modal-content" id="ecpayBlock"> -->
-                            <!-- <div class="modal-header">
+							<!-- <div class="modal-header">
                                             <h4 class="modal-title col" id="checkoutModalLabel1">
                                                 去付款</h4>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -910,142 +698,142 @@
                                             <button type="submit" class="btn btn-primary btn-M">付款
                                             </button>
                                         </div> -->
-                            <!-- </div>
+							<!-- </div>
                                 </div>
                             </div> -->
 
-                            <!-- 取消訂單 -->
-                            <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <h3 style="text-align: center;">取消訂單</h3>
-                                                <h3 style="text-align: center;">確定要取消訂單嗎？</h3>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary btn-M"
-                                                data-bs-dismiss="modal">
-                                                取消
-                                            </button>
-                                            <button type="submit"
-                                                class="btn btn-primary btn-M confirmCancelOrder ">確定</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+							<!-- 取消訂單 -->
+							<div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<div class="row">
+												<h3 style="text-align: center;">取消訂單</h3>
+												<h3 style="text-align: center;">確定要取消訂單嗎？</h3>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-outline-secondary btn-M"
+												data-bs-dismiss="modal">
+												取消
+											</button>
+											<button type="submit"
+												class="btn btn-primary btn-M confirmCancelOrder ">確定</button>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                            <!-- 確認收貨 -->
-                            <div class="modal fade" id="closeOrderModal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <h3 style="text-align: center;">確認收貨</h3>
-                                                <h4 style="text-align: center;">確定收貨後無法退貨退款</h4>
-                                                <h4 style="text-align: center;">請確認商品無誤後再確認收貨</h4>
+							<!-- 確認收貨 -->
+							<div class="modal fade" id="closeOrderModal" tabindex="-1" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<div class="row">
+												<h3 style="text-align: center;">確認收貨</h3>
+												<h4 style="text-align: center;">確定收貨後無法退貨退款</h4>
+												<h4 style="text-align: center;">請確認商品無誤後再確認收貨</h4>
 
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary btn-M"
-                                                data-bs-dismiss="modal">
-                                                取消
-                                            </button>
-                                            <button type="submit"
-                                                class="btn btn-primary btn-M confirmReceipt">確認收貨</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-outline-secondary btn-M"
+												data-bs-dismiss="modal">
+												取消
+											</button>
+											<button type="submit"
+												class="btn btn-primary btn-M confirmReceipt">確認收貨</button>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                            <!-- 訂單明細 -->
-                            <div class="modal fade modal-lg" id="orderDetilModal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title col" id="checkoutModalLabel1">
-                                                訂單明細</h4>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
+							<!-- 訂單明細 -->
+							<div class="modal fade modal-lg" id="orderDetilModal" tabindex="-1" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title col" id="checkoutModalLabel1">
+												訂單明細</h4>
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Close"></button>
+										</div>
 
-                                        <div class="modal-body">
-                                            <ul id="orderDetailList" class="order-item-list">
-                                                <li class="order-item row">
-                                                    <div class="col-sm-1">
-                                                        <img src="./image/product.svg" alt="" id="detailpicture">
-                                                    </div>
-                                                    <div class="col-sm-8">
-                                                        <h5 class="product-id" id="detailSpectId">
-                                                            #<span></span></h5>
-                                                        <h4 class="product-name" id="detailproductName">
-                                                        </h4>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <h4 class="product-price" id="detailproductPrice">
-                                                            NT$<span>100,000,000</span>
-                                                        </h4>
-                                                    </div>
-                                                    <hr>
-                                                </li>
-                                            </ul>
-                                            <hr>
-                                            <ul id="discountList" class="discount-list">
-                                                <h5 class="text-center">優惠折抵明細
-                                                </h5>
-                                                <li class="discount-item row col-sm-11">
-                                                    <p class="discount-name col-sm-8">
-                                                        XXXXXXXXXXXXXXXX折價券</p>
-                                                    <h5 class="discount-amount col-sm-4 text-end">
-                                                        -NT$<span>100,000</span></h5>
-                                                </li>
-                                                <li class="discount-item row col-sm-11">
-                                                    <p class="discount-name col-sm-8">
-                                                        XXXXXXXXXXXXXXXX折價券</p>
-                                                    <h5 class="discount-amount col-sm-4 text-end">
-                                                        -NT$<span>100,000</span></h5>
-                                                </li>
-                                            </ul>
-                                            <hr>
-                                            <div id="deliveryInfo" class="delivery-info col-sm-10">
-                                                <h5 class="text-center">收件資訊</h5>
-                                                <p class="recipient">
-                                                    收件人：<span id="detailrecipient">XXXXXXXXXX</span></p>
-                                                <p class="address">收件地址：
-                                                    <span id="detailDeliveryAddress">104 台北市中山區南京東路三段219號5樓</span>
-                                                </p>
-                                                <p class="phone">
-                                                    收件人電話：<span id="detailPhoneNumber">0939-000-000</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+										<div class="modal-body">
+											<ul id="orderDetailList" class="order-item-list">
+												<li class="order-item row">
+													<div class="col-sm-1">
+														<img src="./image/product.svg" alt="" id="detailpicture">
+													</div>
+													<div class="col-sm-8">
+														<h5 class="product-id" id="detailSpectId">
+															#<span></span></h5>
+														<h4 class="product-name" id="detailproductName">
+														</h4>
+													</div>
+													<div class="col-sm-3">
+														<h4 class="product-price" id="detailproductPrice">
+															NT$<span>100,000,000</span>
+														</h4>
+													</div>
+													<hr>
+												</li>
+											</ul>
+											<hr>
+											<ul id="discountList" class="discount-list">
+												<h5 class="text-center">優惠折抵明細
+												</h5>
+												<li class="discount-item row col-sm-11">
+													<p class="discount-name col-sm-8">
+														XXXXXXXXXXXXXXXX折價券</p>
+													<h5 class="discount-amount col-sm-4 text-end">
+														-NT$<span>100,000</span></h5>
+												</li>
+												<li class="discount-item row col-sm-11">
+													<p class="discount-name col-sm-8">
+														XXXXXXXXXXXXXXXX折價券</p>
+													<h5 class="discount-amount col-sm-4 text-end">
+														-NT$<span>100,000</span></h5>
+												</li>
+											</ul>
+											<hr>
+											<div id="deliveryInfo" class="delivery-info col-sm-10">
+												<h5 class="text-center">收件資訊</h5>
+												<p class="recipient">
+													收件人：<span id="detailrecipient">XXXXXXXXXX</span></p>
+												<p class="address">收件地址：
+													<span id="detailDeliveryAddress">104 台北市中山區南京東路三段219號5樓</span>
+												</p>
+												<p class="phone">
+													收件人電話：<span id="detailPhoneNumber">0939-000-000</span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                            <!-- 退貨 -->
-                            <div class="modal fade modal-lg" id="refundModal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title col">
-                                                我要退貨</h4>
-                                            <button type="button" id="btnClose" class="btn-close"
-                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
+							<!-- 退貨 -->
+							<div class="modal fade modal-lg" id="refundModal" tabindex="-1" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title col">
+												我要退貨</h4>
+											<button type="button" id="btnClose" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
 
-                                        <div class="modal-body">
-                                            <ul id="cancelProductBlock" class="order-item-list">
-                                                <!-- <li class="order-item row">
+										<div class="modal-body">
+											<ul id="cancelProductBlock" class="order-item-list">
+												<!-- <li class="order-item row">
                                                     <div class="col">
                                                         <input type="checkbox" class="select-order-item">
                                                     </div>
@@ -1088,46 +876,46 @@
                                                     <hr>
                                                 </li> -->
 
-                                            </ul>
-                                            <hr>
-                                            <div id="refundInfo" class="refund-info col-sm-8 row mt-5">
-                                                <div class="col-sm-3">
-                                                    <label for="refundReason" class="form-label">退貨原因： </label>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                    <select name="refundReason" id="refundReason" class="form-select">
-                                                        <option value="0">7天無理由</option>
-                                                        <option value="1">商品瑕疵</option>
-                                                        <option value="2">到貨商品錯誤</option>
-                                                        <option value="3">商品與說明不符</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-12 mt-3">
-                                                    <textarea id="refundRemark" class="form-control" rows="3"
-                                                        placeholder="請輸入退貨原因"></textarea>
-                                                </div>
-                                                <div class="col-sm-12 row">
-                                                    <button type="submit" class="btn btn-primary btn-XL"
-                                                        id="submitCancelProduct">我要退貨</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 評價 -->
-                            <div class="modal fade " id="commentModal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header ">
-                                            <h4 class="modal-title col" id="checkoutModalLabel1">
-                                                評價商品</h4>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <ul class="comment-list commentbox">
-                                                <!-- <li class="comment-item row">
+											</ul>
+											<hr>
+											<div id="refundInfo" class="refund-info col-sm-8 row mt-5">
+												<div class="col-sm-3">
+													<label for="refundReason" class="form-label">退貨原因： </label>
+												</div>
+												<div class="col-sm-9">
+													<select name="refundReason" id="refundReason" class="form-select">
+														<option value="0">7天無理由</option>
+														<option value="1">商品瑕疵</option>
+														<option value="2">到貨商品錯誤</option>
+														<option value="3">商品與說明不符</option>
+													</select>
+												</div>
+												<div class="col-sm-12 mt-3">
+													<textarea id="refundRemark" class="form-control" rows="3"
+														placeholder="請輸入退貨原因"></textarea>
+												</div>
+												<div class="col-sm-12 row">
+													<button type="submit" class="btn btn-primary btn-XL"
+														id="submitCancelProduct">我要退貨</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 評價 -->
+							<div class="modal fade " id="commentModal" tabindex="-1" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header ">
+											<h4 class="modal-title col" id="checkoutModalLabel1">
+												評價商品</h4>
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<ul class="comment-list commentbox">
+												<!-- <li class="comment-item row">
                                                     <div class="item-review col-sm-4">
                                                         <img src="./image/product.svg" alt="">
                                                     </div>
@@ -1181,108 +969,76 @@
                                                     </div>
                                                     <hr>
                                                 </li> -->
-                                            </ul>
-                                        </div>
+											</ul>
+										</div>
 
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary"
-                                                data-bs-dismiss="modal">
-                                                取消
-                                            </button>
-                                            <button type="submit" class="btn btn-primary btn-XL submitComment">送出
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-outline-secondary"
+												data-bs-dismiss="modal">
+												取消
+											</button>
+											<button type="submit" class="btn btn-primary btn-XL submitComment">送出
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                        </div>
+						</div>
 
-                    </div>
+					</div>
 
-                </div>
-            </main>
+				</div>
+			</main>
 
-        </div>
-
-
-
-    </main>
+		</div>
 
 
 
+	</main>
 
-    <!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
-    <footer id="main-footer" class="footer">
 
-        <div class="container-sm">
+	<!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
+	<footer id="main-footer" class="footer">
 
-            <div class="footer-top row">
-                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-            </div>
+		<div class="container-sm">
 
-            <hr class="footer_divider">
+			<div class="footer-top row">
+				<a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+			</div>
 
-            <div class="footer-bottom row justify-content-end">
+			<hr class="footer_divider">
 
-                <nav class="SNS-nav-list ">
+			<div class="footer-bottom row justify-content-end">
 
-                    <a href="" class="Instagram col">
-                        <div class="Instagram_icon">
-                            <img src="./image/ant-design_instagram-filled.svg" alt="">
-                        </div>
-                    </a>
+				<nav class="SNS-nav-list ">
 
-                    <a href="" class="Facebook col">
-                        <div class="Facebook_icon">
-                            <img src="./image/mdi_facebook.svg" alt="">
-                        </div>
-                    </a>
+					<a href="" class="Instagram col">
+						<div class="Instagram_icon">
+							<img src="./image/ant-design_instagram-filled.svg" alt="">
+						</div>
+					</a>
 
-                    <a href="" class="Twitter col ">
-                        <div class="Twitter_icon">
-                            <img src="./image/ant-design_twitter-circle-filled.svg" alt="">
-                        </div>
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </footer>
+					<a href="" class="Facebook col">
+						<div class="Facebook_icon">
+							<img src="./image/mdi_facebook.svg" alt="">
+						</div>
+					</a>
 
-    <script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    <script>
-        // 獲取.member_account元素
-        var memberAccount = document.querySelector('.memberAccount');
+					<a href="" class="Twitter col ">
+						<div class="Twitter_icon">
+							<img src="./image/ant-design_twitter-circle-filled.svg" alt="">
+						</div>
+					</a>
+				</nav>
+			</div>
+		</div>
+	</footer>
 
-        // 獲取.member_account的文字內容
-        var textContent = memberAccount.textContent.trim();
-
-        // 計算文字內容的長度
-        var textLength = textContent.length;
-
-        // 設定字體大小變數
-        var fontSizeVar = '--font-size';
-
-        // 設定文字長度與字體大小的映射關係
-        var lengthToFontSize = {
-            5: '16px',
-            10: '14px',
-            15: '12px',
-            20: '10px',
-            25: '8px',
-            30: '6px',
-            35: '4px',
-            40: '2px'
-            // 根據需要添加更多的映射關係
-        };
-
-        // 檢查文字長度是否在映射表中，並設置對應的字體大小
-        if (lengthToFontSize.hasOwnProperty(textLength)) {
-            memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
-        } 
-    </script>
-    <script src="./js/check_order.js"></script>
+	<script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="./js/check_order.js"></script>
+	
 </body>
 
 </html>
