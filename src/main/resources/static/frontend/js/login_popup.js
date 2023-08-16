@@ -74,7 +74,7 @@ backToPreviousModalBtn4.addEventListener("click", function () {
     const currentPassword = document.querySelector('#currentPassword');
     const errMsg = document.querySelector('#errMsg');
     document.getElementById('login').addEventListener('click', () => {
-        fetch('http://localhost:8080/Niigi/member/login', {
+        fetch('../member/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -140,7 +140,7 @@ document.getElementById('company-yzm_img').addEventListener('click', function(){
 });
 
 function changeYZM(img) {
-    fetch("http://localhost:8080/Niigi/generate-captcha")
+    fetch("../generate-captcha")
         .then(response => response.blob())
         .then(blob => {
             const imgUrl = URL.createObjectURL(blob);
@@ -164,7 +164,7 @@ function checkCaptchaAndNull(inputValue, errorMsgId) {
 }
 
 function fetchCaptchaValidation() {
-    return fetch("http://localhost:8080/Niigi/check-captcha", {
+    return fetch("../check-captcha", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -250,7 +250,7 @@ registerButton.addEventListener('click', async () => {
             return;
         }
 
-        const response = await fetch('http://localhost:8080/Niigi/member/register', {
+        const response = await fetch('../member/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
