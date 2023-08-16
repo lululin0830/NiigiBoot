@@ -333,7 +333,7 @@
 
 	<main>
 		<!-- -------------分類table---------------- -->
-		<div class="container tableone">
+		<!--<div class="container tableone">
 			<div class="row">
 				<div class="col">
 					<div class="table-responsive">
@@ -385,16 +385,16 @@
 
 				</div>
 			</div>
-		</div>
+		</div>  -->
 
 		<!-- -------------水平線與搜尋字樣---------------- -->
-		<div style="display: flex; justify-content: center;">
+		<!--<div style="display: flex; justify-content: center;">
 			<hr class="hr" style="width: 73%; height: 3px; background-color: black;">
-		</div>
-		<h2 class="serch_Keyword"></h2>
+		</div> -->
+		<h2 class="serch_Keyword" style="margin-top: 40px;margin-bottom: 40px;"></h2>
 
 		<!-- -------------排序table--------------- -->
-		<div class="container tabletwo">
+		<!--<div class="container tabletwo">
 			<div class="row">
 				<div class="col">
 					<div class="table-responsive">
@@ -415,7 +415,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- -------------商品列表--------------- -->
 
@@ -429,7 +429,7 @@
 
 
 		<!-- -------------放page碼的地方--------------- -->
-		 <div id="pagination" class="pagination justify-content-center"></div>
+		<div id="pagination" class="pagination justify-content-center"></div>
 
 	</main>
 
@@ -529,10 +529,10 @@
 				const itemHtml = `
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird" style="padding-bottom:30px;">
               <div class="card" style="width:200px;height:28rem;">
-                <img src="${base64Image}" id="${productId}" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+                <img src="${base64Image}" id="${productId}" class="card-img-top linkable-image" alt="BROTHER BOX" style="height: 260px;">
                 <div class="card-body">
                   <h5 class="card-title item__name">${productName}<img class="heart"
-                    src="./image/heart_store.svg" alt=""></i></h5>
+                    src="./image/heart_zero.svg" alt=""></i></h5>
                   <p class="card-text item__price">$${productPrice}</p>
                   <p class="card-text item__store">${ShopName}</p>
                 </div>
@@ -691,10 +691,10 @@
 							list_html += `
 							<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird" style="padding-bottom:30px;">
 								<div class="card" style="width:200px;height:28rem;">
-									<img src="${base64Image}" id="${productId}" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+									<img src="${base64Image}" id="${productId}" class="card-img-top linkable-image" alt="BROTHER BOX" style="height: 260px;">
 									<div class="card-body">
 										<h5 class="card-title item__name">${productName}<img class="heart"
-											src="./image/heart_store.svg" alt=""></i></h5>
+											src="./image/heart_zero.svg" alt=""></i></h5>
 										<p class="card-text item__price">$${productPrice}</p>
 										<p class="card-text item__store">${ShopName}</p>
 									</div>
@@ -714,6 +714,27 @@
 			// 使用完畢後，可以將 localStorage 中的 textData 清空，避免影響下一次的使用
 			localStorage.removeItem('textData');
 
+		});
+
+
+		$(document).on('click', '.heart', function (event) {
+
+			if ($(event.currentTarget).hasClass('-on')) {
+				$(event.currentTarget).attr('src', "./image/heart_zero.svg");
+				$(event.currentTarget).removeClass('-on');
+
+			} else {
+				$(event.currentTarget).attr('src', "./image/heart_fill.svg");
+				$(event.currentTarget).addClass('-on');
+			}
+
+		});
+
+		$(document).on('click', '.linkable-image', function (event) {
+			const clickedImageId = event.currentTarget.getAttribute('id');
+			window.location.href = `product.html?productId=${clickedImageId}`;
+			//console.log("Clicked image ID:", clickedImageId);
+			//console.log(event);
 		});
 
 
