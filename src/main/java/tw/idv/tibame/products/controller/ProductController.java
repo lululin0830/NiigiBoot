@@ -101,4 +101,20 @@ public class ProductController {
 		return service.getProductById(productId, registerSupplier);
 	}
 
+	@GetMapping("/retrieveProductText")
+	public Product retrieveProductById(@RequestParam String productId) throws Exception {
+		return service.getById(Integer.parseInt(productId));
+	}
+	
+	// 修改規格資料(不含圖)
+	@PostMapping("/updateProductText")
+	public Boolean updateProductText(@RequestBody Map<String, String> requestData) throws Exception {
+		Integer productId = Integer.parseInt(requestData.get("productId"));
+		String productName = requestData.get("productName");
+		String productInfo = requestData.get("productInfo");
+		String categorieId = requestData.get("categorieId");
+		Integer productPrice = Integer.parseInt(requestData.get("productPrice"));
+		return service.updateProduct(productId,productName,productInfo,categorieId,productPrice);
+	}
+
 }

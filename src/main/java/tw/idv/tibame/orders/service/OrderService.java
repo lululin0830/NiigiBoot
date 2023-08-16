@@ -56,4 +56,6 @@ public interface OrderService {
 	public String updateSubOrderDetailComment(String json);
 	
 	public String orderRefundUpdate(String json);
+	
+	public String mainOrderPaymentUpdate(String orderId);
 }

@@ -52,7 +52,7 @@ function passTextToNextPage(text) {
 }
 
 /* 登出並回到首頁 */
-function logout(){
+function logout() {
 	clearCookie('jwt');
 	window.location.href = '../index.html'
 }
@@ -213,7 +213,6 @@ function showUserInfo() {
 
 }
 
-
 /* 側邊欄會員資訊文字大小設定 */
 function fontSizeAdjust(element) {
 	// 取得文字长度
@@ -244,11 +243,20 @@ function fontSizeAdjust(element) {
 
 /* ------------------------- 方法呼叫區 ------------------------- */
 if (jwtToken) {
+	
 	init();
 } else if (loginRequired) {
+	
 	sessionStorage.setItem("loginRequired", "true");
 	alert("請先登入")
-	history.back();
+
+	if (document.referrer === '') { // 直接通過網址的請求，導回首頁
+		window.location.href = '/'
+		
+	} else {
+		history.back();
+	}
+
 } else {
 	showHeader();
 }
