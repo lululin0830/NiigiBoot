@@ -198,11 +198,15 @@
 
 		/*表格的地方*/
 
-		.spec_table_new, .spec_table_old {
+		.spec_table_new {
 			border-bottom: 1px solid #EEEEEE;
 		}
 
-		.spec_table_new, .spec_table_old th {
+		.spec_table_old {
+			border-bottom: 1px solid #EEEEEE;
+		}
+
+		.spec_table_new th {
 			background-color: #EEEEEE;
 			width: 100px;
 			height: 50px;
@@ -210,12 +214,32 @@
 			padding: 3px;
 		}
 
-		.spec_table_new, .spec_table_old tr {
+		.spec_table_old th {
+			background-color: #EEEEEE;
+			width: 100px;
+			height: 50px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.spec_table_new tr {
 			border-bottom: 1px solid darkgrey;
 			;
 		}
 
-		.spec_table_new, .spec_table_old td {
+		.spec_table_old tr {
+			border-bottom: 1px solid darkgrey;
+			;
+		}
+
+		.spec_table_new td {
+			height: 100px;
+			width: 100px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.spec_table_old td {
 			height: 100px;
 			width: 100px;
 			text-align: center;
@@ -973,7 +997,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								
+
 
 							</tbody>
 
@@ -1156,38 +1180,34 @@
 			// 獲取 URL 的查詢參數
 			const queryString = window.location.search;
 			const urlParams = new URLSearchParams(queryString);
+			if (queryString != 0) {
+				// 獲取 productId
+				const inquire_productId = urlParams.get('productId');
 
-			// 獲取 productId
-			const inquire_productId = urlParams.get('productId');
+				let dataToSend_edit = {};
+				dataToSend_edit = {productId: inquire_productId, registerSupplier: registerSupplier};
 
-			let dataToSend_edit = {};
-			dataToSend_edit = {productId: inquire_productId, registerSupplier: registerSupplier};
-
-			// 使用fetch API向後端發送請求
-			fetch('http://localhost:8080/Niigi/product/product-details', {
-				method: 'POST',
-				body: JSON.stringify(dataToSend_edit),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			})
-				.then((response) => {
-					// 檢查回應的狀態碼
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
-						console.log(response);
+				// 使用fetch API向後端發送請求
+				fetch('http://localhost:8080/Niigi/product/product-details', {
+					method: 'POST',
+					body: JSON.stringify(dataToSend_edit),
+					headers: {
+						'Content-Type': 'application/json'
 					}
-					// 解析JSON格式的回應
-					return response.json();
 				})
-				.then((data) => {
-					if (data == 0) {
-						alert("您無權限編輯此商品編號")
-						window.history.back();
-					} else {
-						if (inquire_productId === null) {
-							$('.productId').text("*由系統自動產生");
-							$('.productSpecAll_button').attr('disabled', 'disabled');
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+							console.log(response);
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						if (data == 0) {
+							alert("您無權限編輯此商品編號")
+							window.history.back();
 						} else {
 							$('.productId').text(inquire_productId);
 							$('.productId').css("font-size", "");
@@ -1195,16 +1215,17 @@
 							retrieveProductText(inquire_productId);
 							getAllSpecByProduct(inquire_productId);
 						}
-					}
-				})
-				.catch((error) => {
-					console.error('Fetch error:', error);
-				});
-
-
-
-
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
+			} else {
+				$('.productId').text("*由系統自動產生");
+				$('.productSpecAll_button').attr('disabled', 'disabled');
+			}
 		});
+
+
 
 		function retrieveProductText(inquire_productId) {
 			fetch('http://localhost:8080/Niigi/product/retrieveProductText?productId=' + encodeURIComponent(inquire_productId), {
@@ -1239,8 +1260,18 @@
 
 
 		//-----------------------新申請規格彈窗作業的地方-------------------------------------//
+		
+		$(".product_create_button").click(function (){
+			if(dataToSend.length == 0){
+				console.log("aaa")
+			}else{
+				console.log("bbb")
+			}
+		})
+			
+		
+		
 		// 監聽「+新增規格」按鈕點擊事件
-
 		$('.create_btn').on('click', function () {
 			let rowNum = $('.spec_table_new tbody tr').length + 1; //算目前有幾行
 			const newRow = `

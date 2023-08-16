@@ -380,7 +380,7 @@
 		</div>
 
 		<!-- -------------分類table---------------- -->
-		<div class="container tableone">
+		<!-- <div class="container tableone">
 			<div class="row">
 				<div class="col">
 					<div class="table-responsive">
@@ -432,16 +432,16 @@
 
 				</div>
 			</div>
-		</div>
+		</div>-->
 
 		<!-- -------------水平線與搜尋字樣---------------- -->
-		<div style="display: flex; justify-content: center;">
+		<div style="display: flex; justify-content: center;margin-top: 40px;margin-bottom: 20px;">
 			<hr class="hr" style="width: 73%; height: 3px; background-color: black;">
 		</div>
-		<h2 class="serch_Keyword" id="serch_Keyword">'XX'商品搜尋結果</h2>
+		<h2 class="serch_Keyword" id="serch_Keyword" style="margin-bottom: 50px;">'XX'商品搜尋結果</h2>
 
 		<!-- -------------排序table--------------- -->
-		<div class="container tabletwo">
+		<!--<div class="container tabletwo">
 			<div class="row">
 				<div class="col">
 					<div class="table-responsive">
@@ -462,7 +462,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!-- -------------商品列表--------------- -->
 		<div class="container tablethird">
@@ -567,7 +567,7 @@
 					$('.serch_Keyword').text(`${keyword} 商品搜尋結果`);
 					console.log(data);
 					if (data.length == 0) {
-						list_html = "很抱歉，查無資料";
+						list_html = "<span style='font-size: 24px; text-align: center; display: block;'>很抱歉，查無資料</span>";
 						console.log("查無資料")
 					} else {
 
@@ -588,10 +588,10 @@
 							list_html += `
 							<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird" style="padding-bottom:30px;">
 								<div class="card" style="width:200px;height:28rem;">
-									<img src="${base64Image}" id="${productId}" class="card-img-top" alt="BROTHER BOX" style="height: 260px;">
+									<img src="${base64Image}" id="${productId}" class="card-img-top linkable-image" alt="BROTHER BOX" style="height: 260px;">
 									<div class="card-body">
 										<h5 class="card-title item__name">${productName}<img class="heart"
-											src="./image/heart_store.svg" alt=""></i></h5>
+											src="./image/heart_zero.svg" alt=""></i></h5>
 										<p class="card-text item__price">$${productPrice}</p>
 										<p class="card-text item__store">${ShopName}</p>
 									</div>
@@ -608,6 +608,26 @@
 				});
 
 
+		});
+
+		$(document).on('click', '.heart', function (event) {
+
+			if ($(event.currentTarget).hasClass('-on')) {
+				$(event.currentTarget).attr('src', "./image/heart_zero.svg");
+				$(event.currentTarget).removeClass('-on');
+
+			} else {
+				$(event.currentTarget).attr('src', "./image/heart_fill.svg");
+				$(event.currentTarget).addClass('-on');
+			}
+
+		});
+
+		$(document).on('click', '.linkable-image', function (event) {
+			const clickedImageId = event.currentTarget.getAttribute('id');
+			window.location.href = `product.html?productId=${clickedImageId}`;
+			//console.log("Clicked image ID:", clickedImageId);
+			//console.log(event);
 		});
 
 
