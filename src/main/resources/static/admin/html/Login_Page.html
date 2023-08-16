@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="../../frontend/vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="../../front/css/button.css">
+  <!-- <link rel="stylesheet" href="../../front/css/button.css"> -->
 </head>
 
 <body>
@@ -24,10 +24,14 @@
             <span class="show-password-btn" onclick="togglePasswordVisibility('password')">&#128065;</span>
           </div>
         </form>
-        <div style="height: 20px;"></div>
-        <!-- <div class="text-start">
-        <input type="email" id="" name="" required placeholder="請輸入OTP認證碼">
-      </div> -->
+        <div class="my-3">
+          <td class="tds">驗證碼：</td>
+          <td id="validimg">
+            <input type="text" name="valistr" class="my-2" id="company-captchaInput">
+            <img id="company-yzm_img" src="" style="cursor: pointer" />
+            <span id="company-valistr_msg"></span>
+          </td>
+        </div>
         <div id="errMsg" class="error"></div>
         <div style="height: 20px;"></div>
         <div class="text-start">

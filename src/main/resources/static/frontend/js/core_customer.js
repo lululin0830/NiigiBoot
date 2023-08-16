@@ -52,7 +52,7 @@ function passTextToNextPage(text) {
 }
 
 /* 登出並回到首頁 */
-function logout(){
+function logout() {
 	clearCookie('jwt');
 	window.location.href = '../index.html'
 }
@@ -75,7 +75,7 @@ let memberId; let memberAcct;
 let isLoggedIn = false;
 
 /* 頁面初始化 */
-function init() {
+function loginCheck() {
 
 	fetch('../member/customerCenter', {
 		method: "POST",
@@ -147,7 +147,7 @@ function showHeader() {
 		html += `
 	 			<nav class="fixed-nav col-sm-4">
                     <div class="fixed-nav-list login row">
-                    	<a href="" class="SCM-Center col">
+                    	<a href="supplier_center.html" class="SCM-Center col">
                             <div class="SCM_icon">
                                 <button class="btn_SCM-Center">商家中心</button>
                             </div>
@@ -213,7 +213,6 @@ function showUserInfo() {
 
 }
 
-
 /* 側邊欄會員資訊文字大小設定 */
 function fontSizeAdjust(element) {
 	// 取得文字长度
@@ -244,11 +243,20 @@ function fontSizeAdjust(element) {
 
 /* ------------------------- 方法呼叫區 ------------------------- */
 if (jwtToken) {
-	init();
+	
+	loginCheck();
 } else if (loginRequired) {
+	
 	sessionStorage.setItem("loginRequired", "true");
 	alert("請先登入")
-	history.back();
+
+	if (document.referrer === '') { // 直接通過網址的請求，導回首頁
+		window.location.href = '/'
+		
+	} else {
+		history.back();
+	}
+
 } else {
 	showHeader();
 }

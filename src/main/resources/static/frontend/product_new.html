@@ -202,7 +202,19 @@
 			border-bottom: 1px solid #EEEEEE;
 		}
 
+		.spec_table_old {
+			border-bottom: 1px solid #EEEEEE;
+		}
+
 		.spec_table_new th {
+			background-color: #EEEEEE;
+			width: 100px;
+			height: 50px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.spec_table_old th {
 			background-color: #EEEEEE;
 			width: 100px;
 			height: 50px;
@@ -215,7 +227,19 @@
 			;
 		}
 
+		.spec_table_old tr {
+			border-bottom: 1px solid darkgrey;
+			;
+		}
+
 		.spec_table_new td {
+			height: 100px;
+			width: 100px;
+			text-align: center;
+			padding: 3px;
+		}
+
+		.spec_table_old td {
 			height: 100px;
 			width: 100px;
 			text-align: center;
@@ -651,7 +675,7 @@
 					<div class="product_content">
 						<p>
 							<span>商品編號</span>
-							<span class="productId" style="font-size: 10px;color: red;">*由系統自動產生</span>
+							<span class="productId" style="font-size: 10px;color: red;"></span>
 						</p>
 						<p style="margin-bottom: 10px">
 							<span>商品圖片</span>
@@ -804,8 +828,9 @@
 						</p>
 						<p>
 							<span>商品規格</span>
-							<span><button type="button" class="product_edit_button" style="background-color: white;"
-									data-bs-toggle="modal" data-bs-target="#product_edit_button">編輯規格</button></span>
+							<span><button type="button" class="productSpecAll_button" style="background-color: white;"
+									data-bs-toggle="modal"
+									data-bs-target="#productSpecAll_button">查看現有規格</button></span>
 							<span><button type="button" class="product_create_button" style="background-color: white;"
 									data-bs-toggle="modal" data-bs-target="#product_create_button">新增規格</button></span>
 
@@ -814,7 +839,7 @@
 							<span>商品售價</span>
 							<span><input class="product_price" type="text" placeholder="NT$" value=""></span>
 						</p>
-						<p>
+						<p class="initialStock_p">
 							<span>首次備貨量</span>
 							<span class="initialStock_totoal">0</span>
 						</p>
@@ -947,8 +972,45 @@
 			</div>
 		</div>
 	</div>
+	<!-- -------------------以下是查看規格彈窗內容------------------------ -->
+	<div class="modal fade" id="productSpecAll_button" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h1 class="modal-title" style="text-align: center;">現有規格</h1>
+					<div>
+						<table class="spec_table_old">
+							<thead>
+								<tr>
+									<th>規格圖</th>
+									<th>規格編號</th>
+									<th>規格類型一</th>
+									<th>規格一詳細</th>
+									<th>規格類型二</th>
+									<th>規格二詳細</th>
+									<th>首次備貨量</th>
+									<th>即時庫存量</th>
+								</tr>
+							</thead>
+							<tbody>
 
 
+							</tbody>
+
+						</table>
+						<div class="container" style="text-align: center;margin-top: 10px;">
+							<button class="close_btn btn btn-primary" type="button">關閉</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- --------------------------------以下是Footer 勿動！！！！-------------------------------- -->
 	<footer id="main-footer" class="footer">
@@ -1020,11 +1082,34 @@
 			memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
 		}
 
-		//當新增商品時，將編輯規格按鈕停止作用
-		if ($('.productId').text().trim() === '*由系統自動產生') {
-			// 找到對應的按鈕元素，設置 disabled 屬性
-			$('.product_edit_button').attr('disabled', 'disabled');
+		//針對規格1、2、3、4的整理
+		function specTypeName(Str) {
+			switch (Str) {
+				case '1':
+					return '尺寸';
+				case '2':
+					return '顏色';
+				case '3':
+					return '容量';
+				case '4':
+					return '材質';
+			}
 		}
+
+		//針對圖片整理
+		function displayImageFromBase64(base64ImageData) {
+			const imageBinaryStr = atob(base64ImageData);
+			let len = imageBinaryStr.length;
+			const uint8Array = new Uint8Array(len);
+			while (len--) {
+				uint8Array[len] = imageBinaryStr.charCodeAt(len);
+			}
+			const blob = new Blob([uint8Array]);
+			const blobUrl = URL.createObjectURL(blob); // 產生 Blob URL
+			// document.querySelector('#avatar').src = blobUrl; // 設定圖片的 src 屬性
+			return blobUrl; // 返回 Blob URL
+		}
+
 
 		//***上傳5張圖片後，圖片會預覽***
 		// 對於動態生成的 <input type="file"> 元素的 change 事件使用事件代理
@@ -1089,10 +1174,104 @@
 					console.error('Error:', error);
 				});
 		}
+		//-----------------------編輯商品導入的判斷-------------------------------------//
+		$(document).ready(function () {
+			const registerSupplier = "S000000001";
+			// 獲取 URL 的查詢參數
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+			if (queryString != 0) {
+				// 獲取 productId
+				const inquire_productId = urlParams.get('productId');
+
+				let dataToSend_edit = {};
+				dataToSend_edit = {productId: inquire_productId, registerSupplier: registerSupplier};
+
+				// 使用fetch API向後端發送請求
+				fetch('http://localhost:8080/Niigi/product/product-details', {
+					method: 'POST',
+					body: JSON.stringify(dataToSend_edit),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+							console.log(response);
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						if (data == 0) {
+							alert("您無權限編輯此商品編號")
+							window.history.back();
+						} else {
+							$('.productId').text(inquire_productId);
+							$('.productId').css("font-size", "");
+							$('.initialStock_p').hide();
+							retrieveProductText(inquire_productId);
+							getAllSpecByProduct(inquire_productId);
+						}
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
+			} else {
+				$('.productId').text("*由系統自動產生");
+				$('.productSpecAll_button').attr('disabled', 'disabled');
+			}
+		});
+
+
+
+		function retrieveProductText(inquire_productId) {
+			fetch('http://localhost:8080/Niigi/product/retrieveProductText?productId=' + encodeURIComponent(inquire_productId), {
+				method: 'GET'
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+						console.log(response);
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					//console.log(data);
+					$("#image1").attr('src', displayImageFromBase64(data.picture1));
+					$("#image2").attr('src', displayImageFromBase64(data.picture2));
+					$("#image3").attr('src', displayImageFromBase64(data.picture3));
+					$("#image4").attr('src', displayImageFromBase64(data.picture4));
+					$("#image5").attr('src', displayImageFromBase64(data.picture5));
+					$(".productName").val(data.productName);
+					$(".product_illustrate").val(data.productInfo);
+					$(".category_select").val(data.categorieId);
+					$(".product_price").val(data.productPrice);
+
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+		}
+
 
 		//-----------------------新申請規格彈窗作業的地方-------------------------------------//
+		
+		$(".product_create_button").click(function (){
+			if(dataToSend.length == 0){
+				console.log("aaa")
+			}else{
+				console.log("bbb")
+			}
+		})
+			
+		
+		
 		// 監聽「+新增規格」按鈕點擊事件
-
 		$('.create_btn').on('click', function () {
 			let rowNum = $('.spec_table_new tbody tr').length + 1; //算目前有幾行
 			const newRow = `
@@ -1180,7 +1359,7 @@
 
 
 			let imageSpecFiles = [];
-			let initialStock_totoal = 0; 
+			let initialStock_totoal = 0;
 			// 收集資料
 			$(".spec_table_new tbody tr").each(function () {
 				let rowData = {};
@@ -1196,7 +1375,7 @@
 				initialStock_totoal = initialStock_totoal + parseFloat($(this).find(".initialStock").val().trim());
 			});
 			$('.initialStock_totoal').text(initialStock_totoal.toLocaleString());
-			
+
 			//console.log(imageFiles);
 			imageSpecFiles.forEach((imageFile, index) => {
 				formDataSpecImg.append('images', imageFile);
@@ -1259,9 +1438,82 @@
 				});
 		}
 
+		//-----------------------查看所有規格彈窗作業的地方-------------------------------------//
+		function getAllSpecByProduct(inquire_productId) {
+			fetch('http://localhost:8080/Niigi/AllSpecByProductID?productId=' + encodeURIComponent(inquire_productId), {
+				method: 'GET'
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+						console.log(response);
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					let list_html = "";
+					//console.log(data);
+					data.forEach(function (productSpec) {
+						// 在這裡對每個產品進行處理
+						// 取得產品圖片的 Base64 字串
+						const base64Image = displayImageFromBase64(productSpec.specPicture);
+						//取得產品規格id
+						const productSpecId = productSpec.productSpecId;
+						//取得對規格1
+						const specType1 = specTypeName(productSpec.specType1);
+						const specInfo1 = productSpec.specInfo1;
+						//取得對規格2
+						const specType2 = specTypeName(productSpec.specType2);
+						const specInfo2 = productSpec.specInfo2;
+						//取得首次備貨量
+						const initialStock = productSpec.initialStock;
+						//取得即時庫存
+						const specStock = productSpec.specStock;
+						// 也可以將其他產品資料顯示在網頁上
+						list_html += `
+										<tr>
+											<td>
+												<img class="product_spec_img" id="specPicture1" src="${base64Image}" alt="">
+											</td>
+											<td>
+												${productSpecId}
+											</td>
+											<td>
+												${specType1}
+											</td>
+											<td>
+												${specInfo1}
+											</td>
+											<td>
+												${specType2}
+											</td>
+											<td>
+												${specInfo2}
+											</td>
+											<td>
+												${initialStock}
+											</td>
+											<td>
+												${specStock}
+											</td>
+										</tr>
+									`;
+					});
+					$('.spec_table_old tbody').html(list_html);
 
-		//--------------------------------------------------------------------//
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+		}
 
+		// 關閉彈窗
+		$(".close_btn").click(function () {
+			$("#productSpecAll_button").modal("hide");
+		})
+		//--------------------------------------------------------------------------//
 		//上傳新商品
 		function uploadInsert(event) {
 			const registerSupplier = "S000000001"
@@ -1301,40 +1553,83 @@
 			}
 			const productPrice = $('.product_price').val().trim();
 
-			if (dataToSend == "") {
-				alert('商品規格至少需一種');
-				return; // 阻止表單提交
+
+			if ($('.productId').text() == "*由系統自動產生") {
+				if (dataToSend == "") {
+					alert('商品規格至少需一種');
+					return; // 阻止表單提交
+				}
+
+				fetch('http://localhost:8080/Niigi/product/insertProduct', {
+					method: 'POST',
+					body: JSON.stringify({registerSupplier: registerSupplier, categorieId: categorieId, productName: productName, productPrice: productPrice, productInfo: productInfo, productStatus: productStatus}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+							console.log(response);
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						productId = data;
+						uploadImages();
+						dataToSend.forEach(function (row) {
+							row["productId"] = `${data}`;
+						});
+						insertSpecProduct(dataToSend);
+						alert(`新增商品成功，商品編號：${data}`);
+						location.reload(); // 重新載入整個頁面
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
+			} else {
+				const inquire_productId = $('.productId').text();
+				fetch('http://localhost:8080/Niigi/product/updateProductText', {
+					method: 'POST',
+					body: JSON.stringify({productId: inquire_productId, categorieId: categorieId, productName: productName, productPrice: productPrice, productInfo: productInfo}),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+					.then((response) => {
+						// 檢查回應的狀態碼
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+							console.log(response);
+						}
+						// 解析JSON格式的回應
+						return response.json();
+					})
+					.then((data) => {
+						if (data) {
+							productId = inquire_productId;
+							uploadImages();
+							if (dataToSend != "") {
+								dataToSend.forEach(function (row) {
+									row["productId"] = inquire_productId;
+								});
+								insertSpecProduct(dataToSend);
+							}
+							alert("修改商品成功");
+							window.location.href = "productManage.html";
+						}
+
+					})
+					.catch((error) => {
+						console.error('Fetch error:', error);
+					});
 			}
 
-			fetch('http://localhost:8080/Niigi/product/insertProduct', {
-				method: 'POST',
-				body: JSON.stringify({registerSupplier: registerSupplier, categorieId: categorieId, productName: productName, productPrice: productPrice, productInfo: productInfo, productStatus: productStatus}),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			})
-				.then((response) => {
-					// 檢查回應的狀態碼
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
-						console.log(response);
-					}
-					// 解析JSON格式的回應
-					return response.json();
-				})
-				.then((data) => {
-					productId = data;
-					uploadImages();
-					dataToSend.forEach(function (row) {
-						row["productId"] = `${data}`;
-					});
-					insertSpecProduct(dataToSend);
-					alert(`新增商品成功，商品編號：${data}`);
-					location.reload(); // 重新載入整個頁面
-				})
-				.catch((error) => {
-					console.error('Fetch error:', error);
-				});
+
+
+
 
 		}
 

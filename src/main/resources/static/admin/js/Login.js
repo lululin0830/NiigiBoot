@@ -1,39 +1,89 @@
-(() => {
-    const userAcct = document.querySelector('#userAcct');
-    const password = document.querySelector('#password');
-    const errMsg = document.querySelector('#errMsg');
-    document.getElementById('login').addEventListener('click', () => {
-        fetch('http://localhost:8080/Niigi/users/Login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                userAcct: userAcct.value,
-                password: password.value
-            }),
-         // body to text
-        }).then(r => r.text())
-        .then((jwtToken) => {
-            // 解析 JWT 令牌
-            try {
-                const decodedToken = parseJwt(jwtToken);
+const memberCaptchaImg = document.getElementById('company-yzm_img');
+const userAcct = document.querySelector('#userAcct');
+const password = document.querySelector('#password');
+const captchaInput = document.querySelector('#company-captchaInput');
+const errMsg = document.querySelector('#errMsg');
 
-                // 將JWT寫入Cookie，這裡假設有效期為1小時
-                setCookie('jwt', jwtToken, 24); // 1/24代表1小時，若要設定其他時間，可以調整這個數值
+function initializeCaptchaImage() {
+    changeYZM(memberCaptchaImg);
+}
 
-                // 假設您的JWT存儲在名為"jwt"的Cookie中
-                console.log(jwtToken);
+document.getElementById('company-yzm_img').addEventListener('click', function(){
+    changeYZM(this);
+});
 
-                // 登錄成功，執行跳轉操作
-                window.location.href = 'User_Management.html';
-            } catch (error) {
-                // JWT 解析失敗，顯示錯誤訊息
-                errMsg.textContent = '登錄失敗，請檢查帳號和密碼。';
-            }
+function changeYZM(img) {
+    fetch("http://localhost:8080/Niigi/generate-captcha")
+        .then(response => response.blob())
+        .then(blob => {
+            const imgUrl = URL.createObjectURL(blob);
+            img.src = imgUrl;
         })
-        .catch((error) => {
-            // 登錄失敗，顯示錯誤訊息
-            errMsg.textContent = '登錄失敗1，請檢查帳號和密碼。';
-        });
+        .catch(error => console.error("Error fetching captcha:", error));
+}
+
+initializeCaptchaImage();
+function checkCaptchaAndNull(inputValue, errorMsgId) {
+    const valistrMsg = document.getElementById(errorMsgId);
+    if (inputValue === "") {
+        valistrMsg.textContent = "驗證碼不能為空！";
+        valistrMsg.style.color = "red";
+        return false;
+    } else {
+        valistrMsg.textContent = "";
+        return true;
+    }
+}
+
+document.getElementById('login').addEventListener('click', () => {
+    const isCaptchaValid = checkCaptchaAndNull(captchaInput.value, 'company-valistr_msg');
+    
+    if (!isCaptchaValid) {
+        return;
+    }
+
+    fetch("http://localhost:8080/Niigi/check-captcha", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            userInput: captchaInput.value,
+        }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.valid) {
+            fetch('http://localhost:8080/Niigi/users/Login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userAcct: userAcct.value,
+                    password: password.value
+                }),
+            })
+            .then(r => r.text())
+            .then((jwtToken) => {
+                try {
+                    const decodedToken = parseJwt(jwtToken);
+                    setCookie('jwt', jwtToken, 1 / 24);
+                    console.log(jwtToken);
+                    window.location.href = 'User_Management.html';
+                } catch (error) {
+                    errMsg.textContent = '登錄失敗，請檢查帳號和密碼。';
+                }
+            })
+            .catch((error) => {
+                errMsg.textContent = '登錄失敗，請檢查帳號和密碼。';
+            });
+        } else {
+            document.getElementById('company-valistr_msg').textContent = "驗證碼不正確！";
+            document.getElementById('company-valistr_msg').style.color = "red";
+        }
+    })
+    .catch((error) => {
+        console.error("Error checking captcha:", error);
+    });
 });
 
 // 解析 JWT 令牌
@@ -52,4 +102,5 @@ function setCookie(name, value, hours) {
     expires.setTime(expires.getTime() + hours * 60 * 60 * 1000);
     document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
 }
-})();
+
+// initializeCaptchaImage();

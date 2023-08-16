@@ -334,5 +334,11 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 		productSpec.setSpecInfo2(specInfo2);
 		return productSpecDAO.update(productSpec);
 	}
+	
+	//以productid查看所有規格
+	@Override
+	public List<ProductSpec> selectByProductId(Integer productId) throws Exception {
+		return productSpecDAO.selectByProductId(productId);
+	}
 
 }

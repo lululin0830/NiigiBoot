@@ -19,6 +19,11 @@ const orderList4 = document.querySelector("#navs-top-complete>ul.order-list");
 //已取消分頁
 const orderList5 = document.querySelector("#navs-top-cancel>ul.order-list");
 
+function createImageURL(byteArray) {
+    const blob = new Blob([new Uint8Array(byteArray)], { type: 'image/jpeg' });
+    return URL.createObjectURL(blob);
+}
+
 let EIF = null;
 let BodyHtml = null;
 const SubOrderBody = function () {
@@ -48,7 +53,7 @@ const SubOrderBody = function () {
 
     for (i = 2; i < EIF.length; i += 2) {
 
-        console.log(EIF[i + 1].productName)
+        console.log(EIF)
 
         let orderStatus;
         switch (EIF[i - 2].subOrderStatus) {
@@ -72,11 +77,12 @@ const SubOrderBody = function () {
                 orderStatus = '已取消';
                 break;
         }
-
+        const imageElement = createImageURL(EIF[3].picture1)
+        console.log("picture1", EIF[3].picture1)
         html +=
             `<li class="order-item row">
                             <div class="col-sm-2">
-                                <img src="./image/product.svg" alt="">
+                                <img src="${imageElement}" alt="">
                             </div>
                             <div class=" col-sm-2">
                                 <p class="product-name">${EIF[i + 1].productName}</p>
@@ -132,7 +138,7 @@ const init = function () {
     const jsonData = JSON.stringify(searchdata);
 
     console.log(searchdata)
-    fetch('http://localhost:8080/Niigi/SupplierSubOrder', {
+    fetch('../SupplierSubOrder/init', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -142,6 +148,7 @@ const init = function () {
         console.log(data)
 
         data.forEach(element => {
+
             EIF = element;
             //待處理分頁
             if (element[0].subOrderStatus == 0) {
@@ -197,7 +204,7 @@ const search = function () {
     let searchwaycurrent = $(this).closest("div").find(".form-select").val();
     searchdata.searchway = searchwaycurrent;
 
-    fetch('http://localhost:8080/Niigi/SupplierGetSubOrderBySearch', {
+    fetch('../SupplierGetSubOrderBySearch', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -257,31 +264,31 @@ document.querySelectorAll(".clearSearch").forEach(function (e) {
 const cancelSubOrder = function () {
 
     const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
-    console.log(subOrderId)
-
-    // if (document.querySelector("button.confirmCancel")) {
-    //     fetch('http://localhost:8080/Niigi/SupplierSubOrder?subOrderId=' + subOrderId, {
-    //         method: 'PUT',
-    //         headers: {
-    //             'Content-type': 'application/json',
-    //         },
-    //         body: JSON.stringify(searchdata)
-    //     }).then(function () {
-    //         document.querySelector("button.confirmCancel").classList.remove("confirmCancel");
-    //     });
-    // }
+    console.log("subOrderId",subOrderId)
 
     async function updateSubOrder() {
         if (document.querySelector("button.confirmCancel") !== null) {
-            await fetch('http://localhost:8080/Niigi/SupplierSubOrder?subOrderId=' + subOrderId, {
-                method: 'PUT',
+            await fetch('../SupplierSubOrder/cnacelSubOrder', {
+                method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(searchdata)
+                body: subOrderId
             });
             document.querySelector("button.confirmCancel").classList.remove("confirmCancel");
             document.querySelector("#cancelOrderModal button.btn-close").click();
+            orderList.innerHTML = ""
+            orderList2.innerHTML = ""
+            orderList3.innerHTML = ""
+            orderList4.innerHTML = ""
+            orderList5.innerHTML = ""    
+            tab1Count = 0
+			tab2Count = 0
+			tab3Count = 0
+			tab4Count = 0
+			tab5Count = 0      
+            BodyHtml = null;
+            init();
         }
     }
 

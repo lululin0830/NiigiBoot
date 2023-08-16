@@ -1,4 +1,4 @@
-(() => {
+function init(){
     const changePasswordForm = document.getElementById('changePasswordForm');
     const memberId = document.querySelector('.memberId').textContent;
   
@@ -47,5 +47,7 @@
       document.getElementById('newPassword').value = '';
       document.getElementById('confirmPassword').value = '';
     }
-  })();
+  };
+  
+window.addEventListener("load",init)
   

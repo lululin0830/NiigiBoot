@@ -37,7 +37,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	// 修改
 	@Override
-	public Product update(Product newProduct) {
+	public Boolean update(Product newProduct) {
 		Product product = null;
 
 		try {
@@ -60,7 +60,7 @@ public class ProductDAOImpl implements ProductDAO {
 			if (productInfo != null && !productInfo.isBlank()) {
 				product.setProductInfo(productInfo);
 			}
-			return product;
+			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,12 +137,12 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public List<Product> findLatestProducts() throws Exception {
-		return session.createQuery("FROM Product ORDER BY firstOnShelvesDate", Product.class).getResultList();
+		return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY firstOnShelvesDate", Product.class).getResultList();
 	}
 
 	@Override
 	public List<Product> findMostExpensiveProduct() throws Exception {
-		return session.createQuery("FROM Product ORDER BY productPrice DESC", Product.class).getResultList();
+		return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY productPrice DESC", Product.class).getResultList();
 	}
 
 	@Override

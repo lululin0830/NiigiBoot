@@ -2,6 +2,11 @@ package tw.idv.tibame.orders.controller;
 
 import java.io.IOException;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -15,58 +20,37 @@ import tw.idv.tibame.core.util.CommonUtils;
 import tw.idv.tibame.orders.service.OrderService;
 import tw.idv.tibame.orders.service.impl.OrderServiceImpl;
 
+@RestController
+@RequestMapping("/SupplierSubOrder")
+public class SupplierGetSubOrder{
 
-@WebServlet("/SupplierSubOrder")
-public class SupplierGetSubOrder extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
 	private OrderService orderService;
 	private Gson gson;
 		
+	public SupplierGetSubOrder(OrderService orderService, Gson gson) {
+		super();
+		this.orderService = orderService;
+		this.gson = gson;
+	}
 	
-	@Override
-	public void init() throws ServletException {
-		orderService = CommonUtils.getBean(getServletContext(), OrderService.class);
-		gson = CommonUtils.getBean(getServletContext(), Gson.class);
-	};
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		response.setHeader("Access-Control-Allow-Origin", "*"); // 允許來自所有網域的請求
-		response.setHeader("Access-Control-Allow-Methods", "POST"); // 允許的 HTTP 方法
-		response.setHeader("Access-Control-Allow-Headers", "Content-Type"); // 允許的請求Header
-		response.setHeader("Access-Control-Allow-Credentials", "true"); // 是否允許帶有憑證的請求
-		response.setContentType("application/json; charset=utf-8");
+	@PostMapping("/init")
+	public String SupplierGetSubOrderInit(@RequestBody String data){
 		
-		JsonElement req = gson.fromJson(request.getReader(), JsonElement.class);
+		JsonElement req = gson.fromJson(data, JsonElement.class);
 		JsonObject reqjson = req.getAsJsonObject();
 		String supplierId = reqjson.get("supplierId").getAsString();
 		
-		response.getWriter().print(orderService.getSupplierSubOrderInit(supplierId));
+		return(orderService.getSupplierSubOrderInit(supplierId));
 
-	}
-	
-	@Override
-	protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setHeader("Access-Control-Allow-Origin", "*");
-		resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-		resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
-		resp.setHeader("Access-Control-Allow-Credentials", "true");
-		resp.setContentType("application/json; charset=utf-8");
-		resp.setStatus(HttpServletResponse.SC_OK);
-	}
-	
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setHeader("Access-Control-Allow-Origin", "*");
-		resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-		resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
-		resp.setHeader("Access-Control-Allow-Credentials", "true");
-		resp.setContentType("application/json; charset=utf-8");
-		String subOrderId = req.getParameter("subOrderId");
+	}	
+	@PostMapping("/cnacelSubOrder")
+	public String cnacelSubOrder(@RequestBody String data){
+		
+//		String subOrderId = dta.getParameter("subOrderId");
+		String subOrderId = data;
+		
 		System.out.println(subOrderId);
-		resp.getWriter().print(orderService.supplierSubOrderCancel(subOrderId));
+		return(orderService.supplierSubOrderCancel(subOrderId));
 		
 		
 	}
