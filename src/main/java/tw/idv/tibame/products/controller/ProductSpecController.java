@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import tw.idv.tibame.products.DTO.ProductSpecManageDTO;
+import tw.idv.tibame.products.entity.ProductSpec;
 import tw.idv.tibame.products.service.ProductSpecService;
 
 @RestController
@@ -199,5 +201,12 @@ public class ProductSpecController {
 		String specInfo2 = requestData.get("specInfo2");
 		return productSpecService.updateProductSpec(productSpecId, specType1, specInfo1, specType2, specInfo2);
 	}
+	
+	
+	@GetMapping("/AllSpecByProductID")
+	public List<ProductSpec> AllSpecByProductID(@RequestParam String productId) throws Exception {
+		return productSpecService.selectByProductId(Integer.parseInt(productId));
+	}
+	
 
 }

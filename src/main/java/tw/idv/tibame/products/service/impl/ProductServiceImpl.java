@@ -207,5 +207,25 @@ public class ProductServiceImpl implements ProductService {
 	public Integer getProductById(Integer productId, String registerSupplier) throws Exception {
 		return productDAO.selectByProductId(productId, registerSupplier);
 	}
+	
+
+	@Override
+	public Product getById(Integer productId) throws Exception {
+		return productDAO.selectById(productId);
+	}
+	
+	
+	// 修改商品資料(不含圖)
+	@Override
+	public Boolean updateProduct(Integer productId, String productName, String productInfo, String categorieId,
+			Integer productPrice) throws Exception {
+		Product product = new Product();
+		product.setProductId(productId);
+		product.setProductName(productName);
+		product.setProductInfo(productInfo);
+		product.setCategorieId(categorieId);
+		product.setProductPrice(productPrice);
+		return productDAO.update(product);
+	}
 
 }
