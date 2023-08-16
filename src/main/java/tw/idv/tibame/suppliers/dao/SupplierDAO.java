@@ -12,4 +12,6 @@ public interface SupplierDAO extends CoreDAO<Suppliers,String>{
 	public String getAllInit();
 	
 	Suppliers getShopVacation(String supplierId);
+	
+	public Suppliers selectBysupplierMemberAcct(String supplierMemberAcct);
 }
