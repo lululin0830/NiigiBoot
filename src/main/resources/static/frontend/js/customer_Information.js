@@ -29,7 +29,7 @@ function init() {
     const memberIdElement = document.querySelector('.memberId').innerText;
     console.log(memberIdElement)
 
-    fetch('http://localhost:8080/Niigi/member/selectId?memberId=' + `${memberId}` , {
+    fetch('../member/selectId?memberId=' + `${memberId}` , {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ function init() {
             formData.append('memPhoto', memPhoto);
         }
 
-        return fetch('http://localhost:8080/Niigi/member/update', {
+        return fetch('../member/update', {
             method: 'POST',
             body: formData
         });
