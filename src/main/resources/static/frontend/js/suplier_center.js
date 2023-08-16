@@ -19,6 +19,11 @@ const orderList4 = document.querySelector("#navs-top-complete>ul.order-list");
 //已取消分頁
 const orderList5 = document.querySelector("#navs-top-cancel>ul.order-list");
 
+function createImageURL(byteArray) {
+    const blob = new Blob([new Uint8Array(byteArray)], { type: 'image/jpeg' });
+    return URL.createObjectURL(blob);
+}
+
 let EIF = null;
 let BodyHtml = null;
 const SubOrderBody = function () {
@@ -48,7 +53,7 @@ const SubOrderBody = function () {
 
     for (i = 2; i < EIF.length; i += 2) {
 
-        console.log(EIF[i + 1].productName)
+        console.log(EIF)
 
         let orderStatus;
         switch (EIF[i - 2].subOrderStatus) {
@@ -72,11 +77,12 @@ const SubOrderBody = function () {
                 orderStatus = '已取消';
                 break;
         }
-
+        const imageElement = createImageURL(EIF[3].picture1)
+        console.log("picture1", EIF[3].picture1)
         html +=
             `<li class="order-item row">
                             <div class="col-sm-2">
-                                <img src="./image/product.svg" alt="">
+                                <img src="${imageElement}" alt="">
                             </div>
                             <div class=" col-sm-2">
                                 <p class="product-name">${EIF[i + 1].productName}</p>
@@ -142,6 +148,7 @@ const init = function () {
         console.log(data)
 
         data.forEach(element => {
+
             EIF = element;
             //待處理分頁
             if (element[0].subOrderStatus == 0) {

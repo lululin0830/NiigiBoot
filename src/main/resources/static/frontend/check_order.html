@@ -340,6 +340,10 @@
             color: black;
 
         }
+
+        /* iframe#allPayAPIBox {
+            height: 100vh;
+        } */
     </style>
 
 </head>
@@ -769,6 +773,7 @@
                             <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
                                 <!-- 分頁內容寫這 -->
                                 <ul id="orderListPay" class="order-list">
+                                    <section id="forwardPay"></section>
                                     //分頁產生內容區塊
                                 </ul>
                             </div>
@@ -831,16 +836,16 @@
                             <!-- 以下是彈窗們 -->
 
                             <!-- 去付款 -->
-                            <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
+                            <!-- <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content" id="ecpayBlock"> -->
+                            <!-- <div class="modal-header">
                                             <h4 class="modal-title col" id="checkoutModalLabel1">
                                                 去付款</h4>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <form action="" method="post"> <!--form的內容待補-->
+                                        <form action="" method="post">
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="col mb-3">
@@ -904,10 +909,10 @@
                                             </button>
                                             <button type="submit" class="btn btn-primary btn-M">付款
                                             </button>
-                                        </div>
-                                    </div>
+                                        </div> -->
+                            <!-- </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- 取消訂單 -->
                             <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-hidden="true">

@@ -33,7 +33,7 @@
             text-align: center;
         }
 
-        .main_list{
+        .main_list {
             padding: 0 0 0 14px;
         }
     </style>
@@ -195,7 +195,7 @@
                         <img src="../image/userheadshot.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">我是用戶名稱</a>
+                        <a href="#" class="d-block" id="userNameLink">我是用戶名稱</a>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->
@@ -392,6 +392,10 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a href="#" onclick="logout();" class="nav-link">
+                                <img src="../../frontend/image/Logout-a.svg" alt="">登出</a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -502,6 +506,8 @@
         <script src="../js/demo.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="../js/dashboard2.js"></script>
+
+        <script src="../js/token.js"></script>
 </body>
 
 <script>

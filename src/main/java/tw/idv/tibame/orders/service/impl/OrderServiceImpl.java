@@ -486,6 +486,19 @@ public class OrderServiceImpl implements OrderService {
 		subOrderDetailDAO.refundMark(refundSubOrderId, refundReason, refundMark);
 		return "評價成功";
 	}
+
+	@Override
+	public String mainOrderPaymentUpdate(String orderId) {
+		
+		MainOrder mainorder = new MainOrder();
+		mainorder.setOrderId(orderId);
+		mainorder.setPaymentStatus("1");
+		
+		mainOrderDAO.update(mainorder);
+		
+		return "成功啦";
+	}
+	
 	
 	
 	

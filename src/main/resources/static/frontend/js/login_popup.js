@@ -85,6 +85,7 @@ backToPreviousModalBtn4.addEventListener("click", function () {
         }).then(r => r.text())
             .then((jwtToken) => {
                 // 解析 JWT 令牌
+
                 try {
                     const decodedToken = parseJwt(jwtToken);
 
@@ -92,7 +93,6 @@ backToPreviousModalBtn4.addEventListener("click", function () {
                     setCookie('jwt', jwtToken, 24); // 1/24代表1小時，若要設定其他時間，可以調整這個數值
 
                     // 假設您的JWT存儲在名為"jwt"的Cookie中
-                    console.log(jwtToken);
 
                     // 登錄成功，執行跳轉操作
                     window.location.href = 'customer_Information.html';
@@ -103,6 +103,7 @@ backToPreviousModalBtn4.addEventListener("click", function () {
             })
             .catch((error) => {
                 // 登錄失敗，顯示錯誤訊息
+                console.log(error)
                 errMsg.textContent = '登錄失敗，請檢查帳號和密碼。';
             });
     });
