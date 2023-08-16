@@ -75,7 +75,7 @@ let memberId; let memberAcct;
 let isLoggedIn = false;
 
 /* 頁面初始化 */
-function init() {
+function loginCheck() {
 
 	fetch('../member/customerCenter', {
 		method: "POST",
@@ -244,7 +244,7 @@ function fontSizeAdjust(element) {
 /* ------------------------- 方法呼叫區 ------------------------- */
 if (jwtToken) {
 	
-	init();
+	loginCheck();
 } else if (loginRequired) {
 	
 	sessionStorage.setItem("loginRequired", "true");
