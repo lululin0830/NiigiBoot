@@ -138,7 +138,7 @@ const init = function () {
     const jsonData = JSON.stringify(searchdata);
 
     console.log(searchdata)
-    fetch('http://localhost:8080/Niigi/SupplierSubOrder', {
+    fetch('../SupplierSubOrder/init', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -204,7 +204,7 @@ const search = function () {
     let searchwaycurrent = $(this).closest("div").find(".form-select").val();
     searchdata.searchway = searchwaycurrent;
 
-    fetch('http://localhost:8080/Niigi/SupplierGetSubOrderBySearch', {
+    fetch('../SupplierGetSubOrderBySearch', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -264,31 +264,31 @@ document.querySelectorAll(".clearSearch").forEach(function (e) {
 const cancelSubOrder = function () {
 
     const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
-    console.log(subOrderId)
-
-    // if (document.querySelector("button.confirmCancel")) {
-    //     fetch('http://localhost:8080/Niigi/SupplierSubOrder?subOrderId=' + subOrderId, {
-    //         method: 'PUT',
-    //         headers: {
-    //             'Content-type': 'application/json',
-    //         },
-    //         body: JSON.stringify(searchdata)
-    //     }).then(function () {
-    //         document.querySelector("button.confirmCancel").classList.remove("confirmCancel");
-    //     });
-    // }
+    console.log("subOrderId",subOrderId)
 
     async function updateSubOrder() {
         if (document.querySelector("button.confirmCancel") !== null) {
-            await fetch('http://localhost:8080/Niigi/SupplierSubOrder?subOrderId=' + subOrderId, {
-                method: 'PUT',
+            await fetch('../SupplierSubOrder/cnacelSubOrder', {
+                method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(searchdata)
+                body: subOrderId
             });
             document.querySelector("button.confirmCancel").classList.remove("confirmCancel");
             document.querySelector("#cancelOrderModal button.btn-close").click();
+            orderList.innerHTML = ""
+            orderList2.innerHTML = ""
+            orderList3.innerHTML = ""
+            orderList4.innerHTML = ""
+            orderList5.innerHTML = ""    
+            tab1Count = 0
+			tab2Count = 0
+			tab3Count = 0
+			tab4Count = 0
+			tab5Count = 0      
+            BodyHtml = null;
+            init();
         }
     }
 
