@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import tw.idv.tibame.products.DTO.ProductSpecManageDTO;
 import tw.idv.tibame.products.dao.ProductDAO;
 import tw.idv.tibame.products.dao.ProductSpecDAO;
 import tw.idv.tibame.products.dao.ProductSpecRepository;
+import tw.idv.tibame.products.dto.ProductSpecManageDTO;
 import tw.idv.tibame.products.entity.ProductSpec;
 import tw.idv.tibame.products.service.ProductSpecService;
 import tw.idv.tibame.products.service.ShelvesStatusRecordService;

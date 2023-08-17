@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.idv.tibame.products.DTO.ProductSpecManageDTO;
 import tw.idv.tibame.products.dao.ProductSpecDAO;
 import tw.idv.tibame.products.dao.RestockRecordDAO;
+import tw.idv.tibame.products.dto.ProductSpecManageDTO;
 import tw.idv.tibame.products.entity.ProductSpec;
 import tw.idv.tibame.products.entity.RestockRecord;
 import tw.idv.tibame.products.service.RestockRecordService;
