@@ -455,4 +455,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		return cartDAO.hasExistsCart(memberId) ?  cartDAO.getCount(memberId) : 0;
 	}
 
+	
+	@Override
+	public void deleteCart(String memberId) {
+		
+		cartDAO.delete(memberId);
+	}
+
 }

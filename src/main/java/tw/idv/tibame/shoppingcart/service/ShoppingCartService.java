@@ -25,4 +25,6 @@ public interface ShoppingCartService {
 	
 	Long getCount(String memberId);
 	
+	void deleteCart(String memberId);
+	
 }
