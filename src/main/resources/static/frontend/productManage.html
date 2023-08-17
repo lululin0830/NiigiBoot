@@ -355,83 +355,13 @@
 			width: 180px;
 		}
 	</style>
-
+	<script>const loginRequired = true </script>
 </head>
 
 <body>
-	<!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
-	<header id="main-header" class="header">
+	<script src="./js/core_customer.js"></script>
 
-		<div class="container-sm">
-
-			<div class="header-top row">
-
-				<div class="col-sm-2">
-					<a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
-				</div>
-
-				<div class="col-sm-6">
-					<form action="" method="get" class="header-search row">
-						<input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
-							maxlength="50" value="">
-
-						<button type="submit" class="header-search-submit col-sm-1"><img
-								src="./image/search.svg"></button>
-					</form>
-
-					<div class="Search-hot ">
-						<a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
-						<a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
-					</div>
-
-				</div>
-
-				<nav class="fixed-nav col-sm-4">
-
-					<div class="fixed-nav-list login row">
-						<a href="" class="SCM-Center col">
-							<div class="SCM_icon">
-								<button class="btn_SCM-Center">商家中心</button>
-							</div>
-						</a>
-
-						<a href="" class="User-Center col">
-							<div class="User_icon">
-								<img src="./image/Profile.svg" alt="">
-							</div>
-						</a>
-
-						<a href="" class="Favorite col">
-							<div class="header_icon">
-								<img src="./image/heart.svg" alt="">
-								<span class="count -active">0</span>
-							</div>
-						</a>
-
-						<a href="" class="Shopping-Cart col">
-							<div class="header_icon">
-								<img src="./image/Buy.svg" alt="">
-								<span class="count -active">0</span>
-							</div>
-						</a>
-
-						<a href="" class="Notification col">
-							<div class="header_icon">
-								<img src="./image/Notification.svg" alt="">
-								<span class="count -active">0</span>
-							</div>
-						</a>
-
-					</div>
-
-				</nav>
-			</div>
-
-		</div>
-
-	</header>
-
-	<!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
+	<!-- -------------------------------- 以下是商品分類導覽列 勿動！！ -------------------------------- -->
 	<nav id="main-navigation" class="main-navigation">
 		<ul class="main-nav"> <!--主選單-->
 			<li
@@ -439,211 +369,66 @@
 				<div class="navigation_title navigation_title--bold navigation_title--salmon">
 					<span class="navigation_title-inner">主題活動</span>
 				</div>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('3C周邊')">
 					<span class="navigation_title-inner">3C周邊</span>
 				</a>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('家用電器')">
 					<span class="navigation_title-inner">家用電器</span>
 				</a>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-				<a class="navigation_title navigation_title--link" href="">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('美妝個清')">
 					<span class="navigation_title-inner">美妝個清</span>
 				</a>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-				<a class="navigation_title navigation_title--link" href="">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('流行服飾')">
 					<span class="navigation_title-inner">流行服飾</span>
 				</a>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-				<a class="navigation_title navigation_title--link" href="">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('鞋包配飾')">
 					<span class="navigation_title-inner">鞋包配飾</span>
 				</a>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-				<a class="navigation_title navigation_title--link" href="">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('母嬰用品')">
 					<span class="navigation_title-inner">母嬰用品</span>
 				</a>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('日用生活')">
 					<span class="navigation_title-inner">日用生活</span>
 				</a>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('圖書文具')">
 					<span class="navigation_title-inner">圖書文具</span>
 				</a>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="">
+				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+					onclick="passTextToNextPage('旅遊戶外')">
 					<span class="navigation_title-inner">旅遊戶外</span>
 				</a>
-
-				<div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-					<a class="" href="" title="">
-						<span class="link-text">AAA</span> <!--中分類-->
-					</a>
-
-					<ul> <!--小分類-->
-						<li>
-							<a class="" href="" title="">
-								<span class="link-text">aaa</span>
-							</a>
-						</li>
-
-					</ul>
-				</div>
 			</li>
 
 		</ul>
@@ -1116,35 +901,7 @@
 	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 	<script src="./vendors/bootstrap/bootstrap.bundle.min.js"></script>
 	<script>
-		// 獲取.member_account元素
-		var memberAccount = document.querySelector('.memberAccount');
 
-		// 獲取.member_account的文字內容
-		var textContent = memberAccount.textContent.trim();
-
-		// 計算文字內容的長度
-		var textLength = textContent.length;
-
-		// 設定字體大小變數
-		var fontSizeVar = '--font-size';
-
-		// 設定文字長度與字體大小的映射關係
-		var lengthToFontSize = {
-			5: '16px',
-			10: '14px',
-			15: '12px',
-			20: '10px',
-			25: '8px',
-			30: '6px',
-			35: '4px',
-			40: '2px'
-			// 根據需要添加更多的映射關係
-		};
-
-		// 檢查文字長度是否在映射表中，並設置對應的字體大小
-		if (lengthToFontSize.hasOwnProperty(textLength)) {
-			memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
-		}
 
 		//針對規格1、2、3、4的整理
 		function specTypeName(Str) {
@@ -1274,9 +1031,10 @@
 
 		//上傳輯編規格(圖)
 		function insertSpecImg(formDataSpecImg) {
-			fetch('http://localhost:8080/Niigi/uploadSpecPicture', {
+			fetch('../uploadSpecPicture', {
 				method: 'POST',
-				body: formDataSpecImg
+				body: formDataSpecImg,
+				headers: {'Authorization': ` Bearer ${jwtToken}`}
 			})
 				.then(response => {
 					if (response.ok) {
@@ -1293,11 +1051,12 @@
 
 		//上傳編輯規格(text)
 		function updateSpecProduct(dataToSend) {
-			fetch('http://localhost:8080/Niigi/updateSpecText', {
+			fetch('../updateSpecText', {
 				method: 'POST',
 				body: JSON.stringify(dataToSend),
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					'Authorization': ` Bearer ${jwtToken}`
 				}
 			})
 				.then((response) => {
@@ -1322,11 +1081,12 @@
 
 		//針對編輯商品查詢
 		function retrieveProduct(dataToSend) {
-			fetch('http://localhost:8080/Niigi/product/product-details', {
+			fetch('../product/product-details', {
 				method: 'POST',
 				body: JSON.stringify(dataToSend),
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					'Authorization': ` Bearer ${jwtToken}`
 				}
 			})
 				.then((response) => {
@@ -1348,7 +1108,7 @@
 						//console.log(dataToSend.productId);
 
 						// 導航至下一頁並傳遞數據
-						const nextPageUrl = "http://localhost:8080/Niigi/frontend/product_new.html"; // 請將URL替換為實際的下一頁URL
+						const nextPageUrl = "../frontend/product_new.html"; // 請將URL替換為實際的下一頁URL
 						const queryParams = `productId=${encodeURIComponent(dataToSend.productId)}`;
 						const finalUrl = `${nextPageUrl}?${queryParams}`;
 						window.location.href = finalUrl;
@@ -1381,11 +1141,12 @@
 
 			//////////////////////////////////////////////////////////////////
 			//一開始進入頁面時，分頁第一個要顯示的資料
-			fetch('http://localhost:8080/Niigi/AllProductSpecTotal', {
+			fetch('../AllProductSpecTotal', {
 				method: 'POST',
 				body: JSON.stringify({registerSupplier: registerSupplier}),
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					'Authorization': ` Bearer ${jwtToken}`
 				}
 			})
 				.then((response) => {
@@ -1406,11 +1167,12 @@
 
 
 
-			fetch('http://localhost:8080/Niigi/AllProductSpecManage', {
+			fetch('../AllProductSpecManage', {
 				method: 'POST',
 				body: JSON.stringify({registerSupplier: registerSupplier}),
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					'Authorization': ` Bearer ${jwtToken}`
 				}
 			})
 				.then((response) => {
@@ -1423,7 +1185,7 @@
 				})
 				.then((data) => {
 					let list_html = "";
-					//console.log(data);
+
 					data.forEach(function (productSpec) {
 						// 在這裡對每個產品進行處理
 						// 取得產品圖片的 Base64 字串
@@ -1505,11 +1267,12 @@
 				// 搜尋框有文字，可以進行搜尋
 				// 將 selectedOption 和 keyword 送往後端處理
 				//針對分頁搜尋tatal
-				fetch('http://localhost:8080/Niigi/AllSearchTotal', {
+				fetch('../AllSearchTotal', {
 					method: 'POST',
 					body: JSON.stringify({registerSupplier: registerSupplier, optionName: optionName, searchText: keyword}),
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': ` Bearer ${jwtToken}`
 					}
 				})
 					.then((response) => {
@@ -1529,11 +1292,12 @@
 					});
 
 				//針對分頁搜尋內容
-				fetch('http://localhost:8080/Niigi/AllSearch', {
+				fetch('../AllSearch', {
 					method: 'POST',
 					body: JSON.stringify({registerSupplier: registerSupplier, optionName: optionName, searchText: keyword}),
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': ` Bearer ${jwtToken}`
 					}
 				})
 					.then(response => {
@@ -1544,7 +1308,10 @@
 					})
 					.then(data => {
 						let list_html = "";
-						//console.log(data);
+
+						if (data.length === 0) {
+							$('#navs-top-home .tableTwo').html("<span style='font-size: 24px; text-align: center; display: block;margin-top:30px;'>很抱歉，查無資料</span>");
+						}
 						data.forEach(function (productSpec) {
 							// 在這裡對每個產品進行處理
 							// 取得產品圖片的 Base64 字串
@@ -1633,11 +1400,12 @@
 
 
 				//針對分頁tatal/
-				fetch(`http://localhost:8080/Niigi/${navsTopTotal(targetId)}`, {
+				fetch(`../${navsTopTotal(targetId)}`, {
 					method: 'POST',
 					body: JSON.stringify({registerSupplier: registerSupplier}),
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': ` Bearer ${jwtToken}`
 					}
 				})
 					.then((response) => {
@@ -1658,11 +1426,12 @@
 
 
 				//針對分頁內容
-				fetch(`http://localhost:8080/Niigi/${navsTopName(targetId)}`, {
+				fetch(`../${navsTopName(targetId)}`, {
 					method: 'POST',
 					body: JSON.stringify({registerSupplier: registerSupplier}),
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': ` Bearer ${jwtToken}`
 					}
 				})
 					.then((response) => {
@@ -1675,7 +1444,11 @@
 					})
 					.then((data) => {
 						let list_html = "";
-						//console.log(data);
+						//console.log(data.length);
+						if (data.length === 0) {
+							//console.log(data.length === 0);
+							$(`${targetId} .tableTwo`).html("<span style='font-size: 24px; text-align: center; display: block;margin-top:30px;'>無資料</span>");
+						}
 						data.forEach(function (productSpec) {
 							// 在這裡對每個產品進行處理
 							// 取得產品圖片的 Base64 字串
@@ -1759,11 +1532,12 @@
 					// 搜尋框有文字，可以進行搜尋
 					// 將 selectedOption 和 keyword 送往後端處理
 					//針對分頁搜尋tatal
-					fetch(`http://localhost:8080/Niigi/${navsTopSearchTotal(targetId)}`, {
+					fetch(`../${navsTopSearchTotal(targetId)}`, {
 						method: 'POST',
 						body: JSON.stringify({registerSupplier: registerSupplier, optionName: optionName, searchText: keyword}),
 						headers: {
-							'Content-Type': 'application/json'
+							'Content-Type': 'application/json',
+							'Authorization': ` Bearer ${jwtToken}`
 						}
 					})
 						.then((response) => {
@@ -1783,11 +1557,12 @@
 						});
 
 					//針對分頁搜尋內容
-					fetch(`http://localhost:8080/Niigi/${navsTopSearchName(targetId)}`, {
+					fetch(`../${navsTopSearchName(targetId)}`, {
 						method: 'POST',
 						body: JSON.stringify({registerSupplier: registerSupplier, optionName: optionName, searchText: keyword}),
 						headers: {
-							'Content-Type': 'application/json'
+							'Content-Type': 'application/json',
+							'Authorization': ` Bearer ${jwtToken}`
 						}
 					})
 						.then(response => {
@@ -1798,7 +1573,9 @@
 						})
 						.then(data => {
 							let list_html = "";
-							//console.log(data);
+							if (data.length === 0) {
+								$(`${targetId} .tableTwo`).html("<span style='font-size: 24px; text-align: center; display: block;margin-top:30px;'>很抱歉，查無資料</span>");
+							}
 							data.forEach(function (productSpec) {
 								// 在這裡對每個產品進行處理
 								// 取得產品圖片的 Base64 字串
@@ -1866,7 +1643,7 @@
 			const activeTab = $('.nav-link.active').attr('aria-controls');
 			//console.log(activeTab);
 			if ($('.stock_update_btn').hasClass('-on')) {
-				const restockMemberId = "M000000001";
+				//const restockMemberId = "M000000001";
 				// 修改選擇器，僅選擇目前處於 active 狀態的分頁內的複選框
 				var selectedCheckboxes = $(".selectRow:checked[data-page='#" + activeTab + "']");
 				// 取得目前所在分頁內的勾選的商品規格編號
@@ -1898,13 +1675,14 @@
 				}
 
 				// 將取得的商品規格編號轉換成 JSON 格式，以便送往後端
-				fetch('http://localhost:8080/Niigi/updateStock', {
+				fetch('../updateStock', {
 					method: 'POST', // 修改這裡為 'POST'
 					body: JSON.stringify({
-						productSpecIds: productSpecIds, restockMemberId: restockMemberId, beforeRestockStocks: beforeRestockStocks, restockQuantitys: restockQuantitys
+						productSpecIds: productSpecIds, restockMemberId: memberId, beforeRestockStocks: beforeRestockStocks, restockQuantitys: restockQuantitys
 					}),
 					headers: {
-						'Content-Type': 'application/json'
+						'Content-Type': 'application/json',
+						'Authorization': ` Bearer ${jwtToken}`
 					}
 				})
 					.then((response) => {
@@ -1959,9 +1737,13 @@
 				productSpecIds.push(productSpecId);
 			});
 
+			if (selectedCheckboxes.length === 0) {
+				alert("請勾選商品規格");
+				return;
+			}
 			console.log(productSpecIds);
 			//取得會員編號
-			const shelvesMemberId = "M000000001";
+			//const shelvesMemberId = "M000000001";
 			//取得異動狀態
 			let shelvesStatus;
 			if (activeTab == "navs-top-inprogress") {
@@ -1971,13 +1753,14 @@
 			}
 
 			// 將取得的商品規格編號轉換成 JSON 格式，以便送往後端
-			fetch('http://localhost:8080/Niigi/StatusButton', {
+			fetch('../StatusButton', {
 				method: 'POST', // 修改這裡為 'POST'
 				body: JSON.stringify({
-					productSpecIds: productSpecIds, shelvesMemberId: shelvesMemberId, shelvesStatus: shelvesStatus
+					productSpecIds: productSpecIds, shelvesMemberId: memberId, shelvesStatus: shelvesStatus
 				}),
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					'Authorization': ` Bearer ${jwtToken}`
 				}
 			})
 				.then((response) => {
@@ -2016,18 +1799,22 @@
 				productSpecIds.push(productSpecId);
 			});
 			//取得會員編號
-			const shelvesMemberId = "M000000001";
+			//const shelvesMemberId = "M000000001";
 			//取得異動狀態
 			let shelvesStatus = "2";
-
+			if (selectedCheckboxes.length === 0) {
+				alert("請勾選商品規格");
+				return;
+			}
 			// 將取得的商品規格編號轉換成 JSON 格式，以便送往後端
-			fetch('http://localhost:8080/Niigi/StatusButton', {
+			fetch('../StatusButton', {
 				method: 'POST', // 修改這裡為 'POST'
 				body: JSON.stringify({
-					productSpecIds: productSpecIds, shelvesMemberId: shelvesMemberId, shelvesStatus: shelvesStatus
+					productSpecIds: productSpecIds, shelvesMemberId: memberId, shelvesStatus: shelvesStatus
 				}),
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					'Authorization': ` Bearer ${jwtToken}`
 				}
 			})
 				.then((response) => {
