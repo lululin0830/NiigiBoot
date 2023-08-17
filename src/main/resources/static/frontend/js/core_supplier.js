@@ -45,12 +45,7 @@ let memberId; let memberAcct; let supplierId;
 
 let isLoggedIn = false;
 
-let promise = new Promise();
-
-function getPromise (){
-	
-	return promise;
-}
+const done = new CustomEvent("coreDone")
 
 
 /* 頁面初始化 */
@@ -121,30 +116,19 @@ function loginCheck() {
             }).then(function (resp) {
 
                 console.log(resp)
-
-
-
-                let data = resp.json();
-                data.then(function (step3) {
-
-                    supplierId = step3.userId;
-                    console.log(supplierId);
-                    showUserInfo();
-                    
-					
-
-                })
-
-
-
-
                 if (!resp.ok) {
                     return resp.text().then(function (errorMessage) {
                         throw new Error(errorMessage);
                     })
                 }
 
+                return resp.json();
 
+            }).then(function (data) {
+                supplierId = data.userId;
+                console.log(supplierId);
+                showUserInfo();
+                document.dispatchEvent(done)
             })
 
 
