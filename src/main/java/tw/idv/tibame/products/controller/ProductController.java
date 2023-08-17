@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import tw.idv.tibame.core.LoginRequired;
 import tw.idv.tibame.products.entity.Product;
 import tw.idv.tibame.products.service.ProductService;
 
@@ -28,6 +30,7 @@ public class ProductController {
 	@Autowired
 	private ProductService service;
 
+	
 	@GetMapping("/{productId}")
 	public ResponseEntity<String> productPageInit(@PathVariable Integer productId) {
 
@@ -42,16 +45,18 @@ public class ProductController {
 
 	}
 
-	@GetMapping("/products")
-	public List<Product> getAllFindLatestProducts() throws Exception {
+	@PostMapping("/products")
+	public List<Product> getAllFindLatestProducts(@RequestBody Map<String, String> requestData ) throws Exception {
 		System.out.println("into controller");
-		return service.getAllFindLatestProducts();
+		Integer num =Integer.parseInt(requestData.get("num"));
+		return service.getAllFindLatestProducts(num);
 	}
 
-	@GetMapping("/exproducts")
-	public List<Product> getAllExpensiveProducts() throws Exception {
+	@PostMapping("/exproducts")
+	public List<Product> getAllExpensiveProducts(@RequestBody Map<String, String> requestData) throws Exception {
 		System.out.println("into controller");
-		return service.getAllExpensiveProducts();
+		Integer num =Integer.parseInt(requestData.get("num"));
+		return service.getAllExpensiveProducts(num);
 	}
 
 	@GetMapping("/search")
@@ -68,11 +73,12 @@ public class ProductController {
 		// 回傳處理後的資料給前端
 		return ResponseEntity.ok(categorieProducts);
 	}
-
+	
+	@LoginRequired
 	@PostMapping("/upload")
-	public ResponseEntity<String> uploadImages(@RequestParam Integer productId, @RequestParam MultipartFile[] images) {
+	public ResponseEntity<String> uploadImages(@RequestParam Integer productId, @RequestParam MultipartFile[] images,@RequestParam List<Integer> imgName, @RequestHeader("Authorization") String jwtToken) {
 		try {
-			service.saveProductImages(productId, images);
+			service.saveProductImages(productId, images,imgName);
 
 			return ResponseEntity.status(HttpStatus.OK).body("上傳成功");
 
@@ -83,8 +89,9 @@ public class ProductController {
 		}
 	}
 
+	@LoginRequired
 	@PostMapping("/insertProduct")
-	public Integer createProduct(@RequestBody Map<String, String> requestData) throws Exception {
+	public Integer createProduct(@RequestBody Map<String, String> requestData, @RequestHeader("Authorization") String jwtToken) throws Exception {
 		String registerSupplier = requestData.get("registerSupplier");
 		String categorieId = requestData.get("categorieId");
 		String productName = requestData.get("productName");
@@ -94,21 +101,24 @@ public class ProductController {
 		return service.addProduct(registerSupplier, categorieId, productName, productPrice, productInfo, productStatus);
 	}
 
+	@LoginRequired
 	@PostMapping("/product-details")
-	public Integer getProductDetails(@RequestBody Map<String, String> requestData) throws Exception {
+	public Integer getProductDetails(@RequestBody Map<String, String> requestData, @RequestHeader("Authorization") String jwtToken) throws Exception {
 		Integer productId = Integer.parseInt(requestData.get("productId"));
 		String registerSupplier = requestData.get("registerSupplier");
 		return service.getProductById(productId, registerSupplier);
 	}
-
+	
+	@LoginRequired
 	@GetMapping("/retrieveProductText")
-	public Product retrieveProductById(@RequestParam String productId) throws Exception {
+	public Product retrieveProductById(@RequestParam String productId, @RequestHeader("Authorization") String jwtToken) throws Exception {
 		return service.getById(Integer.parseInt(productId));
 	}
 	
 	// 修改規格資料(不含圖)
+	@LoginRequired
 	@PostMapping("/updateProductText")
-	public Boolean updateProductText(@RequestBody Map<String, String> requestData) throws Exception {
+	public Boolean updateProductText(@RequestBody Map<String, String> requestData, @RequestHeader("Authorization") String jwtToken) throws Exception {
 		Integer productId = Integer.parseInt(requestData.get("productId"));
 		String productName = requestData.get("productName");
 		String productInfo = requestData.get("productInfo");
