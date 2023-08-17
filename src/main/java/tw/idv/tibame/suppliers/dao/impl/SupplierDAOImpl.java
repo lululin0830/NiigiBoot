@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -62,5 +63,16 @@ public class SupplierDAOImpl implements SupplierDAO {
 
 		return session.createQuery(hql, Suppliers.class).setParameter("supplierId", supplierId).uniqueResult();
 	}
+
+	@Override
+	public Suppliers selectBysupplierMemberAcct(String supplierMemberAcct) {
+
+		String hql = "FROM Suppliers WHERE supplierMemberAcct = :supplierMemberAcct";
+		Query<Suppliers>query = session.createQuery(hql,Suppliers.class);
+		query.setParameter("supplierMemberAcct", supplierMemberAcct);
+		return query.uniqueResult();
+	}
+	
+	
 
 }

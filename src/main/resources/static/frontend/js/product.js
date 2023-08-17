@@ -58,7 +58,7 @@ function showStock(element) {
 
 const init = function () {
 
-    fetch("http://localhost:8080/Niigi/product/" + productId)
+    fetch("../product/" + productId)
         .then(resp => {
             if (!resp.ok) {
                 throw new Error('系統繁忙中...請稍後再試');
@@ -342,21 +342,8 @@ function expandEventList() {
 };
 
 
-
-
-
-
-
-// 取出Cookie中指定名稱的值
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-const addToCart = function () {
-    console.log("Hi")
-    const jwtToken = getCookie('jwt')
+function addToCart () {
+	
     let productSpecIds = JSON.parse(sessionStorage.getItem("NiigiCart"))
     let productSpecId = document.querySelector("#specSelector").selectedOptions[0].value
     let count = document.querySelector("#quantity").value
@@ -371,9 +358,9 @@ const addToCart = function () {
         }
         sessionStorage.setItem("NiigiCart", JSON.stringify(productSpecIds));
 
-        // if (jwtToken) {
+         if (jwtToken) {
 
-        fetch("http://localhost:8080/Niigi/shoppingCart/add", {
+        fetch("../shoppingCart/add", {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json',
@@ -392,16 +379,17 @@ const addToCart = function () {
             return resp.text();
         }).then(msg => {
 
+
             alert(msg);
-            sessionStorage.removeItem("NiigiCart")
+            sessionStorage.removeItem("NiigiCart");
+            getCartCount();
         }).catch(error => alert(error))
 
 
-        // } else {
-
-
-
-        // }
+         } else{
+			 alert("已加入購物車");
+			 getCartCount();
+		 }
     } else {
         alert("請選擇商品規格")
     }

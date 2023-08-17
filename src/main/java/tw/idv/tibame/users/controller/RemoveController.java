@@ -43,14 +43,4 @@ public class RemoveController extends HttpServlet{
 		
 		resp.getWriter().write(jsonRespone);
 	}
-	@Override
-	protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setHeader("Access-Control-Allow-Origin", "*");
-		resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-		resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
-		resp.setHeader("Access-Control-Allow-Credentials", "true");
-		resp.setContentType("application/json; charset=utf-8");
-		resp.setStatus(HttpServletResponse.SC_OK);
-	}
-	
 }

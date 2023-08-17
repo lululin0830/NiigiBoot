@@ -13,7 +13,7 @@ document.getElementById('company-yzm_img').addEventListener('click', function(){
 });
 
 function changeYZM(img) {
-    fetch("http://localhost:8080/Niigi/generate-captcha")
+    fetch("/generate-captcha")
         .then(response => response.blob())
         .then(blob => {
             const imgUrl = URL.createObjectURL(blob);
@@ -42,7 +42,7 @@ document.getElementById('login').addEventListener('click', () => {
         return;
     }
 
-    fetch("http://localhost:8080/Niigi/check-captcha", {
+    fetch("/check-captcha", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -54,7 +54,7 @@ document.getElementById('login').addEventListener('click', () => {
     .then((response) => response.json())
     .then((data) => {
         if (data.valid) {
-            fetch('http://localhost:8080/Niigi/users/Login', {
+            fetch("/users/Login", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -66,7 +66,7 @@ document.getElementById('login').addEventListener('click', () => {
             .then((jwtToken) => {
                 try {
                     const decodedToken = parseJwt(jwtToken);
-                    setCookie('jwt', jwtToken, 1 / 24);
+                    setCookie('jwt', jwtToken, 24);
                     console.log(jwtToken);
                     window.location.href = 'User_Management.html';
                 } catch (error) {

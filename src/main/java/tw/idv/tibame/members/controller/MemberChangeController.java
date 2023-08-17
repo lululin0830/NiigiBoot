@@ -7,18 +7,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import tw.idv.tibame.core.LoginRequired;
 import tw.idv.tibame.members.dao.MemberDAO;
 import tw.idv.tibame.members.entity.Members;
 import tw.idv.tibame.members.service.MemberService;
 
 @RestController
 @RequestMapping("/member")
+@LoginRequired
 @CrossOrigin(origins = "*")
 public class MemberChangeController {
 	@Autowired
@@ -30,7 +33,7 @@ public class MemberChangeController {
 	// 更改密碼
 	@PostMapping("/changePassword")
 	public ResponseEntity<String> changePassword(@RequestParam String memberId, @RequestParam String oldPassword,
-			@RequestParam String newPassword) {
+			@RequestParam String newPassword , @RequestHeader("Authorization") String jwtToken){
 		boolean passwordChange = service.changePassword(memberId, oldPassword, newPassword);
 
 		if (passwordChange) {
@@ -42,7 +45,7 @@ public class MemberChangeController {
 
 	// 顯示個人資訊頁
 	@GetMapping("/selectId")
-	public ResponseEntity<Members> getMember(@RequestParam String memberId) {
+	public ResponseEntity<Members> getMember(@RequestParam String memberId , @RequestHeader("Authorization") String jwtToken) {
 		Members members = dao.selectOneByMemberId(memberId);
 		if (members != null) {
 			return ResponseEntity.ok(members);
@@ -58,7 +61,7 @@ public class MemberChangeController {
 	        @RequestParam(required = false) String name,
 	        @RequestParam(required = false) String phone,
 	        @RequestParam(required = false) String backupEmail,
-	        @RequestPart(required = false) MultipartFile memPhoto) throws IOException {
+	        @RequestPart(required = false) MultipartFile memPhoto, @RequestHeader("Authorization") String jwtToken)throws IOException {
 
 	    boolean updated = service.updateMember(memberId, name, phone, backupEmail,
 	            memPhoto != null ? memPhoto.getBytes() : null);

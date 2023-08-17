@@ -32,7 +32,8 @@ function init() {
     fetch('../member/selectId?memberId=' + `${memberId}` , {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
         }
     })
         .then(r => r.json())
@@ -103,7 +104,11 @@ function init() {
 
         return fetch('../member/update', {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+            'Authorization': `Bearer ${jwtToken}`
+        }
+            
         });
     };
 

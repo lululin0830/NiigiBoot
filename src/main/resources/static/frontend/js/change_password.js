@@ -20,10 +20,11 @@ function init(){
       }
 
       try {
-        const response = await fetch('http://localhost:8080/Niigi/member/changePassword', {
+        const response = await fetch('../member/changePassword', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Bearer ${jwtToken}`
           },
           body: `memberId=${encodeURIComponent(memberId)}&oldPassword=${encodeURIComponent(oldPassword)}&newPassword=${encodeURIComponent(newPassword)}`,
         });
