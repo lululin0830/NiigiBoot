@@ -246,9 +246,11 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 	public Integer getUpStatusCount(Integer productId) throws Exception {
 		List<ProductSpec> productSpec = productSpecDAO.selectByProductId(productId);
 		int c = 0;
+
 		for (ProductSpec p : productSpec) {
-			if (p.getShelvesStatus() == "0")
+			if (p.getShelvesStatus().equals("0")) {
 				c++;
+			}
 		}
 		return c;
 	}
@@ -268,7 +270,7 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 			for (int i = 0; i < productSpecIds.length; i++) {
 				Integer productId = Integer.parseInt(productSpecIds[i].substring(0, 8));
 				int a = getUpStatusCount(productId);
-				if (shelvesStatus == "0") {
+				if (shelvesStatus.equals("0")) {
 					if (a == 1)
 						productDAO.updateStatus(productId, shelvesStatus);
 				} else {
@@ -334,8 +336,8 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 		productSpec.setSpecInfo2(specInfo2);
 		return productSpecDAO.update(productSpec);
 	}
-	
-	//以productid查看所有規格
+
+	// 以productid查看所有規格
 	@Override
 	public List<ProductSpec> selectByProductId(Integer productId) throws Exception {
 		return productSpecDAO.selectByProductId(productId);
