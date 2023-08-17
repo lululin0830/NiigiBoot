@@ -324,18 +324,5 @@ document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
 })
 
 
-async function wakeup() {
-	
-	console.log("叫")
-    if (document.getElementById("supplierId").innerHTML !== "") {
-        await fetch('../supplier/wakeup', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: searchdata
-        });
-        init();
-    }
-}
+document.addEventListener("coreDone", init)
 
