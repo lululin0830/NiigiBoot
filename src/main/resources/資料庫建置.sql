@@ -314,7 +314,7 @@ CREATE TABLE Product (
   picture5 LONGBLOB comment '上傳圖片5',
   productStatus ENUM("0","1","2") not null comment '上架狀態：0 上架 , 1 下架 , 2 永久下架,',
   avgRating DECIMAL(2,1) comment '平均評價',
-  firstOnShelvesDate DATE comment '首次上架日期',
+  firstOnShelvesDate DATE DEFAULT (NOW()) comment '首次上架日期',
   constraint FK_Product_registerSupplier foreign key (registerSupplier) references Suppliers (supplierId),
   constraint FK_Product_categorieId foreign key (categorieId) references Categorie (categorieId)
 )auto_increment=10000001 comment '商品資料表';
@@ -717,7 +717,7 @@ CREATE TABLE ShelvesStatusRecord (
   productId INT not null comment '商品編號(外來鍵)',
   productSpecId CHAR(11) not null comment '商品規格編號(外來鍵)',
   shelvesMemberId  CHAR(10) not null comment '變更人(會員編號)(外來鍵)',
-  statusModify ENUM("0","1") not null comment ' 變更類型：0上架 、1下架',
+  statusModify ENUM("0","1","2") not null comment ' 變更類型：0上架 、1下架、2刪除',
   statusModifyTime TIMESTAMP default(NOW()) comment '變更日期',
   constraint FK_Shelves_statusRecordProductId foreign key (productId) references Product (productId),
   constraint FK_Shelves_statusRecordProductSpecId foreign key (productSpecId) references ProductSpec (productSpecId),
