@@ -27,8 +27,9 @@ public class ShoppingCartController {
 	@Autowired
 	Gson gson;
 	
+	@LoginRequired
 	@PutMapping("add")
-	public ResponseEntity<String> addToCart (@RequestBody String data){
+	public ResponseEntity<String> addToCart (@RequestBody String data, @RequestHeader("Authorization") String jwtToken){
 		
 		if(service.addToCart(gson.fromJson(data, JsonObject.class) )) {
 			return ResponseEntity.status(HttpStatus.OK).body("已加入購物車");
@@ -37,8 +38,9 @@ public class ShoppingCartController {
 		
 	}
 	
+	@LoginRequired
 	@PostMapping()
-	public ResponseEntity<String> initShoppingCart (@RequestBody String memberId) {
+	public ResponseEntity<String> initShoppingCart (@RequestBody String memberId, @RequestHeader("Authorization") String jwtToken) {
 		
 		System.out.println(memberId);
 		
@@ -57,4 +59,12 @@ public class ShoppingCartController {
 		
 		return service.removeFromCart(gson.fromJson(data, JsonObject.class) );
 	}
+	
+	@LoginRequired
+	@PostMapping("getCount")
+	public ResponseEntity<Long> getCount (@RequestBody String memberId, @RequestHeader("Authorization") String jwtToken) {
+
+		return ResponseEntity.status(HttpStatus.OK).body(service.getCount(memberId));
+	}
+	
 }
