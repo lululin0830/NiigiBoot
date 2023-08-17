@@ -254,9 +254,6 @@ public class OrderServiceImpl implements OrderService {
 			subOrderDetailDAO.insert(sodTemp);
 		}
 		
-		// 以上皆順利，則清空購物車
-		cartDAO.delete(memberId);
-
 		return true;
 
 	}

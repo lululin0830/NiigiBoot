@@ -1,13 +1,5 @@
-const memberId = 'M000000001';
 const shoppintList = document.querySelector("#shoppintList");
 const checkoutBox = document.querySelector("div.checkout");
-
-// 取出Cookie中指定名稱的值
-function getCookie(name) {
-	const value = `; ${document.cookie}`;
-	const parts = value.split(`; ${name}=`);
-	if (parts.length === 2) return parts.pop().split(';').shift();
-}
 
 const htmlBody = function(element) {
 
@@ -70,11 +62,8 @@ const gotoCheckOut = function() {
 
 const init = function() {
 
-	const jwtToken = getCookie('jwt')
 
-	// if (jwtToken) {
-
-	fetch("http://localhost:8080/Niigi/shoppingCart", {
+	fetch("/shoppingCart", {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
@@ -194,16 +183,7 @@ const init = function() {
 			checkoutBox.innerHTML = '';
 		}
 
-
-
 	}).catch(error => alert(error))
-
-
-	// } else {
-
-
-
-	// }
 
 
 }
@@ -213,9 +193,8 @@ const removeItem = function(element) {
 	const removedItem = element.closest("li.cart-item");
 	const productSpecId = removedItem.dataset.id;
 
-	const jwtToken = getCookie('jwt')
 
-	fetch('../shoppingCart/remove', {
+	fetch('/shoppingCart/remove', {
 		method: "PUT",
 		headers: {
 			'Content-type': 'application/json',
@@ -231,8 +210,9 @@ const removeItem = function(element) {
 		}
 
 		init();
+		getCartCount();
 	}).catch(error => alert(error))
 
 }
 
-init();
+window.addEventListener("load",init);
