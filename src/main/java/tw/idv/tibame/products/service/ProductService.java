@@ -9,15 +9,15 @@ import tw.idv.tibame.products.entity.Product;
 
 public interface ProductService {
 
-	public List<Product> getAllFindLatestProducts() throws Exception;
+	public List<Product> getAllFindLatestProducts(Integer num) throws Exception;
 
-	public List<Product> getAllExpensiveProducts() throws Exception;
+	public List<Product> getAllExpensiveProducts(Integer num) throws Exception;
 
 	public List<Product> getKeywordProducts(String keyword) throws Exception;
 
 	public List<Product> getCategorieProducts(String categorie) throws Exception;
 
-	public void saveProductImages(Integer productId, MultipartFile[] images) throws IOException;
+	public void saveProductImages(Integer productId, MultipartFile[] images,List<Integer> imgName) throws IOException;
 
 	public Integer addProduct(String registerSupplier, String categorieId, String productName, String productPrice,
 			String productInfo, String productStatus) throws Exception;

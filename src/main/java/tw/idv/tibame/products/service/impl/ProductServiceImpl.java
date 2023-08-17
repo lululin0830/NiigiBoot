@@ -135,17 +135,17 @@ public class ProductServiceImpl implements ProductService {
 		return gson.toJson(result);
 	}
 
-	public void saveProductImages(Integer productId, MultipartFile[] images) throws IOException {
+	public void saveProductImages(Integer productId, MultipartFile[] images, List<Integer> imgName) throws IOException {
 
 		Product product = productRepository.findById(productId).orElse(null);
 		if (product == null) {
 			throw new IllegalArgumentException("Product with ID " + productId + " not found.");
 		}
-
+		
 		for (int i = 0; i < images.length; i++) {
 			MultipartFile image = images[i];
 			byte[] imageData = image.getBytes();
-			switch (i) {
+			switch (imgName.get(i)) {
 			case 0:
 				product.setPicture1(imageData);
 				break;
@@ -168,14 +168,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getAllFindLatestProducts() throws Exception {
-		return productDAO.findLatestProducts();
+	public List<Product> getAllFindLatestProducts(Integer num) throws Exception {
+		return productDAO.findLatestProducts(num);
 
 	}
 
 	@Override
-	public List<Product> getAllExpensiveProducts() throws Exception {
-		return productDAO.findMostExpensiveProduct();
+	public List<Product> getAllExpensiveProducts(Integer num) throws Exception {
+		return productDAO.findMostExpensiveProduct(num);
 	}
 
 	@Override
