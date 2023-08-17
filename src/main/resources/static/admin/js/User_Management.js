@@ -7,7 +7,7 @@ const search = function () {
         searchway: document.getElementById("SearchSelect").value,
     })
 
-    fetch('http://localhost:8080/Niigi/UserController', {
+    fetch('/UserController', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ document.getElementById("search").addEventListener("click", search);
         // 	return;
         // }
         msg.textContent = '';
-        fetch('http://localhost:8080/Niigi/Register', {
+        fetch('/Register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ function removeUser(element) {
     console.log(userId)
 
     // 使用 Fetch API 來發送 POST 請求，進行會員刪除操作
-    fetch('http://localhost:8080/Niigi/Remove', {
+    fetch('/Remove', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('Current userId:', currentUserUserId);
         // console.log('Data to be sent:', data);
-        return fetch('http://localhost:8080/Niigi/user/update', {
+        return fetch('/user/update', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 顯示畫面
 const init = function () {
-    fetch('http://localhost:8080/Niigi/UserController', {
+    fetch('/UserController', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

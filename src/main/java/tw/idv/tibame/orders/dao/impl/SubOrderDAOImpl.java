@@ -141,10 +141,14 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 	@Override
 	public String supplierSubOrderCancel(String subOrderId) {
 
-		Query query = session.createQuery("update SubOrder SET subOrderStatus = '5' where subOrderId = :subOrderId");
+		Query<?>query = session.createQuery("update SubOrder SET subOrderStatus = '5' where subOrderId =  :subOrderId ");
 		query.setParameter("subOrderId", subOrderId);
-		query.executeUpdate();
-		System.out.println(subOrderId);
+		
+		
+		int i = query.executeUpdate();
+		System.out.println(i);
+		
+		System.out.println(subOrderId + "取消訂單成功");
 		return "取消訂單成功";
 	}
 

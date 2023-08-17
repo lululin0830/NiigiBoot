@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.idv.tibame.core.LoginRequired;
 import tw.idv.tibame.orders.service.EcpayService;
 
 @RestController
@@ -17,7 +18,8 @@ public class Ecpay {
 
 	@Autowired
 	EcpayService ecpayService;
-
+	
+	@LoginRequired
 	@PostMapping
 	public String ecpayCheck(@RequestBody String orderId) {
 
@@ -25,6 +27,7 @@ public class Ecpay {
 		return ecpCheck;
 	}
 	
+	//收綠界回傳
 	@PostMapping(path ="/paymentRuturn" , consumes = "application/x-www-form-urlencoded")
 	public int paymentReturn(
             @RequestParam(name = "CustomField1", required = false) String customField1,

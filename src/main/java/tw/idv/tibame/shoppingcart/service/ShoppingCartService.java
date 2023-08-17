@@ -23,5 +23,8 @@ public interface ShoppingCartService {
 	 */
 	ResponseEntity<String> removeFromCart(JsonObject data);
 	
+	Long getCount(String memberId);
+	
+	void deleteCart(String memberId);
 	
 }

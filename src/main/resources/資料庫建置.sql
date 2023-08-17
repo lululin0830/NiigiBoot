@@ -958,7 +958,7 @@ CREATE TABLE `SubOrder` (
   `recipient` VARCHAR(10) not null comment '收件人',
   `phoneNum` CHAR(12) not null comment '收件人電話',
   `deliveryAddress` VARCHAR(100) not null comment '配送地址',
-  `commentStatus` ENUM('0', '1')default('0') not null comment '評價狀態',
+  `commentStatus` ENUM('0', '1') default('0') comment '評價狀態',
   PRIMARY KEY (`suborderid`),
   CONSTRAINT FK_SubOrder_orderId foreign key (orderId) references MainOrder (orderId),
   CONSTRAINT FK_SubOrder_supplierId foreign key (supplierId) references Suppliers (supplierId),

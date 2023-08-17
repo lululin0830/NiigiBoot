@@ -102,6 +102,8 @@ function loginCheck() {
 
 		showHeader();
 		showUserInfo();
+		refreshCart();
+		getCartCount();
 
 	}).catch(function(error) {
 
@@ -147,7 +149,7 @@ function showHeader() {
 		html += `
 	 			<nav class="fixed-nav col-sm-4">
                     <div class="fixed-nav-list login row">
-                    	<a href="" class="SCM-Center col">
+                    	<a href="supplier_center.html" class="SCM-Center col">
                             <div class="SCM_icon">
                                 <button class="btn_SCM-Center">商家中心</button>
                             </div>
@@ -167,6 +169,7 @@ function showHeader() {
                         <a href="shopping_cart.html" class="Shopping-Cart col">
                             <div class="header_icon">
                                 <img src="./image/Buy.svg" alt="">
+                                <span class="count">0</span>
                             </div>
                         </a>
 
@@ -189,6 +192,7 @@ function showHeader() {
             <a href="shopping_cart.html" class="Shopping-Cart col">
                 <div class="header_icon">
                     <img src="./image/Buy.svg" alt="">
+                    <span class="count">0</span>
                 </div>
             </a>`;
 	}
@@ -240,25 +244,101 @@ function fontSizeAdjust(element) {
 	element.style.setProperty('--font-size', fontSize);
 }
 
+function refreshCart() {
+
+	let productSpecIds = JSON.parse(sessionStorage.getItem("NiigiCart"))
+
+	if (productSpecIds) {
+
+		fetch("../shoppingCart/add", {
+			method: 'PUT',
+			headers: {
+				'Content-type': 'application/json',
+				'Authorization': `Bearer ${jwtToken}`
+			},
+			body: JSON.stringify({
+				'memberId': memberId,
+				'productSpecIds': productSpecIds
+			})
+		}).then(function(resp) {
+			if (!resp.ok) {
+				throw new Error("系統繁忙中...請稍後再試")
+			}
+			sessionStorage.removeItem("NiigiCart")
+		}).catch(function(error) { alert(error) })
+
+	}
+}
+
+function getCartCount() {
+	let count = document.querySelector(".Shopping-Cart span.count")
+
+
+	if (isLoggedIn) {
+		fetch('../shoppingCart/getCount', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json',
+				'Authorization': `Bearer ${jwtToken}`
+			},
+			body: memberId
+		}).then(function(resp) {
+
+			if (!resp.ok) {
+				throw new Error("系統繁忙中...請稍後再試")
+			}
+
+			return resp.json();
+
+		}).then(function(data) {
+
+			console.log("count", data)
+
+			count.innerText = data
+			count.classList.add("-active")
+
+		}).catch(function(error) {
+
+		})
+	} else {
+
+		let productSpecIds = JSON.parse(sessionStorage.getItem("NiigiCart"))
+
+		if (productSpecIds) {
+
+			count.innerText = productSpecIds.length;
+			count.classList.add("-active")
+
+		}
+
+
+
+	}
+
+
+
+}
+
 
 /* ------------------------- 方法呼叫區 ------------------------- */
 if (jwtToken) {
-	
+
 	loginCheck();
 } else if (loginRequired) {
-	
+
 	sessionStorage.setItem("loginRequired", "true");
 	alert("請先登入")
 
 	if (document.referrer === '') { // 直接通過網址的請求，導回首頁
 		window.location.href = '/'
-		
+
 	} else {
 		history.back();
 	}
 
 } else {
 	showHeader();
+	getCartCount()
 }
 
 document.addEventListener('DOMContentLoaded', function() {

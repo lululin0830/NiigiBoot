@@ -3,7 +3,7 @@ document.write(`<script src="./vendors/jquery/jquery-3.7.0.min.js"></script>`)
 //先依照付款狀態reduce成兩組 0(待付款的)丟去跑迴圈新增至第一頁
 //第二組再reduce一次 丟去跑回圈新增至該去的分頁
 
-const memberId = document.querySelector('.memberId').innerHTML
+//const memberId = document.querySelector('.memberId').innerHTML
 
 //尚未付款分頁
 const mainorder1 = document.querySelector("#navs-top-home>ul.order-list")
@@ -489,6 +489,7 @@ const init = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
+			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: memberId
 	}).then(r => r.json()).then(data => {
@@ -573,7 +574,9 @@ const init = function () {
 	})
 	bodyHtml = null;
 }
-init();
+
+document.addEventListener("DOMContentLoaded",init)
+
 
 //查看訂單方法
 const checkOrderDetail = function () {
@@ -585,6 +588,7 @@ const checkOrderDetail = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
+			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: subOrderId
 	}).then(r => r.json()).then(data => {
@@ -628,6 +632,7 @@ const confirmReceipt = function () {
 				method: 'PATCH',
 				headers: {
 					'Content-type': 'application/json',
+					'Authorization': `Bearer ${jwtToken}`
 				},
 				body: subOrderId
 			});
@@ -657,6 +662,7 @@ const cancelMainOrder = function () {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/json',
+					'Authorization': `Bearer ${jwtToken}`
 				},
 				body: OrderId
 			})
@@ -694,6 +700,7 @@ const cancelSubOrder = function () {
 				method: 'POST',
 				headers: {
 					'Content-type': 'application/json',
+					'Authorization': `Bearer ${jwtToken}`
 				},
 				body: subOrderId
 			})
@@ -723,6 +730,7 @@ const subOrderDetailcomment = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
+			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: subOrderId
 	}).then(r => r.json()).then(data => {
@@ -779,6 +787,7 @@ const submitComment = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
+			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: JSON.stringify(updateCommentlist)
 	}).then(function (resp) {
@@ -811,6 +820,7 @@ const cancelProduct = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
+			
 		},
 		body: subOrderId
 	}).then(r => r.json()).then(data => {
@@ -839,6 +849,7 @@ const submitCancelProduct = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
+			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: JSON.stringify(refundData)
 	})
@@ -854,6 +865,7 @@ const goEcpay = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
+			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: orderId
 	}).then(response => response.text()).then(text => {
