@@ -6,15 +6,32 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.PersistenceContext;
+import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.events.entity.EventApplicableProducts;
 import tw.idv.tibame.events.entity.EventSingleThreshold;
 
 @Repository
-public class EventApplicableProductsDAOImpl {
+public class EventApplicableProductsDAOImpl implements CoreDAO<EventApplicableProducts,String>{
 
 	@PersistenceContext
 	Session session;
 
+	@Override
+	public Boolean insert(EventApplicableProducts entity) throws Exception {
+		session.persist(entity);
+		return true;
+	}
+	
+	@Override
+	public EventApplicableProducts selectById(String id) throws Exception {
+		return session.get(EventApplicableProducts.class, id);
+	}
+
+	@Override
+	public List<EventApplicableProducts> getAll() throws Exception {
+		return null;
+	}
+	
 	public List<Object[]> selectAllByProductId (Integer productId){
 		
 		String hql = "FROM EventApplicableProducts AS eap , EventSingleThreshold AS est "

@@ -289,17 +289,6 @@
             align-items: center;
             justify-content: center;
         }
-
-        #myTable {
-            border-collapse: collapse; /* 合併邊框 */
-            width: 100%;
-        }
-
-        #myTable th, #myTable td {
-            border: 1px solid black; /* 添加1px實線框線 */
-            padding: 8px; /* 添加內距 */
-            text-align: left;
-        }
     </style>
 
 </head>
@@ -707,39 +696,85 @@
                     <hr class="main-content-divider">
                 </div>
 
-                <div style="box-sizing: content-box;">
-                    date: <input id="StartDate" type="date" style="width: 120px; height: 30px; font-size: 16px;">
-                    <span style="font-size: 16px; box-sizing: border-box; width: 40px; margin: 5px;">~</span>
-                    date: <input id="EndDate" type="date" style="width: 120px; height: 30px; font-size: 16px;">
-                    <input id="Searchcase" type="text" style="width: 150px; height: 30px; font-size: 16px; margin: 5px;">
-                    <select style="width: 120px; height: 30px; font-size: 16px; margin: 5px;">
-                        <option>活動編號</option>
-                        <!-- <option value="product_id">商品編號</option> -->
-                    </select>
-                    <button type="button" id="search" class="btn btn-S btn-primary" style="margin: 5px; margin-bottom: 16px;">搜尋</button>
-                    <a href="./add_coupon.html">
-                        <button class="btn btn-M btn-primary" style="margin: 5px; margin-bottom: 16px;">新增折價券</button>
-                    </a>
-                    <a href="./add_event.html">
-                        <button class="btn btn-S btn-primary" style="margin: 5px; margin-bottom: 16px;">新增活動</button>
-                    </a>
-                       
-                </div>
-                <div>
-                    <table id="myTable">
-                        
-                        <thead>
-                            <th>活動編號</th>
-                            <th>活動名稱</th>
-                            <th>起始日</th>
-                            <th>結束日</th>
-                            <th>活動類型</th>
-                            <th>門檻類型</th>
-                        </thead>
-                        <tbody id="searchResult">
-                        </tbody>
-                    </table>
-                </div>
+                <div class="col-sm-10" style="font-size: 4rem; margin-left: 5rem;">新增活動</div>
+                <form>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">活動名稱:</label>
+                        <div class="col-sm-6 row">
+                          <input id="eventName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">活動說明:</label>
+                        <div class="col-sm-6 row">
+                          <input id="eventInfo" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">活動期間:</label>
+                        <div class="col-sm-2 row">
+                          <input id="StartDate" type="date" class="form-control">
+                        </div>
+                        <div class="col-sm-1 row justify-content-md-center" style="font-size: 3rem;">~</div>
+                        <div class="col-sm-2 row">
+                            <input id="EndDate" type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">活動類型:</label>
+                        <div class="col-sm-8 row">
+                            <select id="eventType" class="col-sm-2">
+                                <option value="3">折扣</option>
+                                <!-- <option value="4">贈品</option> -->
+                            </select>
+                            <button id="addGift" hidden class="btn btn_primary col-sm-4" style="border: 1px solid #B7DDE5;">+新增贈品</button>
+                            <div id="dis" class="col-sm-5 row">
+                                <select id="discount" class="col-sm-5">
+                                    <option value="discountRate">折扣折數</option>
+                                    <option value="discountAmount">折扣金額</option>
+                                </select>
+                                <input type="text" class="col-sm-6" id="discountRate">
+                                <div id="Rate" class="col-sm-1 row" style="font-size: 2rem;">折</div>
+                                <input type="text" class="col-sm-6" id="discountAmount" hidden>
+                                <div id="Amount" class="col-sm-1 row" style="font-size: 2rem;" hidden>元</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">門檻類型:</label>
+                        <div class="col-sm-2 row">
+                            <select id="thresholdType" class="col-sm-9">
+                                <option value="1">滿額</option>
+                                <option value="2">滿件</option>
+                                <option value="3">滿件且滿額</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 row">
+                            <div class="col-sm-1" style="font-size: 2rem;" id="t11" hidden>滿</div>
+                            <input type="text" class="col-sm-3" id="minPurchaseQuantity" hidden>
+                            <div class="col-sm-1 row" style="font-size: 2rem;" id="t12" hidden>件</div>
+                            <div class="col-sm-1 row" style="font-size: 2rem;" id="t13" hidden>,</div>
+                            <div class="col-sm-1 row" style="font-size: 2rem;" id="t21">滿</div>
+                            <input type="text" class="col-sm-3" id="minPurchaseAmount">
+                            <div class="col-sm-1 row" style="font-size: 2rem;" id="t22">元</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">適用商品:</label>
+                        <div class="col-sm-2 row">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <div class="SCM_icon">
+                                    <button id="addProduct" class="btn btn_primary col-sm-12" style="border: 1px solid #B7DDE5;">+新增商品</button>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-5"></div>
+                        <button id="send" type="button" class="btn col-sm-2" style="background-color: rgba(183, 221, 229, 0.90);">送出</button>
+                        <div class="col-sm-5"></div>
+                    </div>
+                </form>
                 
             </main>
             
@@ -1060,7 +1095,7 @@
             memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
         } 
     </script>
-    <script src="./js/event_management.js"></script>
+    <script src="./js/add_event.js"></script>
 </body>
 
 </html>
