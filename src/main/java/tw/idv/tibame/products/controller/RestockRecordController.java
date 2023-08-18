@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tw.idv.tibame.core.LoginRequired;
 import tw.idv.tibame.products.dto.ProductSpecManageDTO;
+import tw.idv.tibame.products.entity.RestockRecord;
+import tw.idv.tibame.products.entity.ShelvesStatusRecord;
 import tw.idv.tibame.products.service.RestockRecordService;
 
 @RestController
@@ -53,5 +56,20 @@ public class RestockRecordController {
 		return restockRecordService.updateStockButton(productSpecIds,restockMemberId,beforeRestockStocks,restockQuantitys);
 //        return null;
 	}
+	
+	@GetMapping("/getAllRestockRecord")
+	public List<RestockRecord> getAllShelvesStatusRecord()throws Exception {
+		return restockRecordService.getAllRestockRecord();
+	}
+	
+	@PostMapping("/CompositeQueryRestockRecord")
+	public List<RestockRecord> SearchComposite(@RequestBody Map<String, String> requestData)throws Exception{
+	    String searchValue = requestData.get("searchValue");
+	    String selectValue = requestData.get("selectValue");
+	    String startDate = requestData.get("startDate");
+	    String endDate = requestData.get("endDate");
+		return restockRecordService.IntegratedSearchController(searchValue,selectValue,startDate,endDate);
+	}
+	
 
 }

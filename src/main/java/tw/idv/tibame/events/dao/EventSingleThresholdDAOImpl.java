@@ -1,23 +1,41 @@
 package tw.idv.tibame.events.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.google.gson.Gson;
 
 import jakarta.persistence.PersistenceContext;
 import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.events.entity.EventSingleThreshold;
 
+
 @Repository
-public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold, String> {
+public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold,String> {
 
 	@PersistenceContext
-	Session session;
+	Session session;	
+	@Autowired
+	private Gson gson;
 
 	@Override
 	public Boolean insert(EventSingleThreshold entity) throws Exception {
-		return null;
+		session.persist(entity);
+		return true;
+	}
+	
+	public String selectLastOrder() {
+		String sql = "SELECT eventId FROM EventSingleThreshold ORDER BY eventId DESC";
+
+		NativeQuery<String> nativeQuery = session.createNativeQuery(sql, String.class).setFirstResult(0)
+				.setMaxResults(1);
+
+		return nativeQuery.uniqueResult();
 	}
 
 	@Override
@@ -73,6 +91,30 @@ public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold
 		return session.createQuery(hql, EventSingleThreshold.class).setParameter("productId", productId)
 				.getResultList();
 
+	}
+
+	public String getAllInit() {
+		String result = gson.toJson(session.createQuery("FROM EventSingleThreshold", EventSingleThreshold.class).getResultList());
+		return result;
+	}
+
+
+	public String getAllBySearch(String searchCase, String searchSelect, Timestamp startDate, Timestamp closeDate) {
+
+		String hql = "FROM EventSingleThreshold " +
+	             "WHERE " + searchSelect + " LIKE '%" + searchCase + "%' " +
+	             "AND (eventStart BETWEEN '" + startDate + "' AND '" + closeDate + "') " +
+	             "AND (eventEnd BETWEEN '" + startDate + "' AND '" + closeDate + "')";
+		return gson.toJson(session.createQuery(hql, EventSingleThreshold.class).getResultList());
+	}
+	
+	public String getAllBySearchSupplier(String searchCase, String searchSelect, Timestamp startDate, Timestamp closeDate, String RegisterSupplier) {
+	    String hql = "FROM EventSingleThreshold " +
+	                 "WHERE " + searchSelect + " LIKE '%" + searchCase + "%' " +
+	                 "AND (eventStart BETWEEN '" + startDate + "' AND '" + closeDate + "') " +
+	                 "AND (eventEnd BETWEEN '" + startDate + "' AND '" + closeDate + "') " +
+	                 "AND (eventRegisterSupplier = '" + RegisterSupplier + "')";
+	    return gson.toJson(session.createQuery(hql, EventSingleThreshold.class).getResultList());
 	}
 
 }
