@@ -2,7 +2,7 @@ package tw.idv.tibame.products.service;
 
 import java.util.List;
 
-import tw.idv.tibame.products.dto.ProductSpecManageDTO;
+import tw.idv.tibame.products.dto1.ProductSpecManageDTO;
 import tw.idv.tibame.products.entity.RestockRecord;
 
 public interface RestockRecordService {

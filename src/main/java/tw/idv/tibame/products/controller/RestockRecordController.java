@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.idv.tibame.core.LoginRequired;
-import tw.idv.tibame.products.dto.ProductSpecManageDTO;
+import tw.idv.tibame.products.dto1.ProductSpecManageDTO;
 import tw.idv.tibame.products.entity.RestockRecord;
 import tw.idv.tibame.products.entity.ShelvesStatusRecord;
 import tw.idv.tibame.products.service.RestockRecordService;
