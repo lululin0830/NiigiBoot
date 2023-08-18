@@ -215,4 +215,4 @@ const removeItem = function(element) {
 
 }
 
-window.addEventListener("load",init);
+document.addEventListener("coreDone",init);

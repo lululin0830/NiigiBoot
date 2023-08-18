@@ -319,11 +319,12 @@ const init = function () {
 
             shopInfoBody += `</div>`;
             shopInfoBox.innerHTML = shopInfoBody;
+            getCartCount();
         })
 
 }
 
-window.addEventListener("coreDone",init);
+init();
 
 // 展開優惠活動
 

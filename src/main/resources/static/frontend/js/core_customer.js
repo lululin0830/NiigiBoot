@@ -300,6 +300,9 @@ function getCartCount() {
 			if (data > 0) {
 				count.innerText = data
 				count.classList.add("-active")
+			}else{
+				count.innerText = data
+				count.classList.remove("-active")
 			}
 
 
