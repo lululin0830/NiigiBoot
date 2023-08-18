@@ -10,6 +10,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import tw.idv.tibame.products.dao.RestockRecordDAO;
 import tw.idv.tibame.products.entity.RestockRecord;
+import tw.idv.tibame.products.entity.ShelvesStatusRecord;
 
 @Repository
 public class RestockRecordDAOImpl implements RestockRecordDAO {
@@ -58,50 +59,86 @@ public class RestockRecordDAOImpl implements RestockRecordDAO {
 		return nativeQuery.getResultList();
 	}
 
-	// 以補貨日期查詢
+	// 綜合查詢中的日期查詢
 	@Override
-	public List<RestockRecord> selectByDate(String beforeDate, String afterDate) throws Exception {
+	public List<RestockRecord> selectByDate(String startDate, String endDate) throws Exception {
 		String sql = "";
-		if (beforeDate.isBlank()) {
-			sql = "SELECT * FROM RestockRecord WHERE restockDate <= '" + afterDate + "';";
-		} else if (afterDate.isBlank()) {
-			sql = "SELECT * FROM RestockRecord WHERE restockDate >= '" + beforeDate + "';";
+		if (startDate.isBlank()) {
+			sql = "SELECT * FROM RestockRecord WHERE restockDate <= '" + endDate + "';";
+		} else if (endDate.isBlank()) {
+			sql = "SELECT * FROM RestockRecord WHERE restockDate >= '" + startDate + "';";
 		} else {
-			sql = "SELECT * FROM RestockRecord WHERE restockDate BETWEEN '" + beforeDate + "' AND '" + afterDate + "';";
+			sql = "SELECT * FROM RestockRecord WHERE restockDate BETWEEN '" + startDate + "' AND '" + endDate + "';";
 		}
 		NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
 		return nativeQuery.getResultList();
 	}
-	
-	//綜合查詢
-	public List<RestockRecord> selectAll(String optionName,String inputText,String beforeDate,String afterDate) throws Exception{
-		String sql="";
-		if(optionName == "商品編號") {
-			int productId = Integer.parseInt(inputText);
-			if (beforeDate.isBlank()) {
-				sql = "SELECT * FROM RestockRecord WHERE (productId LIKE '%" + productId + "%') and (restockDate <= '" + afterDate + "');";
-			} else if (afterDate.isBlank()) {
-				sql = "SELECT * FROM RestockRecord WHERE (productId LIKE '%" + productId + "%') and (restockDate >= '" + beforeDate + "');";
-			} else {
-				sql = "SELECT * FROM RestockRecord WHERE (productId LIKE '%" + productId + "%') and (restockDate BETWEEN '" + beforeDate + "' AND '" + afterDate + "');";
-			}
-			
-		}else if(optionName == "規格編號") {
-			
-			if (beforeDate.isBlank()) {
-				sql = "SELECT * FROM RestockRecord WHERE (productSpecId LIKE '%" + inputText + "%') and (restockDate <= '" + afterDate + "');";
-			} else if (afterDate.isBlank()) {
-				sql = "SELECT * FROM RestockRecord WHERE (productSpecId LIKE '%" + inputText + "%') and (restockDate >= '" + beforeDate + "');";
-			} else {
-				sql = "SELECT * FROM RestockRecord WHERE (productSpecId LIKE '%" + inputText + "%') and (restockDate BETWEEN '" + beforeDate + "' AND '" + afterDate + "');";
-			}
-			
+
+	// 綜合查詢中的select的條件查詢
+	@Override
+	public List<RestockRecord> selectByOptionValue(String searchValue, String selectValue) throws Exception {
+		String sql = "";
+		if (selectValue.equals("restockId")) {
+			sql = "select * from RestockRecord where restockId LIKE '%" + searchValue + "%';";
+			NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
+			return nativeQuery.getResultList();
+		} else if (selectValue.equals("productId")) {
+			sql = "select * from RestockRecord where productId =" + searchValue + ";";
+			NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
+			return nativeQuery.getResultList();
+		} else {
+			sql = "select * from RestockRecord where restockMemberId = :searchValue";
+			NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
+			nativeQuery.setParameter("searchValue", searchValue);
+			return nativeQuery.getResultList();
 		}
-		NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
-		return nativeQuery.getResultList();
+
 	}
-	
-	
-	
+
+	// 綜合查詢(日期+select)
+	@Override
+	public List<RestockRecord> selectByOptionValueDate(String searchValue, String selectValue, String startDate,
+			String endDate) throws Exception {
+		String sql = "";
+		if (selectValue.equals("restockId")) {
+			if (startDate.isBlank()) {
+				sql = "select * from RestockRecord where restockId LIKE '%" + searchValue + "%' and restockDate <= '" + endDate + "';";
+			} else if (endDate.isBlank()) {
+				sql = "select * from RestockRecord where restockId LIKE '%" + searchValue + "%' and restockDate >= '" + startDate + "';";
+			} else {
+				sql = "select * from RestockRecord where restockId LIKE '%" + searchValue + "%' and restockDate BETWEEN '" + startDate + "' AND '" + endDate + "';";
+			}
+			NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
+			return nativeQuery.getResultList();
+		} else if (selectValue.equals("productId")) {
+			if (startDate.isBlank()) {
+				sql = "select * from RestockRecord where productId =" + searchValue + " and restockDate <= '" + endDate + "';";
+			} else if (endDate.isBlank()) {
+				sql = "select * from RestockRecord where productId =" + searchValue + " and restockDate >= '" + startDate + "';";
+			} else {
+				sql = "select * from RestockRecord where productId =" + searchValue + " and restockDate BETWEEN '" + startDate + "' AND '" + endDate + "';";
+			}
+			NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
+			return nativeQuery.getResultList();
+		} else {
+			if (startDate.isBlank()) {
+				sql = "SELECT * FROM RestockRecord WHERE restockMemberId = :searchValue and restockDate <= '" + endDate + "';";
+				NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
+				nativeQuery.setParameter("searchValue", searchValue);
+				return nativeQuery.getResultList();
+			} else if (endDate.isBlank()) {
+				sql = "SELECT * FROM RestockRecord WHERE restockMemberId = :searchValue and restockDate >= '" + startDate + "';";
+				NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
+				nativeQuery.setParameter("searchValue", searchValue);
+				return nativeQuery.getResultList();
+			} else {
+				sql = "SELECT * FROM RestockRecord WHERE restockMemberId = :searchValue and restockDate BETWEEN '" + startDate + "' AND '" + endDate + "';";
+				NativeQuery<RestockRecord> nativeQuery = session.createNativeQuery(sql, RestockRecord.class);
+				nativeQuery.setParameter("searchValue", searchValue);
+				return nativeQuery.getResultList();
+			}
+
+		}
+	}
 
 }
