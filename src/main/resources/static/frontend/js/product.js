@@ -323,7 +323,7 @@ const init = function () {
 
 }
 
-init();
+window.addEventListener("coreDone",init);
 
 // 展開優惠活動
 

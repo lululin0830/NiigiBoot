@@ -74,6 +74,8 @@ let memberId; let memberAcct;
 
 let isLoggedIn = false;
 
+const done = new CustomEvent("coreDone")
+
 /* 頁面初始化 */
 function loginCheck() {
 
@@ -104,6 +106,7 @@ function loginCheck() {
 		showUserInfo();
 		refreshCart();
 		getCartCount();
+		document.dispatchEvent(done);
 
 	}).catch(function(error) {
 
@@ -294,8 +297,11 @@ function getCartCount() {
 
 			console.log("count", data)
 
-			count.innerText = data
-			count.classList.add("-active")
+			if (data > 0) {
+				count.innerText = data
+				count.classList.add("-active")
+			}
+
 
 		}).catch(function(error) {
 
@@ -324,6 +330,7 @@ function getCartCount() {
 if (jwtToken) {
 
 	loginCheck();
+
 } else if (loginRequired) {
 
 	sessionStorage.setItem("loginRequired", "true");
