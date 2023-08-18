@@ -3,6 +3,7 @@ package tw.idv.tibame.members.service.impl;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -130,7 +131,7 @@ public class MemberServiceImpl implements MemberService {
 		if (!encryptedPassword.equals(storedEncryptedPassword)) {
 			return "密碼錯誤";
 		}
-		
+
 		member = memberDAO.selectOneByMemberAcct(memberAcct);
 
 		return JwtUtil.generateJwtToken(member.getMemberId(), memberAcct);
@@ -232,18 +233,27 @@ public class MemberServiceImpl implements MemberService {
 		Members members = memberDAO.selectOneByMemberId(memberId);
 
 		if (members == null) {
+			return false;
 		} else {
-
 			boolean updated = false;
-			if (name != null) {
+
+			if (name.equals(members.getName()) && phone.equals(members.getPhone())
+					&& backupEmail.equals(members.getBackupEmail()) && Arrays.equals(memPhoto, members.getMemPhoto())
+					&& memPhoto == null) {
+				return false; // All conditions are equal and memPhoto is null
+			}
+
+			if (name != null && !name.equals(members.getName())) {
 				members.setName(name);
 				updated = true;
 			}
-			if (phone != null && isValidPhoneNumber(phone)) {
+
+			if (phone != null && isValidPhoneNumber(phone) && !phone.equals(members.getPhone())) {
 				members.setPhone(phone);
 				updated = true;
 			}
-			if (backupEmail != null && isValidEmail(backupEmail)) {
+
+			if (backupEmail != null && isValidEmail(backupEmail) && !backupEmail.equals(members.getBackupEmail())) {
 				if (members.getBackupEmail() == null) {
 					members.setBackupEmail(backupEmail);
 				} else {
@@ -251,6 +261,7 @@ public class MemberServiceImpl implements MemberService {
 				}
 				updated = true;
 			}
+
 			if (memPhoto != null) {
 				if (members.getMemPhoto() == null) {
 					members.setMemPhoto(memPhoto);
@@ -262,9 +273,10 @@ public class MemberServiceImpl implements MemberService {
 			if (updated) {
 				memberDAO.update(members);
 				return true;
+			} else {
+				return false;
 			}
 		}
-		return false;
 	}
 
 	private boolean isValidPhoneNumber(String phoneNumber) {
@@ -282,19 +294,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ResponseEntity<String> showAsideInfo(String jwtToken) {
 
-		if(jwtToken.isBlank()) {
-			
+		if (jwtToken.isBlank()) {
+
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"User not logged in\"}");
 		}
-		
+
 		Map<String, String> result = JwtUtil.validateJwtTokenAndSendInfo(jwtToken);
-		
-		if(result.get("error")!= null) {
-			
+
+		if (result.get("error") != null) {
+
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.get("error"));
 		}
-		
-		
+
 		return ResponseEntity.ok(gson.toJson(result));
 	}
 }

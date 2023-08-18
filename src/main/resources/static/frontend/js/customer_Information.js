@@ -127,6 +127,7 @@ function init() {
                     alert("儲存成功");
                     location.reload(); // 重新載入頁面
                 } else {
+                    alert("修改失敗");
                 }
             })
             .catch(error => {
