@@ -463,7 +463,7 @@
 							<img src="../frontend/image/DocumentAsh.svg" alt="">
 							<img src="../frontend/image/DocumentAsh-a.svg" alt="">訂單狀態</a>
 					</li>
-					<li>
+					<li class="active">
 						<a href="#">
 							<img src="../frontend/image/Edit.svg" alt="">
 							<img src="../frontend/image/Edit.svg" alt="">商品管理</a>
@@ -478,7 +478,7 @@
 							<img src="../frontend/image/Shield Done.svg" alt="">
 							<img src="../frontend/image/Shield Done.svg" alt="">廣告管理</a>
 					</li>
-					<li class="active">
+					<li>
 						<a href="#">
 							<img src="../frontend/image/Wallet.svg" alt="">
 							<img src="../frontend/image/Wallet-a.svg" alt="">財務管理</a>
@@ -526,9 +526,9 @@
 			<main class="member-check-order col-sm-10">
 				<div class="main-content-header row">
 					<div class="main-content-icon col-sm-1">
-						<img calss="main-content-icon" src="./image/Document.svg">
+						<img calss="main-content-icon" src="./image/productManage.svg">
 					</div>
-					<h1 class="main-content-title col-sm-10">我的訂單</h1>
+					<h1 class="main-content-title col-sm-10">商品管理</h1>
 					<hr class="main-content-divider">
 				</div>
 
@@ -588,10 +588,10 @@
 													<input class="search-KeyWord" type="text" placeholder="Search">
 												</div>
 											</th>
-											<th><button class="Search_btn" type="submit">搜尋</button></th>
-											<th><button class="product_edit_btn" type="submit">輯編商品</button></th>
+											<th><button class="btn btn-outline-secondary Search_btn" type="submit">搜尋</button></th>
+											<th><button class="btn btn-outline-secondary product_edit_btn" type="submit">編輯商品</button></th>
 											<th>
-												<a href="product_new.html"><button class="product_new"
+												<a href="product_new.html"><button class="btn btn-outline-secondary product_new"
 														type="submit">新增商品</button></a>
 											</th>
 
@@ -641,9 +641,9 @@
 													<input class="search-KeyWord" type="text" placeholder="Search">
 												</div>
 											</th>
-											<th><button class="Search_btn" type="submit">搜尋</button></th>
-											<th><button class="status_btn" type="submit">下架</button></th>
-											<th><button class="stock_update_btn" type="submit">庫存異動</button></th>
+											<th><button class="btn btn-outline-secondary Search_btn" type="submit">搜尋</button></th>
+											<th><button class="btn btn-outline-secondary status_btn" type="submit">下架</button></th>
+											<th><button class="btn btn-outline-secondary stock_update_btn" type="submit">庫存異動</button></th>
 										</tr>
 									</thead>
 
@@ -690,9 +690,9 @@
 													<input class="search-KeyWord" type="text" placeholder="Search">
 												</div>
 											</th>
-											<th><button class="Search_btn" type="submit">搜尋</button></th>
-											<th><button class="status_btn" type="submit">上架</button></th>
-											<th><button class="delete_btn" type="submit">刪除</button></th>
+											<th><button class="btn btn-outline-secondary Search_btn" type="submit">搜尋</button></th>
+											<th><button class="btn btn-outline-secondary status_btn" type="submit">上架</button></th>
+											<th><button class="btn btn-outline-secondary delete_btn" type="submit">刪除</button></th>
 										</tr>
 									</thead>
 
@@ -738,8 +738,8 @@
 													<input class="search-KeyWord" type="text" placeholder="Search">
 												</div>
 											</th>
-											<th><button class="Search_btn" type="submit">搜尋</button></th>
-											<th><button class="stock_update_btn" type="submit">庫存異動</button></th>
+											<th><button class="btn btn-outline-secondary Search_btn" type="submit">搜尋</button></th>
+											<th><button class="btn btn-outline-secondary stock_update_btn" type="submit">庫存異動</button></th>
 										</tr>
 									</thead>
 
@@ -789,7 +789,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
-					<h1 class="modal-title" style="text-align: center;">輯編規格</h1>
+					<h1 class="modal-title" style="text-align: center;">編輯規格</h1>
 					<p class="productSpecId" style="font-size: 12px;">*商品規格編號待系統自動產生</p>
 					<div>
 						<table class="spec_table_edit">
@@ -1241,7 +1241,7 @@
 											<td class="soldNum">${soldStock}</td>
 											<td class="status">${shelvesStatus}</td>
 											<td class="edit_delete_btn">
-												<button class="edit_btn btn btn-primary" type="button">輯編</button>
+												<button class="edit_btn btn btn-primary btn-XS" type="button">編輯</button>
 											</td>
 										</tr>
 									`;
@@ -1367,7 +1367,7 @@
 											<td class="soldNum">${soldStock.toLocaleString()}</td>
 											<td class="status">${shelvesStatus}</td>
 											<td class="edit_delete_btn">
-												<button class="edit_btn btn btn-primary" type="button">輯編</button>
+												<button class="edit_btn btn btn-primary btn-XS" type="button">編輯</button>
 											</td>
 										</tr>
 									`;
@@ -1504,7 +1504,7 @@
 											<td class="soldNum">${soldStock.toLocaleString()}</td>
 											<td class="status">${shelvesStatus}</td>
 											<td class="edit_delete_btn">
-												<button class="edit_btn btn btn-primary" type="button">輯編</button>
+												<button class="edit_btn btn btn-primary btn-XS" type="button">編輯</button>
 											</td>
 										</tr>
 									`;
@@ -1631,7 +1631,7 @@
 											<td class="soldNum">${soldStock.toLocaleString()}</td>
 											<td class="status">${shelvesStatus}</td>
 											<td class="edit_delete_btn">
-												<button class="edit_btn btn btn-primary" type="button">輯編</button>
+												<button class="edit_btn btn btn-primary btn-XS" type="button">編輯</button>
 											</td>
 										</tr>
 									`;
@@ -1723,7 +1723,7 @@
 				$('.stock_update_btn').removeClass('-on');
 				$('.stock_update_btn').text("庫存異動");
 				$('#' + activeTab).find('th.operate_txt').text('操作');
-				$('#' + activeTab).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary" type="button">编辑</button>');
+				$('#' + activeTab).find('.edit_delete_btn').empty().append('<button class="edit_btn btn btn-primary btn-XS" type="button">編輯</button>');
 			} else {
 				$('.stock_update_btn').addClass('-on');
 				$('.stock_update_btn').text("更新庫存");
