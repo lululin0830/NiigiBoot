@@ -105,8 +105,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public boolean createOrder(JsonObject orderData) throws Exception {
 
-		// 主訂單資料處理
 		String memberId = orderData.get("memberId").getAsString();
+		
+		Type cartItemType = new TypeToken<List<CartItem>>(){}.getType();
+		List<CartItem> cartList = gson.fromJson(cartService.init(memberId), cartItemType);
+		
+		if (cartList != null) {
+			
+		
+		// 主訂單資料處理
+		
 		String paymentType = orderData.get("paymentType").getAsString();
 		String recipient = orderData.get("recipient").getAsString();
 		String phoneNum = orderData.get("phoneNum").getAsString();
@@ -120,8 +128,7 @@ public class OrderServiceImpl implements OrderService {
 		StringBuilder stringBuilder = new StringBuilder();
 		List<SubOrderDetail> subOrderDetails = new ArrayList<SubOrderDetail>();
 
-		Type cartItemType = new TypeToken<List<CartItem>>(){}.getType();
-		List<CartItem> cartList = gson.fromJson(cartService.init(memberId), cartItemType);
+	
 
 
 		int totalAmount = 0;
@@ -256,6 +263,9 @@ public class OrderServiceImpl implements OrderService {
 		
 		return true;
 
+		}
+		
+		return false;
 	}
 
 	@Override

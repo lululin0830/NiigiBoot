@@ -46,9 +46,9 @@ public class Checkout {
 			@RequestHeader("Authorization") String jwtToken) throws JsonSyntaxException, Exception {
 
 		if (service.createOrder(gson.fromJson(orderData, JsonObject.class))) {
-			return ResponseEntity.status(HttpStatus.OK).body(service.checkoutInit("訂單成立！！"));
+			return ResponseEntity.status(HttpStatus.OK).body("訂單成立！！");
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(service.checkoutInit("系統忙碌中"));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("系統忙碌中");
 	}
 
 	@PostMapping("clearCart")

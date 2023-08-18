@@ -81,7 +81,6 @@ const init = function() {
 
 	}).then(data => {
 
-
 		if (typeof data !== 'string') {
 
 			shoppintList.innerHTML = '';
