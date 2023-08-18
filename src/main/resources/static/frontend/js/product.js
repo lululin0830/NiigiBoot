@@ -367,7 +367,7 @@ function addToCart () {
                 'Authorization': `Bearer ${jwtToken}`
             },
             body: JSON.stringify({
-                'memberId': 'M000000001',
+                'memberId': memberId,
                 'productSpecIds': JSON.parse(sessionStorage.getItem("NiigiCart"))
             })
         }).then(resp => {
