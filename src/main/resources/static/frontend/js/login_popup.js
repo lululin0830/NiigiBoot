@@ -95,7 +95,7 @@ backToPreviousModalBtn4.addEventListener("click", function () {
                     // 假設您的JWT存儲在名為"jwt"的Cookie中
 
                     // 登錄成功，執行跳轉操作
-                    window.location.href = 'customer_Information.html';
+                    window.location.href = 'home.html';
                 } catch (error) {
                     // JWT 解析失敗，顯示錯誤訊息
                     errMsg.textContent = '登錄失敗，請檢查帳號和密碼。';
@@ -262,7 +262,7 @@ registerButton.addEventListener('click', async () => {
 
         if (response.ok) {
             alert(data); // 註冊成功
-            window.location.replace('home_pop_ups.html'); // 導向到home_pop_ups.html
+            window.location.replace('home.html'); // 導向到home.html
         } else {
             alert(data); // 註冊失敗，顯示錯誤訊息
         }
