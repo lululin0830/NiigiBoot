@@ -1,4 +1,4 @@
-package tw.idv.tibame.products.dto1;
+package tw.idv.tibame.products.dto;
 
 public class ProductSpecManageDTO {
 

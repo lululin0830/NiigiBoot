@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import tw.idv.tibame.products.dto1.ProductSpecManageDTO;
+import tw.idv.tibame.products.dto.ProductSpecManageDTO;
 import tw.idv.tibame.products.entity.ProductSpec;
 
 

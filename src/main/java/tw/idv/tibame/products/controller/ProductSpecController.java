@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import tw.idv.tibame.core.LoginRequired;
-import tw.idv.tibame.products.dto1.ProductSpecManageDTO;
+import tw.idv.tibame.products.dto.ProductSpecManageDTO;
 import tw.idv.tibame.products.entity.ProductSpec;
 import tw.idv.tibame.products.service.ProductSpecService;
 

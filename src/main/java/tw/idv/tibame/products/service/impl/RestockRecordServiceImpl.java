@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.idv.tibame.products.dao.ProductSpecDAO;
 import tw.idv.tibame.products.dao.RestockRecordDAO;
-import tw.idv.tibame.products.dto1.ProductSpecManageDTO;
+import tw.idv.tibame.products.dto.ProductSpecManageDTO;
 import tw.idv.tibame.products.entity.ProductSpec;
 import tw.idv.tibame.products.entity.RestockRecord;
 import tw.idv.tibame.products.entity.ShelvesStatusRecord;
