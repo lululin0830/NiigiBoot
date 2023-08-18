@@ -144,6 +144,10 @@ function loginCheck() {
             alert("登入已過期，請重新登入")
             history.back();
         }
+        if (error=="尚未成為商家") {
+            alert("尚未成為商家")
+            history.back();
+        }
 
     })
 }
