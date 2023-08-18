@@ -325,7 +325,7 @@ function getCartCount() {
 	}
 
 
-
+	return count.innerText;
 }
 
 

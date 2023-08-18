@@ -23,6 +23,7 @@ const phoneNumberPattern = /^(09\d{8}|09\d{2}-\d{3}-\d{3}|0\d{1,2}-\d{6,8})$/;
 
 function createOrder() {
 
+	
 	// 資料收集
 	const pointsDiscount = pointsDiscountBox.value ? pointsDiscountBox.value : 0;
 	const couponDiscount = 0;
@@ -116,7 +117,7 @@ function createOrder() {
 
 			if (!resp.ok) { throw new Error("系統忙碌中") }
 
-			return r.text();
+			return resp.text();
 		})
 		.then(function(data) {
 			console.log(data);
@@ -130,6 +131,12 @@ function createOrder() {
 }
 
 function init() {
+	
+	if(getCartCount() == 0){
+		
+		alert("購物車內尚無商品");
+		history.back();
+	}
 
 	fetch('/checkout', {
 		method: 'POST',

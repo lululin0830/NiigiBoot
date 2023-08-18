@@ -40,16 +40,14 @@ public class ShoppingCartController {
 	
 	@LoginRequired
 	@PostMapping()
-	public ResponseEntity<String> initShoppingCart (@RequestBody String memberId, @RequestHeader("Authorization") String jwtToken) {
+	public ResponseEntity<String> initShoppingCart (@RequestBody String memberId, @RequestHeader("Authorization") String jwtToken) throws Exception {
 		
 		System.out.println(memberId);
 		
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(service.init(memberId));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("系統繁忙中...請稍後再試");
-		}
+		String result = service.init(memberId);
+		
+		return result!=null ? ResponseEntity.status(HttpStatus.OK).body(result) : ResponseEntity.status(HttpStatus.OK).body(gson.toJson("尚無商品") ) ;
+		
 	}
 	
 	@LoginRequired

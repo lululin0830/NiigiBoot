@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import tw.idv.tibame.core.LoginRequired;
 import tw.idv.tibame.core.util.JwtUtil;
 
 @Aspect
@@ -18,7 +17,6 @@ public class Authorization {
 	@Around("@annotation(tw.idv.tibame.core.LoginRequired)")
 	public Object isLoggedIn(ProceedingJoinPoint joinPoint) {
 		
-		System.out.println("HI");
 		
 		Object[] args = joinPoint.getArgs();
         String jwtToken = null;
