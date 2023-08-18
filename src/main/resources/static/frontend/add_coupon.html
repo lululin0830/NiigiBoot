@@ -696,48 +696,57 @@
                     <hr class="main-content-divider">
                 </div>
 
-                <div class="col-sm-10" style="font-size: 4rem; margin-left: 5rem;">新增活動</div>
+                <div class="col-sm-10" style="font-size: 4rem; margin-left: 5rem;">新增商品折價券</div>
                 <form>
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">活動名稱:</label>
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">折價券名稱:</label>
                         <div class="col-sm-6 row">
-                          <input id="eventName" type="text" class="form-control">
+                          <input type="text" class="form-control" id="eventName">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">活動說明:</label>
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">折價券說明:</label>
                         <div class="col-sm-6 row">
-                          <input id="eventInfo" type="text" class="form-control">
+                          <input type="text" class="form-control" id="eventInfo">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">活動期間:</label>
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">折價券代碼:</label>
+                        <div class="col-sm-6 row">
+                          <input type="text" class="form-control" id="couponCode">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">可使用期間:</label>
                         <div class="col-sm-2 row">
-                          <input id="StartDate" type="date" class="form-control">
+                          <input type="date" class="form-control" id="StartDate">
                         </div>
                         <div class="col-sm-1 row justify-content-md-center" style="font-size: 3rem;">~</div>
                         <div class="col-sm-2 row">
-                            <input id="EndDate" type="date" class="form-control">
+                            <input type="date" class="form-control" id="EndDate">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">活動類型:</label>
-                        <div class="col-sm-8 row">
-                            <select id="eventType" class="col-sm-2">
-                                <option value="3">折扣</option>
-                                <!-- <option value="4">贈品</option> -->
+                        <label class="col-sm-2 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">總張數:</label>
+                        <div class="col-sm-2 row">
+                            <input type="text" class="col-sm-12" id="couponAvailableAmount">
+                        </div>
+                        <div class="col-sm-2 row justify-content-md-center" style="font-size: 2rem;">單筆可用張數:</div>
+                        <div class="col-sm-2 row">
+                            <input type="text" class="col-sm-12" id="couponAvailablePerPurchase">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label row" style="font-size: 2rem; margin-left: 17rem;">活動類型|折扣額度限制:</label>
+                        <div id="dis" class="col-sm-5 row">
+                            <select id="discount" class="col-sm-4">
+                                <option value="discountRate">折扣折數</option>
+                                <option value="discountAmount">折扣金額</option>
                             </select>
-                            <button id="addGift" hidden class="btn btn_primary col-sm-4" style="border: 1px solid #B7DDE5;">+新增贈品</button>
-                            <div id="dis" class="col-sm-5 row">
-                                <select id="discount" class="col-sm-5">
-                                    <option value="discountRate">折扣折數</option>
-                                    <option value="discountAmount">折扣金額</option>
-                                </select>
-                                <input type="text" class="col-sm-6" id="discountRate">
-                                <div id="Rate" class="col-sm-1 row" style="font-size: 2rem;">折</div>
-                                <input type="text" class="col-sm-6" id="discountAmount" hidden>
-                                <div id="Amount" class="col-sm-1 row" style="font-size: 2rem;" hidden>元</div>
-                            </div>
+                            <input type="text" class="col-sm-6" id="discountRate">
+                            <div id="Rate" class="col-sm-1 row" style="font-size: 2rem;">折</div>
+                            <input type="text" class="col-sm-6" id="discountAmount" hidden>
+                            <div id="Amount" class="col-sm-1 row" style="font-size: 2rem;" hidden>元</div>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -1095,7 +1104,7 @@
             memberAccount.style.setProperty(fontSizeVar, lengthToFontSize[textLength]);
         } 
     </script>
-    <script src="./js/add_event.js"></script>
+    <script src="./js/add_coupon.js"></script>
 </body>
 
 </html>

@@ -403,77 +403,78 @@
             <!-- =================================內容寫在這邊================================= -->
             <form class="mb-3">
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">折價券名稱:</label>
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 14rem;">折價券名稱:</label>
                     <div class="col-sm-6 row">
-                      <input type="text" class="col-sm-12">
+                      <input type="text" class="col-sm-12 form-control" id="eventName">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">折價券代碼:</label>
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 14rem;">折價券說明:</label>
                     <div class="col-sm-6 row">
-                      <input type="text" class="col-sm-12">
+                      <input type="text" class="col-sm-12 form-control" id="eventInfo">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">可使用期間:</label>
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 14rem;">折價券代碼:</label>
+                    <div class="col-sm-6 row">
+                      <input type="text" class="col-sm-12 form-control" id="couponCode">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 14rem;">可使用期間:</label>
                     <div class="col-sm-2 row">
-                      <input type="date" class="form-control" id="">
+                      <input type="date" class="form-control" id="StartDate">
                     </div>
                     <span class="row col-sm-1 justify-content-center" style="font-size: 2rem">~</span>
                     <div class="col-sm-2 row">
-                        <input type="date" class="form-control" id="">
+                        <input type="date" class="form-control" id="EndDate">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">總張數:</label>
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 14rem;">總張數:</label>
                     <div class="col-sm-2 row">
-                        <input type="text" class="col-sm-12" id="">
+                        <input type="text" class="col-sm-12 form-control" id="couponAvailableAmount">
                     </div>
                     <div class="col-sm-2 row justify-content-md-center" style="font-size: 1rem;">單筆可用張數:</div>
                     <div class="col-sm-2 row">
-                        <input type="text" class="col-sm-12" id="">
+                        <input type="text" class="col-sm-12 form-control" id="couponAvailablePerPurchase">
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-3 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">活動類型|折扣額度限制:</label>
+                    <label class="col-sm-3 col-form-label row" style="font-size: 1rem; margin-left: 14rem;">活動類型|折扣額度限制:</label>
                     <div class="col-sm-2 row">
-                        <select name="" class="col-sm-9">
-                            <option value="">折扣折數</option>
-                            <option value="">折扣金額</option>
+                        <select id="discount" class="col-sm-9">
+                            <option value="discountRate">折扣折數</option>
+                            <option value="discountAmount">折扣金額</option>
                         </select>
                     </div>
-                    <div class="col-sm-2 row">
-                        <input type="text" class="col-sm-12" id="">
-                    </div>
+                    <input type="text" class="col-sm-2 row form-control" id="discountRate">
+                    <div id="Rate" class="col-sm-1" style="font-size: 1rem;">折</div>
+                    <input type="text" class="col-sm-2 row form-control" id="discountAmount" hidden>
+                    <div id="Amount" class="col-sm-1" style="font-size: 1rem;" hidden>元</div>
                 </div>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">門檻類型:</label>
+                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 14rem;">門檻類型:</label>
                     <div class="col-sm-2 row">
-                        <select name="" class="col-sm-9">
-                            <option value="">滿額</option>
-                            <option value="">滿件</option>
-                            <option value="">滿件且滿額</option>
+                        <select id="thresholdType" class="col-sm-9">
+                            <option value="1">滿額</option>
+                            <option value="2">滿件</option>
+                            <option value="3">滿件且滿額</option>
                         </select>
                     </div>
                     <div class="col-sm-5 row">
-                        <div class="col-sm-1">滿</div>
-                        <input type="text" class="col-sm-3" id="">
-                        <div class="col-sm-1 row ">件</div>
-                        <div class="col-sm-1 row justify-content-center">,</div>
-                        <div class="col-sm-1 row">滿</div>
-                        <input type="text" class="col-sm-3" id="">
-                        <div class="col-sm-1 row">元</div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label row" style="font-size: 1rem; margin-left: 17rem;">可使用數量:</label>
-                    <div class="col-sm-3 row">
-                        <input type="text" class="col-sm-8">
+                        <div class="col-sm-1" style="font-size: 1rem;" id="t11" hidden>滿</div>
+                        <input type="text" class="col-sm-3 form-control" id="minPurchaseQuantity" hidden>
+                        <div class="col-sm-1 row" style="font-size: 1rem;" id="t12" hidden>件</div>
+                        <div class="col-sm-1 row" style="font-size: 1rem;" id="t13" hidden>,</div>
+                        <div class="col-sm-1 row" style="font-size: 1rem;" id="t21">滿</div>
+                        <input type="text" class="col-sm-3 form-control" id="minPurchaseAmount">
+                        <div class="col-sm-1 row" style="font-size: 1rem;" id="t22">元</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-5"></div>
-                    <button class="btn col-sm-2" style="background-color: rgba(183, 221, 229, 0.90);">送出</button>
+                    <button id="send" type="button" class="btn col-sm-2" style="background-color: rgba(183, 221, 229, 0.90);">送出</button>
                     <div class="col-sm-5"></div>
                 </div>
             </form>
@@ -505,6 +506,8 @@
         <script src="../js/dashboard2.js"></script>
 
         <script src="../js/token.js"></script>
+
+        <script src="../js/Discount_Coupon.js"></script>
 </body>
 
 </html>

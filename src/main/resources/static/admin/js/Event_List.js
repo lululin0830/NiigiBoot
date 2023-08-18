@@ -10,7 +10,7 @@ const search = function () {
         EndDate: document.getElementById("EndDate").value,
     })
 
-    fetch('http://localhost:8080/Niigi/Event', {
+    fetch('/Event', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ console.log("讀到了")
 document.getElementById("search").addEventListener("click", search);
 
 const init = function () {
-    fetch('http://localhost:8080/Niigi/Event', {
+    fetch('/Event', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

@@ -19,6 +19,16 @@
         th {
             border: solid 3px white;
         }
+        #myTable {
+            border-collapse: collapse; /* 合併邊框 */
+            width: 100%;
+        }
+
+        #myTable th, #myTable td {
+            border: 1px solid black; /* 添加1px實線框線 */
+            padding: 8px; /* 添加內距 */
+            text-align: left;
+        }
     </style>
 </head>
 
@@ -418,7 +428,7 @@
             </div>
             <br>
             <div>
-                <table>
+                <table id="myTable">
                     <thead>
                         <th>行銷編號</th>
                         <th>商家編號</th>
@@ -463,13 +473,10 @@
         <script src="../js/demo.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="../js/dashboard2.js"></script>
-<<<<<<< HEAD
         <!-- 活動列表功能 -->
         <script src="../js/Event_List.js"></script>
-=======
 
         <script src="../js/token.js"></script>
->>>>>>> ce16255d7df1a6456586aa0c5e988d73e85cf033
 </body>
 
 </html>

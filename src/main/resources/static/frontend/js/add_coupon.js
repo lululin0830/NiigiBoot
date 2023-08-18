@@ -1,19 +1,5 @@
 
 
-const selectElement = document.getElementById('eventType');
-const input1Element = document.getElementById('addGift');
-const input2Element = document.getElementById('dis');
-
-selectElement.addEventListener('change', function() {
-    if (selectElement.value === '4') {
-      input1Element.hidden = false;
-      input2Element.hidden = true;
-    } else if (selectElement.value === '3') {
-      input1Element.hidden = true;
-      input2Element.hidden = false;
-    }
-  });
-
 const selectElement2 = document.getElementById('discount');
 const input1Element21 = document.getElementById('Amount');
 const input1Element22 = document.getElementById('discountAmount');
@@ -95,12 +81,14 @@ function shelvesStatusName(Str) {
 
 
 let eventId = "";
-
+let eventType = "1";
+let couponUsedAmount = "0";
 
 
 const addProduct = function () {
 
     console.log("進來了");
+
 
     fetch('/AllProductSpecManage', {
 				method: 'POST',
@@ -206,9 +194,13 @@ registerButton.addEventListener('click', async () => {
       eventRegisterSupplier: supplierId,
       eventName: document.getElementById("eventName").value,
       eventInfo: document.getElementById("eventInfo").value,
+      couponCode: document.getElementById("couponCode").value,
       eventStart: document.getElementById("StartDate").value,
       eventEnd: document.getElementById("EndDate").value,
-      eventType: document.getElementById("eventType").value,
+      eventType: eventType,
+      couponAvailableAmount: document.getElementById("couponAvailableAmount").value,
+      couponAvailablePerPurchase: document.getElementById("couponAvailablePerPurchase").value,
+      couponUsedAmount: couponUsedAmount,
       discountRate: disrate,
       discountAmount: document.getElementById("discountAmount").value,
       thresholdType: document.getElementById("thresholdType").value,
@@ -223,6 +215,7 @@ registerButton.addEventListener('click', async () => {
         },
         body: newEvent
     });
+
 
     const checkboxes = document.querySelectorAll('.selectRow');
 
@@ -253,7 +246,7 @@ registerButton.addEventListener('click', async () => {
 
     if (response.ok) {
       alert(data); // 註冊成功
-      window.location.replace('add_event.html');
+      window.location.replace('add_coupon.html');
     } else {
       alert(data); // 註冊失敗，顯示錯誤訊息
     }

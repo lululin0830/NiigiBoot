@@ -107,5 +107,14 @@ public class EventSingleThresholdDAOImpl implements CoreDAO<EventSingleThreshold
 	             "AND (eventEnd BETWEEN '" + startDate + "' AND '" + closeDate + "')";
 		return gson.toJson(session.createQuery(hql, EventSingleThreshold.class).getResultList());
 	}
+	
+	public String getAllBySearchSupplier(String searchCase, String searchSelect, Timestamp startDate, Timestamp closeDate, String RegisterSupplier) {
+	    String hql = "FROM EventSingleThreshold " +
+	                 "WHERE " + searchSelect + " LIKE '%" + searchCase + "%' " +
+	                 "AND (eventStart BETWEEN '" + startDate + "' AND '" + closeDate + "') " +
+	                 "AND (eventEnd BETWEEN '" + startDate + "' AND '" + closeDate + "') " +
+	                 "AND (eventRegisterSupplier = '" + RegisterSupplier + "')";
+	    return gson.toJson(session.createQuery(hql, EventSingleThreshold.class).getResultList());
+	}
 
 }
