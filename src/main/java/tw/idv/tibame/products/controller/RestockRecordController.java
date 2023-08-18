@@ -6,9 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import tw.idv.tibame.products.DTO.ProductSpecManageDTO;
+import tw.idv.tibame.core.LoginRequired;
+import tw.idv.tibame.products.dto.ProductSpecManageDTO;
 import tw.idv.tibame.products.service.RestockRecordService;
 
 @RestController
@@ -17,9 +19,9 @@ public class RestockRecordController {
 	@Autowired
 	private RestockRecordService restockRecordService;
 	
-	
+	@LoginRequired
 	@PostMapping("/updateStock")
-	public List<ProductSpecManageDTO> updateStock(@RequestBody Map<String, Object> requestData)throws Exception {
+	public List<ProductSpecManageDTO> updateStock(@RequestBody Map<String, Object> requestData, @RequestHeader("Authorization") String jwtToken)throws Exception {
 //		String [] productSpecIds = new String [] {"10000001001", "10000001002"};
 //		String restockMemberId = "M000000001";
 //		String[] beforeRestockStock = new String [] {"200", "0"};
