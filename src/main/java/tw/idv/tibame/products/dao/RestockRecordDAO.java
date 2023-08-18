@@ -4,6 +4,7 @@ import java.util.List;
 
 import tw.idv.tibame.core.dao.CoreDAO;
 import tw.idv.tibame.products.entity.RestockRecord;
+import tw.idv.tibame.products.entity.ShelvesStatusRecord;
 
 public interface RestockRecordDAO extends CoreDAO<RestockRecord, String> {
 	
@@ -16,11 +17,14 @@ public interface RestockRecordDAO extends CoreDAO<RestockRecord, String> {
 	//以規格編號模糊查詢
 	public List<RestockRecord> selectBySpecId(String productSpecId) throws Exception;
 	
-	//以補貨日期查詢
+	// 綜合查詢中的日期查詢
 	public List<RestockRecord> selectByDate(String beforeDate,String afterDate) throws Exception;
 	
+	// 綜合查詢中的select的條件查詢
+	public List<RestockRecord> selectByOptionValue(String searchValue, String selectValue) throws Exception;
 	
-	//綜合查詢
-	public List<RestockRecord> selectAll(String optionName,String inputText,String beforeDate,String afterDate) throws Exception;
+	// 綜合查詢(日期+select)
+	public List<RestockRecord> selectByOptionValueDate(String searchValue, String selectValue, String startDate,
+			String endDate) throws Exception;
 	
 }

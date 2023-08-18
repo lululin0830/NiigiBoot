@@ -14,6 +14,7 @@ import tw.idv.tibame.products.dao.RestockRecordDAO;
 import tw.idv.tibame.products.dto.ProductSpecManageDTO;
 import tw.idv.tibame.products.entity.ProductSpec;
 import tw.idv.tibame.products.entity.RestockRecord;
+import tw.idv.tibame.products.entity.ShelvesStatusRecord;
 import tw.idv.tibame.products.service.RestockRecordService;
 
 @Service
@@ -80,5 +81,29 @@ public class RestockRecordServiceImpl implements RestockRecordService {
 		}
 		return productSpecManageDTOList;
 	}
+	
+	
+	// 列全部
+	@Override
+	public List<RestockRecord> getAllRestockRecord() throws Exception {
+		return restockRecordDAO.getAll();
+	}
+	
+	// 綜合查詢
+	@Override
+	public List<RestockRecord> IntegratedSearchController(String searchValue, String selectValue, String startDate, String endDate)
+			throws Exception {
+		if (searchValue == null || searchValue.isBlank()) {
+			return restockRecordDAO.selectByDate(startDate,endDate);
+		} else if ((startDate == null || startDate.isBlank()) && (endDate == null || endDate.isBlank())) {
+			return restockRecordDAO.selectByOptionValue(searchValue,selectValue);
+		} else {
+			return restockRecordDAO.selectByOptionValueDate(searchValue,selectValue,startDate,endDate);
+		}
+
+		
+	}
+	
+	
 
 }
