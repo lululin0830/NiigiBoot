@@ -19,6 +19,8 @@ const mainorder5 = document.querySelector("#navs-top-cancel>ul.sub-order-list");
 const comment = document.querySelector('.commentbox');
 //退貨談窗
 const cancelProductBlock = document.getElementById('cancelProductBlock');
+//查看訂單彈窗
+const subOrderDetailBody = document.getElementById('orderDetailList');
 
 let EIF = null;
 let bodyHtml = null;
@@ -26,18 +28,18 @@ let updateCommentlist = []
 let refundSubOrderId = null;
 const paymentPendingBody = function (arr) {
 
-//	let array = Object.values(arr)
+	//	let array = Object.values(arr)
 
-//	arr.forEach(arr => {
+	//	arr.forEach(arr => {
 
-		let dateString = arr[3];
-		let date = new Date(dateString);
-		let year = date.getFullYear(); // 獲得年份
-		let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
-		let day = date.getDate();
+	let dateString = arr[3];
+	let date = new Date(dateString);
+	let year = date.getFullYear(); // 獲得年份
+	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
+	let day = date.getDate();
 
-		let html =
-			`<li class="order">
+	let html =
+		`<li class="order">
             <div class="navs-top">
                 <div class="col-sm-2">
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
@@ -67,12 +69,12 @@ const paymentPendingBody = function (arr) {
                 <hr>
             </div>`
 
-		//可能重複結構(多個子訂單)
-		// for (i = 0; i < arr.length; i++) {
+	//可能重複結構(多個子訂單)
+	// for (i = 0; i < arr.length; i++) {
 
-		const imageElement = createImageURL(arr[9])
-		html +=
-			`< div class="navs-top-content" >
+	const imageElement = createImageURL(arr[9])
+	html +=
+		`< div class="navs-top-content" >
             <ul class="sub-order-list">
                 <li class="sub-order home">
                     <div class="col-sm-2">
@@ -104,9 +106,9 @@ const paymentPendingBody = function (arr) {
             </div >
         <hr>
     </li>`
-		// }
-		bodyHtml += html;
-//	});
+	// }
+	bodyHtml += html;
+	//	});
 
 }
 
@@ -455,6 +457,37 @@ const cancelProductbody = function (arr) {
 	bodyHtml += html
 }
 
+//查看訂單明細結構
+
+const addSubOrderDetailBody = function (arr) {
+
+	console.log("訂單明細", arr)
+	bodyHtml = null
+	arr.forEach(element => {
+		const imageElement = createImageURL(element[6])
+		let htmlDetail =
+			`<li class="order-item row">
+			<div class="col-sm-1">
+				<img src=${imageElement} alt="" id="detailpicture">
+			</div>
+			<div class="col-sm-8">
+				<h5 class="product-id" id="detailSpectId">
+					#<span>${element[0]}</span></h5>
+				<h4 class="product-name" id="detailproductName">${element[1]}
+				</h4>
+			</div>
+			<div class="col-sm-3">
+				<h4 class="product-price" id="detailproductPrice">
+					NT$<span>${element[2]}</span>
+				</h4>
+			</div>
+			<hr>
+		</li>`
+		bodyHtml += htmlDetail
+	});
+
+}
+
 // 圖片轉換
 function createImageURL(byteArray) {
 	const blob = new Blob([new Uint8Array(byteArray)], { type: 'image/jpeg' });
@@ -504,9 +537,9 @@ const init = function () {
 		console.log("尚未付款", paymentPending)
 
 		paymentPending.forEach(element => {
-			console.log("element11111", element[1] , typeof element[1])
+			console.log("element11111", element[1], typeof element[1])
 			if (element[1] === '0') {
-				console.log("HIHIHIHI" , element)
+				console.log("HIHIHIHI", element)
 				paymentPendingBody(element)
 				mainorder1.insertAdjacentHTML("beforeend", bodyHtml);
 				bodyHtml = null;
@@ -607,14 +640,8 @@ const checkOrderDetail = function () {
 	}).then(r => r.json()).then(data => {
 		console.log("查看訂單", data)
 
-		let detailSpectId = document.getElementById('detailSpectId');
-		detailSpectId.innerHTML = data[0][0];
-
-		let detailproductName = document.getElementById('detailproductName');
-		detailproductName.innerHTML = data[0][1];
-
-		let detailproductPrice = document.getElementById('detailproductPrice');
-		detailproductPrice.innerHTML = data[0][2];
+		addSubOrderDetailBody(data)
+		subOrderDetailBody.insertAdjacentHTML("beforeend", bodyHtml);
 
 		let detailrecipient = document.getElementById('detailrecipient');
 		detailrecipient.innerHTML = data[0][3];
@@ -627,9 +654,42 @@ const checkOrderDetail = function () {
 
 		let detailpicture = document.getElementById('detailpicture');
 		detailpicture.src = createImageURL(data[0][6]);
-		//
-		//        let detaileventprice = document.getElementById('detaileventprice');
-		//        detaileventprice.innerHTML = data[0][7];
+
+		// let detaileventprice = document.getElementById('detaileventprice');
+		// detaileventprice.innerHTML = data[0][7];
+
+	})
+
+	fetch('../MemberCheckOrder/checkOrderEvents', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+			'Authorization': `Bearer ${jwtToken}`
+		},
+		body: subOrderId
+	}).then(r => r.json()).then(data => {
+		console.log("查看活動", data)
+		const eventBlock = document.querySelector('#discountList');
+		bodyHtml = null
+		if (data) {
+			data.forEach(arr => {
+
+				let html = `<li class="discount-item row col-sm-11">
+						<p class="discount-name col-sm-8">
+							${arr[0]}</p>
+						<h5 class="discount-amount col-sm-4 text-end">
+							-NT$<span>${arr[1].toLocaleString()}</span></h5>
+					</li>`
+
+				bodyHtml += html;
+			})
+
+			eventBlock.insertAdjacentHTML("beforeend", bodyHtml);
+
+		}
+
+
+
 
 	})
 }

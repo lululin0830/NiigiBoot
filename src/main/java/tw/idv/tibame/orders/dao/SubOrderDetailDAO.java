@@ -35,4 +35,7 @@ public interface SubOrderDetailDAO extends CoreDAO<SubOrderDetail, String>{
 	
 	//
 	public String refundMark (String refundSubOrderId,String refundReason,String refundMark);
+
+
+	List<SubOrderDetail> selectBySubOrderId(String subOrderId);
 }

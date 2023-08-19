@@ -42,6 +42,13 @@ public class MemberCheckOrder{
 	}
 	
 	@LoginRequired
+	@PostMapping("/checkOrderEvents")
+	public String checkOrderEvents(@RequestBody String subOrderId, @RequestHeader("Authorization") String jwtToken) throws Exception {
+		
+		return orderService.checkOrderEvents(subOrderId);	
+	}
+	
+	@LoginRequired
 	@PatchMapping("/subOrderConfirmReceipt")
 	public String ConfirmReceipt(@RequestBody String subOrderId, @RequestHeader("Authorization") String jwtToken) {
 

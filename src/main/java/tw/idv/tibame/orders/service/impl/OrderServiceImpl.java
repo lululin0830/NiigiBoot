@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import tw.idv.tibame.events.dao.EventApplicableProductsDAOImpl;
+import tw.idv.tibame.events.dao.EventSingleThresholdDAOImpl;
+import tw.idv.tibame.events.entity.EventSingleThreshold;
 import tw.idv.tibame.members.dao.MemberDAO;
 import tw.idv.tibame.orders.dao.MainOrderDAO;
 import tw.idv.tibame.orders.dao.SubOrderDAO;
@@ -62,6 +65,8 @@ public class OrderServiceImpl implements OrderService {
 	ShoppingCartDAO cartDAO;
 	@Autowired
 	EventApplicableProductsDAOImpl eventDAO;
+	@Autowired
+	EventSingleThresholdDAOImpl eventSDAO;
 	@Autowired
 	MemberDAO memberDAO;
 	@Autowired
@@ -427,6 +432,45 @@ public class OrderServiceImpl implements OrderService {
 
 	public String checkOrderDetail(String subOrderId) {
 		return subOrderDetailDAO.checkOrderDetail(subOrderId);
+	}
+
+	public String checkOrderEvents(String subOrderId) throws Exception {
+
+		List<SubOrderDetail> list = subOrderDetailDAO.selectBySubOrderId(subOrderId);
+		List<Object[]> result = new ArrayList<>();
+		
+		for (SubOrderDetail sod : list) {
+
+			String[] eventId = gson.fromJson(sod.getEventIds(), String[].class);
+			Integer[] discount = gson.fromJson(sod.getEvevtDiscounts(), Integer[].class);
+			
+			for(int i = 0 ; i < eventId.length ; i++) {
+				
+				Object[] eventInfo = new Object[2];
+				
+				EventSingleThreshold event = eventSDAO.selectById(eventId[i]);
+
+				eventInfo[0] = event.getEventName() + event.getEventInfo();
+				eventInfo[1]= discount[i];
+				
+				result.add(eventInfo);
+				
+			}
+			
+		}
+		
+		List<Object[]> resultList = result.stream()
+                .collect(Collectors.toMap(
+                        arr -> arr[0], // Grouping key
+                        arr -> (int) arr[1], // Value to sum
+                        Integer::sum // Merge function for summing
+                ))
+                .entrySet().stream()
+                .map(entry -> new Object[]{entry.getKey(), entry.getValue()})
+                .collect(Collectors.toList());
+		
+
+		return gson.toJson( resultList);
 	}
 
 	@Override
