@@ -244,7 +244,7 @@ const init = function () {
             console.log(supplier)
 
             let shopInfoBody = `
-            <a id="shopLink" class="d-flex align-items-baseline col-sm-4" href="${'商家那一頁?' + supplier.supplierId}">
+            <a id="shopLink" class="d-flex align-items-baseline col-sm-4" href="#">
                 <h3 class="me-3">關於商家</h3>進店逛逛
             </a>
 
