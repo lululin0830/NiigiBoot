@@ -20,7 +20,7 @@
 		main {
 			min-height: max(800px, calc(100vh - 150px));
 			height: 100%;
-			background-color: #F7F7F7;
+			background-color: white;
 			/* overflow: visible; */
 			display: flex;
 			flex-direction: column;
@@ -267,59 +267,59 @@
 
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+				<a class="navigation_title navigation_title--link" href="categoriePage.html?text=3C周邊"
 					onclick="passTextToNextPage('3C周邊')">
 					<span class="navigation_title-inner">3C周邊</span>
 				</a>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+				<a class="navigation_title navigation_title--link" href="categoriePage.html?text=家用電器"
 					onclick="passTextToNextPage('家用電器')">
 					<span class="navigation_title-inner">家用電器</span>
 				</a>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
-				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+				<a class="navigation_title navigation_title--link" href="categoriePage.html?text=美妝個清"
 					onclick="passTextToNextPage('美妝個清')">
 					<span class="navigation_title-inner">美妝個清</span>
 				</a>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
-				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+				<a class="navigation_title navigation_title--link" href="categoriePage.html?text=流行服飾"
 					onclick="passTextToNextPage('流行服飾')">
 					<span class="navigation_title-inner">流行服飾</span>
 				</a>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
-				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+				<a class="navigation_title navigation_title--link" href="categoriePage.html?text=鞋包配飾"
 					onclick="passTextToNextPage('鞋包配飾')">
 					<span class="navigation_title-inner">鞋包配飾</span>
 				</a>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
-				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+				<a class="navigation_title navigation_title--link" href="categoriePage.html?text=母嬰用品"
 					onclick="passTextToNextPage('母嬰用品')">
 					<span class="navigation_title-inner">母嬰用品</span>
 				</a>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+				<a class="navigation_title navigation_title--link" href="categoriePage.html?text=日用生活"
 					onclick="passTextToNextPage('日用生活')">
 					<span class="navigation_title-inner">日用生活</span>
 				</a>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+				<a class="navigation_title navigation_title--link" href="categoriePage.html?text=圖書文具"
 					onclick="passTextToNextPage('圖書文具')">
 					<span class="navigation_title-inner">圖書文具</span>
 				</a>
 			</li>
 			<li class="navigation-nav-title navigation_nav-title--hover-hide">
 
-				<a class="navigation_title navigation_title--link" href="categoriePage.html"
+				<a class="navigation_title navigation_title--link" href="categoriePage.html?text=旅遊戶外"
 					onclick="passTextToNextPage('旅遊戶外')">
 					<span class="navigation_title-inner">旅遊戶外</span>
 				</a>
@@ -547,6 +547,9 @@
 		document.addEventListener("DOMContentLoaded", function () {
 			// 從 localStorage 中取得文字資料
 			var textData = localStorage.getItem('textData');
+			// 獲取URL中的參數值
+			const urlParams = new URLSearchParams(window.location.search);
+			const text = urlParams.get('text');
 
 			// 如果有文字資料，就使用它來處理後續邏輯
 			if (textData == "新品上市") {
@@ -663,7 +666,7 @@
 			} else {
 
 				// 使用fetch API向後端發送請求
-				fetch('../product/searchCategorie?text=' + encodeURIComponent(textData), {
+				fetch('../product/searchCategorie?text=' + encodeURIComponent(text), {
 					method: 'GET'
 				})
 					.then((response) => {
@@ -678,7 +681,7 @@
 						// 在這裡你可以處理後端回傳的資料，並將整理後的資料呈現在當前頁面上
 						//console.log(data);
 						let list_html = "";
-						$('.serch_Keyword').text(`${textData}`);
+						$('.serch_Keyword').text(`${text}`);
 
 						data.forEach(function (product) {
 							// 在這裡對每個產品進行處理
