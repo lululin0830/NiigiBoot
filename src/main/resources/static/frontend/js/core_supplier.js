@@ -33,6 +33,7 @@ function stopDefaultAction(selector) {
 /* 登出並回到首頁 */
 function logout() {
     clearCookie('jwt');
+    clearCookie('supplierJwt')
     window.location.href = '../index.html'
 }
 
@@ -157,10 +158,12 @@ function showUserInfo() {
 
     const memberAccountBlock = document.querySelector('h4.memberAccount');
     const supplierIdBlock = document.getElementById("supplierId");
+    const breadSupplierAcct = document.querySelector('#breadSupplierAcct a');
 
     if (memberAccountBlock) {
         memberAccountBlock.innerText = memberAcct.split("@")[0];
         supplierIdBlock.innerText = supplierId;
+        breadSupplierAcct.innerText = memberAcct.split("@")[0];
         fontSizeAdjust(memberAccountBlock);
     }
 
