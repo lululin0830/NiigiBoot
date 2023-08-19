@@ -74,6 +74,8 @@ let memberId; let memberAcct;
 
 let isLoggedIn = false;
 
+const done = new CustomEvent("coreDone")
+
 /* 頁面初始化 */
 function loginCheck() {
 
@@ -104,6 +106,7 @@ function loginCheck() {
 		showUserInfo();
 		refreshCart();
 		getCartCount();
+		document.dispatchEvent(done);
 
 	}).catch(function(error) {
 
@@ -130,7 +133,7 @@ function showHeader() {
             <div class="header-top row">
 
                 <div class="col-sm-2">
-                    <a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+                    <a class="header-logo" href="/"><img class="logo" src="/frontend/image/logo.svg" alt=""></a>
                 </div>
 
                 <div class="col-sm-6">
@@ -139,7 +142,7 @@ function showHeader() {
                             maxlength="50" value="" required>
 
                         <button type="submit" class="header-search-submit col-sm-1"><img
-                                src="./image/search.svg"></button>
+                                src="/frontend/image/search.svg"></button>
                     </form>
                 </div>
 
@@ -157,25 +160,25 @@ function showHeader() {
 
                         <a href="check_order.html" class="User-Center col">
                             <div class="User_icon">
-                                <img src="./image/Profile.svg" alt="">
+                                <img src="/frontend/image/Profile.svg" alt="">
                             </div>
                         </a>
                          <a href="collect_box.html" class="Favorite col">
                             <div class="header_icon">
-                                <img src="./image/heart.svg" alt="">
+                                <img src="/frontend/image/heart.svg" alt="">
                             </div>
                         </a>
 
                         <a href="shopping_cart.html" class="Shopping-Cart col">
                             <div class="header_icon">
-                                <img src="./image/Buy.svg" alt="">
+                                <img src="/frontend/image/Buy.svg" alt="">
                                 <span class="count">0</span>
                             </div>
                         </a>
 
                         <a href="#" class="Notification col">
                             <div class="header_icon">
-                                <img src="./image/Notification.svg" alt="">
+                                <img src="/frontend/image/Notification.svg" alt="">
                             </div>
                         </a>`;
 	} else {
@@ -191,7 +194,7 @@ function showHeader() {
             </a>
             <a href="shopping_cart.html" class="Shopping-Cart col">
                 <div class="header_icon">
-                    <img src="./image/Buy.svg" alt="">
+                    <img src="/frontend/image/Buy.svg" alt="">
                     <span class="count">0</span>
                 </div>
             </a>`;
@@ -294,8 +297,14 @@ function getCartCount() {
 
 			console.log("count", data)
 
-			count.innerText = data
-			count.classList.add("-active")
+			if (data > 0) {
+				count.innerText = data
+				count.classList.add("-active")
+			}else{
+				count.innerText = data
+				count.classList.remove("-active")
+			}
+
 
 		}).catch(function(error) {
 
@@ -316,7 +325,7 @@ function getCartCount() {
 	}
 
 
-
+	return count.innerText;
 }
 
 
@@ -324,6 +333,7 @@ function getCartCount() {
 if (jwtToken) {
 
 	loginCheck();
+
 } else if (loginRequired) {
 
 	sessionStorage.setItem("loginRequired", "true");

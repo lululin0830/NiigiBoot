@@ -38,10 +38,6 @@ const search = function () {
                 <td>${data[i].name}</td>
                 <td>${data[i].phone}</td>
                 <td>${banStatus}</td>
-                <td>
-                    <button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#record">紀錄</button>
-                    <button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#suspension">停權</button>
-                </td>
             </tr>`;
 
             tbody.innerHTML += row;
@@ -83,10 +79,6 @@ const init = function () {
                 <td>${data[i].name}</td>
                 <td>${data[i].phone}</td>
                 <td>${banStatus}</td>
-                <td>
-                    <button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#record">紀錄</button>
-                    <button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#suspension">停權</button>
-                </td>
             </tr>`;
 
             tbody.innerHTML += row;

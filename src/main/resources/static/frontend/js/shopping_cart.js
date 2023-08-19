@@ -81,7 +81,6 @@ const init = function() {
 
 	}).then(data => {
 
-
 		if (typeof data !== 'string') {
 
 			shoppintList.innerHTML = '';
@@ -215,4 +214,4 @@ const removeItem = function(element) {
 
 }
 
-window.addEventListener("load",init);
+document.addEventListener("coreDone",init);

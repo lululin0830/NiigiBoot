@@ -647,6 +647,38 @@
 
 
 	</script>
+	<script>
+        var changePasswordForm = document.getElementById("changePasswordForm");
+
+        changePasswordForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // 取得表單欄位值
+            var currentPassword = document.getElementById("currentPassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var newPassword = document.getElementById("newPassword").value;
+
+            // 檢查密碼與確認密碼是否相符
+            if (newPassword !== confirmPassword) {
+                alert("密碼與確認密碼不相符");
+                return;
+            }
+        });
+
+
+        function togglePasswordVisibility(inputId) {
+            var passwordInput = document.getElementById(inputId);
+            var showPasswordBtn = passwordInput.nextElementSibling;
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                showPasswordBtn.innerHTML = "&#128065;";
+            } else {
+                passwordInput.type = "password";
+                showPasswordBtn.innerHTML = "&#128064;";
+            }
+        }
+    </script>
 	<script src="./js/login_popup.js"></script>
 </body>
 

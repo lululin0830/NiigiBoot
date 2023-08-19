@@ -80,7 +80,7 @@ const SubOrderBody = function () {
                 break;
         }
         const imageElement = createImageURL(EIF[3].picture1)
-        console.log("picture1", EIF[3].picture1)
+//        console.log("picture1", EIF[3].picture1)
         html +=
             `<li class="order-item row">
                             <div class="col-sm-2">

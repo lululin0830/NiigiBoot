@@ -97,165 +97,175 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public String checkoutInit(String memberId) {
-		
+
 		return gson.toJson(memberDAO.selectForCheckout(memberId));
-		
+
 	}
-	
+
 	@Override
 	public boolean createOrder(JsonObject orderData) throws Exception {
 
-		// 主訂單資料處理
 		String memberId = orderData.get("memberId").getAsString();
-		String paymentType = orderData.get("paymentType").getAsString();
-		String recipient = orderData.get("recipient").getAsString();
-		String phoneNum = orderData.get("phoneNum").getAsString();
-		String deliveryAddress = orderData.get("deliveryAddress").getAsString();
-		MainOrder mainOrder = new MainOrder(memberId, paymentType, recipient, phoneNum, deliveryAddress);
-		mainOrder.setOrderId(generateOrderId()); // 取得主訂單編號
 
-		// 訂單明細資料處理(取出所有商品的規格編號、商品編號、商品售價、活動價、活動編號)
-
-		String productIds = "''";
-		StringBuilder stringBuilder = new StringBuilder();
-		List<SubOrderDetail> subOrderDetails = new ArrayList<SubOrderDetail>();
-
-		Type cartItemType = new TypeToken<List<CartItem>>(){}.getType();
+		Type cartItemType = new TypeToken<List<CartItem>>() {
+		}.getType();
 		List<CartItem> cartList = gson.fromJson(cartService.init(memberId), cartItemType);
 
+		if (cartList != null) {
 
-		int totalAmount = 0;
+			// 主訂單資料處理
 
-		for (CartItem cartItem : cartList) {
+			String paymentType = orderData.get("paymentType").getAsString();
+			String recipient = orderData.get("recipient").getAsString();
+			String phoneNum = orderData.get("phoneNum").getAsString();
+			String deliveryAddress = orderData.get("deliveryAddress").getAsString();
+			MainOrder mainOrder = new MainOrder(memberId, paymentType, recipient, phoneNum, deliveryAddress);
+			mainOrder.setOrderId(generateOrderId()); // 取得主訂單編號
 
-			SubOrderDetail item = new SubOrderDetail();
+			// 訂單明細資料處理(取出所有商品的規格編號、商品編號、商品售價、活動價、活動編號)
 
-			Integer eventPrice = cartItem.getProductPrice();
+			String productIds = "''";
+			StringBuilder stringBuilder = new StringBuilder();
+			List<SubOrderDetail> subOrderDetails = new ArrayList<SubOrderDetail>();
 
-			if (cartItem.getEventPrice() != null) {
+			int totalAmount = 0;
 
-				eventPrice = cartItem.getEventPrice();
+			for (CartItem cartItem : cartList) {
 
-			} else if (cartItem.getCouponPrice() != null) {
+				SubOrderDetail item = new SubOrderDetail();
 
-				eventPrice = cartItem.getCouponPrice();
-			}
+				Integer eventPrice = cartItem.getProductPrice();
 
-			List<String> giftList = cartItem.getGiftProductSpecId();
-			List<String> eventIds = cartItem.getEventIds();
-			List<Integer> eventDiscounts = cartItem.getEventDiscounts();
+				if (cartItem.getEventPrice() != null) {
 
-			item.setOrderId(mainOrder.getOrderId());
-			item.setProductSpecId(cartItem.getProductSpecId());
-			item.setProductId(cartItem.getProductId());
-			item.setProductPrice(cartItem.getProductPrice());
-			item.setEventPrice(eventPrice);
-			item.setEventIds(gson.toJson(eventIds));
-			item.setEvevtDiscounts(gson.toJson(eventDiscounts));
+					eventPrice = cartItem.getEventPrice();
 
-			if (giftList != null && !giftList.isEmpty()) {
+				} else if (cartItem.getCouponPrice() != null) {
 
-				int count = 0;
-				for (int i = 0; i < eventDiscounts.size(); i++) {
+					eventPrice = cartItem.getCouponPrice();
+				}
 
-					if (eventDiscounts.get(i) == 0) {
+				List<String> giftList = cartItem.getGiftProductSpecId();
+				List<String> eventIds = cartItem.getEventIds();
+				List<Integer> eventDiscounts = cartItem.getEventDiscounts();
 
-						SubOrderDetail gift = new SubOrderDetail();
-						gift.setOrderId(mainOrder.getOrderId());
-						gift.setProductSpecId(giftList.get(count));
-						gift.setProductId(Integer.parseInt(giftList.get(count).substring(0, 8)));
-						gift.setProductPrice(0);
-						gift.setEventPrice(0);
-						gift.setEventIds(gson.toJson(new ArrayList<String>().add(eventIds.get(i))));
-						gift.setEvevtDiscounts(gson.toJson(new ArrayList<Integer>().add(0)));
+				item.setOrderId(mainOrder.getOrderId());
+				item.setProductSpecId(cartItem.getProductSpecId());
+				item.setProductId(cartItem.getProductId());
+				item.setProductPrice(cartItem.getProductPrice());
+				item.setEventPrice(eventPrice);
+				item.setEventIds(gson.toJson(eventIds));
+				item.setEvevtDiscounts(gson.toJson(eventDiscounts));
 
-						subOrderDetails.add(gift);
-						count++;
+				if (giftList != null && !giftList.isEmpty()) {
+
+					int count = 0;
+					for (int i = 0; i < eventDiscounts.size(); i++) {
+
+						if (eventDiscounts.get(i) == 0) {
+
+							SubOrderDetail gift = new SubOrderDetail();
+							gift.setOrderId(mainOrder.getOrderId());
+							gift.setProductSpecId(giftList.get(count));
+							gift.setProductId(Integer.parseInt(giftList.get(count).substring(0, 8)));
+							gift.setProductPrice(0);
+							gift.setEventPrice(0);
+							gift.setEventIds(gson.toJson(new ArrayList<String>().add(eventIds.get(i))));
+							gift.setEvevtDiscounts(gson.toJson(new ArrayList<Integer>().add(0)));
+
+							subOrderDetails.add(gift);
+							count++;
+
+						}
 
 					}
 
 				}
 
+				subOrderDetails.add(item);
+				totalAmount += eventPrice != null ? eventPrice : cartItem.getProductPrice();
+				stringBuilder.append(cartItem.getProductId() + ",");
+
 			}
 
-			subOrderDetails.add(item);
-			totalAmount += eventPrice != null ? eventPrice : cartItem.getProductPrice();
-			stringBuilder.append(cartItem.getProductId() + ",");
+			int totalGrossProfit = (int) (totalAmount * 0.15);
+			int pointsDiscount = orderData.get("pointsDiscount") != null ? orderData.get("pointsDiscount").getAsInt()
+					: 0;
+			int couponDiscount = orderData.get("couponDiscount") != null ? orderData.get("couponDiscount").getAsInt()
+					: 0;
+			int paidAmount = totalAmount - pointsDiscount - couponDiscount;
+			double pDiscountRatio = pointsDiscount / totalAmount;
+			double cDiscountRatio = couponDiscount / totalAmount;
 
-		}
+			mainOrder.setTotalAmount(totalAmount);
+			mainOrder.setTotalGrossProfit(totalGrossProfit);
+			mainOrder.setPaidAmount(paidAmount);
 
-		int totalGrossProfit = (int) (totalAmount * 0.15);
-		int pointsDiscount = orderData.get("pointsDiscount") != null ? orderData.get("pointsDiscount").getAsInt() : 0;
-		int couponDiscount = orderData.get("couponDiscount") != null ? orderData.get("couponDiscount").getAsInt() : 0;
-		int paidAmount = totalAmount - pointsDiscount - couponDiscount;
-		double pDiscountRatio = pointsDiscount / totalAmount;
-		double cDiscountRatio = couponDiscount / totalAmount;
+			if (stringBuilder.length() > 0) {
+				productIds = stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
+			}
 
-		mainOrder.setTotalAmount(totalAmount);
-		mainOrder.setTotalGrossProfit(totalGrossProfit);
-		mainOrder.setPaidAmount(paidAmount);
+			// 新增主訂單
+			mainOrderDAO.insert(mainOrder);
 
-		if (stringBuilder.length() > 0) {
-			productIds = stringBuilder.deleteCharAt(stringBuilder.length() - 1).toString();
-		}
+			// 子訂單資料處理
 
-		// 新增主訂單
-		mainOrderDAO.insert(mainOrder);
+			// 取得廠商ID
 
-		// 子訂單資料處理
+			List<String> supplierIds = productDAO.getSupplierIdList(productIds);
 
-		// 取得廠商ID
+			// 產生子訂單編號 + set訂單基本資訊(訂編、子訂編、商編、時間、收件資訊)
+			for (int i = 0; i < supplierIds.size(); i++) {
 
-		List<String> supplierIds = productDAO.getSupplierIdList(productIds);
+				Suppliers supplier = supplierDAO.selectById(supplierIds.get(i));
+				SubOrder temp = new SubOrder();
 
-		// 產生子訂單編號 + set訂單基本資訊(訂編、子訂編、商編、時間、收件資訊)
-		for (int i = 0; i < supplierIds.size(); i++) {
+				temp.setOrderId(mainOrder.getOrderId());
+				temp.setMemberId(memberId);
+				temp.setSubOrderId(mainOrder.getOrderId() + "-" + String.format("%03d", i + 1));
+				temp.setSupplierId(supplierIds.get(i));
+				temp.setRecipient(recipient);
+				temp.setPhoneNum(phoneNum);
+				temp.setDeliveryAddress(deliveryAddress);
 
-			Suppliers supplier = supplierDAO.selectById(supplierIds.get(i));
-			SubOrder temp = new SubOrder();
+				// 訂單明細set子訂編、明細編號
+				int count = 1;
+				int paid = 0;
 
-			temp.setOrderId(mainOrder.getOrderId());
-			temp.setMemberId(memberId);
-			temp.setSubOrderId(mainOrder.getOrderId() + "-" + String.format("%03d", i + 1));
-			temp.setSupplierId(supplierIds.get(i));
-			temp.setRecipient(recipient);
-			temp.setPhoneNum(phoneNum);
-			temp.setDeliveryAddress(deliveryAddress);
+				for (SubOrderDetail sod : subOrderDetails) {
 
-			// 訂單明細set子訂編、明細編號
-			int count = 1;
-			int paid = 0;
+					Product product = productDAO.selectById(sod.getProductId());
 
-			for (SubOrderDetail sod : subOrderDetails) {
+					if (sod.getSubOrderId() == null
+							&& Objects.equals(product.getRegisterSupplier(), supplierIds.get(i))) {
+						sod.setSubOrderId(temp.getSubOrderId());
+						sod.setOrderDetailId(temp.getSubOrderId() + "-" + String.format("%03d", count));
+						count++;
+						paid += sod.getEventPrice();
+					}
 
-				Product product = productDAO.selectById(sod.getProductId());
-
-				if (sod.getSubOrderId() == null && Objects.equals(product.getRegisterSupplier(), supplierIds.get(i))) {
-					sod.setSubOrderId(temp.getSubOrderId());
-					sod.setOrderDetailId(temp.getSubOrderId() + "-" + String.format("%03d", count));
-					count++;
-					paid += sod.getEventPrice();
 				}
 
+				// 子訂單set 聚合欄位
+				temp.setSubPaidAmount(paid);
+				temp.setSubPointsDiscount((int) (paid * pDiscountRatio));
+				temp.setSubCouponDiscount((int) (paid * cDiscountRatio));
+				temp.setGrossProfit((int) (paid * supplier.getGrossProfitRatio()));
+				temp.setPointsReward((int) (paid * supplier.getPointRewardsRatio()));
+
+				subOrderDAO.insert(temp);
 			}
 
-			// 子訂單set 聚合欄位
-			temp.setSubPaidAmount(paid);
-			temp.setSubPointsDiscount((int) (paid * pDiscountRatio));
-			temp.setSubCouponDiscount((int) (paid * cDiscountRatio));
-			temp.setGrossProfit((int) (paid * supplier.getGrossProfitRatio()));
-			temp.setPointsReward((int) (paid * supplier.getPointRewardsRatio()));
+			// 新增子訂單明細
+			for (SubOrderDetail sodTemp : subOrderDetails) {
+				subOrderDetailDAO.insert(sodTemp);
+			}
 
-			subOrderDAO.insert(temp);
+			return true;
+
 		}
 
-		// 新增子訂單明細
-		for (SubOrderDetail sodTemp : subOrderDetails) {
-			subOrderDetailDAO.insert(sodTemp);
-		}
-		
-		return true;
-
+		return false;
 	}
 
 	@Override
@@ -408,8 +418,9 @@ public class OrderServiceImpl implements OrderService {
 	public String memberCheckOrder(String memberId) {
 		List<Object[]> list = subOrderDAO.memberCheckOrder2(memberId);
 
-		Map<Object, List<Object[]>> result = list.stream()
-				.collect(Collectors.groupingBy(li -> li[0], LinkedHashMap::new, Collectors.toList()));
+		Map<Object, Map<Object, Object>> result = list.stream().collect(Collectors.groupingBy(li -> li[0],
+				LinkedHashMap::new, Collectors.groupingBy(li -> li[7], LinkedHashMap::new, Collectors
+						.collectingAndThen(Collectors.toList(), values -> values.stream().findFirst().orElse(null)))));
 
 		return gson.toJson(result);
 	}
@@ -438,66 +449,58 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public String subOrderDetailcomment(String subOrderId) {
-		
+
 		return subOrderDAO.subOrderDetailcomment(subOrderId);
 	}
 
 	@Override
 	public String updateSubOrderDetailComment(String json) {
-		
+
 //		Object[] jsonlist = gson.fromJson(json, Object[].class);
 		JsonArray jsonlist = gson.fromJson(json, JsonArray.class);
-		
-		
-		
-		
+
 //		System.out.println(jsonObject);
-		
-		for(int i=0;i<jsonlist.size();i++) {
-			
+
+		for (int i = 0; i < jsonlist.size(); i++) {
+
 			JsonElement temp = jsonlist.get(i);
 			;
-			
+
 			int ratingStar = temp.getAsJsonObject().get("ratingStar").getAsInt();
 			String comment = temp.getAsJsonObject().get("comment").getAsString();
 			String orderDetailId = temp.getAsJsonObject().get("orderDetailId").getAsString();
-			
-			subOrderDetailDAO.updateSubOrderDetailComment(ratingStar,comment,orderDetailId);
+
+			subOrderDetailDAO.updateSubOrderDetailComment(ratingStar, comment, orderDetailId);
 		}
-		
+
 		return "評價成功";
-		
+
 	}
 
 	@Override
 	public String orderRefundUpdate(String json) {
-		
+
 		JsonObject jsonlist = gson.fromJson(json, JsonObject.class);
-		
+
 		String refundSubOrderId = jsonlist.get("refundSubOrderId").getAsString();
 		String refundReason = jsonlist.get("refundReason").getAsString();
 		String refundMark = jsonlist.get("refundMark").getAsString();
 
-		
-		subOrderDAO.orderRefundUpdate(refundSubOrderId,refundReason,refundMark);
+		subOrderDAO.orderRefundUpdate(refundSubOrderId, refundReason, refundMark);
 		subOrderDetailDAO.refundMark(refundSubOrderId, refundReason, refundMark);
 		return "評價成功";
 	}
 
 	@Override
 	public String mainOrderPaymentUpdate(String orderId) {
-		
+
 		MainOrder mainorder = new MainOrder();
 		mainorder.setOrderId(orderId);
 		mainorder.setPaymentStatus("1");
-		
+
 		mainOrderDAO.update(mainorder);
-		
+
 		return "成功啦";
 	}
-	
-	
-	
-	
-	
+
 }

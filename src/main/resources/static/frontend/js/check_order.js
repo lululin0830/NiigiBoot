@@ -26,10 +26,11 @@ let updateCommentlist = []
 let refundSubOrderId = null;
 const paymentPendingBody = function (arr) {
 
-	console.log("我是arr", arr)
-	arr.forEach(arr => {
+//	let array = Object.values(arr)
 
-		let dateString = arr[0][3];
+//	arr.forEach(arr => {
+
+		let dateString = arr[3];
 		let date = new Date(dateString);
 		let year = date.getFullYear(); // 獲得年份
 		let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
@@ -42,8 +43,8 @@ const paymentPendingBody = function (arr) {
                     <h4 class="order-date">${year + "-" + month + "-" + day}</h4>
                 </div>
                 <div class="col-sm-7">
-                    <h4 class="order-id">訂單編號：<span class="order-id">${arr[0][4]}</span></h4>
-                    <h4 class="order-amount">訂購金額：<span>${arr[0][5]}</span><span
+                    <h4 class="order-id">訂單編號：<span class="order-id">${arr[4]}</span></h4>
+                    <h4 class="order-amount">訂購金額：<span>${arr[5]}</span><span
                         style="font-size: 1.4rem"> (已折抵)</span>
                     </h4>
                 </div>
@@ -67,11 +68,11 @@ const paymentPendingBody = function (arr) {
             </div>`
 
 		//可能重複結構(多個子訂單)
-		for (i = 0; i < arr.length; i++) {
+		// for (i = 0; i < arr.length; i++) {
 
-			const imageElement = createImageURL(arr[i][9])
-			html +=
-				`< div class="navs-top-content" >
+		const imageElement = createImageURL(arr[9])
+		html +=
+			`< div class="navs-top-content" >
             <ul class="sub-order-list">
                 <li class="sub-order home">
                     <div class="col-sm-2">
@@ -81,10 +82,10 @@ const paymentPendingBody = function (arr) {
                         </div>
                     </div>
                     <div class="col-sm-7 ps-3">
-                        <h4 class="shop-name">店家名稱：<span>${arr[i][6]}</span></h4>
-                        <h4 class="order-id">訂單編號：<span class="sub-order-id">${arr[i][7]}</span>
+                        <h4 class="shop-name">店家名稱：<span>${arr[6]}</span></h4>
+                        <h4 class="order-id">訂單編號：<span class="sub-order-id">${arr[7]}</span>
                         </h4>
-                        <h4 class="order-amount">訂購金額：<span>${arr[i][8]}</span></h4>
+                        <h4 class="order-amount">訂購金額：<span>${arr[8]}</span></h4>
                     </div>
                     <div class="col-sm-3 position-relative ">
 
@@ -103,9 +104,9 @@ const paymentPendingBody = function (arr) {
             </div >
         <hr>
     </li>`
-		}
+		// }
 		bodyHtml += html;
-	});
+//	});
 
 }
 
@@ -303,8 +304,9 @@ const completeBody = function (element) {
 }
 
 const cancelBody = function (arr) {
-	console.log("已取消arr", arr)
-	arr.forEach(arr => {
+
+	let array = Object.values(arr)
+	array.forEach(arr => {
 		let dateString = arr[3];
 		let date = new Date(dateString);
 		let year = date.getFullYear(); // 獲得年份
@@ -497,20 +499,31 @@ const init = function () {
 		console.log("我是data", data)
 
 		//===================================尚未付款區===================================
-		let paymentPending = groupByField(data[1], 4)
-		// console.log("我是pay")s
+		let paymentPending = Object.values(data[0])
+
 		console.log("尚未付款", paymentPending)
-		paymentPendingBody(paymentPending)
-		mainorder1.insertAdjacentHTML("beforeend", bodyHtml);
-		bodyHtml = null;
+
+		paymentPending.forEach(element => {
+			console.log("element11111", element[1] , typeof element[1])
+			if (element[1] === '0') {
+				console.log("HIHIHIHI" , element)
+				paymentPendingBody(element)
+				mainorder1.insertAdjacentHTML("beforeend", bodyHtml);
+				bodyHtml = null;
+			}
+
+		});
+
+
 		//===================================處理中區===================================
 		let paymentsuccess = data[0]
+		let paymentsuccessArray = Object.values(paymentsuccess)
 		console.log("我是ps", paymentsuccess)
 		// let orderStatuscheck = groupByField(paymentsuccess, 1)
 		// console.log("主訂單狀態", orderStatuscheck)
 
-		paymentsuccess.forEach(element => {
-			// console.log("element", element)
+		paymentsuccessArray.forEach(element => {
+			console.log("element", element)
 			if (element[2] == 0 || Element[2] == 1) {
 				inprogressBody(element)
 				mainorder2.insertAdjacentHTML("beforeend", bodyHtml);
@@ -575,7 +588,7 @@ const init = function () {
 	bodyHtml = null;
 }
 
-document.addEventListener("DOMContentLoaded",init)
+document.addEventListener("DOMContentLoaded", init)
 
 
 //查看訂單方法
@@ -820,7 +833,7 @@ const cancelProduct = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
-			
+
 		},
 		body: subOrderId
 	}).then(r => r.json()).then(data => {

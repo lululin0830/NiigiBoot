@@ -27,7 +27,6 @@ profilePictureInput.addEventListener('change', function (event) {
 
 function init() {
     const memberIdElement = document.querySelector('.memberId').innerText;
-    console.log(memberIdElement)
 
     fetch('../member/selectId?memberId=' + `${memberId}` , {
         method: 'GET',
@@ -127,6 +126,7 @@ function init() {
                     alert("儲存成功");
                     location.reload(); // 重新載入頁面
                 } else {
+                    alert("修改失敗");
                 }
             })
             .catch(error => {

@@ -2,570 +2,647 @@
 <html lang="zh-tw">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Homepage</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Homepage</title>
 
-    <link rel="stylesheet" href="./frontend/vendors/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="./frontend/css/carousel.css">
-    <link rel="stylesheet" href="./frontend/css/core.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
-    <link rel="stylesheet" href="./frontend/css/font.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
-    <link rel="stylesheet" href="./frontend/css/button.css"> <!-- 所有按鈕共同的CSS 勿動，勿覆蓋！！！！！ 若沒用到按鈕可移除 -->
-    <link rel="stylesheet" href="./frontend/css/index.header.css"> <!-- header的CSS 勿刪-->
-    <link rel="stylesheet" href="./frontend/css/index.footer.css"> <!-- footer的CSS 勿刪-->
-    <link rel="stylesheet" href="./frontend/css/home.css">
+	<link rel="stylesheet" href="./frontend/vendors/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="./frontend/css/carousel.css">
+	<link rel="stylesheet" href="./frontend/css/core.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
+	<link rel="stylesheet" href="./frontend/css/font.css"> <!-- 所有頁面共同的CSS 勿刪，勿覆蓋！！！！！-->
+	<link rel="stylesheet" href="./frontend/css/button.css"> <!-- 所有按鈕共同的CSS 勿動，勿覆蓋！！！！！ 若沒用到按鈕可移除 -->
+	<link rel="stylesheet" href="./frontend/css/index.header.css"> <!-- header的CSS 勿刪-->
+	<link rel="stylesheet" href="./frontend/css/index.footer.css"> <!-- footer的CSS 勿刪-->
+	<link rel="stylesheet" href="./frontend/css/home.css">
+	<link rel="stylesheet" href="./frontend/css/login_popup.css">
 
-    <style>
-        main {
-            min-height: max(800px, calc(100vh - 150px));
-            height: 100%;
-            background-color: #F7F7F7;
-            /* overflow: visible; */
-            display: flex;
-            flex-direction: column;
+	<style>
+		main {
+			min-height: max(800px, calc(100vh - 150px));
+			height: 100%;
+			display: flex;
+			flex-direction: column;
 
-        }
+		}
 
-        .carousel-item {
-            height: 51.2rem;
-        }
+		.carousel-item {
+			height: 51.2rem;
+		}
 
-        .carousel-image {
-            background-size: cover;
-            background-position: center center;
-            height: 100%;
-            width: 100%;
-        }
-    </style>
+		.carousel-image {
+			background-size: cover;
+			background-position: center center;
+			height: 100%;
+			width: 100%;
+		}
+	</style>
 
+	<script>const loginRequired = false </script>
 </head>
 
 <body>
-    <!-- -------------------------------- 以下是Header 勿動！！！！-------------------------------- -->
-    <header id="main-header" class="header">
-
-        <div class="container-sm">
-
-            <div class="header-top row">
-
-                <div class="col-sm-2">
-                    <a class="header-logo" href="/"><img class="logo" src="./frontend/image/logo.svg" alt=""></a>
-                </div>
-
-                <div class="col-sm-6">
-                    <form action="" method="get" class="header-search row">
-                        <input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
-                            maxlength="50" value="">
-
-                        <button type="submit" class="header-search-submit col-sm-1"><img
-                                src="./frontend/image/search.svg"></button>
-                    </form>
-
-                    <div class="Search-hot ">
-                        <a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
-                        <a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
-                    </div>
-
-                </div>
-
-                <nav class="fixed-nav col-sm-4">
-
-                    <div class="fixed-nav-list login row">
-                        <a href="" class="SCM-Center col">
-                            <div class="SCM_icon">
-                                <button class="btn_SCM-Center">商家中心</button>
-                            </div>
-                        </a>
-
-                        <a href="" class="User-Center col">
-                            <div class="User_icon">
-                                <img src="./frontend/image/Profile.svg" alt="">
-                            </div>
-                        </a>
-
-                        <a href="" class="Favorite col">
-                            <div class="header_icon">
-                                <img src="./frontend/image/heart.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                        <a href="" class="Shopping-Cart col">
-                            <div class="header_icon">
-                                <img src="./frontend/image/Buy.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                        <a href="" class="Notification col">
-                            <div class="header_icon">
-                                <img src="./frontend/image/Notification.svg" alt="">
-                                <span class="count -active">0</span>
-                            </div>
-                        </a>
-
-                    </div>
-
-                </nav>
-            </div>
-
-        </div>
-
-    </header>
-
-    <!-- -------------------------------- 以下是商品分類導覽列 -------------------------------- -->
-    <nav id="main-navigation" class="main-navigation">
-        <ul class="main-nav"> <!--主選單-->
-            <li
-                class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
-                <div class="navigation_title navigation_title--bold navigation_title--salmon">
-                    <span class="navigation_title-inner">主題活動</span>
-                </div>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">3C周邊</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">家用電器</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">美妝個清</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">流行服飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">鞋包配飾</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">母嬰用品</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">日用生活</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">圖書文具</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="navigation-nav-title navigation_nav-title--hover-hide">
-
-                <a class="navigation_title navigation_title--link" href="">
-                    <span class="navigation_title-inner">旅遊戶外</span>
-                </a>
-
-                <div class="navigation__dropdown dropdown-campaign"> <!--下拉式選單-->
-                    <a class="" href="" title="">
-                        <span class="link-text">AAA</span> <!--中分類-->
-                    </a>
-
-                    <ul> <!--小分類-->
-                        <li>
-                            <a class="" href="" title="">
-                                <span class="link-text">aaa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-        </ul>
-
-    </nav>
-
-    <main>
-        <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class=""
-                    aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"
-                    class=""></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"
-                    class=""></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"
-                    class=""></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"
-                    class=""></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="5" aria-label="Slide 6"
-                    class=""></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="6" aria-label="Slide 7"
-                    class=""></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="7" aria-label="Slide 8"
-                    class="active" aria-current="true"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item">
-                    <div class="carousel-image" style="background-image: url('./frontend/image/fv_1.jpg');">
-                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image" style="background-image: url('./frontend/image/fv_2.jpg');">
-                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
-                    </div>
-                </div>
-                <div class="carousel-item ">
-                    <div class="carousel-image" style="background-image: url('./frontend/image/fv_3.jpg');">
-                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image" style="background-image: url('./frontend/image/fv_4.jpg');">
-                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image" style="background-image: url('./frontend/image/fv_1.jpg');">
-                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image" style="background-image: url('./frontend/image/fv_2.jpg');">
-                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel-image" style="background-image: url('./frontend/image/fv_3.jpg');">
-                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
-                    </div>
-                </div>
-                <div class="carousel-item active">
-                    <div class="carousel-image" style="background-image: url('./frontend/image/fv_4.jpg');">
-                        <rect width="100%" height="100%" fill="#F7F7F7"></rect>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                <img src="./frontend/image/Arrow - Right Circle.svg" alt="">
-                <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                <img src="./frontend/image/Arrow - Right Circle-1.svg" alt="">
-                <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-
-        <h2 class="little">推薦商品</h2>
-        <div class="container tablethird">
-            <div class="row">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
-                    <div class="card" style="width:200px;height:28rem;">
-                        <!-- <img src="./frontend/image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
-                        <img src="./frontend/image/square.svg" class="card-img-top" alt="BROTHER BOX"
-                            style="height: 260px;">
-                        <div class="card-body">
-                            <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart"
-                                    src="./frontend/image/heart_store.svg" alt=""></i></h5>
-                            <p class="card-text item__price">$24,000</p>
-                            <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
-                    <div class="card" style="width:200px;height:28rem;">
-                        <!-- <img src="./frontend/image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
-                        <img src="./frontend/image/square.svg" class="card-img-top" alt="BROTHER BOX"
-                            style="height: 260px;">
-                        <div class="card-body">
-                            <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart"
-                                    src="./frontend/image/heart_store.svg" alt=""></i></h5>
-                            <p class="card-text item__price">$24,000</p>
-                            <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
-                    <div class="card" style="width:200px;height:28rem;">
-                        <!-- <img src="./frontend/image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
-                        <img src="./frontend/image/square.svg" class="card-img-top" alt="BROTHER BOX"
-                            style="height: 260px;">
-                        <div class="card-body">
-                            <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart"
-                                    src="./frontend/image/heart_store.svg" alt=""></i></h5>
-                            <p class="card-text item__price">$24,000</p>
-                            <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
-                    <div class="card" style="width:200px;height:28rem;">
-                        <!-- <img src="./frontend/image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
-                        <img src="./frontend/image/square.svg" class="card-img-top" alt="BROTHER BOX"
-                            style="height: 260px;">
-                        <div class="card-body">
-                            <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart"
-                                    src="./frontend/image/heart_store.svg" alt=""></i></h5>
-                            <p class="card-text item__price">$24,000</p>
-                            <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="list_recommend" href="">查看所有商品></a>
-
-        <h2 class="little">新品上市</h2>
-        <div class="container tablethird">
-            <div class="row">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
-                    <div class="card" style="width:200px;height:28rem;">
-                        <!-- <img src="./frontend/image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
-                        <img src="./frontend/image/square.svg" class="card-img-top" alt="BROTHER BOX"
-                            style="height: 260px;">
-                        <div class="card-body">
-                            <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart"
-                                    src="./frontend/image/heart_store.svg" alt=""></i></h5>
-                            <p class="card-text item__price">$24,000</p>
-                            <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
-                    <div class="card" style="width:200px;height:28rem;">
-                        <!-- <img src="./frontend/image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
-                        <img src="./frontend/image/square.svg" class="card-img-top" alt="BROTHER BOX"
-                            style="height: 260px;">
-                        <div class="card-body">
-                            <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart"
-                                    src="./frontend/image/heart_store.svg" alt=""></i></h5>
-                            <p class="card-text item__price">$24,000</p>
-                            <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
-                    <div class="card" style="width:200px;height:28rem;">
-                        <!-- <img src="./frontend/image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
-                        <img src="./frontend/image/square.svg" class="card-img-top" alt="BROTHER BOX"
-                            style="height: 260px;">
-                        <div class="card-body">
-                            <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart"
-                                    src="./frontend/image/heart_store.svg" alt=""></i></h5>
-                            <p class="card-text item__price">$24,000</p>
-                            <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
-                    <div class="card" style="width:200px;height:28rem;">
-                        <!-- <img src="./frontend/image/fv_4.jpg" class="card-img-top" alt="BROTHER BOX" style="height: 260px;"> -->
-                        <img src="./frontend/image/square.svg" class="card-img-top" alt="BROTHER BOX"
-                            style="height: 260px;">
-                        <div class="card-body">
-                            <h5 class="card-title item__name">APPPLE AIR 5 粉金 <img class="heart"
-                                    src="./frontend/image/heart_store.svg" alt=""></i></h5>
-                            <p class="card-text item__price">$24,000</p>
-                            <p class="card-text item__store">蘋果爹商店</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="list_NewStore" href="">查看所有商品></a>
-
-
-
-    </main>
-
-    <!-- --------------------------------以下是Footer 勿動！！-------------------------------- -->
-    <footer id="main-footer" class="footer">
-
-        <div class="container-sm">
-
-            <div class="footer-top row">
-                <a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./frontend/image/logo.svg" alt=""></a>
-            </div>
-
-            <hr class="footer_divider">
-
-            <div class="footer-bottom row justify-content-end">
-
-                <nav class="SNS-nav-list ">
-
-                    <a href="" class="Instagram col">
-                        <div class="Instagram_icon">
-                            <img src="./frontend/image/ant-design_instagram-filled.svg" alt="">
-                        </div>
-                    </a>
-
-                    <a href="" class="Facebook col">
-                        <div class="Facebook_icon">
-                            <img src="./frontend/image/mdi_facebook.svg" alt="">
-                        </div>
-                    </a>
-
-                    <a href="" class="Twitter col ">
-                        <div class="Twitter_icon">
-                            <img src="./frontend/image/ant-design_twitter-circle-filled.svg" alt="">
-                        </div>
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </footer>
-
-    <script src="./frontend/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="/frontend/js/core_customer.js"></script>
+
+	<!-- ----------------------以下是登入彈窗內容------------------------- -->
+	<div class="modal" id="login_popup">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center mb-5">
+					<img src="/frontend/image/logo.svg" alt="">
+				</div>
+				<div class="modal-body mb-5">
+					<button type="button" class="modal-button">使用Line繼續</button>
+					<button type="button" class="modal-button my-4">使用Google繼續</button>
+					<p class="text-center">--------------------使用Niigi帳號--------------------</p>
+					<button type="button" class="modal-button" data-bs-toggle="modal"
+						data-bs-target="#login_Niigi">使用Niigi帳號繼續</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- -------------------以下是選擇niigi登入彈窗內容 --------------------->
+	<div class="modal fade" id="login_Niigi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-1"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center">
+					<img src="./image/logo.svg" alt="">
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h4>使用Niigi帳號登入</h4>
+					<div style="height: 20px;"></div>
+					<div class="text-left">
+						<input type="email" id="memberAcct" name="" required placeholder="xxx帳號">
+						<div style="height: 20px;"></div>
+						<form id="changePasswordForm"
+							class="d-flex flex-column justify-content-center align-items-center">
+							<div class="form-group">
+								<input type="password" id="currentPassword" name="currentPassword" required
+									placeholder="密碼">
+								<span class="show-password-btn"
+									onclick="togglePasswordVisibility('currentPassword')">&#128065;</span>
+							</div>
+						</form>
+					</div>
+					<div style="height: 20px;"></div>
+					<button type="button" id="login" class="btn-primary">登入</button>
+					<div id="errMsg" class="error"></div>
+					<div style="height: 20px;"></div>
+					<div class="modal-footer d-flex justify-content-between align-items-center">
+						<button type="button" class="btn btn-link " data-bs-toggle="modal"
+							data-bs-target="#forget_password">忘記密碼</button>
+						<hr class="vertical-line">
+						<button type="button" class="btn btn-link" data-bs-toggle="modal"
+							data-bs-target="#resend_letter">重寄認證信</button>
+					</div>
+					<p>還不是會員嗎?</p>
+					<button type="button" class="btn btn-link" data-bs-toggle="modal"
+						data-bs-target="#register_account">立即註冊帳號</button>
+				</div>
+
+				<div class="modal-footer d-flex justify-content-center align-items-center">
+					<button id="backToPreviousModal" type="button" class="btn btn-link">回上一頁</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -------------------以下是忘記密碼彈窗內容 --------------------->
+	<div class="modal fade" id="forget_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center">
+					<img src="./image/logo.svg" alt="">
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h4>重設密碼</h4>
+					<div style="height: 20px;"></div>
+					<p>請輸入您註冊時的E-mail</p>
+					<p>我們會發送一封信件</p>
+					<p>點擊信件中的連結以重設密碼</p>
+					<div style="height: 20px;"></div>
+					<input type="email" id="" name="" required placeholder="請輸入E-mail">
+					<div style="height: 20px;"></div>
+					<button type="button" class="btn-primary" data-bs-dismiss="modal">送出</button>
+				</div>
+				<div class="modal-footer d-flex justify-content-center align-items-center">
+					<button id="backToPreviousModal-2" type="button" class="btn btn-link">回上一頁</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -------------------以下是重寄認證信彈窗內容 --------------------->
+	<div class="modal fade" id="resend_letter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center">
+					<img src="./image/logo.svg" alt="">
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h4>重新寄送認證信</h4>
+					<div style="height: 20px;"></div>
+					<p>請輸入您註冊時的E-mail</p>
+					<p>我們會發送一封認證信</p>
+					<p>點擊信件中的連結以開通</p>
+					<div style="height: 20px;"></div>
+					<input type="email" id="" name="" required placeholder="請輸入E-mail">
+					<div style="height: 20px;"></div>
+					<button type="button" class="btn-primary" data-bs-dismiss="modal">送出</button>
+				</div>
+				<div class="modal-footer d-flex justify-content-center align-items-center">
+					<button id="backToPreviousModal-3" type="button" class="btn btn-link">回上一頁</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -------------------以下是註冊新帳號彈窗內容 --------------------->
+	<div class="modal fade" id="register_account" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-2"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center align-items-center">
+					<img src="./image/logo.svg" alt="">
+				</div>
+				<div class="modal-body d-flex flex-column justify-content-center align-items-center">
+					<h4>註冊帳號</h4>
+					<div style="height: 20px;"></div>
+					<div class="d-flex justify-content-center align-items-center">
+						<form id="changePasswordForm" class="d-flex flex-column">
+							<div id="msg" class="error"></div>
+							<div class="form-group">
+								<label for="account-number">帳號：</label>
+								<input type="email" id="newmemberAcct" name="newmemberAcct" required
+									placeholder="請輸入信箱">
+								<div class="error" id="acctError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="newPassword1">密碼：</label>
+								<input type="password" id="newPassword" name="newPassword" required
+									placeholder="8-16位英文字母，數字和符號混合">
+								<style>
+									#newPassword::placeholder {
+										font-size: 12px;
+									}
+								</style>
+								<span class="show-password-btn"
+									onclick="togglePasswordVisibility('newPassword')">&#128065;</span>
+								<div class="error" id="passwordError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="confirmPassword-3">確認密碼：</label>
+								<input type="password" id="confirmPassword" name="confirmPassword" required
+									placeholder="再次確認密碼">
+								<span class="show-password-btn"
+									onclick="togglePasswordVisibility('confirmPassword')">&#128065;</span>
+								<div class="error" id="confirmPasswordError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="fullname">姓名：</label>
+								<input type="text" id="fullname" name="fullname" value="">
+								<div class="error" id="fullnameError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="phone">手機：</label>
+								<input type="tel" id="phone" name="phone" value="">
+								<div class="error" id="phoneError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="gender">性別：</label>
+								<input type="radio" id="male" name="quantity" value="male">
+								<label for="male">男性</label>
+								<input type="radio" id="female" name="quantity" value="female">
+								<label for="female">女性</label>
+								<div class="error" id="genderError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="form-group">
+								<label for="birthday">生日：</label>
+								<input type="date" id="birthday" name="birthday">
+								<div class="error" id="birthdayError"></div>
+							</div>
+							<div style="height: 20px;"></div>
+							<div class="my-3">
+								<td class="tds">驗證碼：</td>
+								<input type="text" name="valistr" class="my-2" id="company-captchaInput">
+							</div>
+							<div>
+								<td id="validimg">
+									<img id="company-yzm_img" src="" style="cursor: pointer" />
+									<span id="company-valistr_msg"></span>
+								</td>
+							</div>
+							<div style="height: 20px;"></div>
+							<button type="button" class="btn-primary" id="register">註冊</button>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-center align-items-center">
+					<button id="backToPreviousModal-4" type="button" class="btn btn-link">回上一頁</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- -------------------------------- 以下是商品分類導覽列 勿動！！ -------------------------------- -->
+	<nav id="main-navigation" class="main-navigation">
+		<ul class="main-nav"> <!--主選單-->
+			<li
+				class="navigation-nav-title navigation_nav-title--highlight navigation_nav-title--hover-hide navigation_nav-title--new-dot">
+				<div class="navigation_title navigation_title--bold navigation_title--salmon">
+					<span class="navigation_title-inner">主題活動</span>
+				</div>
+			</li>
+
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="/frontend/categoriePage.html"
+					onclick="passTextToNextPage('3C周邊')">
+					<span class="navigation_title-inner">3C周邊</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="/frontend/categoriePage.html"
+					onclick="passTextToNextPage('家用電器')">
+					<span class="navigation_title-inner">家用電器</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="/frontend/categoriePage.html"
+					onclick="passTextToNextPage('美妝個清')">
+					<span class="navigation_title-inner">美妝個清</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="/frontend/categoriePage.html"
+					onclick="passTextToNextPage('流行服飾')">
+					<span class="navigation_title-inner">流行服飾</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="/frontend/categoriePage.html"
+					onclick="passTextToNextPage('鞋包配飾')">
+					<span class="navigation_title-inner">鞋包配飾</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+				<a class="navigation_title navigation_title--link" href="/frontend/categoriePage.html"
+					onclick="passTextToNextPage('母嬰用品')">
+					<span class="navigation_title-inner">母嬰用品</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="/frontend/categoriePage.html"
+					onclick="passTextToNextPage('日用生活')">
+					<span class="navigation_title-inner">日用生活</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="/frontend/categoriePage.html"
+					onclick="passTextToNextPage('圖書文具')">
+					<span class="navigation_title-inner">圖書文具</span>
+				</a>
+			</li>
+			<li class="navigation-nav-title navigation_nav-title--hover-hide">
+
+				<a class="navigation_title navigation_title--link" href="/frontend/categoriePage.html"
+					onclick="passTextToNextPage('旅遊戶外')">
+					<span class="navigation_title-inner">旅遊戶外</span>
+				</a>
+			</li>
+
+		</ul>
+
+	</nav>
+
+
+	<main>
+		<div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class=""
+					aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"
+					class=""></button>
+				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"
+					class=""></button>
+				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"
+					class=""></button>
+				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"
+					class=""></button>
+				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="5" aria-label="Slide 6"
+					class=""></button>
+				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="6" aria-label="Slide 7"
+					class=""></button>
+				<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="7" aria-label="Slide 8"
+					class="active" aria-current="true"></button>
+			</div>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<div class="carousel-image" style="background-image: url('./frontend/image/carousel_01.jpg');">
+						<rect width="100%" height="100%" fill="#F7F7F7"></rect>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="carousel-image" style="background-image: url('./frontend/image/carousel_02.jpg');">
+						<rect width="100%" height="100%" fill="#F7F7F7"></rect>
+					</div>
+				</div>
+				<div class="carousel-item ">
+					<div class="carousel-image" style="background-image: url('./frontend/image/carousel_03.jpg');">
+						<rect width="100%" height="100%" fill="#F7F7F7"></rect>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="carousel-image" style="background-image: url('./frontend/image/carousel_04.jpg');">
+						<rect width="100%" height="100%" fill="#F7F7F7"></rect>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="carousel-image" style="background-image: url('./frontend/image/carousel_05.jpg');">
+						<rect width="100%" height="100%" fill="#F7F7F7"></rect>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="carousel-image" style="background-image: url('./frontend/image/carousel_06.jpg');">
+						<rect width="100%" height="100%" fill="#F7F7F7"></rect>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="carousel-image" style="background-image: url('./frontend/image/carousel_07.jpg');">
+						<rect width="100%" height="100%" fill="#F7F7F7"></rect>
+					</div>
+				</div>
+				<div class="carousel-item ">
+					<div class="carousel-image" style="background-image: url('./frontend/image/carousel_09.jpg');">
+						<rect width="100%" height="100%" fill="#F7F7F7"></rect>
+					</div>
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+				<img src="./frontend/image/Arrow - Right Circle.svg" alt="">
+				<!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+				<img src="./frontend/image/Arrow - Right Circle-1.svg" alt="">
+				<!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+
+		<h2 class="little">推薦商品</h2>
+		<div class="container tablethird">
+			<div class="row" id="ExProduct">
+
+			</div>
+		</div>
+		<a class="list_recommend" href="categoriePage.html" onclick="passTextToNextPage('推薦商品')">查看所有商品></a>
+
+		<h2 class="little">新品上市</h2>
+		<div class="container tablethird">
+			<div class="row" id="newproducts">
+
+			</div>
+		</div>
+		<a class="list_NewStore" href="categoriePage.html" onclick="passTextToNextPage('新品上市')">查看所有商品></a>
+
+
+
+
+	</main>
+
+	<!-- --------------------------------以下是Footer 勿動！！-------------------------------- -->
+	<footer id="main-footer" class="footer">
+
+		<div class="container-sm">
+
+			<div class="footer-top row">
+				<a class="footer_logo col-sm-2 " href="/"><img class="logo" src="./frontend/image/logo.svg" alt=""></a>
+			</div>
+
+			<hr class="footer_divider">
+
+			<div class="footer-bottom row justify-content-end">
+
+				<nav class="SNS-nav-list ">
+
+					<a href="" class="Instagram col">
+						<div class="Instagram_icon">
+							<img src="./frontend/image/ant-design_instagram-filled.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Facebook col">
+						<div class="Facebook_icon">
+							<img src="./frontend/image/mdi_facebook.svg" alt="">
+						</div>
+					</a>
+
+					<a href="" class="Twitter col ">
+						<div class="Twitter_icon">
+							<img src="./frontend/image/ant-design_twitter-circle-filled.svg" alt="">
+						</div>
+					</a>
+				</nav>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/frontend/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="/frontend/vendors/jquery/jquery-3.7.0.min.js"></script>
+	<script>
+		function passTextToNextPage(text) {
+			// 將文字傳遞給下一頁
+			localStorage.setItem('textData', text);
+		}
+
+
+		function validateForm() {
+			var inputText = document.querySelector('.header-search-input').value.trim();
+			if (inputText === '') {
+				return false; // 阻止表單提交
+			}
+			// 如果不是空值或空字串，允許表單提交
+			return true;
+		}
+
+
+		function displayImageFromBase64(base64ImageData) {
+			const imageBinaryStr = atob(base64ImageData);
+			let len = imageBinaryStr.length;
+			const uint8Array = new Uint8Array(len);
+			while (len--) {
+				uint8Array[len] = imageBinaryStr.charCodeAt(len);
+			}
+			const blob = new Blob([uint8Array]);
+			const blobUrl = URL.createObjectURL(blob); // 產生 Blob URL
+			// document.querySelector('#avatar').src = blobUrl; // 設定圖片的 src 屬性
+			return blobUrl; // 返回 Blob URL
+		}
+
+
+		document.addEventListener("DOMContentLoaded", function () {
+			fetch('/product/products', {
+				method: 'POST',
+				body: JSON.stringify({num: "4"}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((response) => {
+					console.log(response);
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+
+					let list_html = "";
+
+					for (let i = 0; i < 4; i++) {
+						const product = data[i];
+						// 在這裡對每個產品進行處理
+						//取得產品ID
+						const productId = product.productId;
+						// 取得產品名稱
+						const productName = product.productName;
+						// 取得產品價格
+						const productPrice = product.productPrice;
+						// 取得產品圖片的 Base64 字串
+						const base64Image = displayImageFromBase64(product.picture1);
+						//取得商店名稱
+						const ShopName = product.suppliers.shopName;
+
+						// 也可以將其他產品資料顯示在網頁上
+						list_html += `
+							<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+									<div class="card" style="width:200px;height:28rem;">
+										<img src="${base64Image}" id="${productId}" class="card-img-top linkable-image" alt="BROTHER BOX" style="width: 100%; height: 100%;">
+										<div class="card-body">
+											<h5 class="card-title item__name">${productName}<img class="heart"
+												src="/frontend/image/heart_zero.svg" alt=""></i></h5>
+											<p class="card-text item__price">$${productPrice}</p>
+											<p class="card-text item__store">${ShopName}</p>
+										</div>
+									</div>
+							</div>
+									`;
+					}
+					$('#newproducts').html(list_html);
+					console.log(data[0].productPrice);
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+
+
+			fetch('/product/exproducts', {
+				method: 'POST',
+				body: JSON.stringify({num: "4"}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then((response) => {
+					// 檢查回應的狀態碼
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					// 解析JSON格式的回應
+					return response.json();
+				})
+				.then((data) => {
+					console.log(data[0].suppliers.shopName);
+					let list_html = "";
+
+					for (let i = 0; i < 4; i++) {
+						const product = data[i];
+						// 在這裡對每個產品進行處理
+						//取得產品ID
+						const productId = product.productId;
+						// 取得產品名稱
+						const productName = product.productName;
+						// 取得產品價格
+						const productPrice = product.productPrice;
+						// 取得產品圖片的 Base64 字串
+						const base64Image = displayImageFromBase64(product.picture1);
+						//取得商店名稱
+						const ShopName = product.suppliers.shopName;
+
+						// 也可以將其他產品資料顯示在網頁上
+						list_html += `
+							<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 tablethird">
+									<div class="card" style="width:200px;height:28rem;">
+										<img src="${base64Image}" id="${productId}" class="card-img-top linkable-image" alt="BROTHER BOX" style="height: 260px;">
+										<div class="card-body">
+											<h5 class="card-title item__name">${productName}<img class="heart"
+												src="/frontend/image/heart_zero.svg" alt=""></i></h5>
+											<p class="card-text item__price">$${productPrice}</p>
+											<p class="card-text item__store">${ShopName}</p>
+										</div>
+									</div>
+							</div>
+									`;
+					}
+					$('#ExProduct').html(list_html);
+					console.log(data[0].productPrice);
+				})
+				.catch((error) => {
+					console.error('Fetch error:', error);
+				});
+
+		});
+
+		$(document).on('click', '.heart', function (event) {
+
+			if ($(event.currentTarget).hasClass('-on')) {
+				$(event.currentTarget).attr('src', "/frontend/image/heart_zero.svg");
+				$(event.currentTarget).removeClass('-on');
+
+			} else {
+				$(event.currentTarget).attr('src', "./image/heart_fill.svg");
+				$(event.currentTarget).addClass('-on');
+			}
+
+		});
+
+		$(document).on('click', '.linkable-image', function (event) {
+			const clickedImageId = event.currentTarget.getAttribute('id');
+			window.location.href = `product.html?productId=${clickedImageId}`;
+			//console.log("Clicked image ID:", clickedImageId);
+			//console.log(event);
+		});
+
+
+	</script>
+	<script src="/frontend/js/login_popup.js"></script>
 </body>
 
 </html>
