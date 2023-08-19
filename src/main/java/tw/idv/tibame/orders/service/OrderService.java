@@ -58,4 +58,6 @@ public interface OrderService {
 	public String orderRefundUpdate(String json);
 	
 	public String mainOrderPaymentUpdate(String orderId);
+	
+	public String checkOrderEvents(String subOrderId)  throws Exception;
 }

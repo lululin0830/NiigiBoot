@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.google.gson.Gson;
 
 import jakarta.persistence.PersistenceContext;
+import tw.idv.tibame.events.dao.EventSingleThresholdDAOImpl;
 import tw.idv.tibame.orders.dao.SubOrderDetailDAO;
 import tw.idv.tibame.orders.entity.SubOrderDetail;
 
@@ -22,6 +23,7 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 	
 	@Autowired 
 	private Gson gson;
+	
 	
 	@Override
 	public Boolean insert(SubOrderDetail entity) {
@@ -132,6 +134,16 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 		query.setParameter("refundSubOrderId", refundSubOrderId);
 		query.executeUpdate();
 		return "評價更新成功";
+	}
+
+	@Override
+	public List<SubOrderDetail> selectBySubOrderId(String subOrderId) {
+		
+		String hql = "FROM SubOrderDetail WHERE subOrderId = :subOrderId";
+		
+		
+		return session.createQuery(hql,SubOrderDetail.class).setParameter("subOrderId", subOrderId)
+				.getResultList();
 	}
 
 }
