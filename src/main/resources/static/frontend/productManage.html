@@ -42,7 +42,7 @@
 		div.main-content-header>h1 {
 			display: inline-block;
 			vertical-align: bottom;
-			margin: 4.5rem 0 0 0;
+			
 		}
 
 		hr.main-content-divider {
@@ -354,6 +354,23 @@
 		.specInfo2 {
 			width: 180px;
 		}
+		
+		/* breadcrumb */
+
+		ol.breadcrumb {
+			font-size: 1.4rem;
+			margin: 0;
+			padding: 0 0 0.5rem 0.5rem;
+
+		}
+
+		ol.breadcrumb a,
+		ol.breadcrumb li,
+		.breadcrumb-item.active {
+			color: #94A3B8;
+			text-decoration: none;
+			font-weight: 500;
+		}
 	</style>
 	<script>const loginRequired = true </script>
 </head>
@@ -369,57 +386,27 @@
 			<div class="header-top row">
 
 				<div class="col-sm-2">
-					<a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+					<a class="header-logo" href="/"><img class="logo" src="../frontend/image/logo.svg" alt=""></a>
 				</div>
 
-				<div class="col-sm-6">
+				<div class="col-sm-8">
 					<form action="" method="get" class="header-search row">
 						<input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
 							maxlength="50" value="">
 
 						<button type="submit" class="header-search-submit col-sm-1"><img
-								src="./image/search.svg"></button>
+								src="../frontend/image/search.svg"></button>
 					</form>
-
-					<div class="Search-hot ">
-						<a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
-						<a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
-					</div>
 
 				</div>
 
-				<nav class="fixed-nav col-sm-4">
+				<nav class="fixed-nav col-sm-2">
 
-					<div class="fixed-nav-list login row">
-						<a href="" class="SCM-Center col">
-							<div class="SCM_icon">
-								<button class="btn_SCM-Center">商家中心</button>
-							</div>
-						</a>
-
-						<a href="" class="User-Center col">
-							<div class="User_icon">
-								<img src="./image/Profile.svg" alt="">
-							</div>
-						</a>
-
-						<a href="" class="Favorite col">
-							<div class="header_icon">
-								<img src="./image/heart.svg" alt="">
-								<span class="count -active">0</span>
-							</div>
-						</a>
-
-						<a href="" class="Shopping-Cart col">
-							<div class="header_icon">
-								<img src="./image/Buy.svg" alt="">
-								<span class="count -active">0</span>
-							</div>
-						</a>
-
+					<div class="fixed-nav-list row">
+				
 						<a href="" class="Notification col">
 							<div class="header_icon">
-								<img src="./image/Notification.svg" alt="">
+								<img src="../frontend/image/Notification.svg" alt="">
 								<span class="count -active">0</span>
 							</div>
 						</a>
@@ -444,7 +431,7 @@
 						<img class="memberPhoto" src="../frontend/image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
 					</div>
 					<div class="member-info col-sm-8">
-						<h4 class="memberAccount">jeffrey47</h4>
+						<h4 class="memberAccount"></h4>
 						<h6 id="supplierId"></h6>
 					</div>
 				</div>
@@ -453,7 +440,7 @@
 						<h4>MENU</h4>
 					</li>
 					<li>
-						<a href="#">
+						<a href="../frontend/supplier_center.html">
 							<img src="../frontend/image/Chart.svg" alt="">
 							<img src="../frontend/image/Chart-a.svg" alt="">商家中心
 						</a>
@@ -464,12 +451,12 @@
 							<img src="../frontend/image/DocumentAsh-a.svg" alt="">訂單狀態</a>
 					</li>
 					<li class="active">
-						<a href="#">
+						<a href="../frontend/productManage.html">
 							<img src="../frontend/image/Edit.svg" alt="">
 							<img src="../frontend/image/Edit.svg" alt="">商品管理</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="../frontend/event_management.html">
 							<img src="../frontend/image/Discount.svg" alt="">
 							<img src="../frontend/image/Discount-a.svg" alt="">行銷活動</a>
 					</li>
@@ -491,7 +478,7 @@
 					<li>
 						<a href="#">
 							<img src="../frontend/image/Game.svg" alt="">
-							<img src="../frontend/image/Game-a.svg" alt="">假期模式</a>
+							<img src="../frontend/image/Game-s-a.svg" alt="">假期模式</a>
 					</li>
 					<li>
 						<h4>OTHERS</h4>
@@ -517,7 +504,7 @@
 							<img src="../frontend/image/Info Square-a.svg" alt="">取得協助</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="" onclick="logout();">
 							<img src="../frontend/image/Logout.svg" alt="">
 							<img src="../frontend/image/Logout-a.svg" alt="">登出</a>
 					</li>
@@ -525,6 +512,14 @@
 			</aside>
 			<main class="member-check-order col-sm-10">
 				<div class="main-content-header row">
+					<div class="suplier-breadcrumb col-sm-12">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li id="breadSupplierAcct" class="breadcrumb-item"><a href="/frontend/supplier_center.html"></a></li>
+								<li class="breadcrumb-item active" aria-current="page">商品管理</li>
+							</ol>
+						</nav>
+					</div>
 					<div class="main-content-icon col-sm-1">
 						<img calss="main-content-icon" src="./image/productManage.svg">
 					</div>
@@ -1269,12 +1264,30 @@
 
 				// 如果搜尋框為空，則不執行搜尋
 				if (keyword === '') {
+					alert("請輸入搜尋內容");
 					return;
-				} else {
-					console.log(keyword);
-					console.log(optionName);
 				}
+				
+				$('#navs-top-home .tableTwo' ).html(`<thead>
+										<tr>
+											<th class="checkAll">
+												<input type="checkbox" id="selectAll">
+											</th>
+											<th></th>
+											<th class="productNameTh">商品名稱</th>
+											<th>規格一</th>
+											<th>規格二</th>
+											<th>售價</th>
+											<th>即時<br>庫存</th>
+											<th>已售出</th>
+											<th>狀態</th>
+											<th class="operate_txt">操作</th>
+										</tr>
+									</thead>
+									<tbody id="AllProduct">
 
+
+									</tbody>`);
 				// 搜尋框有文字，可以進行搜尋
 				// 將 selectedOption 和 keyword 送往後端處理
 				//針對分頁搜尋tatal
@@ -1534,11 +1547,30 @@
 
 					// 如果搜尋框為空，則不執行搜尋
 					if (keyword === '') {
+						alert("請輸入搜尋內容");
 						return;
-					} else {
-						console.log(keyword);
-						console.log(optionName);
 					}
+					
+					$(`${targetId} .tableTwo`).html(`<thead>
+										<tr>
+											<th class="checkAll">
+												<input type="checkbox" id="selectAll">
+											</th>
+											<th></th>
+											<th class="productNameTh">商品名稱</th>
+											<th>規格一</th>
+											<th>規格二</th>
+											<th>售價</th>
+											<th>即時<br>庫存</th>
+											<th>已售出</th>
+											<th>狀態</th>
+											<th class="operate_txt">操作</th>
+										</tr>
+									</thead>
+									<tbody id="${(productTbody(targetId)).substring(1)}">
+
+
+									</tbody>`);
 
 					// 搜尋框有文字，可以進行搜尋
 					// 將 selectedOption 和 keyword 送往後端處理
