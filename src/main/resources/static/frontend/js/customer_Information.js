@@ -27,7 +27,6 @@ profilePictureInput.addEventListener('change', function (event) {
 
 function init() {
     const memberIdElement = document.querySelector('.memberId').innerText;
-    console.log(memberIdElement)
 
     fetch('../member/selectId?memberId=' + `${memberId}` , {
         method: 'GET',
