@@ -289,17 +289,17 @@
 			align-items: center;
 			justify-content: center;
 		}
-		
+
 		/* 取消訂單按鈕 */
-		
+
 		#navs-top-inprogress .cancelSubOrder,
 		#navs-top-refund .cancelSubOrder,
 		#navs-top-complete .cancelSubOrder,
-		#navs-top-cancel .cancelSubOrder{
+		#navs-top-cancel .cancelSubOrder {
 			display: none;
 		}
 	</style>
-
+	<script>const loginRequired = true </script>
 </head>
 
 <body>
@@ -330,7 +330,7 @@
 				<nav class="fixed-nav col-sm-2">
 
 					<div class="fixed-nav-list row">
-				
+
 						<a href="" class="Notification col">
 							<div class="header_icon">
 								<img src="../frontend/image/Notification.svg" alt="">
@@ -432,7 +432,7 @@
 							<img src="../frontend/image/Info Square-a.svg" alt="">取得協助</a>
 					</li>
 					<li>
-						<a href="#" onclick="logout();">
+						<a href="" onclick="logout();">
 							<img src="../frontend/image/Logout.svg" alt="">
 							<img src="../frontend/image/Logout-a.svg" alt="">登出</a>
 					</li>
@@ -443,7 +443,8 @@
 					<div class="suplier-breadcrumb col-sm-12">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
-								<li id="breadSupplierAcct" class="breadcrumb-item"><a href="/frontend/supplier_center.html"></a></li>
+								<li id="breadSupplierAcct" class="breadcrumb-item"><a
+										href="/frontend/supplier_center.html"></a></li>
 								<li class="breadcrumb-item active" aria-current="page">商家中心</li>
 							</ol>
 						</nav>
