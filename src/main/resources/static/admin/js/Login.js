@@ -67,7 +67,6 @@ document.getElementById('login').addEventListener('click', () => {
                 try {
                     const decodedToken = parseJwt(jwtToken);
                     setCookie('jwt', jwtToken, 24);
-                    console.log(jwtToken);
                     window.location.href = 'User_Management.html';
                 } catch (error) {
                     errMsg.textContent = '登錄失敗，請檢查帳號和密碼。';
