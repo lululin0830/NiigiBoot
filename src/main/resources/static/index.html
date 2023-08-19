@@ -636,7 +636,7 @@
 
 		$(document).on('click', '.linkable-image', function (event) {
 			const clickedImageId = event.currentTarget.getAttribute('id');
-			window.location.href = `product.html?productId=${clickedImageId}`;
+			window.location.href = `/frontend/product.html?productId=${clickedImageId}`;
 			//console.log("Clicked image ID:", clickedImageId);
 			//console.log(event);
 		});
