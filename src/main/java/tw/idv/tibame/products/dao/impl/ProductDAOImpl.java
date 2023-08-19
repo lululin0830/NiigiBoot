@@ -43,14 +43,11 @@ public class ProductDAOImpl implements ProductDAO {
 		try {
 			product = session.get(Product.class, newProduct.getProductId());
 
-			final String categorieId = newProduct.getCategorieId();
 			final String productName = newProduct.getProductName();
 			final Integer productPrice = newProduct.getProductPrice();
 			final String productInfo = newProduct.getProductInfo();
 
-			if (categorieId != null && !categorieId.isBlank()) {
-				product.setCategorieId(categorieId);
-			}
+
 			if (productName != null && !productName.isBlank()) {
 				product.setProductName(productName);
 			}

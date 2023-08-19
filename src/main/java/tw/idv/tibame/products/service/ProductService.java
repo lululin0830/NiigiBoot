@@ -27,7 +27,7 @@ public interface ProductService {
 	public Product getById(Integer productId) throws Exception;
 
 	// 修改商品資料(不含圖)
-	public Boolean updateProduct(Integer productId, String productName, String productInfo, String categorieId,
+	public Boolean updateProduct(Integer productId, String productName, String productInfo,
 			Integer productPrice) throws Exception;
 
 
