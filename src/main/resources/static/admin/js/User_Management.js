@@ -1,6 +1,5 @@
 // 查詢
 const search = function () {
-    console.log("來了");
 
     const searchdata = JSON.stringify({
         searchcase: document.getElementById("Searchcase").value,
@@ -39,7 +38,6 @@ const search = function () {
     })
 }
 
-console.log("讀到了")
 document.getElementById("search").addEventListener("click", search);
 // 新增
 (() => {
@@ -50,17 +48,7 @@ document.getElementById("search").addEventListener("click", search);
     const password = document.querySelector('#password');
     const inputs = document.querySelectorAll('input');
     add.addEventListener('click', () => {
-        // const accLength = userName.value.length;
-        // if (accLength < 5 || accLength > 50) {x
-        // 	msg.textContent = '帳號長度須介於5~50字元';
-        // 	return;
-        // }
 
-        // const pwdLength = password.value.length;
-        // if (pwdLength < 6 || pwdLength > 12) {
-        // 	msg.textContent = '密碼長度須介於6~12字元';
-        // 	return;
-        // }
         msg.textContent = '';
         fetch('/Register', {
             method: 'POST',
@@ -96,10 +84,8 @@ document.getElementById("search").addEventListener("click", search);
 
 function removeUser(element) {
     // 取得按鈕元素
-    console.log("Hi")
 
     const userId = element.dataset.userId;
-    console.log(userId)
 
     // 使用 Fetch API 來發送 POST 請求，進行會員刪除操作
     fetch('/Remove', {
@@ -123,10 +109,8 @@ let currentUserUserId = '';
 
 // 帳號設定按鈕的點擊事件處理程序
 function updateUser(element) {
-    console.log("Hi")
 
     currentUserUserId = element.dataset.userId; // 获取当前用户的 userId
-    console.log(currentUserUserId);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -148,8 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
             password: changePassword.value,
         };
 
-        console.log('Current userId:', currentUserUserId);
-        // console.log('Data to be sent:', data);
         return fetch('/user/update', {
             method: 'POST',
             headers: {
