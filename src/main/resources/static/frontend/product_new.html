@@ -40,7 +40,7 @@
 		div.main-content-header>h1 {
 			display: inline-block;
 			vertical-align: bottom;
-			margin: 4.5rem 0 0 0;
+		
 		}
 
 		hr.main-content-divider {
@@ -265,6 +265,23 @@
 		.initialStock {
 			width: 70px;
 		}
+		
+		/* breadcrumb */
+
+		ol.breadcrumb {
+			font-size: 1.4rem;
+			margin: 0;
+			padding: 0 0 0.5rem 0.5rem;
+
+		}
+
+		ol.breadcrumb a,
+		ol.breadcrumb li,
+		.breadcrumb-item.active {
+			color: #94A3B8;
+			text-decoration: none;
+			font-weight: 500;
+		}
 	</style>
 	<script>const loginRequired = true </script>
 </head>
@@ -279,57 +296,27 @@
 			<div class="header-top row">
 
 				<div class="col-sm-2">
-					<a class="header-logo" href="/"><img class="logo" src="./image/logo.svg" alt=""></a>
+					<a class="header-logo" href="/"><img class="logo" src="../frontend/image/logo.svg" alt=""></a>
 				</div>
 
-				<div class="col-sm-6">
+				<div class="col-sm-8">
 					<form action="" method="get" class="header-search row">
 						<input type="text" name="search" class="header-search-input col-sm-10" placeholder="Search"
 							maxlength="50" value="">
 
 						<button type="submit" class="header-search-submit col-sm-1"><img
-								src="./image/search.svg"></button>
+								src="../frontend/image/search.svg"></button>
 					</form>
-
-					<div class="Search-hot ">
-						<a class="trend_link" id="trend_link1" href="">熱搜關鍵字1</a>
-						<a class="trend_link" id="trend_link2" href="">熱搜關鍵字</a>
-					</div>
 
 				</div>
 
-				<nav class="fixed-nav col-sm-4">
+				<nav class="fixed-nav col-sm-2">
 
-					<div class="fixed-nav-list login row">
-						<a href="" class="SCM-Center col">
-							<div class="SCM_icon">
-								<button class="btn_SCM-Center">商家中心</button>
-							</div>
-						</a>
-
-						<a href="" class="User-Center col">
-							<div class="User_icon">
-								<img src="./image/Profile.svg" alt="">
-							</div>
-						</a>
-
-						<a href="" class="Favorite col">
-							<div class="header_icon">
-								<img src="./image/heart.svg" alt="">
-								<span class="count -active">0</span>
-							</div>
-						</a>
-
-						<a href="" class="Shopping-Cart col">
-							<div class="header_icon">
-								<img src="./image/Buy.svg" alt="">
-								<span class="count -active">0</span>
-							</div>
-						</a>
-
+					<div class="fixed-nav-list row">
+				
 						<a href="" class="Notification col">
 							<div class="header_icon">
-								<img src="./image/Notification.svg" alt="">
+								<img src="../frontend/image/Notification.svg" alt="">
 								<span class="count -active">0</span>
 							</div>
 						</a>
@@ -354,7 +341,7 @@
 						<img class="memberPhoto" src="../frontend/image/AE404A5E-7B08-4A2A-B1A1-8D3F8FEE9CB8.png">
 					</div>
 					<div class="member-info col-sm-8">
-						<h4 class="memberAccount">jeffrey47</h4>
+						<h4 class="memberAccount"></h4>
 						<h6 id="supplierId"></h6>
 					</div>
 				</div>
@@ -363,7 +350,7 @@
 						<h4>MENU</h4>
 					</li>
 					<li>
-						<a href="#">
+						<a href="../frontend/supplier_center.html">
 							<img src="../frontend/image/Chart.svg" alt="">
 							<img src="../frontend/image/Chart-a.svg" alt="">商家中心
 						</a>
@@ -373,13 +360,13 @@
 							<img src="../frontend/image/DocumentAsh.svg" alt="">
 							<img src="../frontend/image/DocumentAsh-a.svg" alt="">訂單狀態</a>
 					</li>
-					<li>
-						<a href="#">
+					<li class="active">
+						<a href="../frontend/productManage.html">
 							<img src="../frontend/image/Edit.svg" alt="">
 							<img src="../frontend/image/Edit.svg" alt="">商品管理</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="../frontend/event_management.html">
 							<img src="../frontend/image/Discount.svg" alt="">
 							<img src="../frontend/image/Discount-a.svg" alt="">行銷活動</a>
 					</li>
@@ -388,7 +375,7 @@
 							<img src="../frontend/image/Shield Done.svg" alt="">
 							<img src="../frontend/image/Shield Done.svg" alt="">廣告管理</a>
 					</li>
-					<li class="active">
+					<li>
 						<a href="#">
 							<img src="../frontend/image/Wallet.svg" alt="">
 							<img src="../frontend/image/Wallet-a.svg" alt="">財務管理</a>
@@ -401,7 +388,7 @@
 					<li>
 						<a href="#">
 							<img src="../frontend/image/Game.svg" alt="">
-							<img src="../frontend/image/Game-a.svg" alt="">假期模式</a>
+							<img src="../frontend/image/Game-s-a.svg" alt="">假期模式</a>
 					</li>
 					<li>
 						<h4>OTHERS</h4>
@@ -427,7 +414,7 @@
 							<img src="../frontend/image/Info Square-a.svg" alt="">取得協助</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="" onclick="logout();">
 							<img src="../frontend/image/Logout.svg" alt="">
 							<img src="../frontend/image/Logout-a.svg" alt="">登出</a>
 					</li>
@@ -435,8 +422,16 @@
 			</aside>
 			<main class="member-check-order col-sm-10">
 				<div class="main-content-header row">
+					<div class="suplier-breadcrumb col-sm-12">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li id="breadSupplierAcct" class="breadcrumb-item"><a href="/frontend/supplier_center.html"></a></li>
+								<li class="breadcrumb-item active" aria-current="page">商品管理</li>
+							</ol>
+						</nav>
+					</div>
 					<div class="main-content-icon col-sm-1">
-						<img calss="main-content-icon" src="./image/Document.svg">
+						<img calss="main-content-icon" src="./image/productManage.svg">
 					</div>
 					<h1 class="main-content-title col-sm-10">商品管理</h1>
 					<hr class="main-content-divider">
@@ -599,11 +594,12 @@
 						</p>
 						<p>
 							<span>商品規格</span>
-							<span><button type="button" class="productSpecAll_button btn btn-secondary btn-XM" style="color: white;"
-									data-bs-toggle="modal"
+							<span><button type="button" class="productSpecAll_button btn btn-secondary btn-XM"
+									style="color: white;" data-bs-toggle="modal"
 									data-bs-target="#productSpecAll_button">查看現有規格</button></span>
-							<span><button type="button" class="product_create_button btn btn-secondary btn-S" style="color: white;"
-									data-bs-toggle="modal" data-bs-target="#product_create_button">新增規格</button></span>
+							<span><button type="button" class="product_create_button btn btn-secondary btn-S"
+									style="color: white;" data-bs-toggle="modal"
+									data-bs-target="#product_create_button">新增規格</button></span>
 
 						</p>
 						<p>
@@ -615,7 +611,9 @@
 							<span class="initialStock_totoal">0</span>
 						</p>
 						<div class="button-container" style=" text-align: center;">
-							<button onclick="uploadInsert(event)" class="btn btn-L btn-primary">送出</button>
+							<button onclick="uploadInsert(event)" class="btn btn-L btn-primary"
+								style="margin-right: 10px;">送出</button>
+							<button onclick=" history.back()" class="btn btn-L btn-primary">取消</button>
 						</div>
 					</div>
 				</main>
@@ -689,45 +687,8 @@
 										<input class="initialStock" type="text" value="">
 									</td>
 									<td>
-										<button class="delete_btn btn btn-primary btn-XS" type="button" disabled>刪除</button>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<img class="product_spec_img" id="specPicture2" src="./image/square.svg" alt="">
-										<input type="file" class="img_spc_file" id="file_Spec_Input2"
-											data-target="#specPicture2" />
-										<label for="file_Spec_Input2"></label>
-									</td>
-									<td>
-										<select class="specType1">
-											<option value="1">尺寸</option>
-											<option value="2">顏色</option>
-											<option value="3">容量</option>
-											<option value="4">材質</option>
-										</select>
-
-									</td>
-									<td><input class="specInfo1" type="text" value="" placeholder="最多10字"
-											maxlength="10">
-									</td>
-									<td>
-										<select class="specType2">
-											<option value="1">尺寸</option>
-											<option value="2">顏色</option>
-											<option value="3">容量</option>
-											<option value="4">材質</option>
-										</select>
-									</td>
-									<td>
-										<input class="specInfo2" type="text" value="" placeholder="最多10字"
-											maxlength="10">
-									</td>
-									<td>
-										<input class="initialStock" type="text" value="">
-									</td>
-									<td>
-										<button class="delete_btn btn btn-primary btn-XS" type="button">刪除</button>
+										<button class="delete_btn btn btn-primary btn-XS" type="button"
+											style="display: none;">刪除</button>
 									</td>
 								</tr>
 
@@ -839,6 +800,103 @@
 			}
 		}
 
+		//針對規格分類的整理
+		function categoryName(num) {
+			switch (num) {
+				case 'C000000001': return '3C周邊';
+				case 'C000000002': return '手機';
+				case 'C000000003': return '電腦';
+				case 'C000000004': return '攝影器材';
+				case 'C000000005': return '耳機';
+				case 'C000000006': return '智慧家居';
+				case 'C000000007': return '電子配件';
+				case 'C000000008': return '遊戲周邊';
+				case 'C000000009': return '行動電源';
+				case 'C000000010': return '影音娛樂';
+				case 'C000000011': return '家用電器';
+				case 'C000000012': return '冰箱';
+				case 'C000000013': return '洗衣機';
+				case 'C000000014': return '電視';
+				case 'C000000015': return '冷氣';
+				case 'C000000016': return '烤箱';
+				case 'C000000017': return '吸塵器';
+				case 'C000000018': return '咖啡機';
+				case 'C000000019': return '電飯煲';
+				case 'C000000020': return '電熱水壺';
+				case 'C000000021': return '美妝個清';
+				case 'C000000022': return '護膚品';
+				case 'C000000023': return '彩妝';
+				case 'C000000024': return '保養工具';
+				case 'C000000025': return '香水';
+				case 'C000000026': return '美髮工具';
+				case 'C000000027': return '身體保養';
+				case 'C000000028': return '美甲工具';
+				case 'C000000029': return '沐浴用品';
+				case 'C000000030': return '臉部清潔';
+				case 'C000000031': return '流行服飾';
+				case 'C000000032': return '男士上衣';
+				case 'C000000033': return '女士上衣';
+				case 'C000000034': return '男士下著';
+				case 'C000000035': return '女士下著';
+				case 'C000000036': return '男士外套';
+				case 'C000000037': return '女士外套';
+				case 'C000000038': return '男士睡衣';
+				case 'C000000039': return '女士睡衣';
+				case 'C000000040': return '襪子';
+				case 'C000000041': return '鞋包配飾';
+				case 'C000000042': return '女士包包';
+				case 'C000000043': return '男士包包';
+				case 'C000000044': return '女鞋';
+				case 'C000000045': return '男鞋';
+				case 'C000000046': return '飾品';
+				case 'C000000047': return '皮帶';
+				case 'C000000048': return '手錶';
+				case 'C000000049': return '帽子';
+				case 'C000000050': return '太陽眼鏡';
+				case 'C000000051': return '母嬰用品';
+				case 'C000000052': return '嬰兒尿布';
+				case 'C000000053': return '嬰兒奶瓶';
+				case 'C000000054': return '嬰兒車';
+				case 'C000000055': return '嬰兒床';
+				case 'C000000056': return '嬰兒衣服';
+				case 'C000000057': return '嬰兒餐椅';
+				case 'C000000058': return '孕婦用品';
+				case 'C000000059': return '嬰兒玩具';
+				case 'C000000060': return '嬰兒益智';
+				case 'C000000061': return '日用生活';
+				case 'C000000062': return '廚房用具';
+				case 'C000000063': return '衛生用品';
+				case 'C000000064': return '家庭清潔';
+				case 'C000000065': return '居家裝飾';
+				case 'C000000066': return '浴室用品';
+				case 'C000000067': return '寢具用品';
+				case 'C000000068': return '收納整理';
+				case 'C000000069': return '文具用品';
+				case 'C000000070': return '寵物用品';
+				case 'C000000071': return '圖書文具';
+				case 'C000000072': return '書籍';
+				case 'C000000073': return '紙製品';
+				case 'C000000074': return '書寫用具';
+				case 'C000000075': return '檔案收納';
+				case 'C000000076': return '事務用品';
+				case 'C000000077': return '美術用具';
+				case 'C000000078': return '手作用品';
+				case 'C000000079': return '兒童文具';
+				case 'C000000080': return '教育玩具';
+				case 'C000000081': return '旅遊戶外';
+				case 'C000000082': return '行李箱';
+				case 'C000000083': return '背包';
+				case 'C000000084': return '帳篷';
+				case 'C000000085': return '睡袋';
+				case 'C000000086': return '登山用具';
+				case 'C000000087': return '釣魚用具';
+				case 'C000000088': return '燒烤用具';
+				case 'C000000089': return '戶外裝備';
+				case 'C000000090': return '健身器材';
+
+			}
+		}
+
 		//針對圖片整理
 		function displayImageFromBase64(base64ImageData) {
 			const imageBinaryStr = atob(base64ImageData);
@@ -889,11 +947,11 @@
 			uploadImage(document.getElementById('fileInput4'), 3);
 			uploadImage(document.getElementById('fileInput5'), 4);
 
-			//console.log(imgName);
 			// 使用fetch API將所有圖片檔案一次性傳送至後端
-			uploadToBackend(productId, imageFiles, imgName);
-
-
+			if(imgName.length > 0){
+				uploadToBackend(productId, imageFiles, imgName);
+			}
+			
 
 		}
 
@@ -924,7 +982,7 @@
 				});
 		}
 		//-----------------------編輯商品導入的判斷-------------------------------------//
-		document.addEventListener("coreDone",function () {
+		document.addEventListener("coreDone", function () {
 			//const registerSupplier = "S000000001";
 			// 獲取 URL 的查詢參數
 			const queryString = window.location.search;
@@ -1002,7 +1060,8 @@
 					$("#image5").attr('src', displayImageFromBase64(data.picture5));
 					$(".productName").val(data.productName);
 					$(".product_illustrate").val(data.productInfo);
-					$(".category_select").val(data.categorieId);
+					$("p span:contains('商品分類')").next().replaceWith(`<span class="category_select">${categoryName(data.categorieId)}</span>`);
+					//$(".category_select").val(data.categorieId);
 					$(".product_price").val(data.productPrice);
 
 				})
@@ -1017,6 +1076,11 @@
 		// 監聽「+新增規格」按鈕點擊事件
 		$('.create_btn').on('click', function () {
 			let rowNum = $('.spec_table_new tbody tr').length + 1; //算目前有幾行
+			if (rowNum === 2) {
+				// 選取第一個刪除按鈕並顯示它
+				$(".spec_table_new tbody tr:first-child .delete_btn").show();
+				$(".spec_table_new tbody tr:first-child .delete_btn").prop("disabled", true);
+			}
 			const newRow = `
                     <tr>
                         <td>
@@ -1056,6 +1120,11 @@
 		// 對於刪除按鈕的點擊事件使用事件代理
 		$(document).on("click", ".delete_btn", function () {
 			$(this).closest("tr").remove(); // 刪除所屬的 <tr> 元素
+			let rowNum = $('.spec_table_new tbody tr').length; //算目前有幾行
+			if (rowNum === 1) {
+				// 選取第一個刪除按鈕並顯示它
+				$(".spec_table_new tbody tr:first-child .delete_btn").hide();
+			}
 		});
 
 		// 收集儲存規格資料
@@ -1282,13 +1351,14 @@
 				return; // 阻止表單提交
 			}
 			const productInfo = $('.product_illustrate').val().trim();
-
-			if ($('.category_select').val() === null || $('.category_select').val() === '') {
+			
+			if ($('.productId').text() == "*由系統自動產生" && ($('.category_select').val() === null || $('.category_select').val() === '')) {
 				alert('請選擇商品分類');
 				return; // 阻止表單提交
 			}
 			const categorieId = $('.category_select').val();
-
+			
+			
 			const productPriceValue = parseFloat($('.product_price').val().trim());
 			if ($('.product_price').val().trim() === '') {
 				alert('請輸入商品售價');
@@ -1340,7 +1410,7 @@
 				const inquire_productId = $('.productId').text();
 				fetch('../product/updateProductText', {
 					method: 'POST',
-					body: JSON.stringify({productId: inquire_productId, categorieId: categorieId, productName: productName, productPrice: productPrice, productInfo: productInfo}),
+					body: JSON.stringify({productId: inquire_productId, productName: productName, productPrice: productPrice, productInfo: productInfo}),
 					headers: {
 						'Content-Type': 'application/json',
 						'Authorization': ` Bearer ${jwtToken}`
