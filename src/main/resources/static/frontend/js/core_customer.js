@@ -152,24 +152,24 @@ function showHeader() {
 		html += `
 	 			<nav class="fixed-nav col-sm-4">
                     <div class="fixed-nav-list login row">
-                    	<a href="supplier_center.html" class="SCM-Center col">
+                    	<a href="/frontend/supplier_center.html" class="SCM-Center col">
                             <div class="SCM_icon">
                                 <button class="btn_SCM-Center">商家中心</button>
                             </div>
                         </a>
 
-                        <a href="check_order.html" class="User-Center col">
+                        <a href="/frontend/customer_Information.html" class="User-Center col">
                             <div class="User_icon">
                                 <img src="/frontend/image/Profile.svg" alt="">
                             </div>
                         </a>
-                         <a href="collect_box.html" class="Favorite col">
+                         <a href="#" class="Favorite col">
                             <div class="header_icon">
                                 <img src="/frontend/image/heart.svg" alt="">
                             </div>
                         </a>
 
-                        <a href="shopping_cart.html" class="Shopping-Cart col">
+                        <a href="/frontend/shopping_cart.html" class="Shopping-Cart col">
                             <div class="header_icon">
                                 <img src="/frontend/image/Buy.svg" alt="">
                                 <span class="count">0</span>
@@ -192,7 +192,7 @@ function showHeader() {
                                 data-bs-target="#login_popup">登入/註冊</button>
                 </div>
             </a>
-            <a href="shopping_cart.html" class="Shopping-Cart col">
+            <a href="/frontend/shopping_cart.html" class="Shopping-Cart col">
                 <div class="header_icon">
                     <img src="/frontend/image/Buy.svg" alt="">
                     <span class="count">0</span>
@@ -202,7 +202,13 @@ function showHeader() {
 
 	html += `</div></nav></div></div></header>`;
 
-	document.querySelector("body").insertAdjacentHTML("afterbegin", html)
+	const bodyElement = document.querySelector('body');
+	const oldHeader = bodyElement.querySelector('header#main-header');
+	
+	if(oldHeader){
+	bodyElement.removeChild(oldHeader);
+	}
+	bodyElement.insertAdjacentHTML("afterbegin", html)
 
 }
 
@@ -300,7 +306,7 @@ function getCartCount() {
 			if (data > 0) {
 				count.innerText = data
 				count.classList.add("-active")
-			}else{
+			} else {
 				count.innerText = data
 				count.classList.remove("-active")
 			}
