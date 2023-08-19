@@ -122,9 +122,8 @@ public class ProductController {
 		Integer productId = Integer.parseInt(requestData.get("productId"));
 		String productName = requestData.get("productName");
 		String productInfo = requestData.get("productInfo");
-		String categorieId = requestData.get("categorieId");
 		Integer productPrice = Integer.parseInt(requestData.get("productPrice"));
-		return service.updateProduct(productId,productName,productInfo,categorieId,productPrice);
+		return service.updateProduct(productId,productName,productInfo,productPrice);
 	}
 
 }
