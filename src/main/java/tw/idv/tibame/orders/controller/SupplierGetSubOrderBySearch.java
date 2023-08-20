@@ -43,6 +43,8 @@ public class SupplierGetSubOrderBySearch{
 		JsonElement request = gson.fromJson(data, JsonElement.class);
 		JsonObject searchCondition = request.getAsJsonObject();
 		
+		System.out.println(data);
+		
 		return(orderService.getSupplierSubOrderBySearch(searchCondition));
 	}	
 }

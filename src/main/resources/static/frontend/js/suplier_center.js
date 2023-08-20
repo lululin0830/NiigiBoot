@@ -80,7 +80,7 @@ const SubOrderBody = function () {
                 break;
         }
         const imageElement = createImageURL(EIF[3].picture1)
-//        console.log("picture1", EIF[3].picture1)
+        //        console.log("picture1", EIF[3].picture1)
         html +=
             `<li class="order-item row">
                             <div class="col-sm-2">
@@ -210,13 +210,16 @@ function init() {
 
 
 const search = function () {
-    //取出搜尋框內的文字
-    let searchcase1 = $(this).closest("div").find("#selectKey").val();
-    //將它塞入傳入參數
-    searchdata.searchcase = searchcase1;
 
-    let searchwaycurrent = $(this).closest("div").find(".form-select").val();
-    searchdata.searchway = searchwaycurrent;
+    console.log("我是This", this)
+
+    searchdata.StartDate = $(this).closest("div.order-selector").find("#startDate").val();
+    searchdata.EndDate = $(this).closest("div.order-selector").find("#EndDate").val();
+    searchdata.searchcase = $(this).closest("div").find("#selectKey").val();
+    searchdata.searchway = $(this).closest("div").find(".form-select").val();
+
+
+    console.log("searchdata", searchdata);
 
     fetch('../SupplierGetSubOrderBySearch', {
         method: 'POST',
@@ -227,37 +230,44 @@ const search = function () {
         body: JSON.stringify(searchdata)
     }).then(r => r.json()).then(data => {
 
+        console.log("我是DATA", data)
+        cleanBody(orderList)
+        cleanBody(orderList2)
+        cleanBody(orderList3)
+        cleanBody(orderList4)
+        cleanBody(orderList5)
         data.forEach(element => {
-            console.log(searchdata)
+
             EIF = element;
             //待處理分頁
             if (element[0].subOrderStatus == 0) {
-                cleanBody(orderList);
+
                 SubOrderBody();
                 orderList.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
             //配送中分頁
             if (element[0].subOrderStatus == 1 || element[0].subOrderStatus == 2) {
-                cleanBody(orderList2);
+
                 SubOrderBody();
                 orderList2.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
             //待退貨/款
             if (element[0].subOrderStatus == 3) {
-                cleanBody(orderList3);
+
                 SubOrderBody();
                 orderList3.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
             //已完成分頁
             if (element[0].subOrderStatus == 4) {
-                cleanBody(orderList4);
+
                 SubOrderBody();
                 orderList4.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
             //已取消分頁
             if (element[0].subOrderStatus == 5) {
-                cleanBody(orderList5);
-                SubOrderBody();
+
+                SubOrderBody(EIF);
+
                 orderList5.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
         });

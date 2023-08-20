@@ -388,6 +388,8 @@ public class OrderServiceImpl implements OrderService {
 
 		String startDateString = SearchCondition.get("StartDate").getAsString();
 
+		System.out.println(startDateString.isBlank());
+		System.out.println(startDateString);
 		Timestamp startDate, closeDate;
 
 		if (startDateString.length() > 0) {
@@ -413,6 +415,8 @@ public class OrderServiceImpl implements OrderService {
 
 			result = subOrderDAO.getSupplierSubOrderBySearch(searchcase, SearchSelect, startDate, closeDate,
 					supplierId);
+			
+			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
