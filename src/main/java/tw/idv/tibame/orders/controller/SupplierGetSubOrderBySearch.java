@@ -38,7 +38,7 @@ public class SupplierGetSubOrderBySearch{
 	
 	@LoginRequired
 	@PostMapping
-	private String SupplierGetSubOrderBySearch(@RequestBody String data,@RequestHeader("Authorization") String jwtToken){
+	public String SupplierGetSubOrderBySearch(@RequestBody String data,@RequestHeader("Authorization") String jwtToken){
 		
 		JsonElement request = gson.fromJson(data, JsonElement.class);
 		JsonObject searchCondition = request.getAsJsonObject();
