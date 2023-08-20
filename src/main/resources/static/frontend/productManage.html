@@ -42,7 +42,7 @@
 		div.main-content-header>h1 {
 			display: inline-block;
 			vertical-align: bottom;
-			
+
 		}
 
 		hr.main-content-divider {
@@ -354,7 +354,7 @@
 		.specInfo2 {
 			width: 180px;
 		}
-		
+
 		/* breadcrumb */
 
 		ol.breadcrumb {
@@ -403,7 +403,7 @@
 				<nav class="fixed-nav col-sm-2">
 
 					<div class="fixed-nav-list row">
-				
+
 						<a href="" class="Notification col">
 							<div class="header_icon">
 								<img src="../frontend/image/Notification.svg" alt="">
@@ -515,7 +515,8 @@
 					<div class="suplier-breadcrumb col-sm-12">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
-								<li id="breadSupplierAcct" class="breadcrumb-item"><a href="/frontend/supplier_center.html"></a></li>
+								<li id="breadSupplierAcct" class="breadcrumb-item"><a
+										href="/frontend/supplier_center.html"></a></li>
 								<li class="breadcrumb-item active" aria-current="page">商品管理</li>
 							</ol>
 						</nav>
@@ -570,7 +571,7 @@
 								<table class="tableOne">
 									<thead>
 										<tr>
-											<th class="productTotal" style="width: 380px;">1,000商品</th>
+											<th class="productTotal" style="width: 380px;"></th>
 											<th>
 												<select id="collectionSelect" class="form-select"
 													aria-label="Default select example" style="width: 120px;">
@@ -583,10 +584,13 @@
 													<input class="search-KeyWord" type="text" placeholder="Search">
 												</div>
 											</th>
-											<th><button class="btn btn-outline-secondary Search_btn" type="submit">搜尋</button></th>
-											<th><button class="btn btn-outline-secondary product_edit_btn" type="submit">編輯商品</button></th>
+											<th><button class="btn btn-outline-secondary Search_btn"
+													type="submit">搜尋</button></th>
+											<th><button class="btn btn-outline-secondary product_edit_btn"
+													type="submit">編輯商品</button></th>
 											<th>
-												<a href="product_new.html"><button class="btn btn-outline-secondary product_new"
+												<a href="product_new.html"><button
+														class="btn btn-outline-secondary product_new"
 														type="submit">新增商品</button></a>
 											</th>
 
@@ -636,9 +640,12 @@
 													<input class="search-KeyWord" type="text" placeholder="Search">
 												</div>
 											</th>
-											<th><button class="btn btn-outline-secondary Search_btn" type="submit">搜尋</button></th>
-											<th><button class="btn btn-outline-secondary status_btn" type="submit">下架</button></th>
-											<th><button class="btn btn-outline-secondary stock_update_btn" type="submit">庫存異動</button></th>
+											<th><button class="btn btn-outline-secondary Search_btn"
+													type="submit">搜尋</button></th>
+											<th><button class="btn btn-outline-secondary status_btn"
+													type="submit">下架</button></th>
+											<th><button class="btn btn-outline-secondary stock_update_btn"
+													type="submit">庫存異動</button></th>
 										</tr>
 									</thead>
 
@@ -685,9 +692,12 @@
 													<input class="search-KeyWord" type="text" placeholder="Search">
 												</div>
 											</th>
-											<th><button class="btn btn-outline-secondary Search_btn" type="submit">搜尋</button></th>
-											<th><button class="btn btn-outline-secondary status_btn" type="submit">上架</button></th>
-											<th><button class="btn btn-outline-secondary delete_btn" type="submit">刪除</button></th>
+											<th><button class="btn btn-outline-secondary Search_btn"
+													type="submit">搜尋</button></th>
+											<th><button class="btn btn-outline-secondary status_btn"
+													type="submit">上架</button></th>
+											<th><button class="btn btn-outline-secondary delete_btn"
+													type="submit">刪除</button></th>
 										</tr>
 									</thead>
 
@@ -733,8 +743,10 @@
 													<input class="search-KeyWord" type="text" placeholder="Search">
 												</div>
 											</th>
-											<th><button class="btn btn-outline-secondary Search_btn" type="submit">搜尋</button></th>
-											<th><button class="btn btn-outline-secondary stock_update_btn" type="submit">庫存異動</button></th>
+											<th><button class="btn btn-outline-secondary Search_btn"
+													type="submit">搜尋</button></th>
+											<th><button class="btn btn-outline-secondary stock_update_btn"
+													type="submit">庫存異動</button></th>
 										</tr>
 									</thead>
 
@@ -1142,7 +1154,7 @@
 
 
 
-		document.addEventListener("coreDone",function () {
+		document.addEventListener("coreDone", function () {
 			//const registerSupplier = "S000000001";
 
 			//////////////////////////////////////////////////////////////////
@@ -1267,8 +1279,8 @@
 					alert("請輸入搜尋內容");
 					return;
 				}
-				
-				$('#navs-top-home .tableTwo' ).html(`<thead>
+
+				$('#navs-top-home .tableTwo').html(`<thead>
 										<tr>
 											<th class="checkAll">
 												<input type="checkbox" id="selectAll">
@@ -1550,7 +1562,7 @@
 						alert("請輸入搜尋內容");
 						return;
 					}
-					
+
 					$(`${targetId} .tableTwo`).html(`<thead>
 										<tr>
 											<th class="checkAll">
@@ -1684,7 +1696,7 @@
 			// 按下库存更新按钮时的处理逻辑
 			// 根据当前活动分页执行相应的操作
 			const activeTab = $('.nav-link.active').attr('aria-controls');
-			//console.log(activeTab);
+			console.log(activeTab);
 			if ($('.stock_update_btn').hasClass('-on')) {
 				//const restockMemberId = "M000000001";
 				// 修改選擇器，僅選擇目前處於 active 狀態的分頁內的複選框
@@ -1738,13 +1750,19 @@
 						return response.json();
 					})
 					.then((data) => {
-						data.forEach(function (productSpec) {
-							//取得產品規格id
-							const productSpecId = productSpec.productSpecId;
-							//取得即時庫存
-							const specStock = productSpec.specStock;
-							$(`#${activeTab} .selectRow[data-product-spec-id="${productSpecId}"]`).closest("tr").find(".stock").text(specStock.toLocaleString());
-						});
+						if (activeTab == "navs-top-complete") {
+							selectedCheckboxes.closest('tr').remove();
+							const remainingRows = $(`#${activeTab} tbody tr`).length;
+							$(`#${activeTab} .productTotal`).text(`${remainingRows}` + "件商品");
+						} else {
+							data.forEach(function (productSpec) {
+								//取得產品規格id
+								const productSpecId = productSpec.productSpecId;
+								//取得即時庫存
+								const specStock = productSpec.specStock;
+								$(`#${activeTab} .selectRow[data-product-spec-id="${productSpecId}"]`).closest("tr").find(".stock").text(specStock.toLocaleString());
+							});
+						}
 						alert("庫存更新完成");
 
 					})
