@@ -267,7 +267,7 @@ const completeBody = function (element) {
 	let year = date.getFullYear(); // 獲得年份
 	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
 	let day = date.getDate();
-
+	console.log("評價按鈕", element[10])
 	const imageElement = createImageURL(element[9])
 	let html =
 		`<li class="sub-order complete">
@@ -876,8 +876,9 @@ const submitComment = function () {
 
 		document.querySelector("div#commentModal button.btn-outline-secondary").click();
 
-		setTimeout(function () { alert(data); }, 800);
-
+		mainorder4.innerHTML = ''
+		bodyHtml = ''
+		init();
 
 	})
 }
@@ -893,7 +894,7 @@ const cancelProduct = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
-
+			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: subOrderId
 	}).then(r => r.json()).then(data => {
@@ -925,8 +926,18 @@ const submitCancelProduct = function () {
 			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: JSON.stringify(refundData)
+	}).then(() => {
+		document.getElementById("btnClose").click();
+
+		mainorder3.innerHTML = ''
+		bodyHtml = ''
+		console.log("221212312313")
+
+
+		init();
 	})
-	document.getElementById("btnClose").click();
+
+
 }
 //跳至付款頁面
 const goEcpay = function () {
