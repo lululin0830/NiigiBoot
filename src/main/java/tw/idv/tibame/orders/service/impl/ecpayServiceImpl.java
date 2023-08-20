@@ -48,10 +48,10 @@ public class ecpayServiceImpl implements EcpayService {
 		obj.setTradeDesc("test Description");
 		obj.setItemName(itemName);
 		// 交易結果回傳網址，只接受 https 開頭的網站，可以使用 ngrok
-		obj.setReturnURL("http://niigi.shop/Niigi/OrderPay/paymentRuturn");
+		obj.setReturnURL("http://niigi.shop/OrderPay/paymentRuturn");
 		obj.setNeedExtraPaidInfo("Y");
 		// 商店轉跳網址 (Optional)
-		obj.setClientBackURL("http://niigi.shop/Niigi/frontend/check_order.html");
+		obj.setClientBackURL("http://niigi.shop/frontend/check_order.html");
 		String form = all.aioCheckOut(obj, null);
 
 		return form;
