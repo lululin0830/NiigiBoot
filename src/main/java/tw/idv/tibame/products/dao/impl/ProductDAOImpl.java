@@ -137,7 +137,7 @@ public class ProductDAOImpl implements ProductDAO {
 		if (num == 4) {
 			return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY firstOnShelvesDate LIMIT 4", Product.class).getResultList();
 		}else {
-			return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY firstOnShelvesDate", Product.class).getResultList();
+			return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY firstOnShelvesDate LIMIT 30", Product.class).getResultList();
 		}
 	}
 
@@ -146,7 +146,7 @@ public class ProductDAOImpl implements ProductDAO {
 		if (num == 4) {
 			return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY productPrice DESC LIMIT 4", Product.class).getResultList();
 		}else {
-			return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY productPrice DESC", Product.class).getResultList();
+			return session.createQuery("FROM Product WHERE productStatus = '0' ORDER BY productPrice DESC LIMIT 30", Product.class).getResultList();
 		}
 		
 	}
