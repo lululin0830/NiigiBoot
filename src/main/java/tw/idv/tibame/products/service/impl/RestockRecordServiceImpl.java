@@ -61,10 +61,16 @@ public class RestockRecordServiceImpl implements RestockRecordService {
 			restockRecord.setProductId(Integer.parseInt(productSpecIds[i].substring(0, 8)));
 			restockRecord.setProductSpecId(productSpecIds[i]);
 			restockRecord.setRestockMemberId(restockMemberId);
-
-			Integer b = Integer.parseInt(beforeRestockStock[i]);
-			restockRecord.setBeforeRestockStock(b);
-
+			
+			Integer b = 0;
+			if (beforeRestockStock[i].contains(",")) {
+			    b = Integer.parseInt(beforeRestockStock[i].replace(",", ""));
+			    restockRecord.setBeforeRestockStock(b);
+			}else {
+				b = Integer.parseInt(beforeRestockStock[i]);
+				restockRecord.setBeforeRestockStock(b);
+			}
+			
 			Integer q = Integer.parseInt(restockQuantity[i]);
 			restockRecord.setRestockQuantity(q);
 
