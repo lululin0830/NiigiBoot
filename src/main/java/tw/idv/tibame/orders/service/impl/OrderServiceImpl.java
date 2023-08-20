@@ -294,8 +294,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean updateStatus() {
-		return false;
+	public boolean updateStatus(String orderId) throws Exception {
+		
+		MainOrder mainOrder = mainOrderDAO.selectById(orderId);
+		mainOrder.setPaymentStatus("1");
+		
+		mainOrderDAO.update(mainOrder);
+		
+		return true;
 	}
 
 	@Override

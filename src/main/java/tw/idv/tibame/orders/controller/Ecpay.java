@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.idv.tibame.core.LoginRequired;
+import tw.idv.tibame.orders.dao.MainOrderDAO;
 import tw.idv.tibame.orders.service.EcpayService;
+import tw.idv.tibame.orders.service.OrderService;
 
 @RestController
 @RequestMapping("/OrderPay")
@@ -19,6 +21,8 @@ public class Ecpay {
 
 	@Autowired
 	EcpayService ecpayService;
+	@Autowired
+	OrderService service;
 	
 	@LoginRequired
 	@PostMapping
@@ -47,12 +51,12 @@ public class Ecpay {
             @RequestParam(name = "TradeAmt") String tradeAmt,
             @RequestParam(name = "TradeDate") String tradeDate,
             @RequestParam(name = "TradeNo") String tradeNo,
-            @RequestParam(name = "CheckMacValue") String checkMacValue) {
+            @RequestParam(name = "CheckMacValue") String checkMacValue) throws Exception {
 
 		if(rtnCode.equals("1")) {
 			
 			String ordreId = merchantTradeNo.replace("NGI", "");
-			ecpayService.ecpayform(ordreId);
+			service.updateStatus(ordreId);
 		}
 		
 		return 1;
