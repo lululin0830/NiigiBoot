@@ -235,6 +235,33 @@ public class SubOrderDAOImpl implements SubOrderDAO {
 		query.executeUpdate();
 		return "子訂單更新狀態成功";
 	}
+
+	@Override
+	public String orderStatusDeliver(String data) {
+		String subHql = "UPDATE SubOrder SET subOrderStatus = '1' where subOrderId = :subOrderId";
+		Query<SubOrder>query = session.createQuery(subHql);
+		query.setParameter("subOrderId", data);
+		query.executeUpdate();
+		return "子訂單更新狀態成功";
+	}
+
+	@Override
+	public String orderStatusComplete(String data) {
+		String subHql = "UPDATE SubOrder SET subOrderStatus = '2' where subOrderId = :subOrderId";
+		Query<SubOrder>query = session.createQuery(subHql);
+		query.setParameter("subOrderId", data);
+		query.executeUpdate();
+		return "子訂單更新狀態成功";
+	}
+
+	@Override
+	public String orderStatusCancel(String data) {
+		String subHql = "UPDATE SubOrder SET subOrderStatus = '5' where subOrderId = :subOrderId";
+		Query<SubOrder>query = session.createQuery(subHql);
+		query.setParameter("subOrderId", data);
+		query.executeUpdate();
+		return "子訂單更新狀態成功";
+	}
 	
 	
 	

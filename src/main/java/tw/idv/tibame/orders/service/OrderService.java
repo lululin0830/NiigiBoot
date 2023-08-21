@@ -61,5 +61,10 @@ public interface OrderService {
 	
 	public String checkOrderEvents(String subOrderId)  throws Exception;
 
+	public String orderStatusDeliver(String data);
+	
+	public String orderStatusComplete(String data);
+	
+	public String orderStatusCancel(String data);
 	
 }

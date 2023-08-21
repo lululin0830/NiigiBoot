@@ -55,9 +55,28 @@ public class SupplierGetSubOrder{
 		String subOrderId = data;
 		
 		System.out.println(subOrderId);
-		return(orderService.supplierSubOrderCancel(subOrderId));
+		return orderService.supplierSubOrderCancel(subOrderId);
 		
 		
+	}
+	
+	@LoginRequired
+	@PostMapping("orderStatusDeliver")
+	public String orderStatusDeliver(@RequestBody String data,@RequestHeader("Authorization") String jwtToken){
+		return orderService.orderStatusDeliver(data);
+	}
+	
+	
+	@LoginRequired
+	@PostMapping("orderStatusComplete")
+	public String orderStatusComplete(@RequestBody String data,@RequestHeader("Authorization") String jwtToken) {
+		return orderService.orderStatusComplete(data);
+	}
+	
+	@LoginRequired
+	@PostMapping("orderStatusCancel")
+	public String orderStatusCancel(@RequestBody String data,@RequestHeader("Authorization") String jwtToken) {
+		return orderService.orderStatusCancel(data);
 	}
 
 }

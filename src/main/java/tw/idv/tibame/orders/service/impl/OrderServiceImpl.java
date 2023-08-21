@@ -557,4 +557,24 @@ public class OrderServiceImpl implements OrderService {
 		return "成功啦";
 	}
 
+	@Override
+	public String orderStatusDeliver(String data) {
+		
+		return subOrderDAO.orderStatusDeliver(data);
+	}
+
+	@Override
+	public String orderStatusComplete(String data) {
+		
+		return subOrderDAO.orderStatusComplete(data);
+	}
+
+	@Override
+	public String orderStatusCancel(String data) {
+		
+		return subOrderDAO.orderStatusCancel(data);
+	}
+
+	
+	
 }
