@@ -119,6 +119,13 @@ public class SubOrderDetailDAOImpl implements SubOrderDetailDAO {
 		query.setParameter("comment", comment);
 		query.setParameter("orderDetailId", orderDetailId);
 		query.executeUpdate();
+		
+		String sql = "update SubOrder SET commentStatus = '1' where subOrderId = :subOrderId";
+		Query query2 = session.createQuery(sql);
+		query2.setParameter("subOrderId", orderDetailId.substring(0,21));
+		query2.executeUpdate();
+		
+				
 		return "評價成功";
 	}
 

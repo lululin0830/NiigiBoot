@@ -26,7 +26,7 @@ let EIF = null;
 let bodyHtml = null;
 let updateCommentlist = []
 let refundSubOrderId = null;
-const paymentPendingBody = function (arr) {
+const paymentPendingBody = function(arr) {
 
 	//	let array = Object.values(arr)
 
@@ -113,7 +113,7 @@ const paymentPendingBody = function (arr) {
 }
 
 
-const inprogressBody = function (element) {
+const inprogressBody = function(element) {
 
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -183,7 +183,7 @@ const inprogressBody = function (element) {
 
 
 }
-const transportBody = function (element) {
+const transportBody = function(element) {
 
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -260,14 +260,14 @@ const transportBody = function (element) {
 	bodyHtml += html;
 }
 
-const completeBody = function (element) {
+const completeBody = function(element) {
 
 	let dateString = element[3];
 	let date = new Date(dateString);
 	let year = date.getFullYear(); // 獲得年份
 	let month = date.getMonth() + 1; // 獲得月份（注意 JavaScript 中的月份是從 0 開始的，所以需要加 1）
 	let day = date.getDate();
-
+	console.log("評價按鈕", element[10])
 	const imageElement = createImageURL(element[9])
 	let html =
 		`<li class="sub-order complete">
@@ -305,7 +305,7 @@ const completeBody = function (element) {
 	bodyHtml += html;
 }
 
-const cancelBody = function (arr) {
+const cancelBody = function(arr) {
 
 	let array = Object.values(arr)
 	array.forEach(arr => {
@@ -335,12 +335,7 @@ const cancelBody = function (arr) {
                 <div class="col-sm-3 position-relative ">
 
                     <!-- Button trigger modal -->
-                    <div class="navs-top-btn">
-                        <button type="button" class="btn btn-primary btn-XL"
-                            data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
-                            再買一次
-                        </button>
-                    </div>
+         
                     <div class="navs-top-btn">
                         <button type="button" class="btn btn-primary btn-XL checkDetail"
                             data-bs-toggle="modal" data-bs-target="#orderDetilModal">
@@ -355,7 +350,7 @@ const cancelBody = function (arr) {
 	})
 
 }
-const cancelPayOrder = function (element) {
+const cancelPayOrder = function(element) {
 	console.log("element", element)
 	let dateString = element[3];
 	let date = new Date(dateString);
@@ -398,7 +393,7 @@ const cancelPayOrder = function (element) {
             </li>`
 	bodyHtml += html;
 }
-const commentbox = function (arr) {
+const commentbox = function(arr) {
 
 	const imageElement = createImageURL(arr[3])
 
@@ -432,7 +427,7 @@ const commentbox = function (arr) {
 	bodyHtml += html
 
 }
-const cancelProductbody = function (arr) {
+const cancelProductbody = function(arr) {
 	const imageElement = createImageURL(arr[6])
 	bodyHtml = null;
 	let html =
@@ -459,7 +454,7 @@ const cancelProductbody = function (arr) {
 
 //查看訂單明細結構
 
-const addSubOrderDetailBody = function (arr) {
+const addSubOrderDetailBody = function(arr) {
 
 	console.log("訂單明細", arr)
 	bodyHtml = null
@@ -516,7 +511,15 @@ function groupByField(data, index) {
 }
 
 
-const init = function () {
+const init = function() {
+
+	mainorder1.innerHTML = ''
+	mainorder2.innerHTML = ''
+	mainorder3.innerHTML = ''
+	mainorder4.innerHTML = ''
+	mainorder5.innerHTML = ''
+
+
 	console.log(mainorder1)
 	console.log("memberId", memberId)
 
@@ -589,31 +592,31 @@ const init = function () {
 		mainorder5.insertAdjacentHTML("beforeend", bodyHtml);
 		// =====================各分頁按鈕區=====================
 		//查看訂單綁定事件
-		document.querySelectorAll("button.checkDetail").forEach(function (e) {
+		document.querySelectorAll("button.checkDetail").forEach(function(e) {
 			e.addEventListener("click", checkOrderDetail);
 		})
 		//確認收貨綁定事件
-		document.querySelectorAll("button.submitReceipt").forEach(function (e) {
+		document.querySelectorAll("button.submitReceipt").forEach(function(e) {
 			e.addEventListener("click", confirmReceipt);
 		})
 		//取消主訂單按鈕
-		document.querySelectorAll("button.cancelMainOrder").forEach(function (e) {
+		document.querySelectorAll("button.cancelMainOrder").forEach(function(e) {
 			e.addEventListener("click", cancelMainOrder);
 		})
 		//取消子訂單按鈕
-		document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
+		document.querySelectorAll("button.cancelSubOrder").forEach(function(e) {
 			e.addEventListener("click", cancelSubOrder);
 		})
 		//去評價按鈕
-		document.querySelectorAll("button.evaluate").forEach(function (e) {
+		document.querySelectorAll("button.evaluate").forEach(function(e) {
 			e.addEventListener("click", subOrderDetailcomment);
 		})
 		//退貨按鈕
-		document.querySelectorAll("button.cancelProduct").forEach(function (e) {
+		document.querySelectorAll("button.cancelProduct").forEach(function(e) {
 			e.addEventListener("click", cancelProduct);
 		})
 		//去付款按鈕
-		document.querySelectorAll("button.payOrder").forEach(function (e) {
+		document.querySelectorAll("button.payOrder").forEach(function(e) {
 			e.addEventListener("click", goEcpay)
 		})
 
@@ -625,7 +628,7 @@ document.addEventListener("DOMContentLoaded", init)
 
 
 //查看訂單方法
-const checkOrderDetail = function () {
+const checkOrderDetail = function() {
 
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	// console.log("subOrderId", subOrderId)
@@ -694,7 +697,7 @@ const checkOrderDetail = function () {
 	})
 }
 //確認收貨方法
-const confirmReceipt = function () {
+const confirmReceipt = function() {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	// console.log(subOrderId)
 	// console.log(document.querySelector("button.confirmReceipt"))
@@ -719,12 +722,12 @@ const confirmReceipt = function () {
 		}
 	}
 
-	document.querySelector("button.confirmReceipt").addEventListener("click", function () {
+	document.querySelector("button.confirmReceipt").addEventListener("click", function() {
 		updateReceipt();
 	})
 }
 //取消主訂單
-const cancelMainOrder = function () {
+const cancelMainOrder = function() {
 	const OrderId = $(this).closest('li.order').find('span.order-id').text()
 
 	async function updateMainOrderStatus() {
@@ -754,14 +757,14 @@ const cancelMainOrder = function () {
 
 	}
 
-	document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
+	document.querySelector("button.confirmCancelOrder").addEventListener("click", function() {
 		updateMainOrderStatus();
 	})
 
 
 }
 //取消子訂單
-const cancelSubOrder = function () {
+const cancelSubOrder = function() {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	console.log("subOrderId", subOrderId)
 
@@ -790,12 +793,12 @@ const cancelSubOrder = function () {
 
 		}
 	}
-	document.querySelector("button.confirmCancelOrder").addEventListener("click", function () {
+	document.querySelector("button.confirmCancelOrder").addEventListener("click", function() {
 		updatesubOrderStatus();
 	})
 }
 //評價視窗資訊
-const subOrderDetailcomment = function () {
+const subOrderDetailcomment = function() {
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	comment.innerHTML = ''
 	let starvalues = null
@@ -817,7 +820,7 @@ const subOrderDetailcomment = function () {
 		const stars = document.querySelectorAll('.star')
 
 		stars.forEach(star => {
-			star.addEventListener("click", function (e) {
+			star.addEventListener("click", function(e) {
 				var starValue = this.getAttribute("data-star");
 				starvalues = starValue
 				this.classList.add("-on");
@@ -855,7 +858,7 @@ const subOrderDetailcomment = function () {
 
 
 //送出評價
-const submitComment = function () {
+const submitComment = function() {
 	fetch('../MemberCheckOrder/updateSubOrderDetailComment', {
 		method: 'POST',
 		headers: {
@@ -863,7 +866,7 @@ const submitComment = function () {
 			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: JSON.stringify(updateCommentlist)
-	}).then(function (resp) {
+	}).then(function(resp) {
 
 		if (!resp.ok) {
 			throw new error("系統繁忙中...請稍後再試")
@@ -871,19 +874,20 @@ const submitComment = function () {
 
 		return resp.text();
 
-	}).then(function (data) {
+	}).then(function(data) {
 		console.log(data);
 
 		document.querySelector("div#commentModal button.btn-outline-secondary").click();
 
-		setTimeout(function () { alert(data); }, 800);
-
+		mainorder4.innerHTML = ''
+		bodyHtml = ''
+		init();
 
 	})
 }
 
 //退貨視窗
-const cancelProduct = function () {
+const cancelProduct = function() {
 
 	const subOrderId = $(this).closest('li.sub-order').find('span.sub-order-id').text()
 	console.log("subOrderId", subOrderId)
@@ -893,23 +897,23 @@ const cancelProduct = function () {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
-
+			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: subOrderId
 	}).then(r => r.json()).then(data => {
 		console.log("查看退貨訂單", data)
-		data.forEach(function (element) {
+		data.forEach(function(element) {
 			console.log("查看退貨element", element)
 			cancelProductbody(element)
 			cancelProductBlock.insertAdjacentHTML("beforeend", bodyHtml);
-			document.getElementById('submitCancelProduct').addEventListener('click', function () {
+			document.getElementById('submitCancelProduct').addEventListener('click', function() {
 				submitCancelProduct();
 			})
 		})
 	})
 }
 //確認退貨
-const submitCancelProduct = function () {
+const submitCancelProduct = function() {
 
 	const refundData = {
 		refundSubOrderId: refundSubOrderId,
@@ -925,11 +929,21 @@ const submitCancelProduct = function () {
 			'Authorization': `Bearer ${jwtToken}`
 		},
 		body: JSON.stringify(refundData)
+	}).then(() => {
+		document.getElementById("btnClose").click();
+
+		mainorder3.innerHTML = ''
+		bodyHtml = ''
+		console.log("221212312313")
+
+
+		init();
 	})
-	document.getElementById("btnClose").click();
+
+
 }
 //跳至付款頁面
-const goEcpay = function () {
+const goEcpay = function() {
 
 	const orderId = $(this).closest('li.order').find('span.order-id').text()
 

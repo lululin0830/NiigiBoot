@@ -294,8 +294,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public boolean updateStatus() {
-		return false;
+	public boolean updateStatus(String orderId) throws Exception {
+		
+		MainOrder mainOrder = mainOrderDAO.selectById(orderId);
+		mainOrder.setPaymentStatus("1");
+		
+		mainOrderDAO.update(mainOrder);
+		
+		return true;
 	}
 
 	@Override
@@ -382,6 +388,8 @@ public class OrderServiceImpl implements OrderService {
 
 		String startDateString = SearchCondition.get("StartDate").getAsString();
 
+		System.out.println(startDateString.isBlank());
+		System.out.println(startDateString);
 		Timestamp startDate, closeDate;
 
 		if (startDateString.length() > 0) {
@@ -407,6 +415,8 @@ public class OrderServiceImpl implements OrderService {
 
 			result = subOrderDAO.getSupplierSubOrderBySearch(searchcase, SearchSelect, startDate, closeDate,
 					supplierId);
+			
+			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -547,4 +557,24 @@ public class OrderServiceImpl implements OrderService {
 		return "成功啦";
 	}
 
+	@Override
+	public String orderStatusDeliver(String data) {
+		
+		return subOrderDAO.orderStatusDeliver(data);
+	}
+
+	@Override
+	public String orderStatusComplete(String data) {
+		
+		return subOrderDAO.orderStatusComplete(data);
+	}
+
+	@Override
+	public String orderStatusCancel(String data) {
+		
+		return subOrderDAO.orderStatusCancel(data);
+	}
+
+	
+	
 }

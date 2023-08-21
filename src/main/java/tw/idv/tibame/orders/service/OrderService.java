@@ -18,7 +18,7 @@ public interface OrderService {
 	
 	public boolean updatepayment();
 	
-	public boolean updateStatus();
+	boolean updateStatus(String orderId) throws Exception;
 	
 	public boolean closeOrder();
 	
@@ -60,4 +60,11 @@ public interface OrderService {
 	public String mainOrderPaymentUpdate(String orderId);
 	
 	public String checkOrderEvents(String subOrderId)  throws Exception;
+
+	public String orderStatusDeliver(String data);
+	
+	public String orderStatusComplete(String data);
+	
+	public String orderStatusCancel(String data);
+	
 }

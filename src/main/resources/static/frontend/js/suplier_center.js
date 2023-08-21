@@ -21,6 +21,19 @@ const orderList4 = document.querySelector("#navs-top-complete>ul.order-list");
 //已取消分頁
 const orderList5 = document.querySelector("#navs-top-cancel>ul.order-list");
 
+const cleanAllBody = function () {
+    orderList.innerHTML = ""
+    orderList2.innerHTML = ""
+    orderList3.innerHTML = ""
+    orderList4.innerHTML = ""
+    orderList5.innerHTML = ""
+    tab1Count = 0;
+    tab2Count = 0;
+    tab3Count = 0;
+    tab4Count = 0;
+    tab5Count = 0;
+}
+
 function createImageURL(byteArray) {
     const blob = new Blob([new Uint8Array(byteArray)], { type: 'image/jpeg' });
     return URL.createObjectURL(blob);
@@ -55,7 +68,7 @@ const SubOrderBody = function () {
 
     for (i = 2; i < EIF.length; i += 2) {
 
-        console.log(EIF)
+        console.log("EIF", EIF)
 
         let orderStatus;
         switch (EIF[i - 2].subOrderStatus) {
@@ -80,7 +93,7 @@ const SubOrderBody = function () {
                 break;
         }
         const imageElement = createImageURL(EIF[3].picture1)
-//        console.log("picture1", EIF[3].picture1)
+        //        console.log("picture1", EIF[3].picture1)
         html +=
             `<li class="order-item row">
                             <div class="col-sm-2">
@@ -104,8 +117,40 @@ const SubOrderBody = function () {
                             <div class="col-sm-1">
                                 <p>宅配</p>
                             </div>
-                            <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary btn-M cancelSubOrder"
+                            <div class="col-sm-2">`;
+
+
+        switch (EIF[0].subOrderStatus) {
+            case '0':
+                html +=
+
+                    `<button type="button" class="btn btn-primary btn-M mb-2 orderStatusDeliver" onclick="orderStatusDeliver(this)">
+            配送中
+        </button>`;
+
+
+                break;
+            case '1':
+                html +=
+
+                    `<button type="button" class="btn btn-primary btn-M mb-2 orderStatusComplete" onclick="orderStatusComplete(this)">
+            已送達
+        </button>`
+
+                break;
+            case '4':
+                html +=
+
+                    `<button type="button" class="btn btn-primary btn-M mb-2 orderStatusCancel" onclick="orderStatusCancel(this)">
+            已退款
+        </button>`
+
+                break;
+
+        }
+
+        html +=
+            `<button type="button" class="btn btn-primary btn-M cancelSubOrder"
                                 data-bs-toggle="modal" data-bs-target="#cancelOrderModal">
                                 取消訂單
                             </button>
@@ -173,17 +218,17 @@ function init() {
                 orderList2.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
                 tab2Count++;
             }
-            //待退貨/款
-            if (element[0].subOrderStatus == 3) {
-                SubOrderBody();
-                orderList3.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
-                tab3Count++;
-            }
             //已完成分頁
-            if (element[0].subOrderStatus == 4) {
+            if (element[0].subOrderStatus == 3) {
                 SubOrderBody();
                 orderList4.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
                 tab4Count++;
+            }
+            //待退貨/款
+            if (element[0].subOrderStatus == 4) {
+                SubOrderBody();
+                orderList3.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
+                tab3Count++;
             }
             //已取消分頁
             if (element[0].subOrderStatus == 5) {
@@ -210,13 +255,16 @@ function init() {
 
 
 const search = function () {
-    //取出搜尋框內的文字
-    let searchcase1 = $(this).closest("div").find("#selectKey").val();
-    //將它塞入傳入參數
-    searchdata.searchcase = searchcase1;
 
-    let searchwaycurrent = $(this).closest("div").find(".form-select").val();
-    searchdata.searchway = searchwaycurrent;
+    console.log("我是This", this)
+
+    searchdata.StartDate = $(this).closest("div.order-selector").find("#startDate").val();
+    searchdata.EndDate = $(this).closest("div.order-selector").find("#EndDate").val();
+    searchdata.searchcase = $(this).closest("div").find("#selectKey").val();
+    searchdata.searchway = $(this).closest("div").find(".form-select").val();
+
+
+    console.log("searchdata", searchdata);
 
     fetch('../SupplierGetSubOrderBySearch', {
         method: 'POST',
@@ -227,37 +275,44 @@ const search = function () {
         body: JSON.stringify(searchdata)
     }).then(r => r.json()).then(data => {
 
+        console.log("我是DATA", data)
+        cleanBody(orderList)
+        cleanBody(orderList2)
+        cleanBody(orderList3)
+        cleanBody(orderList4)
+        cleanBody(orderList5)
         data.forEach(element => {
-            console.log(searchdata)
+
             EIF = element;
             //待處理分頁
             if (element[0].subOrderStatus == 0) {
-                cleanBody(orderList);
+
                 SubOrderBody();
                 orderList.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
             //配送中分頁
             if (element[0].subOrderStatus == 1 || element[0].subOrderStatus == 2) {
-                cleanBody(orderList2);
+
                 SubOrderBody();
                 orderList2.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
             //待退貨/款
             if (element[0].subOrderStatus == 3) {
-                cleanBody(orderList3);
+
                 SubOrderBody();
                 orderList3.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
             //已完成分頁
             if (element[0].subOrderStatus == 4) {
-                cleanBody(orderList4);
+
                 SubOrderBody();
                 orderList4.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
             //已取消分頁
             if (element[0].subOrderStatus == 5) {
-                cleanBody(orderList5);
-                SubOrderBody();
+
+                SubOrderBody(EIF);
+
                 orderList5.insertAdjacentHTML("beforeend", BodyHtml + `</ul></li>`);
             }
         });
@@ -314,10 +369,59 @@ const cancelSubOrder = function () {
     })
 
 }
+//訂單狀態變更(待處理->配送中)
+const orderStatusDeliver = function (element) {
 
+    console.log("this", element)
 
+    const subOrderId = $(element).closest('li.sub-order').find('span.sub-order-id').text()
+    console.log(subOrderId)
+    fetch('../SupplierSubOrder/orderStatusDeliver', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        },
+        body: subOrderId
+    }).then(resp => resp.text()).then((data) => {
+        cleanAllBody();
+        init();
 
+    });
+}
 
+//訂單狀態變更(配送中->已完成)
+const orderStatusComplete = function (element) {
+    const subOrderId = $(element).closest('li.sub-order').find('span.sub-order-id').text()
+    fetch('../SupplierSubOrder/orderStatusComplete', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        },
+        body: subOrderId
+    }).then(resp => resp.text()).then((data) => {
+        cleanAllBody();
+        init();
+
+    });
+}
+//訂單狀態變更(待退貨->已取消)
+const orderStatusCancel = function (element) {
+    const subOrderId = $(element).closest('li.sub-order').find('span.sub-order-id').text()
+    fetch('../SupplierSubOrder/orderStatusCancel', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${jwtToken}`
+        },
+        body: subOrderId
+    }).then(resp => resp.text()).then((data) => {
+        cleanAllBody();
+        init();
+
+    });
+}
 
 document.querySelectorAll("button.cancelSubOrder").forEach(function (e) {
     e.addEventListener("click", cancelSubOrder);

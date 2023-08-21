@@ -441,6 +441,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			item.setGiftProductSpecId(
 					item.getGiftProductSpecId() == null ? new ArrayList<>() : item.getGiftProductSpecId());
 			item.getGiftProductSpecId().add(eventInfo.getGiftProductSpecId());
+			item.setEventDiscounts(
+					item.getEventDiscounts() == null ? new ArrayList<>() : item.getEventDiscounts());
 			item.getEventDiscounts().add(0);
 		}
 	}

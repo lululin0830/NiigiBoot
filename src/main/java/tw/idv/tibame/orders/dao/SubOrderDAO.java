@@ -31,4 +31,10 @@ public interface SubOrderDAO extends CoreDAO<SubOrder, String>{
     public String subOrderDetailcomment(String subOrderId);
     //會員訂單中心 退貨
     public String orderRefundUpdate(String refundSubOrderId,String refundReason,String refundMark);
+    //商家訂單中心 訂單狀態變更(待處理->配送中)
+    public String orderStatusDeliver(String data);
+    //商家訂單中心 訂單狀態變更(配送中->已完成)
+    public String orderStatusComplete(String data);
+    //商家訂單中心 訂單狀態變更(待退貨->已取消)
+    public String orderStatusCancel(String data);
 }

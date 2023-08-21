@@ -126,7 +126,10 @@ const init = function() {
 							totalDiscount += element.eventDiscounts[i];
 						}
 
-						price = element.eventPrice;
+						if(element.eventPrice){
+							price = element.eventPrice;
+						}
+						
 					}
 
 					html += `</div></ul></li>`;
